@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scroll-Showcase — 4 Wege durch die Bewegung</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@300,400,500,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --fg:#fff; --muted:#8b8b8f; --line:rgba(255,255,255,.14);
+    --display:"Clash Display",system-ui,sans-serif;
+    --body:"General Sans",system-ui,sans-serif;
+    --accent:"Instrument Serif",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  em,.serif{font-family:var(--accent);font-style:italic;font-weight:400}
+  .kicker{font-family:var(--body);font-size:12px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
+  .frame{background:#fff;padding:9px;display:block}
+  .frame img{display:block;width:100%;height:100%;object-fit:cover}
+  .bare img{display:block;width:100%;height:100%;object-fit:cover}
+
+  .label{max-width:1080px;margin:0 auto;padding:130px 40px 30px}
+  .label .kicker{color:#fff;opacity:.55}
+  .label h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,5vw,58px);line-height:1.02;letter-spacing:-.02em;margin:16px 0 14px}
+  .label p{max-width:540px;color:var(--muted);font-size:16px;line-height:1.75}
+  .label .hint{margin-top:16px;font-size:13px;letter-spacing:.04em;color:#fff;opacity:.75;display:inline-flex;align-items:center;gap:9px}
+  .label .hint::before{content:"";width:26px;height:1px;background:#fff;opacity:.6}
+
+  /* HERO — video through text, fading to black */
+  .vt{position:relative;height:100vh;min-height:600px;background:#000;overflow:hidden}
+  .vt video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .vt__knock{position:absolute;inset:0;background:#000;mix-blend-mode:multiply;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:15vh;text-align:center}
+  .vt__knock .ey{color:#fff;font-family:var(--body);font-weight:500;font-size:clamp(11px,1.7vw,15px);letter-spacing:.42em;text-transform:uppercase;margin-bottom:20px}
+  .vt__knock h1{color:#fff;font-family:var(--display);font-weight:700;font-size:clamp(52px,13vw,175px);line-height:.86;letter-spacing:-.03em}
+  .vt__fade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,0) 38%,rgba(0,0,0,.55) 66%,#000 90%)}
+  .vt__scroll{position:absolute;left:0;right:0;bottom:8vh;text-align:center;z-index:4;color:#fff;font-size:12px;letter-spacing:.28em;text-transform:uppercase;opacity:.8;animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+
+  .lead{padding:14vh 40px 16vh;max-width:940px;margin:0 auto;text-align:center}
+  .lead h2{font-family:var(--display);font-weight:500;font-size:clamp(26px,4.4vw,52px);line-height:1.05;letter-spacing:-.02em}
+  .lead p{margin:22px auto 0;max-width:560px;color:var(--muted);font-size:17px;line-height:1.75}
+
+  .divider{height:1px;max-width:1080px;margin:0 auto;background:var(--line)}
+
+  /* 1 — HORIZONTAL SCROLL-JACK */
+  .hpin{position:relative}
+  .hpin__sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center}
+  .hpin__track{display:flex;gap:2.2vw;padding:0 6vw;will-change:transform}
+  .hpin__track .cell{flex:0 0 auto;height:60vh}
+  .hpin__track .cell.tall{height:60vh}
+  .hpin__watermark{position:absolute;left:6vw;bottom:7vh;font-family:var(--display);font-weight:600;font-size:12vw;line-height:.8;color:rgba(255,255,255,.05);pointer-events:none;letter-spacing:-.03em}
+  @media(max-width:767px){
+    .hpin__sticky{position:static;height:auto;overflow-x:auto;padding:20px 0}
+    .hpin__track{padding:0 24px}
+    .hpin__track .cell{height:52vh}
+  }
+
+  /* 2 — CLIP UNFOLD */
+  .clip{max-width:1020px;margin:0 auto;padding:0 40px}
+  .clip__pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+  .clip__pair .wrap{overflow:hidden}
+  .clip__solo{overflow:hidden;margin-bottom:20px}
+  .clip img{clip-path:inset(0 100% 0 0);transform:scale(1.08);transition:clip-path 1s cubic-bezier(.16,1,.3,1),transform 1.3s cubic-bezier(.16,1,.3,1)}
+  .clip .in img{clip-path:inset(0 0 0 0);transform:scale(1)}
+  .clip__cap{max-width:1020px;margin:6px auto 100px;padding:0 40px;color:var(--muted);font-size:19px}
+  .clip__cap.in .l{opacity:1;transform:none}
+  .clip__cap .l{display:inline-block;opacity:0;transform:translateY(12px);transition:.7s}
+
+  /* 3 — STICKY SPLIT */
+  .split{max-width:1080px;margin:0 auto;padding:0 40px 60px}
+  .split__grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:60px;align-items:start}
+  .split__sticky{position:sticky;top:24vh}
+  .split__sticky .kicker{color:#fff;opacity:.5}
+  .split__sticky h3{font-family:var(--display);font-weight:600;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-.02em;margin:14px 0 16px}
+  .split__sticky p{color:var(--muted);font-size:16px;line-height:1.75;max-width:340px}
+  .split__stack > *{margin-bottom:26px}
+  .split__num{font-family:var(--accent);font-style:italic;font-size:22px;color:var(--muted);margin-bottom:6px}
+  @media(max-width:767px){.split__grid{grid-template-columns:1fr;gap:24px}.split__sticky{position:static;top:auto}}
+
+  /* 4 — PARALLAX MULTI-SPEED */
+  .plx{position:relative;height:118vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .plx__word{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--display);font-weight:700;font-size:22vw;line-height:.8;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.16);white-space:nowrap;will-change:transform}
+  .plx__img{position:relative;z-index:2;width:min(46vw,440px);will-change:transform}
+  .plx__cap{position:absolute;z-index:3;left:8vw;bottom:16vh;max-width:320px;will-change:transform}
+  .plx__cap h3{font-family:var(--display);font-weight:600;font-size:clamp(24px,3vw,38px);letter-spacing:-.02em;line-height:1.05}
+  .plx__cap p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.7}
+
+  /* BONUS — PORTRAIT HOVER */
+  .tiles{max-width:1080px;margin:0 auto;padding:10px 40px 40px}
+  .tiles__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .tile{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;padding:8px;cursor:pointer}
+  .tile img{width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(.22) brightness(.97);transition:transform .9s cubic-bezier(.16,1,.3,1),filter .6s}
+  .tile__cap{position:absolute;left:8px;right:8px;bottom:8px;padding:18px 16px;background:linear-gradient(to top,rgba(0,0,0,.82),transparent);transform:translateY(10px);opacity:0;transition:.45s}
+  .tile__cap .t{font-family:var(--display);font-weight:600;font-size:19px}
+  .tile__cap .s{font-family:var(--accent);font-style:italic;font-size:14px;color:#cfcfcf;margin-top:2px}
+  .tile:hover img{transform:scale(1.06);filter:grayscale(0) brightness(1)}
+  .tile:hover .tile__cap{transform:none;opacity:1}
+  @media(max-width:767px){.tiles__grid{grid-template-columns:repeat(2,1fr)}}
+
+  .outro{min-height:66vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 30px}
+  .outro h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,50px);letter-spacing:-.02em;margin-bottom:18px}
+  .outro p{max-width:520px;color:var(--muted);font-size:16px;line-height:1.75}
+  .outro .n{font-family:var(--accent);font-style:italic;color:#fff}
+</style>
+</head>
+<body>
+
+<section class="vt">
+  <video autoplay muted loop playsinline poster="assets/video/zeitraffer-poster.jpg">
+    <source src="assets/video/zeitraffer.mp4" type="video/mp4">
+  </video>
+  <div class="vt__knock">
+    <div class="ey">Fotografie · Video · Design</div>
+    <h1>MAX<br>AULINGER</h1>
+  </div>
+  <div class="vt__fade"></div>
+  <div class="vt__scroll">↓ scrollen</div>
+</section>
+
+<section class="lead">
+  <h2>Vier Wege durch die <em>Bewegung</em>.</h2>
+  <p>Vier eigenständige Scroll-Effekte, alle in Schwarz-Weiß, mit der neuen kantigen Schrift. Scroll durch, spür jeden — dann pickst du deinen Favoriten für V7.</p>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label">
+    <p class="kicker">Scroll-Effekt 01</p>
+    <h2>Die Galerie läuft <em>seitwärts</em></h2>
+    <p>Beim Weiterscrollen bleibt die Galerie stehen und zieht die Bilder horizontal an dir vorbei — wie ein Filmstreifen. Danach geht die Seite normal weiter.</p>
+    <span class="hint">Einfach weiterscrollen</span>
+  </div>
+  <div class="hpin" id="hpin">
+    <div class="hpin__sticky">
+      <div class="hpin__watermark">01 — Filmstreifen</div>
+      <div class="hpin__track" id="htrack">
+        <a class="cell bare"><img src="assets/img/photo/full/nebelmeer-gold.jpg" alt=""></a>
+        <a class="cell frame"><img src="assets/img/photo/full/lake-fog-gold.jpg" alt=""></a>
+        <a class="cell frame"><img src="assets/img/photo/full/bridge-sunset-flare.jpg" alt=""></a>
+        <a class="cell frame"><img src="assets/img/photo/full/foggy-night-lights.jpg" alt=""></a>
+        <a class="cell frame"><img src="assets/img/photo/full/event-red-light.jpg" alt=""></a>
+        <a class="cell frame"><img src="assets/img/photo/full/mountains-panorama.jpg" alt=""></a>
+        <a class="cell bare"><img src="assets/img/photo/full/bridge-fog.jpg" alt=""></a>
+        <a class="cell frame"><img src="assets/img/photo/full/lake-fog-blue.jpg" alt=""></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label">
+    <p class="kicker">Scroll-Effekt 02</p>
+    <h2>Bilder, die sich <em>entfalten</em></h2>
+    <p>Statt simplem Einblenden ziehen sich die Fotos beim Reinscrollen wie ein Vorhang auf. Bewusst mittelgroß gehalten, damit das Scrollen nicht zu lang wird.</p>
+    <span class="hint">Langsam scrollen</span>
+  </div>
+  <div class="clip">
+    <div class="clip__pair">
+      <div class="wrap frame"><img src="assets/img/photo/full/bridge-sunset-tree.jpg" alt=""></div>
+      <div class="wrap frame"><img src="assets/img/photo/full/ant-macro.jpg" alt=""></div>
+    </div>
+    <p class="clip__cap"><span class="l">Ein Blick, drei Welten — Natur, Architektur, Menschen.</span></p>
+    <div class="clip__solo bare" style="text-align:center"><img src="assets/img/photo/full/church-tower-street.jpg" alt="" style="width:auto;height:auto;max-height:76vh;display:inline-block;object-fit:contain"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label">
+    <p class="kicker">Scroll-Effekt 03</p>
+    <h2>Text bleibt, Bilder <em>ziehen vorbei</em></h2>
+    <p>Die Überschrift heftet sich fest, während rechts die Bilder durchlaufen. Ruhig, redaktionell — perfekt, um eine Werkreihe zu erzählen.</p>
+    <span class="hint">Weiterscrollen, Text bleibt stehen</span>
+  </div>
+  <div class="split">
+    <div class="split__grid">
+      <div class="split__col">
+        <div class="split__sticky">
+          <p class="kicker">Serie</p>
+          <h3>Architektur im Blick</h3>
+          <p>Linien, Kanten, Perspektiven. Der Text steht still, deine Arbeiten laufen vorbei — der Leser bleibt bei dir.</p>
+        </div>
+      </div>
+      <div class="split__stack">
+        <div><div class="split__num">i.</div><div class="frame"><img src="assets/img/photo/full/architecture-underpass.jpg" alt=""></div></div>
+        <div><div class="split__num">ii.</div><div class="bare"><img src="assets/img/photo/full/architecture-facade-sky.jpg" alt=""></div></div>
+        <div><div class="split__num">iii.</div><div class="bare"><img src="assets/img/photo/full/church-tower-tree.jpg" alt=""></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label">
+    <p class="kicker">Scroll-Effekt 04</p>
+    <h2>Ebenen in <em>verschiedenen Tempi</em></h2>
+    <p>Hintergrund-Wort, Bild und Text bewegen sich beim Scrollen unterschiedlich schnell. Erzeugt Tiefe, ohne laut zu sein.</p>
+    <span class="hint">Durch den Abschnitt scrollen</span>
+  </div>
+  <div class="plx" id="plx">
+    <div class="plx__word" data-speed="0.18">FOTOGRAFIE</div>
+    <div class="plx__img" data-speed="-0.06"><div class="frame"><img src="assets/img/photo/full/foggy-night-lights.jpg" alt=""></div></div>
+    <div class="plx__cap" data-speed="0.14">
+      <h3>Nacht &amp; Nebel</h3>
+      <p>Drei Ebenen, drei Geschwindigkeiten — der Blick bekommt Raum.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label">
+    <p class="kicker">Bonus — Hover</p>
+    <h2>Portraits, die <em>reagieren</em></h2>
+    <p>Aus deinem Feedback: Größe und vier nebeneinander bleiben. Entsättigung nur ganz dezent — beim Drüberfahren zoomt das Bild leicht und der Name gleitet herein.</p>
+    <span class="hint">Über die Kacheln fahren</span>
+  </div>
+  <div class="tiles">
+    <div class="tiles__grid">
+      <div class="tile"><img src="assets/img/photo/full/portrait-sophia.jpg" alt=""><div class="tile__cap"><div class="t">Sophia</div><div class="s">Portrait</div></div></div>
+      <div class="tile"><img src="assets/img/photo/full/portrait-robin.jpg" alt=""><div class="tile__cap"><div class="t">Robin</div><div class="s">Portrait</div></div></div>
+      <div class="tile"><img src="assets/img/photo/full/portrait-paul.jpg" alt=""><div class="tile__cap"><div class="t">Paul</div><div class="s">Portrait</div></div></div>
+      <div class="tile"><img src="assets/img/photo/full/portrait-timo-drone.jpg" alt=""><div class="tile__cap"><div class="t">Timo</div><div class="s">Drohne</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="outro">
+  <h2>Welcher Scroll-Effekt?</h2>
+  <p>Sag mir die Nummer(n) — z.B. <span class="n">„01 und 04"</span>. Ich mache einen zum Herzstück von V7 und kombiniere ihn mit dem Video-Text-Hero, den weißen Rahmen und der neuen Schrift. Clean, nicht überladen.</p>
+</section>
+
+<script>
+(function(){
+  var mq=window.matchMedia('(min-width:768px)').matches;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  var hpin=document.getElementById('hpin');
+  var track=document.getElementById('htrack');
+  function updateHpin(){
+    if(!hpin||!track) return;
+    if(!mq){ hpin.style.height=''; track.style.transform=''; return; }
+    var dist=track.scrollWidth-window.innerWidth;
+    if(dist<0) dist=0;
+    hpin.style.height=(window.innerHeight+dist)+'px';
+  }
+  function onHpinScroll(){
+    if(!hpin||!track||!mq) return;
+    var dist=track.scrollWidth-window.innerWidth;
+    if(dist<=0){ track.style.transform=''; return; }
+    var top=hpin.getBoundingClientRect().top;
+    var p=(-top)/(hpin.offsetHeight-window.innerHeight);
+    p=Math.max(0,Math.min(1,p));
+    track.style.transform='translateX('+(-p*dist)+'px)';
+  }
+
+  var plx=document.getElementById('plx');
+  var layers=plx?plx.querySelectorAll('[data-speed]'):[];
+  function onPlxScroll(){
+    if(!plx||reduce) return;
+    var r=plx.getBoundingClientRect();
+    if(r.bottom<0||r.top>window.innerHeight) return;
+    var center=r.top+r.height/2-window.innerHeight/2;
+    layers.forEach(function(el){
+      var s=parseFloat(el.getAttribute('data-speed'))||0;
+      el.style.transform='translate3d(0,'+(center*s)+'px,0)'+(el.classList.contains('plx__word')?' translate(-50%,-50%)':'');
+    });
+  }
+  if(plx){ plx.querySelector('.plx__word').style.transform='translate(-50%,-50%)'; }
+
+  var ticking=false;
+  function onScroll(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){ onHpinScroll(); onPlxScroll(); ticking=false; });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',function(){ mq=window.matchMedia('(min-width:768px)').matches; updateHpin(); onScroll(); });
+  window.addEventListener('load',function(){ updateHpin(); onScroll(); });
+  updateHpin();
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  },{threshold:.25});
+  document.querySelectorAll('.clip .wrap,.clip__solo,.clip__cap').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>

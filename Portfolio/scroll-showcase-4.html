@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ideenfindung v4 — Font-Umschalter · Fixes · neue Effekte</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=cabinet-grotesk@400,700,800&f[]=general-sans@300,400,500,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --fg:#fff; --muted:#8b8b8f; --line:rgba(255,255,255,.14);
+    --display:"Anton",Impact,system-ui,sans-serif;
+    --outline-font:"Clash Display",system-ui,sans-serif;
+    --body:"General Sans",system-ui,sans-serif;
+    --accent:"Instrument Serif",Georgia,serif;
+  }
+  body[data-df="clash"]{--display:"Clash Display",system-ui,sans-serif}
+  body[data-df="cabinet"]{--display:"Cabinet Grotesk",system-ui,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;font-synthesis:none;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  em,.serif{font-family:var(--accent);font-style:italic;font-weight:400;letter-spacing:0}
+  img{display:block}
+  .kicker{font-family:var(--body);font-size:12px;font-weight:500;letter-spacing:.34em;text-transform:uppercase;color:var(--muted)}
+  .frame{background:#fff;padding:9px}
+  .frame img{width:100%;height:100%;object-fit:cover}
+  .bare img{width:100%;height:100%;object-fit:cover}
+
+  .dfbar{position:fixed;top:16px;right:16px;z-index:50;display:flex;align-items:center;gap:6px;background:rgba(10,10,12,.82);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:6px 8px;font-family:var(--body)}
+  .dfbar span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:0 6px}
+  .dfbar button{font-family:var(--body);font-size:12px;font-weight:500;color:#fff;background:transparent;border:1px solid transparent;border-radius:999px;padding:5px 12px;cursor:pointer}
+  .dfbar button.on{background:#fff;color:#000}
+
+  .label{max-width:1080px;margin:0 auto;padding:120px 40px 26px}
+  .label .kicker{color:#fff;opacity:.55}
+  .label h2{font-family:var(--display);font-weight:600;font-size:clamp(30px,5.4vw,64px);line-height:1;letter-spacing:.005em;margin:16px 0 14px}
+  .label p{max-width:560px;color:var(--muted);font-size:16px;line-height:1.75}
+  .label .hint{margin-top:16px;font-size:13px;color:#fff;opacity:.75;display:inline-flex;align-items:center;gap:9px}
+  .label .hint::before{content:"";width:26px;height:1px;background:#fff;opacity:.6}
+  .divider{height:1px;max-width:1080px;margin:0 auto;background:var(--line)}
+  .part{max-width:1080px;margin:0 auto;padding:150px 40px 10px;text-align:center}
+  .part .kicker{color:#fff;opacity:.5}
+  .part h2{font-family:var(--display);font-weight:600;font-size:clamp(40px,7vw,92px);letter-spacing:.01em;line-height:.98;margin-top:14px}
+  .part p{max-width:560px;margin:18px auto 0;color:var(--muted);font-size:16px;line-height:1.75}
+
+  /* HERO — Header C (Clash) */
+  .hc{position:relative;height:100vh;min-height:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(120% 90% at 50% 42%,#151517,#000 72%)}
+  .hc h1{font-family:var(--outline-font);font-weight:700;font-size:clamp(58px,15vw,220px);line-height:.94;letter-spacing:-.01em}
+  .hc h1 .out{color:transparent;-webkit-text-stroke:1.6px #fff}
+  .hc .ey{margin-top:28px;font-weight:500;font-size:clamp(11px,1.7vw,15px);letter-spacing:.42em;text-transform:uppercase;color:var(--muted)}
+  .hc__scroll{position:absolute;bottom:6vh;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#fff;opacity:.75;animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(9px)}}
+
+  /* 01 FILMSTRIP */
+  .hpin{position:relative}
+  .hpin__sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:2.4vh}
+  .hpin__track{display:flex;flex-direction:column;gap:2.4vh;will-change:transform}
+  .hrow{display:flex;gap:1.6vw}
+  .hrow--b{margin-left:9vw}
+  .hrow .cell{flex:0 0 auto;height:38vh}
+  .hpin__wm{position:absolute;left:6vw;top:6vh;font-family:var(--outline-font);font-weight:700;font-size:11vw;line-height:.8;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.08);pointer-events:none}
+  @media(max-width:767px){.hpin__sticky{position:static;height:auto;overflow-x:auto}.hrow--b{margin-left:0}.hrow .cell{height:30vh}}
+
+  /* 02 CLIP UNFOLD */
+  .clip{max-width:1020px;margin:0 auto;padding:0 40px}
+  .clip__pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:22px}
+  .clip .wrap{overflow:hidden}
+  .clip__solo{overflow:hidden;margin-bottom:22px;text-align:center}
+  .clip img{clip-path:inset(0 100% 0 0);transform:scale(1.08);transition:clip-path 1s cubic-bezier(.16,1,.3,1),transform 1.3s cubic-bezier(.16,1,.3,1)}
+  .clip .in img{clip-path:inset(0 0 0 0);transform:scale(1)}
+  .clip__cap{max-width:1020px;margin:2px auto 0;padding:0 40px;color:var(--muted);font-size:19px}
+  .clip__cap .l{display:inline-block;opacity:0;transform:translateY(12px);transition:.7s}
+  .clip__cap.in .l{opacity:1;transform:none}
+
+  /* 03 STICKY SPLIT — top-start, centered pin */
+  .split{max-width:1080px;margin:0 auto;padding:0 40px 40px}
+  .split__grid{display:grid;grid-template-columns:0.82fr 1.18fr;gap:56px}
+  .split__aside{position:sticky;top:20vh;align-self:start}
+  .split__aside .kicker{color:#fff;opacity:.5}
+  .split__aside h3{font-family:var(--display);font-weight:600;font-size:clamp(30px,4vw,56px);line-height:1;letter-spacing:.01em;margin:14px 0 16px}
+  .split__aside p{color:var(--muted);font-size:16px;line-height:1.75;max-width:320px}
+  .split__stack>*{margin-bottom:28px}
+  .split__num{font-family:var(--accent);font-style:italic;font-size:22px;color:var(--muted);margin-bottom:6px}
+  @media(max-width:767px){.split__grid{grid-template-columns:1fr;gap:22px}.split__aside{position:static}}
+
+  /* 04 OUTLINE PARALLAX */
+  .plx{position:relative;height:120vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .plx__word{position:absolute;top:50%;left:50%;font-family:var(--outline-font);font-weight:700;font-size:26vw;line-height:.8;letter-spacing:-.01em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.22);white-space:nowrap;will-change:transform}
+  .plx__cap{position:relative;z-index:3;text-align:center;max-width:520px;padding:0 30px;will-change:transform}
+  .plx__cap h3{font-family:var(--display);font-weight:600;font-size:clamp(30px,4.4vw,60px);letter-spacing:.01em;line-height:1}
+  .plx__cap p{margin-top:14px;color:var(--muted);font-size:16px;line-height:1.7}
+
+  /* 05 PINNED OUTLINE + IMAGES */
+  .pinw{position:relative;padding:8vh 0}
+  .pinw__word{position:sticky;top:36vh;text-align:center;font-family:var(--outline-font);font-weight:700;font-size:22vw;line-height:.8;letter-spacing:-.01em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.18);z-index:0;pointer-events:none}
+  .pinw__imgs{position:relative;z-index:2;max-width:1080px;margin:-26vh auto 0;padding:0 40px;display:flex;flex-direction:column;gap:12vh}
+  .pinw__imgs .p{width:min(40vw,420px)}
+  .pinw__imgs .p:nth-child(odd){align-self:flex-start}
+  .pinw__imgs .p:nth-child(even){align-self:flex-end}
+  .pinw__imgs .p:nth-child(3){align-self:center}
+  .pcap{display:block;margin-top:10px;font-family:var(--accent);font-style:italic;font-size:17px;color:var(--muted)}
+
+  /* 06 SCROLL ZOOM */
+  .zoom{position:relative;height:150vh}
+  .zoom__sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .zoom__img{width:52%;max-width:560px;will-change:transform}
+  .zoom__cap{position:absolute;left:0;right:0;bottom:11vh;text-align:center;z-index:3}
+  .zoom__cap h3{font-family:var(--display);font-weight:600;font-size:clamp(28px,4vw,52px);letter-spacing:.01em;text-shadow:0 2px 30px rgba(0,0,0,.8)}
+  @media(max-width:767px){.zoom__img{width:84%}}
+
+  /* 06b ZOOM-THROUGH chain */
+  .zt{position:relative;height:300vh}
+  .zt__sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#000}
+  .zt__l{position:absolute;left:50%;top:50%;width:52%;max-width:560px;opacity:0;will-change:transform,opacity}
+  .zt__cap{position:absolute;bottom:10vh;left:0;right:0;text-align:center;z-index:20}
+  .zt__cap h3{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.6vw,48px);letter-spacing:.01em;text-shadow:0 2px 30px rgba(0,0,0,.8)}
+  @media(max-width:767px){.zt__l{width:82%}}
+
+  /* 07 KINETIC TEXT */
+  .kin{max-width:1000px;margin:0 auto;padding:20vh 40px}
+  .kin p{font-family:var(--display);font-weight:600;font-size:clamp(30px,5.4vw,72px);line-height:1.08;letter-spacing:.01em}
+  .kin .l{display:inline-block;opacity:.14;will-change:opacity,transform}
+  .kin em{font-size:.86em}
+
+  /* TEXT MARQUEE (outline) */
+  .tmarq{overflow:hidden;padding:7vh 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .tmarq__row{display:flex;width:max-content;animation:slide 34s linear infinite;font-family:var(--outline-font);font-weight:700;font-size:13vw;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.45);white-space:nowrap}
+  .tmarq__row span{padding:0 2.4vw}
+  @media(prefers-reduced-motion:reduce){.tmarq__row{animation:none}}
+
+  /* VIDEO-IN-TEXT band */
+  .vword{position:relative;height:78vh;min-height:460px;overflow:hidden;background:#000;display:flex;align-items:center;justify-content:center}
+  .vword video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .vword__knock{position:absolute;inset:0;background:#000;mix-blend-mode:multiply;display:flex;align-items:center;justify-content:center;text-align:center}
+  .vword__knock h2{color:#fff;font-family:var(--outline-font);font-weight:700;font-size:clamp(70px,22vw,300px);line-height:.82;letter-spacing:-.01em}
+  .vword__edge{position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,#000,rgba(0,0,0,0) 18%,rgba(0,0,0,0) 82%,#000)}
+
+  /* CURTAIN REVEAL */
+  .curt{position:relative;height:180vh}
+  .curt__sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .curt__img{position:relative;width:68%;max-width:680px}
+  .curt__panel{position:absolute;top:0;bottom:0;width:51%;background:#000;z-index:3;will-change:transform}
+  .curt__l{left:0}
+  .curt__r{right:0}
+  .curt__label{position:absolute;z-index:4;font-family:var(--outline-font);font-weight:700;font-size:8vw;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.6);pointer-events:none}
+  @media(max-width:767px){.curt__img{width:88%}}
+
+  /* STICKY STACK CARDS */
+  .stack{max-width:1000px;margin:0 auto;padding:0 40px 8vh}
+  .stack__card{position:sticky;top:14vh;margin-bottom:8vh;background:#0b0b0c;border:1px solid var(--line);border-radius:16px;overflow:hidden}
+  .stack__card img{width:100%;height:54vh;object-fit:cover}
+  .stack__bar{display:flex;justify-content:space-between;align-items:baseline;padding:16px 22px}
+  .stack__bar .t{font-family:var(--display);font-weight:600;font-size:26px;letter-spacing:.01em}
+  .stack__bar .s{font-family:var(--accent);font-style:italic;color:var(--muted);font-size:16px}
+
+  /* MARQUEE images */
+  .marq{overflow:hidden;padding:5vh 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .marq+.marq{border-top:none}
+  .marq__row{display:flex;gap:20px;width:max-content;animation:slide 42s linear infinite}
+  .marq__row--rev{animation-direction:reverse}
+  .marq__row img{height:24vh;width:auto;object-fit:cover}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media(prefers-reduced-motion:reduce){.marq__row{animation:none}}
+
+  /* PORTRAITS */
+  .tiles{max-width:1080px;margin:0 auto;padding:10px 40px 40px}
+  .tiles__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .tile{position:relative;aspect-ratio:3/4;overflow:hidden;background:#fff;padding:8px;cursor:pointer}
+  .tile img{width:100%;height:100%;object-fit:cover;filter:grayscale(.22) brightness(.97);transition:transform .9s cubic-bezier(.16,1,.3,1),filter .6s}
+  .tile__cap{position:absolute;left:8px;right:8px;bottom:8px;padding:18px 16px;background:linear-gradient(to top,rgba(0,0,0,.82),transparent);transform:translateY(10px);opacity:0;transition:.45s}
+  .tile__cap .t{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.01em}
+  .tile__cap .s{font-family:var(--accent);font-style:italic;font-size:14px;color:#cfcfcf;margin-top:2px}
+  .tile:hover img{transform:scale(1.06);filter:grayscale(0) brightness(1)}
+  .tile:hover .tile__cap{transform:none;opacity:1}
+  @media(max-width:767px){.tiles__grid{grid-template-columns:repeat(2,1fr)}}
+
+  .outro{min-height:70vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 30px}
+  .outro h2{font-family:var(--display);font-weight:600;font-size:clamp(34px,5.4vw,72px);letter-spacing:.01em;margin-bottom:18px}
+  .outro p{max-width:540px;color:var(--muted);font-size:16px;line-height:1.75}
+  .outro .n{font-family:var(--accent);font-style:italic;color:#fff}
+</style>
+</head>
+<body data-df="anton">
+
+<div class="dfbar">
+  <span>Überschriften</span>
+  <button data-set="anton" class="on">Anton</button>
+  <button data-set="clash">Clash</button>
+  <button data-set="cabinet">Cabinet</button>
+</div>
+
+<section class="hc">
+  <h1><span class="solid">MAX</span><br><span class="out">AULINGER</span></h1>
+  <div class="ey">Fotografie · Video · Design</div>
+  <div class="hc__scroll">↓ scrollen</div>
+</section>
+
+<section class="part" style="padding-top:16vh">
+  <p class="kicker">Ideenfindung · v4</p>
+  <h2>Feinschliff &amp; <em>neue Ideen</em></h2>
+  <p>Oben rechts kannst du die Überschriften-Schrift live umschalten (Anton / Clash / Cabinet). Header und Outline-Wörter bleiben immer Clash. Sag mir, welche Kombi du am besten findest.</p>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 01 · nachjustiert</p><h2>Filmstreifen — startet <em>früher links</em></h2><p>Weniger schwarzer Freiraum am Anfang: die Bilder sind gleich beim Reinscrollen fast da und laufen durchgehend weiter.</p><span class="hint">Reinscrollen</span></div>
+  <div class="hpin" id="hpin">
+    <div class="hpin__sticky">
+      <div class="hpin__wm">01</div>
+      <div class="hpin__track" id="htrack">
+        <div class="hrow">
+          <div class="cell bare"><img src="assets/img/photo/full/nebelmeer-gold.jpg" alt=""></div>
+          <div class="cell frame"><img src="assets/img/photo/full/lake-fog-gold.jpg" alt=""></div>
+          <div class="cell frame"><img src="assets/img/photo/full/bridge-sunset-flare.jpg" alt=""></div>
+          <div class="cell frame"><img src="assets/img/photo/full/foggy-night-lights.jpg" alt=""></div>
+          <div class="cell frame"><img src="assets/img/photo/full/mountains-panorama.jpg" alt=""></div>
+          <div class="cell bare"><img src="assets/img/photo/full/bridge-fog.jpg" alt=""></div>
+        </div>
+        <div class="hrow hrow--b">
+          <div class="cell frame"><img src="assets/img/photo/full/lake-fog-blue.jpg" alt=""></div>
+          <div class="cell frame"><img src="assets/img/photo/full/event-red-light.jpg" alt=""></div>
+          <div class="cell frame"><img src="assets/img/photo/full/bridge-sunset-tree.jpg" alt=""></div>
+          <div class="cell frame"><img src="assets/img/photo/full/cat-peek.jpg" alt=""></div>
+          <div class="cell bare"><img src="assets/img/photo/full/chainsaw-still.jpg" alt=""></div>
+          <div class="cell bare"><img src="assets/img/photo/full/product-drone-mower.jpg" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 02</p><h2>Bilder, die sich <em>entfalten</em></h2><p>Dein Favorit, bleibt unverändert.</p><span class="hint">Langsam scrollen</span></div>
+  <div class="clip">
+    <div class="clip__pair">
+      <div class="wrap bare"><img src="assets/img/photo/full/dog-portrait.jpg" alt=""></div>
+      <div class="wrap frame"><img src="assets/img/photo/full/ant-macro.jpg" alt=""></div>
+    </div>
+    <p class="clip__cap"><span class="l">Ein Blick, drei Welten — Natur, Architektur, Menschen.</span></p>
+    <div class="clip__solo bare"><img src="assets/img/photo/full/church-tower-street.jpg" alt="" style="width:auto;height:auto;max-height:78vh;margin:0 auto;object-fit:contain"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 03 · nachjustiert</p><h2>Text startet <em>oben</em>, wandert in die Mitte</h2><p>Kein Freiraum mehr am Anfang: der Text steht oben bei den Bildern, geht beim Scrollen mit, bleibt mittig kleben und löst sich am Ende wieder nach oben.</p><span class="hint">Scrollen</span></div>
+  <div class="split">
+    <div class="split__grid">
+      <div class="split__aside" id="splitAside">
+        <p class="kicker">Serie</p>
+        <h3>Architektur im Blick</h3>
+        <p>Linien, Kanten, Perspektiven. Der Text wandert mit, bleibt mittig stehen — der Leser bleibt bei dir.</p>
+      </div>
+      <div class="split__stack">
+        <div><div class="split__num">i.</div><div class="frame"><img src="assets/img/photo/full/architecture-underpass.jpg" alt=""></div></div>
+        <div><div class="split__num">ii.</div><div class="bare"><img src="assets/img/photo/full/architecture-facade-sky.jpg" alt=""></div></div>
+        <div><div class="split__num">iii.</div><div class="bare"><img src="assets/img/photo/full/architecture-cctv.jpg" alt=""></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 04</p><h2>Outline-Wort im <em>Hintergrund</em></h2><p>Passt so — Wort jetzt fest in Clash.</p><span class="hint">Durchscrollen</span></div>
+  <div class="plx" id="plx">
+    <div class="plx__word" data-speed="0.16">FOTOGRAFIE</div>
+    <div class="plx__cap" data-speed="-0.12"><h3>Aus der Luft</h3><p>Der Umriss driftet, der Text zieht — zwei Tempi, viel Tiefe.</p></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 05</p><h2>Outline-Wort <em>klebt</em>, Bilder ziehen darüber</h2><p>Mehr Bilder mit Bildunterschrift, Wort fest in Clash.</p><span class="hint">Weiterscrollen</span></div>
+  <div class="pinw">
+    <div class="pinw__word">MOMENTE</div>
+    <div class="pinw__imgs">
+      <div class="p bare"><div class="bare"><img src="assets/img/photo/full/event-red-light.jpg" alt=""></div><span class="pcap">Konzert in Rot</span></div>
+      <div class="p"><div class="bare"><img src="assets/img/photo/full/sport-football.jpg" alt=""></div><span class="pcap">Spielpause</span></div>
+      <div class="p"><div class="bare"><img src="assets/img/photo/full/portrait-couple-field.jpg" alt=""></div><span class="pcap">Paar im Abendlicht</span></div>
+      <div class="p"><div class="frame"><img src="assets/img/photo/full/cat-walking.jpg" alt=""></div><span class="pcap">Nächtlicher Streuner</span></div>
+      <div class="p"><div class="frame"><img src="assets/img/photo/full/foggy-night-lights.jpg" alt=""></div><span class="pcap">Platz bei Nacht</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<div class="tmarq"><div class="tmarq__row" id="tmarq"><span>FOTOGRAFIE</span><span>·</span><span>VIDEO</span><span>·</span><span>DESIGN</span><span>·</span><span>FOTOGRAFIE</span><span>·</span><span>VIDEO</span><span>·</span><span>DESIGN</span><span>·</span></div></div>
+
+<section>
+  <div class="label"><p class="kicker">Idee NEU · Lauftext</p><h2>Outline-Text als <em>Laufband</em></h2><p>Dein Outline-Konzept als endlos laufende Schlagzeile — ruhig, groß, unverkennbar.</p><span class="hint">Läuft automatisch (oben)</span></div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 06 · schnell</p><h2>Bild <em>zoomt</em> beim Scrollen</h2><p>Schnell wie gewünscht, Bildtitel nicht mehr invertiert.</p><span class="hint">Durchscrollen</span></div>
+  <div class="zoom" id="zoom">
+    <div class="zoom__sticky">
+      <div class="zoom__img frame" id="zoomImg"><img src="assets/img/photo/full/foggy-night-lights.jpg" alt=""></div>
+      <div class="zoom__cap"><h3>Nacht &amp; Nebel</h3></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 06b · schneller + mehr Bilder</p><h2>Zoom <em>durch</em> die Bilder</h2><p>Du zoomst durch eine Kette aus vier Bildern — jedes wächst heran, das nächste taucht von innen auf.</p><span class="hint">Durchscrollen</span></div>
+  <div class="zt" id="zt">
+    <div class="zt__sticky">
+      <div class="zt__l frame"><img src="assets/img/photo/full/event-red-light.jpg" alt=""></div>
+      <div class="zt__l frame"><img src="assets/img/photo/full/foggy-night-lights.jpg" alt=""></div>
+      <div class="zt__l frame"><img src="assets/img/photo/full/mountains-panorama.jpg" alt=""></div>
+      <div class="zt__l bare"><img src="assets/img/photo/full/bridge-fog.jpg" alt=""></div>
+      <div class="zt__cap"><h3>Durch vier Welten</h3></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Idee NEU · Vorhang</p><h2>Bild öffnet sich wie ein <em>Vorhang</em></h2><p>Zwei schwarze Flächen fahren beim Scrollen auseinander und geben das Bild frei.</p><span class="hint">Durchscrollen</span></div>
+  <div class="curt" id="curt">
+    <div class="curt__sticky">
+      <div class="curt__label">ENTHÜLLT</div>
+      <div class="curt__img frame">
+        <img src="assets/img/photo/full/nebelmeer-gold.jpg" alt="">
+        <div class="curt__panel curt__l" id="curtL"></div>
+        <div class="curt__panel curt__r" id="curtR"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 07 · scroll-gekoppelt</p><h2>Text, der <em>aufleuchtet</em></h2><p>Wort für Wort beim Scrollen. Schalt oben die Schrift um, um zu vergleichen.</p><span class="hint">Langsam scrollen</span></div>
+  <div class="kin" id="kin">
+    <p>
+      <span class="l">Ich</span> <span class="l">fange</span> <span class="l">Momente</span> <span class="l">ein</span> <span class="l">—</span>
+      <span class="l"><em>am</em></span> <span class="l"><em>Boden</em></span> <span class="l">und</span> <span class="l">hoch</span> <span class="l">in</span> <span class="l">der</span> <span class="l">Luft.</span>
+      <span class="l">Fotografie,</span> <span class="l">Drohnenvideo</span> <span class="l">und</span> <span class="l">Design,</span>
+      <span class="l">die</span> <span class="l">eine</span> <span class="l"><em>Geschichte</em></span> <span class="l">erzählen.</span>
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Idee · Video bleibt</p><h2>Video <em>in der Schrift</em> — mitten im Fluss</h2><p>Der Video-Effekt bleibt erhalten, nur nicht als Header.</p><span class="hint">Video läuft in der Schrift</span></div>
+  <div class="vword">
+    <video autoplay muted loop playsinline poster="assets/video/zeitraffer-poster.jpg"><source src="assets/video/zeitraffer.mp4" type="video/mp4"></video>
+    <div class="vword__knock"><h2>VIDEO</h2></div>
+    <div class="vword__edge"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Idee · Stapel (gefixt)</p><h2>Karten, die sich <em>stapeln</em></h2><p>Jetzt mit Querformat-Bildern — kein Abschneiden mehr.</p><span class="hint">Weiterscrollen</span></div>
+  <div class="stack">
+    <div class="stack__card"><img src="assets/img/photo/full/nebelmeer-gold.jpg" alt=""><div class="stack__bar"><span class="t">Nebelmeer in Gold</span><span class="s">Natur · Drohne</span></div></div>
+    <div class="stack__card"><img src="assets/img/photo/full/mountains-panorama.jpg" alt=""><div class="stack__bar"><span class="t">Alpenpanorama</span><span class="s">Natur</span></div></div>
+    <div class="stack__card"><img src="assets/img/photo/full/event-red-light.jpg" alt=""><div class="stack__bar"><span class="t">Konzertlicht in Rot</span><span class="s">Moment</span></div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 08</p><h2>Endlos-Laufband</h2><p>Zwei gegenläufige Reihen, läuft von selbst.</p><span class="hint">Läuft automatisch</span></div>
+  <div class="marq">
+    <div class="marq__row">
+      <img src="assets/img/photo/thumb/cat-peek.jpg" alt=""><img src="assets/img/photo/thumb/dog-portrait.jpg" alt=""><img src="assets/img/photo/thumb/portrait-jump-bw.jpg" alt=""><img src="assets/img/photo/thumb/bridge-fog.jpg" alt=""><img src="assets/img/photo/thumb/ant-macro.jpg" alt=""><img src="assets/img/photo/thumb/church-tower-tree.jpg" alt=""><img src="assets/img/photo/thumb/mountains-panorama.jpg" alt=""><img src="assets/img/photo/thumb/event-red-light.jpg" alt="">
+      <img src="assets/img/photo/thumb/cat-peek.jpg" alt=""><img src="assets/img/photo/thumb/dog-portrait.jpg" alt=""><img src="assets/img/photo/thumb/portrait-jump-bw.jpg" alt=""><img src="assets/img/photo/thumb/bridge-fog.jpg" alt=""><img src="assets/img/photo/thumb/ant-macro.jpg" alt=""><img src="assets/img/photo/thumb/church-tower-tree.jpg" alt=""><img src="assets/img/photo/thumb/mountains-panorama.jpg" alt=""><img src="assets/img/photo/thumb/event-red-light.jpg" alt="">
+    </div>
+  </div>
+  <div class="marq">
+    <div class="marq__row marq__row--rev">
+      <img src="assets/img/photo/thumb/lake-fog-gold.jpg" alt=""><img src="assets/img/photo/thumb/bridge-sunset-flare.jpg" alt=""><img src="assets/img/photo/thumb/sport-football.jpg" alt=""><img src="assets/img/photo/thumb/cat-tongue.jpg" alt=""><img src="assets/img/photo/thumb/architecture-underpass.jpg" alt=""><img src="assets/img/photo/thumb/foggy-night-lights.jpg" alt=""><img src="assets/img/photo/thumb/product-drone-mower.jpg" alt=""><img src="assets/img/photo/thumb/lake-fog-blue.jpg" alt="">
+      <img src="assets/img/photo/thumb/lake-fog-gold.jpg" alt=""><img src="assets/img/photo/thumb/bridge-sunset-flare.jpg" alt=""><img src="assets/img/photo/thumb/sport-football.jpg" alt=""><img src="assets/img/photo/thumb/cat-tongue.jpg" alt=""><img src="assets/img/photo/thumb/architecture-underpass.jpg" alt=""><img src="assets/img/photo/thumb/foggy-night-lights.jpg" alt=""><img src="assets/img/photo/thumb/product-drone-mower.jpg" alt=""><img src="assets/img/photo/thumb/lake-fog-blue.jpg" alt="">
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="label"><p class="kicker">Effekt 09</p><h2>Portraits, die <em>reagieren</em></h2><p>Bleibt perfekt.</p><span class="hint">Über die Kacheln fahren</span></div>
+  <div class="tiles">
+    <div class="tiles__grid">
+      <div class="tile"><img src="assets/img/photo/full/portrait-sophia.jpg" alt=""><div class="tile__cap"><div class="t">Sophia</div><div class="s">Portrait</div></div></div>
+      <div class="tile"><img src="assets/img/photo/full/portrait-robin.jpg" alt=""><div class="tile__cap"><div class="t">Robin</div><div class="s">Portrait</div></div></div>
+      <div class="tile"><img src="assets/img/photo/full/portrait-paul.jpg" alt=""><div class="tile__cap"><div class="t">Paul</div><div class="s">Portrait</div></div></div>
+      <div class="tile"><img src="assets/img/photo/full/portrait-timo-drone.jpg" alt=""><div class="tile__cap"><div class="t">Timo</div><div class="s">Drohne</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="outro">
+  <h2>Auf zu <em>V7</em></h2>
+  <p>Sag mir die <span class="n">Font-Kombi</span> und welche Effekte rein sollen. Dann baue ich die echte V7.</p>
+</section>
+
+<script>
+(function(){
+  var mq=window.matchMedia('(min-width:768px)').matches;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+  var bar=document.querySelector('.dfbar');
+  if(bar){
+    bar.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b) return;
+      document.body.setAttribute('data-df',b.getAttribute('data-set'));
+      bar.querySelectorAll('button').forEach(function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      updateSplit();
+    });
+  }
+
+  var hpin=document.getElementById('hpin'), track=document.getElementById('htrack');
+  function updateHpin(){
+    if(!hpin||!track) return;
+    if(!mq){ hpin.style.height=''; track.style.transform=''; return; }
+    hpin.style.height=(window.innerHeight+track.scrollWidth)+'px';
+  }
+  function hpinScroll(){
+    if(!hpin||!track||!mq) return;
+    var W=window.innerWidth, tw=track.scrollWidth;
+    var p=clamp((window.innerHeight-hpin.getBoundingClientRect().top)/hpin.offsetHeight,0,1);
+    var startX=W*0.28, endX=-(tw-W);
+    track.style.transform='translateX('+(startX-p*(startX-endX))+'px)';
+  }
+
+  var splitAside=document.getElementById('splitAside');
+  function updateSplit(){
+    if(!splitAside) return;
+    if(!mq){ splitAside.style.top=''; return; }
+    var t=Math.max(16,(window.innerHeight-splitAside.offsetHeight)/2);
+    splitAside.style.top=t+'px';
+  }
+
+  var plx=document.getElementById('plx');
+  var plxLayers=plx?plx.querySelectorAll('[data-speed]'):[];
+  if(plx){var w=plx.querySelector('.plx__word');if(w)w.style.transform='translate(-50%,-50%)';}
+  function plxScroll(){
+    if(!plx||reduce) return;
+    var r=plx.getBoundingClientRect();
+    if(r.bottom<0||r.top>window.innerHeight) return;
+    var c=r.top+r.height/2-window.innerHeight/2;
+    plxLayers.forEach(function(el){
+      var s=parseFloat(el.getAttribute('data-speed'))||0;
+      var extra=el.classList.contains('plx__word')?' translate(-50%,-50%)':'';
+      el.style.transform='translate3d(0,'+(c*s)+'px,0)'+extra;
+    });
+  }
+
+  var zoom=document.getElementById('zoom'), zoomImg=document.getElementById('zoomImg');
+  function zoomScroll(){
+    if(!zoom||!zoomImg||reduce) return;
+    var h=zoom.offsetHeight-window.innerHeight; if(h<=0) return;
+    var p=clamp((-zoom.getBoundingClientRect().top)/h,0,1);
+    zoomImg.style.transform='scale('+(1+p*0.95)+')';
+  }
+
+  var zt=document.getElementById('zt');
+  var ztl=zt?[].slice.call(zt.querySelectorAll('.zt__l')):[];
+  ztl.forEach(function(el,i){ el.style.zIndex=(ztl.length-i); });
+  function ztScroll(){
+    if(!zt||!ztl.length||reduce) return;
+    var h=zt.offsetHeight-window.innerHeight; if(h<=0) return;
+    var p=clamp((-zt.getBoundingClientRect().top)/h,0,1);
+    var pos=p*ztl.length;
+    ztl.forEach(function(el,i){
+      var d=pos-i-0.5;
+      var scale=Math.pow(3.2,d);
+      var op;
+      if(d<-1.3||d>1.15){ op=0; }
+      else{
+        var fin=clamp((d+1.3)/1.0,0,1);
+        var fout=clamp(1-(d-0.35)/0.8,0,1);
+        op=Math.min(fin,fout);
+      }
+      el.style.transform='translate(-50%,-50%) scale('+scale.toFixed(3)+')';
+      el.style.opacity=op.toFixed(3);
+    });
+  }
+
+  var curt=document.getElementById('curt'), curtL=document.getElementById('curtL'), curtR=document.getElementById('curtR');
+  function curtScroll(){
+    if(!curt||!curtL||!curtR) return;
+    var h=curt.offsetHeight-window.innerHeight; if(h<=0) return;
+    var p=clamp((-curt.getBoundingClientRect().top)/h,0,1);
+    var o=clamp((p-0.1)/0.7,0,1);
+    curtL.style.transform='translateX('+(-o*100)+'%)';
+    curtR.style.transform='translateX('+(o*100)+'%)';
+  }
+
+  var kin=document.getElementById('kin');
+  var kinLines=kin?kin.querySelectorAll('.l'):[];
+  function kinScroll(){
+    if(!kin) return;
+    var vh=window.innerHeight, start=vh*0.85, end=vh*0.42;
+    kinLines.forEach(function(el){
+      var t=el.getBoundingClientRect().top;
+      var pr=clamp((start-t)/(start-end),0,1);
+      el.style.opacity=(0.14+pr*0.86).toFixed(3);
+      el.style.transform='translateY('+((1-pr)*6).toFixed(1)+'px)';
+    });
+  }
+
+  var ticking=false;
+  function onScroll(){
+    if(ticking) return; ticking=true;
+    requestAnimationFrame(function(){ hpinScroll(); plxScroll(); zoomScroll(); ztScroll(); curtScroll(); kinScroll(); ticking=false; });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',function(){ mq=window.matchMedia('(min-width:768px)').matches; updateHpin(); updateSplit(); onScroll(); });
+  window.addEventListener('load',function(){ updateHpin(); updateSplit(); onScroll(); });
+  updateHpin(); updateSplit(); onScroll();
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+  },{threshold:.25});
+  document.querySelectorAll('.clip .wrap,.clip__solo,.clip__cap').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>

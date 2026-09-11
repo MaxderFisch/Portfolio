@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max Aulinger — Fotografie, Video &amp; Design (V5 · Editorial Noir Refined)</title>
+<meta name="description" content="Portfolio von Max Aulinger — Medientechnik-Student mit Schwerpunkt Fotografie, Drohnenvideo und Design.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Crimson+Text:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="page-grain"></div>
+
+<nav class="version-switch" aria-label="Design-Version wählen">
+  <a href="../v1/index.html" class="version-switch__link">V1</a>
+  <a href="../v2/index.html" class="version-switch__link">V2</a>
+  <a href="../v3/index.html" class="version-switch__link">V3</a>
+  <a href="../v4/index.html" class="version-switch__link">V4</a>
+  <a href="../v5/index.html" class="version-switch__link is-active">V5</a>
+  <a href="../v6/index.html" class="version-switch__link">V6</a>
+</nav>
+
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="#top" class="nav__logo">M<span class="accent">.</span>A</a>
+
+    <nav class="nav__links" id="navLinks">
+      <a href="#about" class="nav__link">Über mich</a>
+      <a href="#fotografie" class="nav__link">Fotografie</a>
+      <a href="#design" class="nav__link">Design</a>
+      <a href="#video" class="nav__link">Video</a>
+      <a href="#kontakt" class="nav__link nav__link--cta">Kontakt</a>
+    </nav>
+
+    <button class="nav__burger" id="navBurger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero__media">
+    <video class="hero__video" autoplay muted loop playsinline poster="../assets/video/zeitraffer-poster.jpg">
+      <source src="../assets/video/zeitraffer.mp4" type="video/mp4">
+    </video>
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="hero__content">
+    <p class="hero__eyebrow reveal">Medientechnik · Fotografie · Drohnenvideo · Design</p>
+    <h1 class="hero__title reveal">Max Aulinger</h1>
+    <p class="hero__subtitle reveal">Momente festhalten — <span class="highlight">am Boden und in der Luft</span>. Ein Praxissemester für Medientalent, das Geschichten erzählt.</p>
+    <div class="hero__actions reveal">
+      <a href="#fotografie" class="btn btn--primary">Portfolio ansehen</a>
+      <a href="#kontakt" class="btn btn--secondary">Kontakt</a>
+    </div>
+  </div>
+
+  <a href="#about" class="hero__scroll" aria-label="Nach unten scrollen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </a>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section__inner">
+    <div class="about__grid">
+      <div class="about__media reveal">
+        <div class="about__photo-frame">
+          <picture>
+            <source srcset="../assets/img/misc/profile.webp" type="image/webp">
+            <img src="../assets/img/misc/profile.jpg" alt="Max Aulinger mit einer DJI-Drohne" loading="lazy">
+          </picture>
+        </div>
+      </div>
+
+      <div class="about__text">
+        <div class="section__header reveal">
+          <span class="section__number">01</span>
+          <p class="eyebrow">Über mich</p>
+          <h2>Bilder, die bleiben</h2>
+        </div>
+
+        <p class="reveal">
+          Seit Jahren halte ich Momente fest, die andere übersehen: <span class="highlight">Nebel über dem See</span>, ein Lächeln im Gegenlicht, die Perspektive einer Drohne kurz vor Sonnenuntergang. Ich bin Max, Student der Medientechnik an der TH Deggendorf.
+        </p>
+
+        <p class="reveal">
+          Besonders der Drohnenflug fasziniert mich — vom präzisen FPV-Flight für dynamische Aufnahmen bis zu ruhigen, filmischen Kamerafahrten mit meiner DJI. Daneben gestalte ich Grafiken und Layouts, wenn ein Projekt mehr braucht als bewegte Bilder.
+        </p>
+
+        <p class="reveal">
+          Für mein 24-wöchiges Praxissemester suche ich ein Unternehmen, in dem ich mit anpacken, dazulernen und meine visuelle Perspektive einbringen kann.
+        </p>
+
+        <div class="skills reveal">
+          <span class="skill-tag">Fotografie</span>
+          <span class="skill-tag">Drohnenflug</span>
+          <span class="skill-tag">Videoschnitt</span>
+          <span class="skill-tag">Grafikdesign</span>
+          <span class="skill-tag">Adobe &amp; DaVinci</span>
+        </div>
+
+        <div class="facts reveal">
+          <div class="fact">
+            <span class="fact__label">Studium</span>
+            <span class="fact__value">Medientechnik, TH Deggendorf</span>
+          </div>
+          <div class="fact">
+            <span class="fact__label">Gesucht</span>
+            <span class="fact__value">Praxissemester (24 Wochen)</span>
+          </div>
+          <div class="fact">
+            <span class="fact__label">Region</span>
+            <span class="fact__value">Deggendorf &amp; Umgebung</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOTOGRAFIE -->
+<section class="gallery" id="fotografie">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__number">02</span>
+      <p class="eyebrow">Portfolio</p>
+      <h2>Fotografie</h2>
+    </div>
+
+    <p class="section__lead reveal">Eine Editorial-Auswahl aus 30 Aufnahmen — Portrait, Natur, Architektur und Momente. Justifizierte Layouts für maximale visuellen Fluss.</p>
+
+    <div class="filter-bar reveal" id="filterBar">
+      <button class="filter-btn is-active" data-filter="all">Alle</button>
+      <button class="filter-btn" data-filter="portrait">Portrait</button>
+      <button class="filter-btn" data-filter="natur">Natur</button>
+      <button class="filter-btn" data-filter="architektur">Architektur</button>
+      <button class="filter-btn" data-filter="tiere">Tiere</button>
+      <button class="filter-btn" data-filter="momente">Momente</button>
+    </div>
+
+    <div class="photo-grid" id="photoGrid"><!-- JS rendert die Fotos --></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Schließen">&times;</button>
+  <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Vorheriges Bild">&#8249;</button>
+  <div class="lightbox__stage">
+    <img src="" alt="" id="lightboxImg">
+    <p class="lightbox__caption" id="lightboxCaption"></p>
+  </div>
+  <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Nächstes Bild">&#8250;</button>
+</div>
+
+<!-- DESIGN -->
+<section class="design" id="design">
+  <div class="section__inner">
+    <div class="design__grid">
+      <div class="design__text">
+        <div class="section__header reveal">
+          <span class="section__number">03</span>
+          <p class="eyebrow">Portfolio</p>
+          <h2>Design</h2>
+        </div>
+
+        <p class="reveal">
+          Technik trifft auf Kreativität. Für dieses Projekt konzipierte ich einen Flyer, der ein technisches Thema visuell zugänglich aufbereitet — Layout, Typografie, Bildauswahl, alles aus einem Guss.
+        </p>
+
+        <a href="../assets/img/design/flyer-fertig.pdf" class="btn btn--primary" download>PDF herunterladen</a>
+      </div>
+
+      <div class="design__media reveal">
+        <picture>
+          <source srcset="../assets/img/design/flyer-full.webp" type="image/webp">
+          <img src="../assets/img/design/flyer-full.jpg" alt="Gestalteter Flyer — Technik trifft auf Kunst" loading="lazy">
+        </picture>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section class="video-section" id="video">
+  <div class="section__inner">
+    <div class="section__header reveal">
+      <span class="section__number">04</span>
+      <p class="eyebrow">Portfolio</p>
+      <h2>Video &amp; Drohne</h2>
+    </div>
+
+    <p class="section__lead reveal">Von ruhigen Landschaftsaufnahmen bis zu dynamischen FPV-Flügen — ein Einblick in meine Arbeit mit der Drohne.</p>
+
+    <div class="showreel reveal">
+      <video class="showreel__player" id="showreelPlayer" controls preload="none" poster="../assets/video/showreel-poster.jpg">
+        <source src="../assets/video/showreel.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="video-grid">
+      <div class="video-card reveal">
+        <video class="video-card__player" controls preload="none" poster="../assets/video/drone-clip-1-poster.jpg">
+          <source src="../assets/video/drone-clip-1.mp4" type="video/mp4">
+        </video>
+        <p class="video-card__label">FPV-Drohnenflug</p>
+      </div>
+      <div class="video-card reveal">
+        <video class="video-card__player" controls preload="none" poster="../assets/video/zeitraffer-poster.jpg">
+          <source src="../assets/video/zeitraffer.mp4" type="video/mp4">
+        </video>
+        <p class="video-card__label">Zeitraffer aus der Luft</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="contact" id="kontakt">
+  <div class="section__inner">
+    <div class="contact__inner reveal">
+      <span class="section__number">05</span>
+      <p class="eyebrow">Kontakt</p>
+      <h2>Lust auf Zusammenarbeit?</h2>
+      <p>
+        Ich suche ein 24-wöchiges Praxissemester, um Fotografie, Video und Design in einem echten Projektkontext einzubringen. Fragen? Schreiben Sie mir.
+      </p>
+      <a href="mailto:maxau.aulo@gmail.com?subject=Praxissemester%20-%20Anfrage&body=Hallo%20Max%2C%0A%0A" class="btn btn--primary btn--large">
+        maxau.aulo@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="section__inner footer__inner">
+    <span>&copy; <span id="year"></span> Max Aulinger</span>
+    <span>Fotografie · Video · Design</span>
+  </div>
+</footer>
+
+<button class="fullscreen-btn" id="fullscreenBtn" aria-label="Vollbildmodus starten" title="Vollbildmodus">
+  <svg class="fullscreen-btn__icon fullscreen-btn__icon--expand" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 3H5a2 2 0 0 0-2 2v3"></path>
+    <path d="M16 3h3a2 2 0 0 1 2 2v3"></path>
+    <path d="M21 16v3a2 2 0 0 1-2 2h-3"></path>
+    <path d="M8 21H5a2 2 0 0 1-2-2v-3"></path>
+  </svg>
+  <svg class="fullscreen-btn__icon fullscreen-btn__icon--collapse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 3v3a2 2 0 0 1-2 2H3"></path>
+    <path d="M16 3v3a2 2 0 0 0 2 2h3"></path>
+    <path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
+    <path d="M8 21v-3a2 2 0 0 0-2-2H3"></path>
+  </svg>
+</button>
+
+<script src="../js/photos-data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
