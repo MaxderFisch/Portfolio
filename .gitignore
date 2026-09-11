@@ -7,3 +7,5 @@
 # Editoren
 .vscode/
 .idea/
+# Originale: bleiben lokal, gehören nicht auf die Website
+Neu/

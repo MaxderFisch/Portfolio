@@ -191,7 +191,7 @@
   .pb__img{position:relative;z-index:1;cursor:zoom-in;overflow:hidden;border:1px solid var(--faint)}
   /* weißer Rahmen nur dort, wo er explizit gesetzt ist (Brücke) */
   .pb__img--frame{background:#fff;padding:8px;border:0}
-  .pb__img img{width:100%;display:block;transition:transform .85s cubic-bezier(.16,1,.3,1)}
+  .pb__img img{width:100%;height:auto;display:block;transition:transform .85s cubic-bezier(.16,1,.3,1)}
   .pb__img:hover img{transform:scale(1.035)}
   .pb__t{position:relative;z-index:1}
   .pb__t p{color:var(--ink);font-size:15px;line-height:1.82;margin-bottom:13px}
@@ -319,6 +319,106 @@
   }
   /* letzter Block vor dem Kapitelwechsel: weniger Luft */
   .chapter--night .pjs .pb:last-child{margin-bottom:34px}
+
+  /* ===== KAPITEL 03 — PORTRÄTS: kühles Schiefer, Text bleibt stehen ===== */
+  .chapter--slate{--ink:#c2c8cc; --ink-strong:#f2f5f6; --faint:rgba(226,235,238,.16); --rail:#7f8a90;
+    background-color:#13181b;
+    background-image:linear-gradient(to bottom,#191411 0,rgba(19,24,27,0) 480px)}
+  .pt{position:relative;display:grid;grid-template-columns:minmax(0,296px) minmax(0,1fr);gap:54px;align-items:start;padding-bottom:16px}
+  .pt__sticky{position:sticky;top:128px;z-index:1}
+  .pt__sticky h1{font-family:var(--display);font-weight:600;font-size:clamp(32px,4.4vw,52px);line-height:1;letter-spacing:-.02em;margin:13px 0 15px;transition:opacity .26s ease}
+  .pt__sticky h1.wechselt{opacity:0}
+  .pt__sticky .lead{color:var(--ink);font-size:15px;line-height:1.8}
+  .pt__stream{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+  /* feste Plaetze: Personen bleiben zusammen, Paul und Robin bekommen eigene Reihen */
+  .pt__p1{grid-column:1;grid-row:1}
+  .pt__p2{grid-column:2;grid-row:1}
+  .pt__p3{grid-column:1/-1;grid-row:2}
+  .pt__p4{grid-column:1;grid-row:3}
+  .pt__p5{grid-column:1/-1;grid-row:4}
+  .pt__p6{grid-column:1;grid-row:5}
+  .pt__p7{grid-column:2;grid-row:6}
+  .pt__shot{position:relative;margin:0;overflow:hidden;cursor:zoom-in;border:1px solid var(--faint)}
+  .pt__stream.js-reveal .pt__shot{opacity:0;transform:translateY(30px);
+    transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+  .pt__stream.js-reveal .pt__shot.is-in{opacity:1;transform:none}
+  .pt__shot img{width:100%;height:auto;display:block;transition:transform .9s cubic-bezier(.16,1,.3,1)}
+  .pt__shot:hover img{transform:scale(1.04)}
+  .pt__shot--wide{grid-column:1/-1}
+  .pt__shot--tief{margin-top:54px}
+  .pt__cap{position:absolute;left:0;right:0;bottom:0;padding:46px 16px 14px;
+    background:linear-gradient(to top,rgba(0,0,0,.85),transparent);opacity:0;transform:translateY(10px);transition:.4s}
+  .pt__shot:hover .pt__cap{opacity:1;transform:none}
+  .pt__cap .n{font-family:var(--display);font-weight:600;font-size:15px;color:#fff}
+  .pt__cap .s{margin-top:3px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+  @media(prefers-reduced-motion:reduce){.pt__stream.js-reveal .pt__shot{opacity:1;transform:none}}
+  @media(max-width:900px){
+    .pt{grid-template-columns:1fr;gap:26px}
+    .pt__sticky{position:static;top:auto}
+    .pt__shot--tief{margin-top:0}
+    .pt__p1,.pt__p2,.pt__p3,.pt__p4,.pt__p5,.pt__p6,.pt__p7{grid-column:1/-1;grid-row:auto}
+  }
+  @media(max-width:560px){.pt__stream{grid-template-columns:1fr}}
+
+  /* ===== KAPITEL 04 — SONNENAUFGÄNGE: Dämmerungs-Pflaume ===== */
+  .chapter--dawn{--ink:#cdbfc6; --ink-strong:#f5edf1; --faint:rgba(240,228,234,.16); --rail:#8e7e88;
+    background-color:#1e1620;
+    background-image:linear-gradient(to bottom,#13181b 0,rgba(30,22,32,0) 480px)}
+  /* ein Glühen, das ganz langsam aufsteigt */
+  .chapter__glow{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .chapter__glow i{position:absolute;border-radius:50%;filter:blur(62px);
+    animation:aufgehen 46s ease-in-out infinite alternate}
+  @keyframes aufgehen{from{transform:translate3d(0,16%,0) scale(1)}to{transform:translate3d(0,-12%,0) scale(1.24)}}
+
+  /* ===== KAPITEL 05 — TIERE: tiefes Waldgrün ===== */
+  .chapter--forest{--ink:#b8c4bb; --ink-strong:#eef4ef; --faint:rgba(225,238,228,.15); --rail:#798a7e;
+    background-color:#101713;
+    background-image:linear-gradient(to bottom,#1e1620 0,rgba(16,23,19,0) 480px)}
+
+  /* gemeinsame Bildkacheln beider Kapitel */
+  .sr figure,.tr figure{margin:0;position:relative;z-index:1;overflow:hidden;cursor:zoom-in;border:1px solid var(--faint)}
+  .sr figure img,.tr figure img{width:100%;height:auto;display:block;transition:transform .9s cubic-bezier(.16,1,.3,1)}
+  .sr figure:hover img,.tr figure:hover img{transform:scale(1.04)}
+  .kap__cap{position:absolute;left:0;right:0;bottom:0;padding:42px 15px 13px;
+    background:linear-gradient(to top,rgba(0,0,0,.84),transparent);opacity:0;transform:translateY(9px);transition:.4s}
+  .sr figure:hover .kap__cap,.tr figure:hover .kap__cap{opacity:1;transform:none}
+  .kap__cap .n{font-family:var(--display);font-weight:600;font-size:14px;color:#fff}
+  .kap__cap .s{margin-top:3px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+
+  /* Sonnenaufgang: ein Textblock, die Bilder drumherum */
+  .sr{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:18px;align-items:start}
+  .sr__txt{grid-column:5/span 4;grid-row:2/span 2;align-self:center;position:relative;z-index:2;padding:4px 2px}
+  .sr__txt p{color:var(--ink);font-size:15px;line-height:1.85;margin-bottom:13px}
+  .sr__txt p:last-child{margin-bottom:0}
+  .sr__txt .kicker{display:block;margin-bottom:13px}
+  .sr__lead{grid-column:1/-1;grid-row:1}
+  .sr__a{grid-column:1/span 4;grid-row:2}
+  .sr__b{grid-column:9/span 4;grid-row:2}
+  .sr__c{grid-column:1/span 4;grid-row:3}
+  .sr__d{grid-column:9/span 4;grid-row:3}
+  .sr__e{grid-column:1/span 6;grid-row:4}
+  .sr__f{grid-column:7/span 6;grid-row:4}
+
+  /* Tiere: zwei sehr große Bilder tragen den Bereich */
+  .tr{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:18px;align-items:start}
+  .tr__xl{grid-column:1/-1}
+  .tr__hoch{grid-column:3/span 8}
+  .tr__txt{grid-column:1/span 4;align-self:center;position:relative;z-index:2}
+  .tr__txt p{color:var(--ink);font-size:15px;line-height:1.85;margin-bottom:13px}
+  .tr__txt p:last-child{margin-bottom:0}
+  .tr__txt .kicker{display:block;margin-bottom:13px}
+  .tr__a{grid-column:5/span 4}
+  .tr__b{grid-column:9/span 4}
+  .tr__c{grid-column:1/span 6}
+  .tr__d{grid-column:7/span 6}
+
+  @media(prefers-reduced-motion:reduce){.chapter__glow i{animation:none}}
+  @media(max-width:900px){
+    .sr,.tr{grid-template-columns:1fr;gap:15px}
+    .sr__lead,.sr__txt,.sr__a,.sr__b,.sr__c,.sr__d,.sr__e,.sr__f,
+    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d{grid-column:1/-1;grid-row:auto}
+    .sr__txt,.tr__txt{padding:8px 0 12px}
+  }
 </style>
 </head>
 <body>
@@ -385,7 +485,7 @@
         <div class="area__no">06</div>
         <div class="area__t">Projekte</div>
         <div class="area__d">Einzelne Arbeiten, ausführlich erzählt</div>
-        <div class="area__img"><picture><source srcset="assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="assets/img/seoul/nacht-rauch.jpg" alt=""></picture></div>
+        <div class="area__img"><picture><source srcset="assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="assets/img/seoul/nacht-rauch.jpg" width="933" height="1400" alt=""></picture></div>
         <div class="area__arrow">→</div>
       </div>
     </div>
@@ -527,12 +627,48 @@
 
       <div class="proj" data-go="p-seoul">
         <div class="proj__cover">
-          <picture><source srcset="assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="assets/img/seoul/nacht-rauch.jpg" alt="Skyline von Seoul bei Nacht mit gezogenen Lichtlinien"></picture>
+          <picture><source srcset="assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="assets/img/seoul/nacht-rauch.jpg" width="933" height="1400" alt="Skyline von Seoul bei Nacht mit gezogenen Lichtlinien"></picture>
         </div>
         <div class="proj__body">
           <div class="proj__k"><span class="proj__no">01</span> &nbsp;·&nbsp; Fotografie &nbsp;·&nbsp; Seoul</div>
           <div class="proj__t">Seoul bei Nacht</div>
           <div class="proj__s">Wollte ein Feuerwerk fotografieren, hat nicht geklappt — dafür sind andere Bilder rausgekommen.</div>
+          <div class="proj__go">Projekt ansehen →</div>
+        </div>
+      </div>
+
+      <div class="proj" data-go="p-seoul" data-scroll="#kap-portraits">
+        <div class="proj__cover">
+          <img src="assets/img/portraits/portraet-goldlicht.jpg" width="925" height="1400" alt="Porträt einer jungen Frau im Gegenlicht">
+        </div>
+        <div class="proj__body">
+          <div class="proj__k"><span class="proj__no">03</span> &nbsp;·&nbsp; Porträt</div>
+          <div class="proj__t">Menschen</div>
+          <div class="proj__s">85 mm, offene Blende, kein Blitz — Porträts mit dem Licht, das gerade da ist.</div>
+          <div class="proj__go">Projekt ansehen →</div>
+        </div>
+      </div>
+
+      <div class="proj" data-go="p-seoul" data-scroll="#kap-sonnenaufgang">
+        <div class="proj__cover">
+          <img src="assets/img/sonnenaufgang/sa-donau-gold.jpg" width="1400" height="933" alt="Die Donau im goldenen Morgennebel">
+        </div>
+        <div class="proj__body">
+          <div class="proj__k"><span class="proj__no">04</span> &nbsp;·&nbsp; Landschaft</div>
+          <div class="proj__t">Sonnenaufgänge</div>
+          <div class="proj__s">Früher raus, als man mir zutrauen würde — die Donau im Morgennebel.</div>
+          <div class="proj__go">Projekt ansehen →</div>
+        </div>
+      </div>
+
+      <div class="proj" data-go="p-seoul" data-scroll="#kap-tiere">
+        <div class="proj__cover">
+          <img src="assets/img/tiere/tier-zunge.jpg" width="1800" height="1199" alt="Nahaufnahme einer Katze mit herausgestreckter Zunge">
+        </div>
+        <div class="proj__body">
+          <div class="proj__k"><span class="proj__no">05</span> &nbsp;·&nbsp; Tiere</div>
+          <div class="proj__t">Tiere</div>
+          <div class="proj__s">Nichts absprechen, nichts wiederholen — entweder man ist da oder nicht.</div>
           <div class="proj__go">Projekt ansehen →</div>
         </div>
       </div>
@@ -591,10 +727,10 @@
         </div>
         <div class="pb__fx" aria-hidden="true"></div>
         <div class="pb__img pb__a" data-pjlb="assets/img/seoul/nacht-linien.jpg" data-pjcap="Nur die Linien · 85 mm · f/5 · 1/2 s · ISO 640">
-          <picture><source srcset="assets/img/seoul/nacht-linien.webp" type="image/webp"><img src="assets/img/seoul/nacht-linien.jpg" alt="Skyline von Seoul, Lichter zu senkrechten Linien gezogen"></picture>
+          <picture><source srcset="assets/img/seoul/nacht-linien.webp" type="image/webp"><img src="assets/img/seoul/nacht-linien.jpg" width="933" height="1400" alt="Skyline von Seoul, Lichter zu senkrechten Linien gezogen"></picture>
         </div>
         <div class="pb__img pb__b" data-pjlb="assets/img/seoul/nacht-rauch.jpg" data-pjcap="Mit dem Rauch vom Feuerwerk · 85 mm · f/5 · 1/2 s · ISO 1600">
-          <picture><source srcset="assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="assets/img/seoul/nacht-rauch.jpg" alt="Skyline von Seoul, die Lichter zu Linien gezogen, darüber der Rauch des Feuerwerks"></picture>
+          <picture><source srcset="assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="assets/img/seoul/nacht-rauch.jpg" width="933" height="1400" alt="Skyline von Seoul, die Lichter zu Linien gezogen, darüber der Rauch des Feuerwerks"></picture>
         </div>
         <div class="pb__t">
           <p>Eigentlich war in Seoul ein großes Feuerwerk geplant, mit über einer Million Besuchern. Da ich aber ungern in der Menschenmenge stehe, hatte ich vor, es aus der Ferne zu fotografieren.</p>
@@ -622,7 +758,7 @@
           <div class="ex">85 mm · f/16 · 4 s · ISO 50</div>
         </div>
         <div class="pb__img pb__i" data-pjlb="assets/img/seoul/nacht-strasse.jpg" data-pjcap="Der Aussichtspunkt · 85 mm · f/16 · 4 s · ISO 50">
-          <picture><source srcset="assets/img/seoul/nacht-strasse.webp" type="image/webp"><img src="assets/img/seoul/nacht-strasse.jpg" alt="Langzeitbelichtung einer Straße in Seoul mit roten und weißen Lichtspuren"></picture>
+          <picture><source srcset="assets/img/seoul/nacht-strasse.webp" type="image/webp"><img src="assets/img/seoul/nacht-strasse.jpg" width="933" height="1400" alt="Langzeitbelichtung einer Straße in Seoul mit roten und weißen Lichtspuren"></picture>
         </div>
       </div>
 
@@ -636,7 +772,7 @@
         </div>
         <div class="pb__fx" aria-hidden="true"></div>
         <div class="pb__img pb__img--frame pb__i" data-pjlb="assets/img/seoul/nacht-bruecke.jpg" data-pjcap="Die Brücke · 24 mm · f/3.5 · 1/80 s · ISO 3200" data-pjrot="1">
-          <div class="rot90"><picture><source srcset="assets/img/seoul/nacht-bruecke.webp" type="image/webp"><img src="assets/img/seoul/nacht-bruecke.jpg" alt="Fußgängerbrücke bei Nacht, Geländer mit Leuchtstoffröhren in der Fluchtlinie, dahinter die Hochhäuser"></picture></div>
+          <div class="rot90"><picture><source srcset="assets/img/seoul/nacht-bruecke.webp" type="image/webp"><img src="assets/img/seoul/nacht-bruecke.jpg" width="933" height="1400" alt="Fußgängerbrücke bei Nacht, Geländer mit Leuchtstoffröhren in der Fluchtlinie, dahinter die Hochhäuser"></picture></div>
         </div>
         <div class="pb__t">
           <p>Zum Schluss bin ich noch an einer Brücke vorbeigekommen, die echt schöne Lichter hatte. Da ist dann noch dieses Bild entstanden.</p>
@@ -693,10 +829,10 @@
           <span class="bgl sm i3" data-speed="0.13">f/9 · f/8 · 85 mm</span>
         </div>
         <div class="pb__img pb__a" data-pjlb="assets/img/seoul/tag-stadt-gold.jpg" data-pjcap="Goldenes Licht über dem Han · 85 mm · f/9 · 1/100 s · ISO 400">
-          <picture><source srcset="assets/img/seoul/tag-stadt-gold.webp" type="image/webp"><img src="assets/img/seoul/tag-stadt-gold.jpg" alt="Seoul von einem Berg aus im goldenen Abendlicht, Han-Fluss und Berge im Hintergrund"></picture>
+          <picture><source srcset="assets/img/seoul/tag-stadt-gold.webp" type="image/webp"><img src="assets/img/seoul/tag-stadt-gold.jpg" width="724" height="1086" alt="Seoul von einem Berg aus im goldenen Abendlicht, Han-Fluss und Berge im Hintergrund"></picture>
         </div>
         <div class="pb__img pb__b" data-pjlb="assets/img/seoul/tag-stadt-pastell.jpg" data-pjcap="Kühler, pastelliger Moment · 85 mm · f/8 · 1/100 s · ISO 250">
-          <picture><source srcset="assets/img/seoul/tag-stadt-pastell.webp" type="image/webp"><img src="assets/img/seoul/tag-stadt-pastell.jpg" alt="Seoul von oben in pastelligem Licht, Hochhäuser und bewaldete Hügel"></picture>
+          <picture><source srcset="assets/img/seoul/tag-stadt-pastell.webp" type="image/webp"><img src="assets/img/seoul/tag-stadt-pastell.jpg" width="724" height="1086" alt="Seoul von oben in pastelligem Licht, Hochhäuser und bewaldete Hügel"></picture>
         </div>
         <div class="pb__t">
           <p>Von oben sieht man erst, wie groß Seoul wirklich ist — es hört einfach nicht auf.</p>
@@ -719,7 +855,7 @@
           <div class="ex">85 mm · f/1.4 · 1/6400 s · ISO 200</div>
         </div>
         <div class="pb__img pb__i" data-pjlb="assets/img/seoul/tag-tempeldach.jpg" data-pjcap="Dancheong am Tempeldach · 85 mm · f/1.4 · 1/6400 s · ISO 200">
-          <picture><source srcset="assets/img/seoul/tag-tempeldach.webp" type="image/webp"><img src="assets/img/seoul/tag-tempeldach.jpg" alt="Tempeldach von unten, bemalte Dachsparren im Dancheong-Muster, Windglöckchen und Drachenfigur an der Spitze"></picture>
+          <picture><source srcset="assets/img/seoul/tag-tempeldach.webp" type="image/webp"><img src="assets/img/seoul/tag-tempeldach.jpg" width="1100" height="1400" alt="Tempeldach von unten, bemalte Dachsparren im Dancheong-Muster, Windglöckchen und Drachenfigur an der Spitze"></picture>
         </div>
       </div>
 
@@ -733,7 +869,7 @@
           <span class="bgl sm i3" data-speed="0.13">85 mm · f/1.4 · ISO 100</span>
         </div>
         <div class="pb__img pb__i" data-pjlb="assets/img/seoul/tag-pavillon.jpg" data-pjcap="Pavillon im Teich · 85 mm · f/1.4 · 1/2000 s · ISO 100">
-          <picture><source srcset="assets/img/seoul/tag-pavillon.webp" type="image/webp"><img src="assets/img/seoul/tag-pavillon.jpg" alt="Koreanischer Holzpavillon auf einer Insel im Teich, davor Seerosen, dahinter Bäume"></picture>
+          <picture><source srcset="assets/img/seoul/tag-pavillon.webp" type="image/webp"><img src="assets/img/seoul/tag-pavillon.jpg" width="724" height="1086" alt="Koreanischer Holzpavillon auf einer Insel im Teich, davor Seerosen, dahinter Bäume"></picture>
         </div>
         <div class="pb__t">
           <p>Steht mitten im Teich im Gyeongbokgung-Palast. Bewölkt und schwül — was dem Bild gutgetan hat, weil keine harten Schatten auf dem Holz lagen.</p>
@@ -751,10 +887,10 @@
           <span class="bgl sm i3" data-speed="0.13">85 mm · f/1.4</span>
         </div>
         <div class="pb__img pb__a" data-pjlb="assets/img/seoul/tag-flagge.jpg" data-pjcap="Flagge im Laub · 85 mm · f/1.4 · 1/5000 s · ISO 100">
-          <picture><source srcset="assets/img/seoul/tag-flagge.webp" type="image/webp"><img src="assets/img/seoul/tag-flagge.jpg" alt="Koreanische Flagge an einer Laterne, von Blättern gerahmt, Stadt unscharf dahinter"></picture>
+          <picture><source srcset="assets/img/seoul/tag-flagge.webp" type="image/webp"><img src="assets/img/seoul/tag-flagge.jpg" width="933" height="1400" alt="Koreanische Flagge an einer Laterne, von Blättern gerahmt, Stadt unscharf dahinter"></picture>
         </div>
         <div class="pb__img pb__b" data-pjlb="assets/img/seoul/tag-regen.jpg" data-pjcap="Zwei Schirme im Regen · 85 mm · f/1.4 · 1/800 s · ISO 125">
-          <picture><source srcset="assets/img/seoul/tag-regen.webp" type="image/webp"><img src="assets/img/seoul/tag-regen.jpg" alt="Zwei Menschen von hinten als Silhouette mit Regenschirmen, einer davon pink, dahinter ein Berg im Dunst"></picture>
+          <picture><source srcset="assets/img/seoul/tag-regen.webp" type="image/webp"><img src="assets/img/seoul/tag-regen.jpg" width="1285" height="1400" alt="Zwei Menschen von hinten als Silhouette mit Regenschirmen, einer davon pink, dahinter ein Berg im Dunst"></picture>
         </div>
         <div class="pb__t">
           <p>Zwei Bilder, die einfach so passiert sind. Die Blätter standen zufällig genau so, dass nur der Taeguk-Kreis frei lag.</p>
@@ -766,6 +902,175 @@
     </div>
 
     <div class="pj-back" data-go="projekte" style="margin:6px 0 80px">← Alle Projekte</div>
+  </div>
+</div>
+
+<!-- KAPITEL 03 — PORTRÄTS -->
+<div class="chapter chapter--slate" id="kap-portraits">
+  <div class="chapter__mark">Projekt 03 &nbsp;·&nbsp; Porträts</div>
+  <div class="wrap">
+    <div class="pt">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">85 MM · f/1.4</span>
+        <span class="bgl xl" data-speed="0.105">MENSCHEN</span>
+        <span class="bgl md i1" data-speed="0.110">OHNE BLITZ</span>
+        <span class="bgl lg i2" data-speed="0.115">PORTRÄT</span>
+        <span class="bgl sm i3" data-speed="0.120">PROJEKT 03</span>
+      </div>
+
+      <div class="pt__sticky">
+        <p class="kicker">Projekt 03 · Porträt</p>
+        <h1 id="ptName">Timo</h1>
+        <p class="lead">Am liebsten mit offener Blende und ohne Blitz — 85 mm bei f/1.4, nur mit dem Licht, das gerade da ist. Die meisten Bilder entstehen nebenbei, während wir reden.</p>
+        <div class="pj-facts">
+          <span class="tag">85 mm · f/1.4</span>
+          <span class="tag">verfügbares Licht</span>
+          <span class="tag">Sony α7 III</span>
+        </div>
+      </div>
+
+      <div class="pt__stream">
+        <figure class="pt__shot pt__p1" data-name="Timo" data-pjlb="assets/img/portraits/portraet-brille.jpg" data-pjcap="Timo — Im Türrahmen · 85 mm · f/1.4 · 1/4000 s">
+          <picture><source srcset="assets/img/portraits/portraet-brille.webp" type="image/webp"><img src="assets/img/portraits/portraet-brille.jpg" width="933" height="1400" alt="Porträt von Timo mit Brille vor einer dunklen Holzwand, lachend"></picture>
+          <figcaption class="pt__cap"><div class="n">Timo — Im Türrahmen</div><div class="s">85 mm · f/1.4 · 1/4000 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p2 pt__shot--tief" data-name="Ares" data-pjlb="assets/img/portraits/portraet-goldlicht.jpg" data-pjcap="Ares — Letztes Licht · 85 mm · f/1.4 · 1/640 s">
+          <picture><source srcset="assets/img/portraits/portraet-goldlicht.webp" type="image/webp"><img src="assets/img/portraits/portraet-goldlicht.jpg" width="925" height="1400" alt="Porträt von Ares im gemusterten Kleid im Gegenlicht, Park im Hintergrund"></picture>
+          <figcaption class="pt__cap"><div class="n">Ares — Letztes Licht</div><div class="s">85 mm · f/1.4 · 1/640 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p3" data-name="Ares" data-pjlb="assets/img/portraits/portraet-ares-quer.jpg" data-pjcap="Ares — Weite Arme · 85 mm · f/1.4 · 1/200 s">
+          <picture><source srcset="assets/img/portraits/portraet-ares-quer.webp" type="image/webp"><img src="assets/img/portraits/portraet-ares-quer.jpg" width="1400" height="933" alt="Ares mit ausgebreiteten Armen im warmen Abendlicht, lachend"></picture>
+          <figcaption class="pt__cap"><div class="n">Ares — Weite Arme</div><div class="s">85 mm · f/1.4 · 1/200 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p4" data-name="Gabriel" data-pjlb="assets/img/portraits/portraet-gruen.jpg" data-pjcap="Gabriel — Durchs Blattwerk · 85 mm · f/1.4 · 1/1600 s">
+          <picture><source srcset="assets/img/portraits/portraet-gruen.webp" type="image/webp"><img src="assets/img/portraits/portraet-gruen.jpg" width="937" height="1400" alt="Porträt von Gabriel an einem Baumstamm, unscharfe grüne Blätter im Vordergrund"></picture>
+          <figcaption class="pt__cap"><div class="n">Gabriel — Durchs Blattwerk</div><div class="s">85 mm · f/1.4 · 1/1600 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p5" data-name="Gabriel" data-pjlb="assets/img/portraits/portraet-feld.jpg" data-pjcap="Gabriel — Gegen den Himmel · 85 mm · f/1.4 · 1/2000 s">
+          <picture><source srcset="assets/img/portraits/portraet-feld.webp" type="image/webp"><img src="assets/img/portraits/portraet-feld.jpg" width="1700" height="1109" alt="Querformat-Porträt von Gabriel mit dunklen Locken vor hellem Himmel"></picture>
+          <figcaption class="pt__cap"><div class="n">Gabriel — Gegen den Himmel</div><div class="s">85 mm · f/1.4 · 1/2000 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p6" data-name="Paul" data-pjlb="assets/img/portraits/portraet-himbeere.jpg" data-pjcap="Paul — Himbeere · 85 mm · f/1.4 · 1/1000 s">
+          <picture><source srcset="assets/img/portraits/portraet-himbeere.webp" type="image/webp"><img src="assets/img/portraits/portraet-himbeere.jpg" width="933" height="1400" alt="Paul steckt sich eine Himbeere in den Mund und zwinkert"></picture>
+          <figcaption class="pt__cap"><div class="n">Paul — Himbeere</div><div class="s">85 mm · f/1.4 · 1/1000 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p7 pt__shot--tief" data-name="Robin" data-pjlb="assets/img/portraits/portraet-cap.jpg" data-pjcap="Robin — Am Straßenrand · 85 mm · f/1.4 · 1/2000 s">
+          <picture><source srcset="assets/img/portraits/portraet-cap.webp" type="image/webp"><img src="assets/img/portraits/portraet-cap.jpg" width="935" height="1400" alt="Robin mit roter Cap und Lederjacke neben einem Auto"></picture>
+          <figcaption class="pt__cap"><div class="n">Robin — Am Straßenrand</div><div class="s">85 mm · f/1.4 · 1/2000 s</div></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div style="height:150px"></div>
+  </div>
+</div>
+
+
+<!-- KAPITEL 04 — SONNENAUFGÄNGE -->
+<div class="chapter chapter--dawn" id="kap-sonnenaufgang">
+  <div class="chapter__glow" aria-hidden="true">
+    <i style="left:-14%;top:34%;width:74vw;height:74vw;animation-duration:46s;background:radial-gradient(circle,rgba(255,186,120,.30),rgba(255,186,120,0) 66%)"></i>
+    <i style="left:44%;top:10%;width:58vw;height:58vw;animation-duration:58s;animation-delay:-18s;background:radial-gradient(circle,rgba(198,160,200,.26),rgba(198,160,200,0) 68%)"></i>
+    <i style="left:12%;top:70%;width:64vw;height:64vw;animation-duration:52s;animation-delay:-30s;background:radial-gradient(circle,rgba(120,140,190,.22),rgba(120,140,190,0) 70%)"></i>
+  </div>
+  <div class="chapter__mark">Projekt 04 &nbsp;·&nbsp; Sonnenaufgänge</div>
+  <div class="wrap">
+    <div class="sr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">DONAU · PASSAU</span>
+        <span class="bgl xl" data-speed="0.105">NEBEL</span>
+        <span class="bgl md i1" data-speed="0.110">VIEL ZU FRÜH AUF</span>
+        <span class="bgl lg i2" data-speed="0.115">MORGENS</span>
+        <span class="bgl sm i3" data-speed="0.120">PROJEKT 04</span>
+      </div>
+
+        <figure class="sr__lead" data-pjlb="assets/img/sonnenaufgang/sa-donau-blau.jpg" data-pjcap="Die Donau, kurz vor sechs · 70 mm · f/9 · 1/125 s · ISO 100">
+          <picture><source srcset="assets/img/sonnenaufgang/sa-donau-blau.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-donau-blau.jpg" width="1700" height="1133" alt="Die Donau im dichten Nebel, blaugrau, Bäume auf einer Landzunge spiegeln sich im stillen Wasser"></picture>
+          <figcaption class="kap__cap"><div class="n">Die Donau, kurz vor sechs</div><div class="s">70 mm · f/9 · 1/125 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__a" data-pjlb="assets/img/sonnenaufgang/sa-bruecke-nebel.jpg" data-pjcap="Die Brücke verschwindet · 70 mm · f/2.8 · 1/250 s · ISO 100">
+          <picture><source srcset="assets/img/sonnenaufgang/sa-bruecke-nebel.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-bruecke-nebel.jpg" width="1400" height="933" alt="Eine Stahlbrücke, die nach wenigen Metern im Nebel verschwindet"></picture>
+          <figcaption class="kap__cap"><div class="n">Die Brücke verschwindet</div><div class="s">70 mm · f/2.8 · 1/250 s · ISO 100</div></figcaption>
+        </figure>
+
+      <div class="sr__txt">
+        <p class="kicker">Projekt 04 · Landschaft</p>
+        <p>Ich bin für diese Bilder öfter früh aufgestanden, als man mir zutrauen würde. Runter an die Donau, bevor die Sonne über die Brücke kommt — weil dann der Nebel noch auf dem Wasser liegt.</p>
+        <p>Das Licht dreht da innerhalb von Minuten: erst ist alles blaugrau und vollkommen still, dann kippt es ins Goldene und der Nebel fängt an zu leuchten. Dafür lohnt sich das frühe Aufstehen jedes Mal.</p>
+        <p>Eins der Bilder hier ist gar nicht von der Donau — das mit dem Wald im Nebel habe ich aus unserem Badezimmerfenster in Passau gemacht. Das war lange mein Lieblingsbild.</p>
+      </div>
+
+        <figure class="sr__b" data-pjlb="assets/img/sonnenaufgang/sa-donau-gold.jpg" data-pjcap="Wenn es ins Goldene kippt · 70 mm · f/9 · 1/640 s · ISO 100">
+          <picture><source srcset="assets/img/sonnenaufgang/sa-donau-gold.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-donau-gold.jpg" width="1400" height="933" alt="Die Donau im goldenen Morgennebel, Bäume und Hügel dahinter"></picture>
+          <figcaption class="kap__cap"><div class="n">Wenn es ins Goldene kippt</div><div class="s">70 mm · f/9 · 1/640 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__c" data-pjlb="assets/img/sonnenaufgang/sa-donau-gaense.jpg" data-pjcap="Gänse im Gegenlicht · 180 mm · f/9 · 1/800 s · ISO 100">
+          <picture><source srcset="assets/img/sonnenaufgang/sa-donau-gaense.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-donau-gaense.jpg" width="933" height="1400" alt="Hochformat der Donau im Morgennebel, eine Reihe Pappeln, Gänse auf dem Wasser"></picture>
+          <figcaption class="kap__cap"><div class="n">Gänse im Gegenlicht</div><div class="s">180 mm · f/9 · 1/800 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__d" data-pjlb="assets/img/sonnenaufgang/sa-baum-bruecke.jpg" data-pjcap="Der Baum und die Brücke · 70 mm · f/2.8 · 1/1600 s · ISO 100">
+          <picture><source srcset="assets/img/sonnenaufgang/sa-baum-bruecke.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-baum-bruecke.jpg" width="1400" height="933" alt="Silhouette eines Baums vor der Eisenbahnbrücke im Sonnenaufgang"></picture>
+          <figcaption class="kap__cap"><div class="n">Der Baum und die Brücke</div><div class="s">70 mm · f/2.8 · 1/1600 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__e" data-pjlb="assets/img/sonnenaufgang/sa-sonne-bruecke.jpg" data-pjcap="Die Sonne kommt über · 70 mm · f/5 · 1/3200 s · ISO 100">
+          <picture><source srcset="assets/img/sonnenaufgang/sa-sonne-bruecke.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-sonne-bruecke.jpg" width="1400" height="933" alt="Die Sonne steigt hinter der Brücke auf, warmer Dunst über den Feldern"></picture>
+          <figcaption class="kap__cap"><div class="n">Die Sonne kommt über</div><div class="s">70 mm · f/5 · 1/3200 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__f" data-pjlb="assets/img/sonnenaufgang/sa-badezimmer.jpg" data-pjcap="Aus dem Badezimmerfenster — lange mein Lieblingsbild · 55 mm · f/4.5 · 1/8000 s · ISO 200">
+          <picture><source srcset="assets/img/sonnenaufgang/sa-badezimmer.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-badezimmer.jpg" width="1500" height="999" alt="Wald und Büsche im Sonnenaufgang, Nebelschwaden zwischen den Baumreihen, Passau"></picture>
+          <figcaption class="kap__cap"><div class="n">Aus dem Badezimmerfenster — lange mein Lieblingsbild</div><div class="s">55 mm · f/4.5 · 1/8000 s · ISO 200</div></figcaption>
+        </figure>
+    </div>
+  </div>
+</div>
+
+<!-- KAPITEL 05 — TIERE -->
+<div class="chapter chapter--forest" id="kap-tiere">
+  <div class="chapter__mark">Projekt 05 &nbsp;·&nbsp; Tiere</div>
+  <div class="wrap">
+    <div class="tr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">GEDULD</span>
+        <span class="bgl xl" data-speed="0.105">TIERE</span>
+        <span class="bgl md i1" data-speed="0.110">EIN VERSUCH</span>
+        <span class="bgl lg i2" data-speed="0.115">NAH DRAN</span>
+        <span class="bgl sm i3" data-speed="0.120">PROJEKT 05</span>
+      </div>
+
+        <figure class="tr__xl" data-pjlb="assets/img/tiere/tier-zunge.jpg" data-pjcap="Zunge raus · 332 mm · f/6.3 · 1/800 s · ISO 5000">
+          <picture><source srcset="assets/img/tiere/tier-zunge.webp" type="image/webp"><img src="assets/img/tiere/tier-zunge.jpg" width="1800" height="1199" alt="Nahaufnahme einer dreifarbigen Katze im Gras, die Zunge herausgestreckt, dunkelgrüner Hintergrund"></picture>
+          <figcaption class="kap__cap"><div class="n">Zunge raus</div><div class="s">332 mm · f/6.3 · 1/800 s · ISO 5000</div></figcaption>
+        </figure>
+
+      <div class="tr__txt">
+        <p class="kicker">Projekt 05 · Tiere</p>
+        <p>Tiere sind das Gegenteil von Porträts: Man kann nichts absprechen und nichts nochmal machen. Entweder man ist im richtigen Moment da — oder eben nicht.</p>
+        <p>Meistens heißt das: lange auf dem Boden liegen, warten, und dann in einer halben Sekunde entscheiden.</p>
+      </div>
+
+        <figure class="tr__a" data-pjlb="assets/img/tiere/tier-gelb.jpg" data-pjcap="Gegen das gelbe Feld · 350 mm · f/6.3 · 1/640 s · ISO 640">
+          <picture><source srcset="assets/img/tiere/tier-gelb.webp" type="image/webp"><img src="assets/img/tiere/tier-gelb.jpg" width="933" height="1400" alt="Katze liegt auf dem Boden und schaut nach oben, leuchtend gelber Hintergrund"></picture>
+          <figcaption class="kap__cap"><div class="n">Gegen das gelbe Feld</div><div class="s">350 mm · f/6.3 · 1/640 s · ISO 640</div></figcaption>
+        </figure>
+        <figure class="tr__b" data-pjlb="assets/img/tiere/tier-gaehnen.jpg" data-pjcap="Mitten im Gähnen · 350 mm · f/6.3 · 1/500 s · ISO 200">
+          <picture><source srcset="assets/img/tiere/tier-gaehnen.webp" type="image/webp"><img src="assets/img/tiere/tier-gaehnen.jpg" width="933" height="1400" alt="Katze mit weit aufgerissenem Maul vor Himmel und Bergen"></picture>
+          <figcaption class="kap__cap"><div class="n">Mitten im Gähnen</div><div class="s">350 mm · f/6.3 · 1/500 s · ISO 200</div></figcaption>
+        </figure>
+        <figure class="tr__hoch" data-pjlb="assets/img/tiere/tier-dunkel.jpg" data-pjcap="Kommt direkt auf dich zu · 100 mm · f/5 · 1/800 s · ISO 640">
+          <picture><source srcset="assets/img/tiere/tier-dunkel.webp" type="image/webp"><img src="assets/img/tiere/tier-dunkel.jpg" width="1155" height="1800" alt="Katze läuft frontal auf die Kamera zu, dunkle Umgebung, direkter Blick"></picture>
+          <figcaption class="kap__cap"><div class="n">Kommt direkt auf dich zu</div><div class="s">100 mm · f/5 · 1/800 s · ISO 640</div></figcaption>
+        </figure>
+        <figure class="tr__c" data-pjlb="assets/img/tiere/tier-hund.jpg" data-pjcap="Augen · 180 mm · f/4.5 · 1/2000 s · ISO 5000">
+          <picture><source srcset="assets/img/tiere/tier-hund.webp" type="image/webp"><img src="assets/img/tiere/tier-hund.jpg" width="933" height="1400" alt="Nahaufnahme eines braun-weißen Hundes, der direkt in die Kamera schaut"></picture>
+          <figcaption class="kap__cap"><div class="n">Augen</div><div class="s">180 mm · f/4.5 · 1/2000 s · ISO 5000</div></figcaption>
+        </figure>
+        <figure class="tr__d" data-pjlb="assets/img/tiere/tier-hund-profil.jpg" data-pjcap="Im Profil · 180 mm · f/4.5 · 1/2000 s · ISO 800">
+          <picture><source srcset="assets/img/tiere/tier-hund-profil.webp" type="image/webp"><img src="assets/img/tiere/tier-hund-profil.jpg" width="1400" height="933" alt="Derselbe Hund im Profil vor unscharfem Hintergrund"></picture>
+          <figcaption class="kap__cap"><div class="n">Im Profil</div><div class="s">180 mm · f/4.5 · 1/2000 s · ISO 800</div></figcaption>
+        </figure>
+    </div>
+
+    <div class="pj-back" data-go="projekte" style="margin:80px 0 100px">← Alle Projekte</div>
   </div>
 </div>
 
@@ -943,6 +1248,82 @@
     setTimeout(feuern,520+Math.random()*1900);
   }
   if(fxLayers.length) setTimeout(feuern,800);
+
+  /* Porträts blenden beim Reinscrollen einzeln ein.
+     Mehrfach abgesichert: ein Bild darf unter keinen Umständen unsichtbar bleiben. */
+  var ptStream=document.querySelector('.pt__stream');
+  var ptShots=ptStream?[].slice.call(ptStream.querySelectorAll('.pt__shot')):[];
+  if(ptStream&&ptShots.length&&!reduce){
+    ptStream.classList.add('js-reveal');
+    var ptCheck=function(){
+      var vh=window.innerHeight, offen=0;
+      ptShots.forEach(function(f){
+        if(f.classList.contains('is-in')) return;
+        var r=f.getBoundingClientRect();
+        if(r.height&&r.top<vh*0.92&&r.bottom>0) f.classList.add('is-in'); else offen++;
+      });
+      return offen;
+    };
+    // 1) bevorzugt der Observer
+    if('IntersectionObserver' in window){
+      var ptIO=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); ptIO.unobserve(e.target); } });
+      },{threshold:0.15});
+      ptShots.forEach(function(f){ ptIO.observe(f); });
+    }
+    // 2) zusätzlich bei jedem Scrollen
+    window.addEventListener('scroll',ptCheck,{passive:true});
+    window.addEventListener('resize',ptCheck);
+    // 3) Notnagel: falls beides nicht greift, nach 6 s alles zeigen
+    var ptTicks=0, ptTimer=setInterval(function(){
+      ptTicks++;
+      if(ptCheck()===0||ptTicks>20){ clearInterval(ptTimer);
+        if(ptTicks>20) ptShots.forEach(function(f){ f.classList.add('is-in'); });
+      }
+    },300);
+    ptCheck();
+  }
+
+  /* Die Überschrift links zeigt den Namen der Person, die gerade daneben steht */
+  var ptTitel=document.getElementById('ptName');
+  if(ptTitel&&ptShots.length){
+    var ptAktuell=ptTitel.textContent.trim(), ptWartend=null, ptSwapTimer=null;
+    var ptNamen=function(){
+      if(!ptTitel.getBoundingClientRect().height) return;
+      /* Bezug ist die Bildschirmmitte, nicht die Titelzeile: die klebende Spalte
+         steht am Ende des Bereichs still, sonst käme das letzte Bild nie dran */
+      var mitte=window.innerHeight/2, beste=null, kleinste=Infinity;
+      ptShots.forEach(function(f){
+        var r=f.getBoundingClientRect(); if(!r.height) return;
+        /* Abstand von Bildmitte zu Titelmitte — so gewinnt bei zwei Bildern
+           nebeneinander mal das linke, mal das rechte, statt immer das erste */
+        var d=Math.abs((r.top+r.bottom)/2-mitte);
+        if(d<kleinste){ kleinste=d; beste=f; }
+      });
+      /* am Seitenende kann kein Bild mehr nachrücken -> letztes gewinnt */
+      var restScroll=document.documentElement.scrollHeight-window.innerHeight-window.pageYOffset;
+      if(restScroll<40){ var l=ptShots[ptShots.length-1]; if(l.getBoundingClientRect().height) beste=l; }
+      var name=beste&&beste.getAttribute('data-name');
+      if(!name||name===ptAktuell||name===ptWartend) return;
+      ptAktuell=name; ptWartend=name;
+      ptTitel.classList.add('wechselt');
+      clearTimeout(ptSwapTimer);
+      ptSwapTimer=setTimeout(function(){
+        ptTitel.textContent=ptWartend; ptTitel.classList.remove('wechselt'); ptWartend=null;
+      },260);
+    };
+    window.addEventListener('scroll',ptNamen,{passive:true});
+    window.addEventListener('resize',ptNamen);
+    ptNamen();
+  }
+
+  /* Karten, die zu einem bestimmten Kapitel springen sollen */
+  document.querySelectorAll('[data-scroll]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var ziel=document.querySelector(el.getAttribute('data-scroll'));
+      if(ziel) setTimeout(function(){ ziel.scrollIntoView({behavior:'smooth',block:'start'}); },520);
+    });
+  });
 
   window.addEventListener('resize',moveWords);
   window.addEventListener('load',moveWords);
