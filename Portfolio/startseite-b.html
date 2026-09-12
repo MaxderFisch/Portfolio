@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max Aulinger — Startseite B · Reihen</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@300,400,500,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#000;--fg:#fff;--muted:#8b8b8f;--faint:rgba(255,255,255,.15);
+    --display:"Clash Display",system-ui,sans-serif;--body:"General Sans",system-ui,sans-serif;
+    --accent:"Instrument Serif",Georgia,serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{display:block}a{color:inherit;text-decoration:none}
+  em,.serif{font-family:var(--accent);font-style:italic;font-weight:400}
+  .kicker{font-size:11px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+  .vs{position:fixed;top:14px;left:16px;z-index:90;display:flex;gap:5px;background:rgba(0,0,0,.55);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);padding:5px;border:1px solid var(--faint);border-radius:999px}
+  .vs a{font-size:11px;letter-spacing:.1em;padding:6px 13px;border-radius:999px;color:#bdbdbd;transition:.2s}
+  .vs a.on{background:#fff;color:#000}
+  .vs a:not(.on):hover{color:#fff}
+  .hero{position:relative;height:56vh;min-height:420px;overflow:hidden;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center}
+  .hero__bild{position:absolute;inset:-6% 0;z-index:0}
+  .hero__bild img{width:100%;height:100%;object-fit:cover;filter:grayscale(.45) brightness(.42)}
+  .hero__ver{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.5),rgba(0,0,0,.25) 40%,#000 94%)}
+  .hero__in{position:relative;z-index:2;padding:0 30px}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(42px,9.5vw,128px);line-height:.86;letter-spacing:-.03em}
+  .hero h1 .out{color:transparent;-webkit-text-stroke:1.4px #fff}
+  .hero .ey{margin-top:20px;font-size:clamp(9px,1.3vw,12px);font-weight:500;letter-spacing:.4em;text-transform:uppercase;color:#cfcfcf}
+  .band{position:relative;padding:36px 0 12px;overflow:hidden}
+  .band__wort{position:absolute;left:-2%;top:10px;z-index:0;font-family:var(--display);font-weight:700;
+    font-size:clamp(48px,10vw,120px);line-height:.8;letter-spacing:-.04em;color:transparent;
+    -webkit-text-stroke:1px var(--faint);white-space:nowrap;pointer-events:none;user-select:none}
+  .band__in{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 40px;
+    display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+  .band__nr{font-family:var(--accent);font-style:italic;font-size:16px;color:var(--muted)}
+  .band h2{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.2vw,38px);line-height:1;letter-spacing:-.02em}
+  .band p{color:var(--muted);font-size:13px;line-height:1.6}
+  .proj{position:relative;cursor:pointer;overflow:hidden;border:1px solid var(--faint);background:#0b0b0c;
+    opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1),border-color .4s}
+  .proj:hover{border-color:rgba(255,255,255,.34)}
+  .proj.is-in{opacity:1;transform:none}
+  .proj__cover{position:relative;overflow:hidden;background:#0b0b0c}
+  .proj__cover img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) brightness(.9);
+    transition:transform .9s cubic-bezier(.16,1,.3,1),filter .5s}
+  .proj:hover .proj__cover img{transform:scale(1.05);filter:none}
+  .proj__cover--leer{display:flex;align-items:center;justify-content:center;
+    background:repeating-linear-gradient(45deg,#0c0c0d,#0c0c0d 9px,#111113 9px,#111113 18px)}
+  .proj__cover--leer span{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .proj__body{position:absolute;left:0;right:0;bottom:0;padding:44px 13px 12px;z-index:2;
+    background:linear-gradient(to top,rgba(0,0,0,.94),rgba(0,0,0,.5) 60%,transparent)}
+  .proj__k{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .proj__no{font-family:var(--accent);font-style:italic;font-size:11px;letter-spacing:0;text-transform:none;color:#fff}
+  .proj__t{font-family:var(--display);font-weight:600;font-size:clamp(15px,1.5vw,18px);line-height:1.08;letter-spacing:-.01em}
+  .proj__s{margin-top:5px;color:#cfcfcf;font-size:11.5px;line-height:1.5}
+  .fuss{position:relative;z-index:1;border-top:1px solid var(--faint);max-width:1180px;margin:0 auto;padding:30px 40px 60px;color:var(--muted);font-size:13px}
+  @media(prefers-reduced-motion:reduce){.proj{opacity:1;transform:none}}
+  .welt{position:relative}
+  .welt--1{background:#000}
+  .welt--2{background-color:#0d1418;background-image:linear-gradient(to bottom,#000 0,rgba(13,20,24,0) 340px);--faint:rgba(214,232,240,.16)}
+  .welt--3{background-color:#17110e;background-image:linear-gradient(to bottom,#0d1418 0,rgba(23,17,14,0) 340px);--faint:rgba(240,226,214,.16)}
+  .korn{position:fixed;inset:0;z-index:80;pointer-events:none;opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .reihe{position:relative;z-index:1;display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;
+    padding:14px 40px 34px;scroll-snap-type:x proximity;scrollbar-width:thin;
+    scrollbar-color:rgba(255,255,255,.22) transparent}
+  .reihe::-webkit-scrollbar{height:6px}
+  .reihe::-webkit-scrollbar-track{background:transparent}
+  .reihe::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:99px}
+  .reihe .proj{flex:0 0 236px;scroll-snap-align:start}
+  .reihe__hinweis .mehr{display:none}
+  .reihe__hinweis.scrollbar .mehr{display:inline}
+  .reihe__hinweis{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 40px 4px;
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  @media(max-width:600px){.reihe{padding-left:20px;padding-right:20px}.reihe .proj{flex:0 0 200px}
+    .band__in,.fuss,.reihe__hinweis{padding-left:20px;padding-right:20px}}
+</style>
+</head>
+<body>
+<nav class="vs" aria-label="Entwurf wählen">
+  <a href="startseite-a.html">A</a>
+  <a href="startseite-b.html" class="on">B</a>
+  <a href="startseite-c.html">C</a>
+  <a href="struktur-prototyp.html">Projekte</a>
+</nav>
+<div class="korn" aria-hidden="true"></div>
+<header class="hero">
+  <div class="hero__bild"><picture><source srcset="assets/img/sonnenaufgang/sa-donau-blau.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-donau-blau.jpg" alt=""></picture></div>
+  <div class="hero__ver"></div>
+  <div class="hero__in">
+    <h1>MAX<br><span class="out">AULINGER</span></h1>
+    <div class="ey">Fotografie · Video &amp; Drohne · Design &amp; 3D</div>
+  </div>
+</header>
+<main>
+  <div class="welt welt--1" id="foto">
+    <section class="band">
+      <div class="band__wort">FOTO</div>
+      <div class="band__in"><span class="band__nr">01</span><h2>Foto</h2><p>Menschen, Landschaft, Reise, Tiere</p></div>
+    </section>
+    <div class="reihe__hinweis">5 Projekte<span class="mehr"> — seitlich scrollen →</span></div>
+    <div class="reihe">
+        <article class="proj">
+          <div class="proj__cover" style="aspect-ratio:4/5"><picture><source srcset="assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="assets/img/seoul/nacht-rauch.jpg" alt=""></picture></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">01.01</span> · Foto</div>
+            <div class="proj__t">Seoul bei Nacht</div>
+            <div class="proj__s">Ein Feuerwerk, das nicht klappte — und Lichtspuren daraus.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover" style="aspect-ratio:4/5"><picture><source srcset="assets/img/seoul/tag-tempeldach.webp" type="image/webp"><img src="assets/img/seoul/tag-tempeldach.jpg" alt=""></picture></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">01.02</span> · Foto</div>
+            <div class="proj__t">Seoul bei Tag</div>
+            <div class="proj__s">Tempel, Berge, Regen und eine Stadt ohne Ende.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover" style="aspect-ratio:4/5"><picture><source srcset="assets/img/portraits/portraet-goldlicht.webp" type="image/webp"><img src="assets/img/portraits/portraet-goldlicht.jpg" alt=""></picture></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">01.03</span> · Foto</div>
+            <div class="proj__t">Menschen</div>
+            <div class="proj__s">85 mm, offene Blende, kein Blitz.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover" style="aspect-ratio:4/5"><picture><source srcset="assets/img/sonnenaufgang/sa-donau-gold.webp" type="image/webp"><img src="assets/img/sonnenaufgang/sa-donau-gold.jpg" alt=""></picture></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">01.04</span> · Foto</div>
+            <div class="proj__t">Sonnenaufgänge</div>
+            <div class="proj__s">Früher raus als vernünftig — die Donau im Nebel.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover" style="aspect-ratio:4/5"><picture><source srcset="assets/img/tiere/tier-zunge.webp" type="image/webp"><img src="assets/img/tiere/tier-zunge.jpg" alt=""></picture></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">01.05</span> · Foto</div>
+            <div class="proj__t">Tiere</div>
+            <div class="proj__s">Nichts absprechen, nichts wiederholen.</div>
+          </div>
+        </article>
+    </div>
+  </div>
+  <div class="welt welt--2" id="video">
+    <section class="band">
+      <div class="band__wort">VIDEO & DROHNE</div>
+      <div class="band__in"><span class="band__nr">02</span><h2>Video &amp; Drohne</h2><p>Doku, Imagefilm, Werbung, FPV</p></div>
+    </section>
+    <div class="reihe__hinweis">5 Projekte<span class="mehr"> — seitlich scrollen →</span></div>
+    <div class="reihe">
+        <article class="proj">
+          <div class="proj__cover proj__cover--leer" style="aspect-ratio:4/5"><span>folgt</span></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">02.01</span> · Video &amp; Drohne</div>
+            <div class="proj__t">Unter Tage</div>
+            <div class="proj__s">Doku im Graphitbergwerk Kropfmühl, 200 m tief.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover proj__cover--leer" style="aspect-ratio:4/5"><span>folgt</span></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">02.02</span> · Video &amp; Drohne</div>
+            <div class="proj__t">Personenporträt</div>
+            <div class="proj__s">Ein Pfarrer, ein Tag, eine Kamera.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover proj__cover--leer" style="aspect-ratio:4/5"><span>folgt</span></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">02.03</span> · Video &amp; Drohne</div>
+            <div class="proj__t">Imagefilm</div>
+            <div class="proj__s">Gedreht mit der ARRI Alexa Mini.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover proj__cover--leer" style="aspect-ratio:4/5"><span>folgt</span></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">02.04</span> · Video &amp; Drohne</div>
+            <div class="proj__t">Werbespot Elektrotechnik</div>
+            <div class="proj__s">Spot für den eigenen Studiengang.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover" style="aspect-ratio:4/5"><img src="assets/video/drone-clip-1-poster.jpg" alt=""></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">02.05</span> · Video &amp; Drohne</div>
+            <div class="proj__t">Drohne</div>
+            <div class="proj__s">FPV und cinematisch — Showreel und Zeitraffer.</div>
+          </div>
+        </article>
+    </div>
+  </div>
+  <div class="welt welt--3" id="design">
+    <section class="band">
+      <div class="band__wort">DESIGN & 3D</div>
+      <div class="band__in"><span class="band__nr">03</span><h2>Design &amp; 3D</h2><p>Print, Plakat, Produkt, Animation</p></div>
+    </section>
+    <div class="reihe__hinweis">4 Projekte<span class="mehr"> — seitlich scrollen →</span></div>
+    <div class="reihe">
+        <article class="proj">
+          <div class="proj__cover" style="aspect-ratio:4/5"><img src="assets/img/design/flyer-cover.jpg" alt=""></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">03.01</span> · Design &amp; 3D</div>
+            <div class="proj__t">Flyer</div>
+            <div class="proj__s">Typografie, Layout und Bild aus einer Hand.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover proj__cover--leer" style="aspect-ratio:4/5"><span>folgt</span></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">03.02</span> · Design &amp; 3D</div>
+            <div class="proj__t">Politische Plakate</div>
+            <div class="proj__s">Plakatserie, Print.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover proj__cover--leer" style="aspect-ratio:4/5"><span>folgt</span></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">03.03</span> · Design &amp; 3D</div>
+            <div class="proj__t">Produktentwurf</div>
+            <div class="proj__s">Apple-artiges Gerät — entworfen und 3D modelliert.</div>
+          </div>
+        </article>
+        <article class="proj">
+          <div class="proj__cover proj__cover--leer" style="aspect-ratio:4/5"><span>folgt</span></div>
+          <div class="proj__body">
+            <div class="proj__k"><span class="proj__no">03.04</span> · Design &amp; 3D</div>
+            <div class="proj__t">Therme Bad Füssing</div>
+            <div class="proj__s">Unterwasser-Animation auf die Beckenwand projiziert.</div>
+          </div>
+        </article>
+    </div>
+  </div>
+  <div class="fuss">Entwurf B · Reihen — jeder Bereich eine waagerechte Reihe, die man seitwärts durchschiebt. Die ganze Seite ist damit nur noch gut zwei Bildschirme hoch.</div>
+</main>
+<script>
+(function(){
+  /* Hinweis nur, wenn die Reihe wirklich über den Rand hinausgeht */
+  function hinweise(){
+    document.querySelectorAll('.reihe').forEach(function(r){
+      var h=r.previousElementSibling;
+      if(h&&h.classList.contains('reihe__hinweis'))
+        h.classList.toggle('scrollbar', r.scrollWidth>r.clientWidth+4);
+    });
+  }
+  addEventListener('resize',hinweise); addEventListener('load',hinweise); hinweise();
+})();
+(function(){
+  var k=[].slice.call(document.querySelectorAll('.proj'));
+  if(!k.length) return;
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){k.forEach(function(x){x.classList.add('is-in');});return;}
+  function pruef(){var vh=innerHeight,offen=0;
+    k.forEach(function(x){if(x.classList.contains('is-in'))return;
+      var r=x.getBoundingClientRect();
+      if(r.height&&r.top<vh*0.95&&r.bottom>-50)x.classList.add('is-in');else offen++;});
+    return offen;}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target);}});},{threshold:.08});
+    k.forEach(function(x){io.observe(x);});
+  }
+  addEventListener('scroll',pruef,{passive:true});addEventListener('resize',pruef);
+  var t=0,iv=setInterval(function(){t++;if(pruef()===0||t>20){clearInterval(iv);
+    if(t>20)k.forEach(function(x){x.classList.add('is-in');});}},300);
+  pruef();
+})();</script>
+</body>
+</html>

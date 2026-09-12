@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Max Aulinger — Fotografie, Video &amp; Design</title>
+<meta name="description" content="Portfolio von Max Aulinger — Fotografie, Video &amp; Drohne, Design &amp; 3D.">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@300,400,500,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000; --fg:#fff; --muted:#8b8b8f; --line:rgba(255,255,255,.14);
+    --display:"Clash Display",system-ui,sans-serif;
+    --body:"General Sans",system-ui,sans-serif;
+    --accent:"Instrument Serif",Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--fg);font-family:var(--body);font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  em,.serif{font-family:var(--accent);font-style:italic;font-weight:400}
+  img{display:block}
+  a{color:inherit;text-decoration:none}
+  .kicker{font-family:var(--body);font-size:12px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--muted)}
+  .frame{background:#fff;padding:8px}
+  .frame img{width:100%;height:100%;object-fit:cover}
+
+  /* TOPBAR */
+  .top{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;padding:16px 26px;background:linear-gradient(to bottom,rgba(0,0,0,.75),transparent)}
+  .top__logo{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.02em}
+  .top__nav{display:flex;gap:22px;align-items:center}
+  .top__nav a{font-size:13px;letter-spacing:.06em;color:#cfcfcf;cursor:pointer;transition:color .2s}
+  .top__nav a:hover,.top__nav a.on{color:#fff}
+  .top__fs{background:transparent;border:1px solid var(--line);color:#fff;border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center}
+  .top__fs:hover{background:rgba(255,255,255,.1)}
+  @media(max-width:800px){.top__nav a:not(.top__fs){display:none}}
+
+  /* WIPE */
+  .wipe{position:fixed;inset:0;background:#000;z-index:90;transform:scaleY(0);transform-origin:bottom;pointer-events:none}
+  .wipe.run{animation:wipe .8s cubic-bezier(.7,0,.3,1) forwards}
+  @keyframes wipe{0%{transform:scaleY(0);transform-origin:bottom}48%{transform:scaleY(1);transform-origin:bottom}52%{transform:scaleY(1);transform-origin:top}100%{transform:scaleY(0);transform-origin:top}}
+
+  /* VIEWS */
+  .view{display:none}
+  .view.active{display:block;animation:vin .55s cubic-bezier(.16,1,.3,1)}
+  @keyframes vin{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 40px}
+  .vhead{padding:150px 0 40px}
+  .vhead h1{font-family:var(--display);font-weight:600;font-size:clamp(40px,7vw,88px);line-height:.98;letter-spacing:-.02em}
+  .vhead p{max-width:560px;margin-top:16px;color:var(--muted);font-size:16px;line-height:1.75}
+
+  /* HUB */
+  .hub{position:relative;min-height:100vh}
+  .hub__hero{height:66vh;min-height:440px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(120% 90% at 50% 40%,#151517,#000 72%)}
+  .hub__hero h1{font-family:var(--display);font-weight:700;font-size:clamp(56px,15vw,220px);line-height:.9;letter-spacing:-.01em}
+  .hub__hero h1 .out{color:transparent;-webkit-text-stroke:1.6px #fff}
+  .hub__hero .ey{margin-top:24px;font-weight:500;font-size:clamp(11px,1.6vw,14px);letter-spacing:.4em;text-transform:uppercase;color:var(--muted)}
+  .areas{max-width:1120px;margin:0 auto;padding:30px 40px 90px}
+  .area{position:relative;display:flex;align-items:center;gap:28px;padding:34px 10px;border-top:1px solid var(--line);cursor:pointer;overflow:hidden}
+  .area:last-child{border-bottom:1px solid var(--line)}
+  .area__no{font-family:var(--accent);font-style:italic;font-size:22px;color:var(--muted);width:52px;flex:0 0 auto}
+  .area__t{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,58px);letter-spacing:-.01em;line-height:1;transition:transform .5s cubic-bezier(.16,1,.3,1),color .3s;z-index:2}
+  .area__d{margin-left:auto;max-width:280px;text-align:right;color:var(--muted);font-size:14px;line-height:1.6;z-index:2;transition:opacity .3s}
+  .area__img{position:absolute;right:0;top:0;bottom:0;width:42%;opacity:0;transition:opacity .5s;z-index:1;-webkit-mask:linear-gradient(to left,#000,transparent);mask:linear-gradient(to left,#000,transparent)}
+  .area__img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3) brightness(.7)}
+  .area:hover .area__img{opacity:.55}
+  .area:hover .area__t{transform:translateX(16px)}
+  .area:hover .area__d{opacity:0}
+  .area__arrow{position:absolute;right:14px;top:50%;transform:translateY(-50%) translateX(-20px);opacity:0;font-size:26px;z-index:2;transition:.4s}
+  .area:hover .area__arrow{opacity:1;transform:translateY(-50%) translateX(0)}
+
+  /* FILTER */
+  .filter{display:flex;flex-wrap:wrap;gap:10px;padding:6px 0 30px}
+  .filter button{font-family:var(--body);font-size:13px;font-weight:500;letter-spacing:.04em;color:#cfcfcf;background:transparent;border:1px solid var(--line);border-radius:999px;padding:9px 18px;cursor:pointer;transition:.2s}
+  .filter button:hover{border-color:rgba(255,255,255,.4)}
+  .filter button.on{background:#fff;color:#000;border-color:#fff}
+
+  /* GRID */
+  .grid{columns:3;column-gap:16px;padding-bottom:40px}
+  .grid figure{break-inside:avoid;margin:0 0 16px;background:#fff;padding:8px;cursor:pointer;position:relative;overflow:hidden}
+  .grid figure img{width:100%;display:block;filter:grayscale(.15)}
+  .grid figcaption{position:absolute;left:8px;right:8px;bottom:8px;padding:14px 14px;background:linear-gradient(to top,rgba(0,0,0,.8),transparent);transform:translateY(8px);opacity:0;transition:.35s}
+  .grid figure:hover figcaption{transform:none;opacity:1}
+  .grid figcaption .t{font-family:var(--display);font-weight:600;font-size:16px}
+  .grid figcaption .s{font-family:var(--accent);font-style:italic;font-size:13px;color:#d6d6d6}
+  @media(max-width:900px){.grid{columns:2}}
+  @media(max-width:560px){.grid{columns:1}}
+
+  /* EQUIPMENT */
+  .kit{border-top:1px solid var(--line);margin-top:20px;padding:40px 0 100px}
+  .kit h3{font-family:var(--display);font-weight:600;font-size:24px;margin-bottom:6px}
+  .kit p.lead{color:var(--muted);font-size:15px;margin-bottom:20px;max-width:560px;line-height:1.7}
+  .tags{display:flex;flex-wrap:wrap;gap:10px}
+  .tag{font-size:13px;color:#e6e6e6;border:1px solid var(--line);border-radius:999px;padding:8px 15px}
+  .tag em{color:var(--muted)}
+
+  /* MEDIA */
+  .media{display:grid;grid-template-columns:1fr;gap:20px;padding-bottom:20px}
+  .media video{width:100%;display:block;background:#111}
+  .mrow{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:700px){.mrow{grid-template-columns:1fr}}
+  .note{border:1px dashed var(--line);border-radius:12px;padding:22px;color:var(--muted);font-size:14px;line-height:1.7}
+  .note strong{color:#fff;font-weight:500}
+  .btnlink{display:inline-flex;align-items:center;gap:8px;margin-top:14px;border:1px solid #fff;border-radius:999px;padding:10px 18px;font-size:13px;font-weight:500;color:#fff;cursor:pointer}
+  .btnlink:hover{background:#fff;color:#000}
+
+  .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;aspect-ratio:4/3;border:1px dashed var(--line);border-radius:12px;color:var(--muted);gap:8px;padding:20px}
+  .ph .big{font-family:var(--display);font-weight:600;font-size:22px;color:#fff}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-bottom:30px}
+  @media(max-width:800px){.grid3{grid-template-columns:1fr}}
+
+  /* ABOUT */
+  .about{display:grid;grid-template-columns:320px 1fr;gap:50px;align-items:start;padding-bottom:100px}
+  .about__photo{background:#fff;padding:8px}
+  .about__photo img{width:100%;display:block}
+  .about__txt h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,3.4vw,40px);margin-bottom:16px}
+  .about__txt p{color:#cfcfcf;font-size:16px;line-height:1.8;margin-bottom:14px;max-width:560px}
+  @media(max-width:760px){.about{grid-template-columns:1fr}.about__photo{max-width:300px}}
+
+  /* LIGHTBOX */
+  .lb{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+  .lb.open{display:flex}
+  .lb__inner{display:grid;grid-template-columns:1fr 300px;gap:34px;max-width:1200px;width:100%;align-items:center}
+  .lb__img{background:#fff;padding:10px;max-height:90vh}
+  .lb__img img{max-height:calc(90vh - 20px);width:100%;object-fit:contain}
+  .lb__meta .kicker{color:var(--muted)}
+  .lb__meta h3{font-family:var(--display);font-weight:600;font-size:30px;margin:10px 0 12px;line-height:1.05}
+  .lb__meta p{color:#cfcfcf;font-size:15px;line-height:1.7;margin-bottom:22px}
+  .lb__qr{display:flex;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:20px}
+  .lb__qr svg{background:#fff;border-radius:8px;padding:6px;flex:0 0 auto}
+  .lb__qr .qt{font-size:13px;color:var(--muted);line-height:1.6}
+  .lb__qr .qt strong{color:#fff;font-weight:500;display:block;margin-bottom:4px}
+  .lb__close{position:absolute;top:22px;right:26px;font-size:30px;color:#fff;cursor:pointer;line-height:1}
+  @media(max-width:820px){.lb__inner{grid-template-columns:1fr;gap:18px}.lb__img{max-height:60vh}.lb__img img{max-height:calc(60vh - 20px)}}
+
+  .foot{border-top:1px solid var(--line);text-align:center;padding:40px;color:var(--muted);font-size:13px}
+
+  /* ===== PROJEKTE — Übersicht (neu, additiv) ===== */
+  .projs{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;padding-bottom:90px}
+  @media(max-width:820px){.projs{grid-template-columns:1fr}}
+  .proj{position:relative;cursor:pointer;background:#fff;padding:8px;overflow:hidden}
+  .proj__cover{position:relative;overflow:hidden;aspect-ratio:4/5;background:#0b0b0c}
+  .proj__cover img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) brightness(.9);transition:transform .9s cubic-bezier(.16,1,.3,1),filter .5s}
+  .proj:hover .proj__cover img{transform:scale(1.05);filter:none}
+  .proj__body{position:absolute;left:8px;right:8px;bottom:8px;padding:70px 24px 24px;background:linear-gradient(to top,rgba(0,0,0,.93),rgba(0,0,0,.5) 58%,transparent);z-index:2}
+  .proj__k{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .proj__no{font-family:var(--accent);font-style:italic;font-size:15px;letter-spacing:0;text-transform:none;color:#fff}
+  .proj__t{font-family:var(--display);font-weight:600;font-size:clamp(22px,2.7vw,34px);line-height:1.04;letter-spacing:-.01em}
+  .proj__s{margin-top:9px;color:#cfcfcf;font-size:14px;line-height:1.65;max-width:430px}
+  .proj__go{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:13px;font-weight:500;color:#fff;opacity:.7;transition:opacity .35s,gap .35s}
+  .proj:hover .proj__go{opacity:1;gap:15px}
+  .proj--soon{background:transparent;padding:0;cursor:default}
+  .proj--soon .ph{aspect-ratio:4/5}
+
+  /* ===== PROJEKT-DETAIL (neu, additiv) ===== */
+  .pj-back{display:inline-flex;align-items:center;gap:9px;margin-top:132px;font-size:13px;letter-spacing:.06em;color:var(--rail);cursor:pointer;transition:color .25s}
+  .pj-back:hover{color:var(--ink-strong)}
+  /* Kopfbereich: Hintergrundtypo reicht bis ganz nach oben */
+  .pj-head{position:relative;padding-top:128px}
+  .pj-head>.pj-back,.pj-head>.pj-top{position:relative;z-index:1}
+  .pj-head>.pj-back{margin-top:0}
+  /* doppelte Klasse, damit sie die Grundregel .pb__bg sicher übersteuert */
+  .pb__bg.pb__bg--head{top:-2%;bottom:-14%}
+  .pj-top{padding:20px 0 44px;max-width:620px}
+  .pj-top h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,5.4vw,62px);line-height:.99;letter-spacing:-.02em;margin:13px 0 16px}
+  .pj-top .lead{color:var(--ink);font-size:16px;line-height:1.8}
+  .pj-facts{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+
+  /* Freie, asymmetrische Komposition — jeder Block sitzt anders */
+  .pjs{padding-bottom:20px}
+  .pb{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:20px;align-items:start;margin-bottom:84px}
+  .pb__rail{position:absolute;left:-32px;top:2px;z-index:2;writing-mode:vertical-rl;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--rail);white-space:nowrap}
+  .pb__rail b{color:#fff;font-weight:500}
+  /* Textfläche hinter den Bildern — Outline-Typo, Zeilen scrollen unterschiedlich schnell */
+  .pb__bg{position:absolute;z-index:0;top:-10%;bottom:-10%;left:-18%;right:-18%;display:flex;flex-direction:column;justify-content:center;gap:clamp(10px,1.6vw,26px);overflow:hidden;pointer-events:none;user-select:none}
+  .pb__bg .bgl{display:block;font-family:var(--display);font-weight:700;line-height:1.02;letter-spacing:-.035em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px var(--faint);will-change:transform}
+  .pb__bg .bgl.red{-webkit-text-stroke-color:rgba(223,34,25,.62)}
+  .pb__bg .xl{font-size:clamp(72px,15vw,215px)}
+  .pb__bg .lg{font-size:clamp(50px,10vw,150px)}
+  .pb__bg .md{font-size:clamp(34px,6.5vw,96px)}
+  .pb__bg .sm{font-size:clamp(20px,3.6vw,54px);letter-spacing:.1em;-webkit-text-stroke-width:.8px}
+  .pb__bg .i1{margin-left:7%}
+  .pb__bg .i2{margin-left:19%}
+  .pb__bg .i3{margin-left:32%}
+
+  /* rote Lichtspuren, die gelegentlich durch den Hintergrund ziehen */
+  .pb__fx{position:absolute;z-index:0;top:-10%;bottom:-10%;left:-18%;right:-18%;overflow:hidden;pointer-events:none}
+  .pb__fx .streak{position:absolute;left:0;top:0;border-radius:3px;opacity:0;background:linear-gradient(90deg,rgba(247,7,2,0) 0%,rgba(223,34,25,.75) 38%,rgba(255,130,95,.95) 58%,rgba(247,7,2,.6) 74%,rgba(247,7,2,0) 100%);box-shadow:0 0 13px rgba(247,7,2,.45);will-change:transform,opacity}
+  /* dünner grauer Rahmen — exakt der Grauton der Hintergrundschrift */
+  .pb__img{position:relative;z-index:1;cursor:zoom-in;overflow:hidden;border:1px solid var(--faint)}
+  /* weißer Rahmen nur dort, wo er explizit gesetzt ist (Brücke) */
+  .pb__img--frame{background:#fff;padding:8px;border:0}
+  .pb__img img{width:100%;height:auto;display:block;transition:transform .85s cubic-bezier(.16,1,.3,1)}
+  .pb__img:hover img{transform:scale(1.035)}
+  .pb__t{position:relative;z-index:1}
+  .pb__t p{color:var(--ink);font-size:15px;line-height:1.82;margin-bottom:13px}
+  .pb__t p:last-of-type{margin-bottom:0}
+  .pb__t em{font-size:1.06em;color:var(--ink-strong)}
+  .pb__t .ex{margin-top:20px;padding-top:13px;border-top:1px solid var(--faint);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--rail);line-height:2}
+
+  /* 01 — zwei Bilder, ein Text */
+  .pb--duo .pb__a{grid-column:1/span 5}
+  .pb--duo .pb__b{grid-column:6/span 3;margin-top:196px}
+  .pb--duo .pb__t{grid-column:9/span 4;margin-top:56px}
+  /* 02 — Text links, Bild groß rechts */
+  .pb--road .pb__t{grid-column:1/span 4;margin-top:132px}
+  .pb--road .pb__i{grid-column:6/span 7}
+  /* 03 — Brücke quer, eingerückt, Text tief rechts */
+  .pb--bridge .pb__i{grid-column:2/span 7}
+  .pb--bridge .pb__t{grid-column:9/span 4;margin-top:104px}
+
+  /* Datei liegt hochkant, gehört aber quer — nur die Anzeige wird gedreht */
+  .rot90{position:relative;width:100%;aspect-ratio:2172/1448;overflow:hidden}
+  .rot90 img{position:absolute;top:50%;left:50%;width:66.667%;height:150%;display:block;transform:translate(-50%,-50%) rotate(-90deg);transition:transform .85s cubic-bezier(.16,1,.3,1)}
+  .pb__img:hover .rot90 img{transform:translate(-50%,-50%) rotate(-90deg) scale(1.035)}
+  .pjlb img.is-rot{transform:rotate(-90deg);max-width:76vh;max-height:88vw}
+
+  @media(max-width:1000px){
+    .pb--duo .pb__b{margin-top:130px}
+    .pb--road .pb__t,.pb--bridge .pb__t{margin-top:62px}
+  }
+  @media(max-width:820px){
+    .pb{grid-template-columns:1fr;gap:18px;margin-bottom:60px}
+    .pb__rail{display:none}
+    .pb__bg{left:-8%;right:-8%}
+    .pb__bg .xl{font-size:clamp(56px,19vw,120px)}
+    .pb__bg .lg{font-size:clamp(40px,13vw,86px)}
+    .pb__bg .md{font-size:clamp(28px,8vw,56px)}
+    .pb__bg .sm{font-size:clamp(16px,4.4vw,30px)}
+    .pb__bg .i2{margin-left:12%}
+    .pb__bg .i3{margin-left:20%}
+    .pb--duo .pb__a,.pb--duo .pb__b,.pb--duo .pb__t,
+    .pb--road .pb__t,.pb--road .pb__i,
+    .pb--bridge .pb__i,.pb--bridge .pb__t{grid-column:1/-1;margin-top:0}
+    .pb--duo .pb__b{width:72%;margin-left:auto}
+  }
+
+  /* Projekt-Lightbox (eigenständig, unabhängig von .lb) */
+  .pjlb{position:fixed;inset:0;z-index:85;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;padding:6vh 5vw}
+  .pjlb.open{display:flex}
+  .pjlb img{max-width:100%;max-height:88vh;object-fit:contain;background:#fff;padding:10px}
+  .pjlb__close{position:absolute;top:22px;right:26px;font-size:30px;color:#fff;cursor:pointer;line-height:1}
+  .pjlb__cap{position:absolute;left:0;right:0;bottom:22px;text-align:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+  /* ===== KAPITEL: drei Projekte mit eigener Farbwelt, weicher Scroll-Übergang ===== */
+  .chapter{position:relative;color:var(--ink-strong);
+    --ink:#cfcfcf; --ink-strong:#ffffff; --faint:rgba(255,255,255,.15); --rail:#8b8b8f}
+  .chapter--night{background:#000}
+  /* Der Verlauf oben blendet die Farbe des vorigen Kapitels aus -> Fade beim Scrollen */
+  .chapter--brown{--ink:#d6cbb6; --ink-strong:#f3ebda; --faint:rgba(235,225,203,.17); --rail:#9d8f78;
+    background-color:#191411;
+    background-image:linear-gradient(to bottom,#000 0,rgba(25,20,17,0) 460px)}
+  .chapter .kicker{color:var(--rail)}
+  .chapter .tag{color:var(--ink);border-color:var(--faint)}
+  .chapter>.wrap{position:relative;z-index:1}
+  .pj-head--sub{padding-top:178px}
+  /* Kapitelmarke am Übergang */
+  .chapter__mark{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:96px 40px 0;
+    font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--rail)}
+  .chapter__mark::before{content:"";display:block;width:54px;height:1px;background:var(--faint);margin-bottom:20px}
+
+  /* Kapitel 02 — Banner, die langsam wiegen */
+  .chapter__banners{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .chapter__banners i{position:absolute;top:-8%;transform-origin:50% 0;border-radius:0 0 3px 3px;
+    animation:wiegen 17s ease-in-out infinite}
+  @keyframes wiegen{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(2.4deg)}}
+
+
+  @media(prefers-reduced-motion:reduce){
+    .chapter__banners i{animation:none}
+  }
+
+  /* zusätzliche Block-Layouts für die Tages-Kapitel */
+  .pb--hero .pb__t{grid-column:1/span 4;margin-top:150px}
+  .pb--hero .pb__i{grid-column:6/span 6}
+  .pb--left .pb__i{grid-column:2/span 4}
+  .pb--left .pb__t{grid-column:7/span 5;margin-top:124px}
+  .pb--pair .pb__a{grid-column:1/span 4}
+  .pb--pair .pb__b{grid-column:5/span 4;margin-top:158px}
+  .pb--pair .pb__t{grid-column:9/span 4;margin-top:62px}
+
+
+  @media(max-width:1000px){
+    .pb--hero .pb__t,.pb--left .pb__t{margin-top:70px}
+    .pb--pair .pb__b{margin-top:110px}
+  }
+  @media(max-width:820px){
+    .pj-head--sub{padding-top:96px}
+    .chapter__mark{padding-top:60px}
+    .pb--hero .pb__t,.pb--hero .pb__i,
+    .pb--left .pb__i,.pb--left .pb__t,
+    .pb--pair .pb__a,.pb--pair .pb__b,.pb--pair .pb__t{grid-column:1/-1;margin-top:0}
+    .pb--pair .pb__b{width:72%;margin-left:auto}
+  }
+
+  /* koreanische Zeichen im Hintergrund — Systemschrift, damit nichts nachgeladen wird */
+  .pb__bg .bgl .kr{font-family:"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic","Nanum Gothic",sans-serif;letter-spacing:.02em}
+
+  /* Tages-Kapitel deutlich kompakter als das Nacht-Kapitel */
+  .chapter--brown .chapter__mark{padding-top:26px}
+  .chapter--brown .pj-head--sub{padding-top:62px}
+  .chapter--brown .pj-top{padding-bottom:24px}
+  .chapter--brown .pb{margin-bottom:54px}
+  .chapter--brown .pjs{padding-bottom:0}
+  .chapter--brown .pb__bg .xl{font-size:clamp(58px,10.5vw,146px)}
+  .chapter--brown .pb__bg .lg{font-size:clamp(42px,7.6vw,106px)}
+  .chapter--brown .pb__bg .md{font-size:clamp(28px,5.2vw,70px)}
+  .chapter--brown .pb__bg .sm{font-size:clamp(17px,2.9vw,40px)}
+  .chapter--brown .pb--duo .pb__b{margin-top:104px}
+  .chapter--brown .pb--duo .pb__t{margin-top:28px}
+  .chapter--brown .pb--left .pb__t{margin-top:66px}
+  .chapter--brown .pb--hero .pb__t{margin-top:74px}
+  .chapter--brown .pb--pair .pb__b{margin-top:88px}
+  .chapter--brown .pb--pair .pb__t{margin-top:30px}
+  @media(max-width:1000px){
+    .chapter--brown .pb--hero .pb__t,.chapter--brown .pb--left .pb__t{margin-top:44px}
+    .chapter--brown .pb--duo .pb__b,.chapter--brown .pb--pair .pb__b{margin-top:72px}
+  }
+  /* letzter Block vor dem Kapitelwechsel: weniger Luft */
+  .chapter--night .pjs .pb:last-child{margin-bottom:34px}
+
+  /* ===== KAPITEL 03 — PORTRÄTS: kühles Schiefer, Text bleibt stehen ===== */
+  .chapter--slate{--ink:#c2c8cc; --ink-strong:#f2f5f6; --faint:rgba(226,235,238,.16); --rail:#7f8a90;
+    background-color:#13181b;
+    background-image:linear-gradient(to bottom,#191411 0,rgba(19,24,27,0) 480px)}
+  .pt{position:relative;display:grid;grid-template-columns:minmax(0,296px) minmax(0,1fr);gap:54px;align-items:start;padding-bottom:16px}
+  .pt__sticky{position:sticky;top:128px;z-index:1}
+  .pt__sticky h1{font-family:var(--display);font-weight:600;font-size:clamp(32px,4.4vw,52px);line-height:1;letter-spacing:-.02em;margin:13px 0 15px;transition:opacity .26s ease}
+  .pt__sticky h1.wechselt{opacity:0}
+  .pt__sticky .lead{color:var(--ink);font-size:15px;line-height:1.8}
+  .pt__stream{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+  /* feste Plaetze: Personen bleiben zusammen, Paul und Robin bekommen eigene Reihen */
+  .pt__p1{grid-column:1;grid-row:1}
+  .pt__p2{grid-column:2;grid-row:1}
+  .pt__p3{grid-column:1/-1;grid-row:2}
+  .pt__p4{grid-column:1;grid-row:3}
+  .pt__p5{grid-column:1/-1;grid-row:4}
+  .pt__p6{grid-column:1;grid-row:5}
+  .pt__p7{grid-column:2;grid-row:6}
+  .pt__shot{position:relative;margin:0;overflow:hidden;cursor:zoom-in;border:1px solid var(--faint)}
+  .pt__stream.js-reveal .pt__shot{opacity:0;transform:translateY(30px);
+    transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+  .pt__stream.js-reveal .pt__shot.is-in{opacity:1;transform:none}
+  .pt__shot img{width:100%;height:auto;display:block;transition:transform .9s cubic-bezier(.16,1,.3,1)}
+  .pt__shot:hover img{transform:scale(1.04)}
+  .pt__shot--wide{grid-column:1/-1}
+  .pt__shot--tief{margin-top:54px}
+  .pt__cap{position:absolute;left:0;right:0;bottom:0;padding:46px 16px 14px;
+    background:linear-gradient(to top,rgba(0,0,0,.85),transparent);opacity:0;transform:translateY(10px);transition:.4s}
+  .pt__shot:hover .pt__cap{opacity:1;transform:none}
+  .pt__cap .n{font-family:var(--display);font-weight:600;font-size:15px;color:#fff}
+  .pt__cap .s{margin-top:3px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+  @media(prefers-reduced-motion:reduce){.pt__stream.js-reveal .pt__shot{opacity:1;transform:none}}
+  @media(max-width:900px){
+    .pt{grid-template-columns:1fr;gap:26px}
+    .pt__sticky{position:static;top:auto}
+    .pt__shot--tief{margin-top:0}
+    .pt__p1,.pt__p2,.pt__p3,.pt__p4,.pt__p5,.pt__p6,.pt__p7{grid-column:1/-1;grid-row:auto}
+  }
+  @media(max-width:560px){.pt__stream{grid-template-columns:1fr}}
+
+  /* ===== KAPITEL 04 — SONNENAUFGÄNGE: Dämmerungs-Pflaume ===== */
+  .chapter--dawn{--ink:#cdbfc6; --ink-strong:#f5edf1; --faint:rgba(240,228,234,.16); --rail:#8e7e88;
+    background-color:#1e1620;
+    background-image:linear-gradient(to bottom,#13181b 0,rgba(30,22,32,0) 480px)}
+  /* ein Glühen, das ganz langsam aufsteigt */
+  .chapter__glow{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .chapter__glow i{position:absolute;border-radius:50%;filter:blur(62px);
+    animation:aufgehen 46s ease-in-out infinite alternate}
+  @keyframes aufgehen{from{transform:translate3d(0,16%,0) scale(1)}to{transform:translate3d(0,-12%,0) scale(1.24)}}
+
+  /* ===== KAPITEL 05 — TIERE: tiefes Waldgrün ===== */
+  .chapter--forest{--ink:#b8c4bb; --ink-strong:#eef4ef; --faint:rgba(225,238,228,.15); --rail:#798a7e;
+    background-color:#101713;
+    background-image:linear-gradient(to bottom,#1e1620 0,rgba(16,23,19,0) 480px)}
+
+  /* gemeinsame Bildkacheln beider Kapitel */
+  .sr figure,.tr figure{margin:0;position:relative;z-index:1;overflow:hidden;cursor:zoom-in;border:1px solid var(--faint)}
+  .sr figure img,.tr figure img{width:100%;height:auto;display:block;transition:transform .9s cubic-bezier(.16,1,.3,1)}
+  .sr figure:hover img,.tr figure:hover img{transform:scale(1.04)}
+  .kap__cap{position:absolute;left:0;right:0;bottom:0;padding:42px 15px 13px;
+    background:linear-gradient(to top,rgba(0,0,0,.84),transparent);opacity:0;transform:translateY(9px);transition:.4s}
+  .sr figure:hover .kap__cap,.tr figure:hover .kap__cap{opacity:1;transform:none}
+  .kap__cap .n{font-family:var(--display);font-weight:600;font-size:14px;color:#fff}
+  .kap__cap .s{margin-top:3px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+
+  /* Sonnenaufgang: ein Textblock, die Bilder drumherum */
+  .sr{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:18px;align-items:start}
+  .sr__txt{grid-column:5/span 4;grid-row:2/span 2;align-self:center;position:relative;z-index:2;padding:4px 2px}
+  .sr__txt p{color:var(--ink);font-size:15px;line-height:1.85;margin-bottom:13px}
+  .sr__txt p:last-child{margin-bottom:0}
+  .sr__txt .kicker{display:block;margin-bottom:13px}
+  .sr__lead{grid-column:1/-1;grid-row:1}
+  .sr__a{grid-column:1/span 4;grid-row:2}
+  .sr__b{grid-column:9/span 4;grid-row:2}
+  .sr__c{grid-column:1/span 4;grid-row:3}
+  .sr__d{grid-column:9/span 4;grid-row:3}
+  .sr__e{grid-column:1/span 6;grid-row:4}
+  .sr__f{grid-column:7/span 6;grid-row:4}
+
+  /* Tiere: zwei sehr große Bilder tragen den Bereich */
+  .tr{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:18px;align-items:start}
+  .tr__xl{grid-column:1/-1}
+  .tr__hoch{grid-column:3/span 8}
+  .tr__txt{grid-column:1/span 4;align-self:center;position:relative;z-index:2}
+  .tr__txt p{color:var(--ink);font-size:15px;line-height:1.85;margin-bottom:13px}
+  .tr__txt p:last-child{margin-bottom:0}
+  .tr__txt .kicker{display:block;margin-bottom:13px}
+  .tr__a{grid-column:5/span 4}
+  .tr__b{grid-column:9/span 4}
+  .tr__c{grid-column:1/span 6}
+  .tr__d{grid-column:7/span 6}
+
+  @media(prefers-reduced-motion:reduce){.chapter__glow i{animation:none}}
+  @media(max-width:900px){
+    .sr,.tr{grid-template-columns:1fr;gap:15px}
+    .sr__lead,.sr__txt,.sr__a,.sr__b,.sr__c,.sr__d,.sr__e,.sr__f,
+    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d{grid-column:1/-1;grid-row:auto}
+    .sr__txt,.tr__txt{padding:8px 0 12px}
+  }
+
+  /* ================= STARTSEITE ================= */
+  .vollbild[hidden]{display:none}
+  .vollbild{position:fixed;top:16px;right:18px;z-index:95;width:38px;height:38px;border-radius:999px;
+    background:rgba(0,0,0,.45);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    border:1px solid var(--faint);color:#fff;font-size:15px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:background .25s}
+  .vollbild:hover{background:rgba(255,255,255,.16)}
+  .korn{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  .hero{position:relative;height:56vh;height:56svh;min-height:420px;overflow:hidden;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center}
+  .hero__bild{position:absolute;inset:-6% 0;z-index:0}
+  .hero__bild img{width:100%;height:100%;object-fit:cover;filter:grayscale(.45) brightness(.42)}
+  .hero__ver{position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(0,0,0,.5),rgba(0,0,0,.25) 40%,#000 94%)}
+  .hero__in{position:relative;z-index:2;padding:0 30px}
+  .hero h1{font-family:var(--display);font-weight:700;font-size:clamp(42px,9.5vw,128px);line-height:.86;letter-spacing:-.03em}
+  .hero h1 .out{color:transparent;-webkit-text-stroke:1.4px #fff}
+  .hero .ey{margin-top:20px;font-size:clamp(9px,1.3vw,12px);font-weight:500;letter-spacing:.4em;text-transform:uppercase;color:#cfcfcf}
+
+  .welt{position:relative;overflow:hidden;padding:30px 0 34px}
+  .welt--1{background:#000}
+  .welt--2{background-color:#0d1418;background-image:linear-gradient(to bottom,#000 0,rgba(13,20,24,0) 300px);--faint:rgba(214,232,240,.16)}
+  .welt--3{background-color:#17110e;background-image:linear-gradient(to bottom,#0d1418 0,rgba(23,17,14,0) 300px);--faint:rgba(240,226,214,.16)}
+  .wort{position:absolute;left:0;top:50%;z-index:0;font-family:var(--display);font-weight:700;
+    font-size:clamp(66px,14vw,200px);line-height:.8;letter-spacing:-.04em;color:transparent;
+    -webkit-text-stroke:1px var(--faint);white-space:nowrap;pointer-events:none;user-select:none;
+    transform:translateY(-50%);will-change:transform}
+  .zeile{position:relative;z-index:1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;padding-left:32px}
+  .rail{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;letter-spacing:.3em;
+    text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:8px 0;align-self:center}
+  .rail b{font-family:var(--accent);font-style:italic;font-size:15px;letter-spacing:0;text-transform:none;color:#fff;font-weight:400}
+  .rail em{font-style:normal;color:#e8e8e8;font-weight:500}
+  .reihe{overflow-x:auto;overflow-y:hidden;padding:8px 0 24px;scroll-behavior:auto;
+    scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+  .reihe::-webkit-scrollbar{height:5px}
+  .reihe::-webkit-scrollbar-track{background:transparent}
+  .reihe::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:99px}
+  .track{display:flex;gap:14px;padding-right:40px;will-change:transform}
+  .track .proj{flex:0 0 300px}
+  .track .proj:nth-child(even){margin-top:34px}
+  .reihe:hover .proj{filter:brightness(.5)}
+  .reihe .proj:hover{filter:none}
+
+  .proj{position:relative;display:block;cursor:pointer;overflow:hidden;border:1px solid var(--faint);background:#0b0b0c;
+    opacity:0;transform:translateY(18px);
+    transition:opacity .7s ease,transform .7s cubic-bezier(.16,1,.3,1),border-color .4s,filter .35s}
+  .proj:hover{border-color:rgba(255,255,255,.36)}
+  .proj.is-in{opacity:1;transform:none}
+  .proj__cover{position:relative;overflow:hidden;background:#0b0b0c;aspect-ratio:4/5}
+  .proj__cover img{width:100%;height:100%;object-fit:cover;filter:grayscale(.2) brightness(.9);
+    transition:transform .9s cubic-bezier(.16,1,.3,1),filter .5s}
+  .proj:hover .proj__cover img{transform:scale(1.05);filter:none}
+  .proj__cover--leer{display:flex;align-items:center;justify-content:center;
+    background:repeating-linear-gradient(45deg,#0c0c0d,#0c0c0d 9px,#111113 9px,#111113 18px)}
+  .proj__cover--leer span{font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .proj__body{position:absolute;left:0;right:0;bottom:0;padding:44px 13px 12px;z-index:2;
+    background:linear-gradient(to top,rgba(0,0,0,.94),rgba(0,0,0,.5) 60%,transparent)}
+  .proj__k{font-size:8px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+  .proj__no{font-family:var(--accent);font-style:italic;font-size:11px;letter-spacing:0;text-transform:none;color:#fff}
+  .proj__t{font-family:var(--display);font-weight:600;font-size:16px;line-height:1.08;letter-spacing:-.01em}
+  .proj__s{margin-top:5px;color:#cfcfcf;font-size:11.5px;line-height:1.5}
+
+  /* ===== neue Kapitel ===== */
+  .chapter--graphit{--ink:#c6c8cc;--ink-strong:#f2f4f7;--faint:rgba(228,234,242,.16);--rail:#7f858e;
+    background-color:#0b0c0e;background-image:linear-gradient(to bottom,#101713 0,rgba(11,12,14,0) 460px)}
+  .chapter--tinte{--ink:#c7bcc4;--ink-strong:#f3ecf0;--faint:rgba(238,226,234,.16);--rail:#8b7e87;
+    background-color:#141013;background-image:linear-gradient(to bottom,#0b0c0e 0,rgba(20,16,19,0) 460px)}
+  .chapter--wasser{--ink:#b3c9d1;--ink-strong:#eaf4f8;--faint:rgba(206,232,240,.17);--rail:#74909b;
+    background-color:#08171c;background-image:linear-gradient(to bottom,#141013 0,rgba(8,23,28,0) 460px)}
+  .chapter--film{--ink:#c0c0c0;--ink-strong:#f0f0f0;--faint:rgba(235,235,235,.15);--rail:#848484;
+    background-color:#121212;background-image:linear-gradient(to bottom,#08171c 0,rgba(18,18,18,0) 460px)}
+  .kapvideo{position:relative;z-index:1}
+  .kapvideo video{width:100%;display:block;border:1px solid var(--faint);background:#000}
+  .kapvideo__bu{margin-top:9px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--rail)}
+  .warten{position:relative;z-index:1;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+    border:1px dashed var(--faint);color:var(--rail);font-size:10px;letter-spacing:.18em;text-transform:uppercase;text-align:center;padding:12px}
+  .sr figure,.tr figure{margin:0}
+  /* schmalerer Platz für Hochformate, damit sie neben Querformaten nicht ausufern */
+  .tr__d--schmal{grid-column:7/span 4}
+  .tr__e{grid-column:1/span 4}
+  .tr__f{grid-column:5/span 4}
+  .tr__g{grid-column:9/span 4}
+  .sr__e--halb{grid-column:1/span 5;grid-row:4}
+
+  @media(prefers-reduced-motion:reduce){.proj{opacity:1;transform:none}}
+  @media(max-width:640px){
+    .zeile{padding-left:18px;gap:10px}
+    .track .proj{flex:0 0 225px}
+    .track .proj:nth-child(even){margin-top:22px}
+  }
+
+  /* ===== Handy ===== */
+  @media(max-width:700px){
+    .zeile{grid-template-columns:1fr;gap:4px;padding-left:20px}
+    .rail{writing-mode:horizontal-tb;transform:none;padding:0 0 4px;align-self:start;
+      white-space:normal;font-size:9px;letter-spacing:.22em}
+    .track .proj{flex:0 0 72vw}
+    .reihe{scroll-snap-type:x proximity}
+    .track .proj{scroll-snap-align:start}
+    .wort{font-size:clamp(48px,20vw,110px)}
+    .pb__bg .xl{font-size:clamp(40px,15vw,90px)}
+    .pb__bg .lg{font-size:clamp(30px,11vw,66px)}
+    .pb__bg .md{font-size:clamp(22px,7vw,44px)}
+    .pb__bg .sm{font-size:clamp(13px,4vw,24px)}
+    .hero h1{font-size:clamp(38px,13vw,86px)}
+  }
+</style>
+</head>
+<body>
+<a id="oben"></a>
+<button class="vollbild" id="vollbild" title="Vollbild" aria-label="Vollbild">⛶</button>
+<div class="korn" aria-hidden="true"></div>
+<header class="hero">
+  <div class="hero__bild"><picture><source srcset="../assets/img/sonnenaufgang/sa-donau-blau.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-donau-blau.jpg" alt=""></picture></div>
+  <div class="hero__ver"></div>
+  <div class="hero__in">
+    <h1>MAX<br><span class="out">AULINGER</span></h1>
+    <div class="ey">Fotografie · Video &amp; Drohne · Design &amp; 3D</div>
+  </div>
+</header>
+<main>
+  <div class="welt welt--1" id="b-foto">
+    <div class="wort" data-richtung="1" aria-hidden="true">FOTO</div>
+    <div class="zeile">
+      <div class="rail"><b>01</b> &nbsp; <em>Foto</em> &nbsp;·&nbsp; Menschen, Landschaft, Reise, Tiere</div>
+      <div class="reihe">
+        <div class="track">
+          <a class="proj" href="#p-nacht">
+            <div class="proj__cover"><picture><source srcset="../assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="../assets/img/seoul/nacht-rauch.jpg" alt=""></picture></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">01.01</span> · Foto</div>
+              <div class="proj__t">Seoul bei Nacht</div>
+              <div class="proj__s">Ein Feuerwerk, das nicht klappte — und Lichtspuren daraus.</div>
+            </div>
+          </a>
+          <a class="proj" href="#p-tag">
+            <div class="proj__cover"><picture><source srcset="../assets/img/seoul/tag-tempeldach.webp" type="image/webp"><img src="../assets/img/seoul/tag-tempeldach.jpg" alt=""></picture></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">01.02</span> · Foto</div>
+              <div class="proj__t">Seoul bei Tag</div>
+              <div class="proj__s">Tempel, Berge, Regen und eine Stadt ohne Ende.</div>
+            </div>
+          </a>
+          <a class="proj" href="#kap-portraits">
+            <div class="proj__cover"><picture><source srcset="../assets/img/portraits/portraet-goldlicht.webp" type="image/webp"><img src="../assets/img/portraits/portraet-goldlicht.jpg" alt=""></picture></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">01.03</span> · Foto</div>
+              <div class="proj__t">Menschen</div>
+              <div class="proj__s">85 mm, offene Blende, kein Blitz.</div>
+            </div>
+          </a>
+          <a class="proj" href="#kap-sonnenaufgang">
+            <div class="proj__cover"><picture><source srcset="../assets/img/sonnenaufgang/sa-donau-gold.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-donau-gold.jpg" alt=""></picture></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">01.04</span> · Foto</div>
+              <div class="proj__t">Sonnenaufgänge</div>
+              <div class="proj__s">Früher raus als vernünftig — die Donau im Nebel.</div>
+            </div>
+          </a>
+          <a class="proj" href="#kap-tiere">
+            <div class="proj__cover"><picture><source srcset="../assets/img/tiere/tier-zunge.webp" type="image/webp"><img src="../assets/img/tiere/tier-zunge.jpg" alt=""></picture></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">01.05</span> · Foto</div>
+              <div class="proj__t">Tiere</div>
+              <div class="proj__s">Nichts absprechen, nichts wiederholen.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="welt welt--2" id="b-video">
+    <div class="wort" data-richtung="-1" aria-hidden="true">VIDEO & DROHNE</div>
+    <div class="zeile">
+      <div class="rail"><b>02</b> &nbsp; <em>Video &amp; Drohne</em> &nbsp;·&nbsp; Doku, Imagefilm, Werbung, FPV</div>
+      <div class="reihe">
+        <div class="track">
+          <a class="proj" href="#p-video">
+            <div class="proj__cover proj__cover--leer"><span>folgt</span></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">02.01</span> · Video &amp; Drohne</div>
+              <div class="proj__t">Unter Tage</div>
+              <div class="proj__s">Doku im Graphitbergwerk Kropfmühl, 200 m tief.</div>
+            </div>
+          </a>
+          <a class="proj" href="#p-video">
+            <div class="proj__cover proj__cover--leer"><span>folgt</span></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">02.02</span> · Video &amp; Drohne</div>
+              <div class="proj__t">Personenporträt</div>
+              <div class="proj__s">Ein Pfarrer, ein Tag, eine Kamera.</div>
+            </div>
+          </a>
+          <a class="proj" href="#p-video">
+            <div class="proj__cover proj__cover--leer"><span>folgt</span></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">02.03</span> · Video &amp; Drohne</div>
+              <div class="proj__t">Imagefilm</div>
+              <div class="proj__s">Gedreht mit der ARRI Alexa Mini.</div>
+            </div>
+          </a>
+          <a class="proj" href="#p-video">
+            <div class="proj__cover proj__cover--leer"><span>folgt</span></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">02.04</span> · Video &amp; Drohne</div>
+              <div class="proj__t">Werbespot Elektrotechnik</div>
+              <div class="proj__s">Spot für den eigenen Studiengang.</div>
+            </div>
+          </a>
+          <a class="proj" href="#p-video">
+            <div class="proj__cover proj__cover--leer"><span>folgt</span></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">02.05</span> · Video &amp; Drohne</div>
+              <div class="proj__t">Drohne</div>
+              <div class="proj__s">FPV und cinematisch.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="welt welt--3" id="b-design">
+    <div class="wort" data-richtung="1" aria-hidden="true">DESIGN & 3D</div>
+    <div class="zeile">
+      <div class="rail"><b>03</b> &nbsp; <em>Design &amp; 3D</em> &nbsp;·&nbsp; Produkt, Plakat, Print, Animation</div>
+      <div class="reihe">
+        <div class="track">
+          <a class="proj" href="#p-ibee">
+            <div class="proj__cover"><picture><source srcset="../assets/img/design3d/ibee-hell.webp" type="image/webp"><img src="../assets/img/design3d/ibee-hell.jpg" alt=""></picture></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">03.01</span> · Design &amp; 3D</div>
+              <div class="proj__t">iBee</div>
+              <div class="proj__s">Ein Apple-Gerät, das es nicht gibt — entworfen und 3D gebaut.</div>
+            </div>
+          </a>
+          <a class="proj" href="#p-plakate">
+            <div class="proj__cover"><picture><source srcset="../assets/img/design3d/plakat-bubble.webp" type="image/webp"><img src="../assets/img/design3d/plakat-bubble.jpg" alt=""></picture></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">03.02</span> · Design &amp; 3D</div>
+              <div class="proj__t">Politische Plakate</div>
+              <div class="proj__s">Eine Serie zu Haltung — gedruckt und ausgestellt.</div>
+            </div>
+          </a>
+          <a class="proj" href="#p-therme">
+            <div class="proj__cover"><picture><source srcset="../assets/img/design3d/therme-cover.webp" type="image/webp"><img src="../assets/img/design3d/therme-cover.jpg" alt=""></picture></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">03.03</span> · Design &amp; 3D</div>
+              <div class="proj__t">Therme Bad Füssing</div>
+              <div class="proj__s">Unterwasser-Animation für die Beckenwand.</div>
+            </div>
+          </a>
+          <a class="proj" href="#p-flyer">
+            <div class="proj__cover"><img src="../assets/img/design/flyer-cover.jpg" alt=""></div>
+            <div class="proj__body">
+              <div class="proj__k"><span class="proj__no">03.04</span> · Design &amp; 3D</div>
+              <div class="proj__t">Flyer</div>
+              <div class="proj__s">Typografie, Layout und Bild aus einer Hand.</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- KAPITEL 01 — NACHT -->
+<div class="chapter chapter--night" id="p-nacht">
+  <div class="wrap">
+    <div class="pj-head">
+      <div class="pb__bg pb__bg--head" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.09"><span class="kr">사진</span> · SÜDKOREA</span>
+        <span class="bgl lg" data-speed="0.10"><span class="kr">서울의 밤</span></span>
+        <span class="bgl md i1" data-speed="0.11">EIN FEUERWERK, DAS NICHT KAM</span>
+        <span class="bgl md i2" data-speed="0.12">DREI KILOMETER</span>
+        <span class="bgl sm i3" data-speed="0.13">PROJEKT 01</span>
+      </div>
+      <div class="pb__fx" aria-hidden="true"></div>
+
+      <div class="pj-top">
+        <p class="kicker">Projekt 01 · Fotografie · Seoul</p>
+        <h1>Seoul bei&nbsp;Nacht</h1>
+        <p class="lead">Ich bin hingefahren, um ein Feuerwerk zu fotografieren. Das hat nicht geklappt — dafür sind ganz andere Bilder entstanden, die ich deutlich lieber mag.</p>
+        <div class="pj-facts">
+          <span class="tag">Seoul, Südkorea</span>
+          <span class="tag">Sony α7 III</span>
+          <span class="tag">ohne Stativ</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pjs">
+
+      <div class="pb pb--duo">
+        <div class="pb__rail"><b>01</b> &nbsp;— &nbsp;Die Stadt statt das Feuerwerk</div>
+        <div class="pb__bg" aria-hidden="true">
+          <span class="bgl sm" data-speed="0.09"><span class="kr">서울</span> · SEOUL</span>
+          <span class="bgl xl" data-speed="0.10">LICHTSPUREN</span>
+          <span class="bgl md i1" data-speed="0.11"><span class="kr">밤의 도시</span></span>
+          <span class="bgl lg i2" data-speed="0.12">NACHT</span>
+          <span class="bgl md i1" data-speed="0.13">AUS DER HAND</span>
+          <span class="bgl sm i3" data-speed="0.14">1/2 s · f/5 · ISO 1600</span>
+        </div>
+        <div class="pb__fx" aria-hidden="true"></div>
+        <div class="pb__img pb__a" data-pjlb="../assets/img/seoul/nacht-linien.jpg" data-pjcap="Nur die Linien · 85 mm · f/5 · 1/2 s · ISO 640">
+          <picture><source srcset="../assets/img/seoul/nacht-linien.webp" type="image/webp"><img src="../assets/img/seoul/nacht-linien.jpg" width="933" height="1400" alt="Skyline von Seoul, Lichter zu senkrechten Linien gezogen"></picture>
+        </div>
+        <div class="pb__img pb__b" data-pjlb="../assets/img/seoul/nacht-rauch.jpg" data-pjcap="Mit dem Rauch vom Feuerwerk · 85 mm · f/5 · 1/2 s · ISO 1600">
+          <picture><source srcset="../assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="../assets/img/seoul/nacht-rauch.jpg" width="933" height="1400" alt="Skyline von Seoul, die Lichter zu Linien gezogen, darüber der Rauch des Feuerwerks"></picture>
+        </div>
+        <div class="pb__t">
+          <p>Eigentlich war in Seoul ein großes Feuerwerk geplant, mit über einer Million Besuchern. Da ich aber ungern in der Menschenmenge stehe, hatte ich vor, es aus der Ferne zu fotografieren.</p>
+          <p>Dann war ich allerdings doch zu weit entfernt und habe mich entschlossen, einfach nur die Stadt bei Nacht zu fotografieren.</p>
+          <p>Hier habe ich sehr viel rumprobiert und kam letztendlich zu diesen Bildern: mit einer längeren Belichtungszeit, bei der ich im letzten Moment die Kamera schnell <em>nach unten bewege</em> — daher die leuchtenden Linien.</p>
+          <div class="ex">Links &nbsp;· &nbsp;85 mm · f/5 · 1/2 s · ISO 640<br>Rechts &nbsp;· &nbsp;85 mm · f/5 · 1/2 s · ISO 1600</div>
+        </div>
+      </div>
+
+      <div class="pb pb--road">
+        <div class="pb__rail"><b>02</b> &nbsp;— &nbsp;Der Aussichtspunkt</div>
+        <div class="pb__bg" aria-hidden="true">
+          <span class="bgl sm" data-speed="0.08"><span class="kr">빛의 강</span></span>
+          <span class="bgl xl" data-speed="0.09">LICHTER</span>
+          <span class="bgl md i2" data-speed="0.10">LANGZEIT</span>
+          <span class="bgl xl i1 red" data-speed="0.11">BELICHTUNG</span>
+          <span class="bgl md i2" data-speed="0.12">VIER SEKUNDEN</span>
+          <span class="bgl lg i1" data-speed="0.13">STRASSE</span>
+          <span class="bgl sm i3" data-speed="0.14">4 s · f/16 · ISO 50</span>
+        </div>
+        <div class="pb__fx" aria-hidden="true"></div>
+        <div class="pb__t">
+          <p>Beim Runterfahren hab ich einen kleinen Aussichtspunkt entdeckt, von dem man auf die Straße runterschauen konnte. Da hab ich mich hingestellt und wieder viel mit Langzeitbelichtung probiert.</p>
+          <p>Von den Bildern dort mag ich einige richtig gern — das hier ist mein Favorit.</p>
+          <div class="ex">85 mm · f/16 · 4 s · ISO 50</div>
+        </div>
+        <div class="pb__img pb__i" data-pjlb="../assets/img/seoul/nacht-strasse.jpg" data-pjcap="Der Aussichtspunkt · 85 mm · f/16 · 4 s · ISO 50">
+          <picture><source srcset="../assets/img/seoul/nacht-strasse.webp" type="image/webp"><img src="../assets/img/seoul/nacht-strasse.jpg" width="933" height="1400" alt="Langzeitbelichtung einer Straße in Seoul mit roten und weißen Lichtspuren"></picture>
+        </div>
+      </div>
+
+      <div class="pb pb--bridge">
+        <div class="pb__rail"><b>03</b> &nbsp;— &nbsp;Die Brücke</div>
+        <div class="pb__bg" aria-hidden="true">
+          <span class="bgl sm" data-speed="0.10"><span class="kr">다리</span> · HEIMWEG</span>
+          <span class="bgl xl" data-speed="0.11">BRÜCKE</span>
+          <span class="bgl md i2 red" data-speed="0.12">LEUCHTRÖHREN</span>
+          <span class="bgl sm i1" data-speed="0.13">24 mm · f/3.5 · 1/80 s</span>
+        </div>
+        <div class="pb__fx" aria-hidden="true"></div>
+        <div class="pb__img pb__img--frame pb__i" data-pjlb="../assets/img/seoul/nacht-bruecke.jpg" data-pjcap="Die Brücke · 24 mm · f/3.5 · 1/80 s · ISO 3200" data-pjrot="1">
+          <div class="rot90"><picture><source srcset="../assets/img/seoul/nacht-bruecke.webp" type="image/webp"><img src="../assets/img/seoul/nacht-bruecke.jpg" width="933" height="1400" alt="Fußgängerbrücke bei Nacht, Geländer mit Leuchtstoffröhren in der Fluchtlinie, dahinter die Hochhäuser"></picture></div>
+        </div>
+        <div class="pb__t">
+          <p>Zum Schluss bin ich noch an einer Brücke vorbeigekommen, die echt schöne Lichter hatte. Da ist dann noch dieses Bild entstanden.</p>
+          <p>Am Ende war es eine ziemlich gute Nacht — auch wenn eigentlich alles anders geplant war.</p>
+          <div class="ex">24 mm · f/3.5 · 1/80 s · ISO 3200</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- KAPITEL 02 — TAG (dunkelbraun, kompakt) -->
+<div class="chapter chapter--brown" id="p-tag">
+  <div class="chapter__banners" aria-hidden="true">
+    <i style="left:5%;width:30px;height:58%;animation-duration:17s;background:linear-gradient(to bottom,rgba(31,111,92,.16),rgba(31,111,92,.02))"></i>
+    <i style="left:19%;width:20px;height:44%;animation-duration:21s;animation-delay:-4s;background:linear-gradient(to bottom,rgba(201,162,75,.15),rgba(201,162,75,.02))"></i>
+    <i style="left:33%;width:40px;height:66%;animation-duration:15s;animation-delay:-9s;background:linear-gradient(to bottom,rgba(163,50,39,.13),rgba(163,50,39,.02))"></i>
+    <i style="left:56%;width:26px;height:50%;animation-duration:23s;animation-delay:-2s;background:linear-gradient(to bottom,rgba(31,111,92,.14),rgba(31,111,92,.02))"></i>
+    <i style="left:73%;width:34px;height:62%;animation-duration:19s;animation-delay:-12s;background:linear-gradient(to bottom,rgba(201,162,75,.12),rgba(201,162,75,.02))"></i>
+    <i style="left:89%;width:18px;height:40%;animation-duration:25s;animation-delay:-6s;background:linear-gradient(to bottom,rgba(163,50,39,.12),rgba(163,50,39,.02))"></i>
+  </div>
+  <div class="chapter__mark">Projekt 02 &nbsp;·&nbsp; Seoul bei Tag</div>
+  <div class="wrap">
+    <div class="pj-head pj-head--sub">
+      <div class="pb__bg pb__bg--head" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.09"><span class="kr">사진</span> · SÜDKOREA</span>
+        <span class="bgl lg" data-speed="0.10"><span class="kr">서울의 낮</span></span>
+        <span class="bgl md i1" data-speed="0.11">TEMPEL · BERGE · REGEN</span>
+        <span class="bgl md i2" data-speed="0.12">TAG</span>
+        <span class="bgl sm i3" data-speed="0.13">PROJEKT 02</span>
+      </div>
+      <div class="pj-top">
+        <p class="kicker">Projekt 02 · Fotografie · Seoul</p>
+        <h1>Seoul bei&nbsp;Tag</h1>
+        <p class="lead">Tagsüber war Seoul ein komplett anderer Ort: Tempel, Berge, Regen — und dazwischen eine Stadt, die kein Ende nimmt.</p>
+        <div class="pj-facts">
+          <span class="tag">Seoul, Südkorea</span>
+          <span class="tag">Sony α7 III</span>
+          <span class="tag">85 mm</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pjs">
+
+      <div class="pb pb--duo">
+        <div class="pb__rail"><b>01</b> &nbsp;— &nbsp;Die Stadt von oben</div>
+        <div class="pb__bg" aria-hidden="true">
+          <span class="bgl sm" data-speed="0.09"><span class="kr">한강</span> · HAN</span>
+          <span class="bgl xl" data-speed="0.10">ES HÖRT NICHT AUF</span>
+          <span class="bgl md i1" data-speed="0.11"><span class="kr">도시</span></span>
+          <span class="bgl lg i2" data-speed="0.12">ZWEI MINUTEN</span>
+          <span class="bgl sm i3" data-speed="0.13">f/9 · f/8 · 85 mm</span>
+        </div>
+        <div class="pb__img pb__a" data-pjlb="../assets/img/seoul/tag-stadt-gold.jpg" data-pjcap="Goldenes Licht über dem Han · 85 mm · f/9 · 1/100 s · ISO 400">
+          <picture><source srcset="../assets/img/seoul/tag-stadt-gold.webp" type="image/webp"><img src="../assets/img/seoul/tag-stadt-gold.jpg" width="724" height="1086" alt="Seoul von einem Berg aus im goldenen Abendlicht, Han-Fluss und Berge im Hintergrund"></picture>
+        </div>
+        <div class="pb__img pb__b" data-pjlb="../assets/img/seoul/tag-stadt-pastell.jpg" data-pjcap="Kühler, pastelliger Moment · 85 mm · f/8 · 1/100 s · ISO 250">
+          <picture><source srcset="../assets/img/seoul/tag-stadt-pastell.webp" type="image/webp"><img src="../assets/img/seoul/tag-stadt-pastell.jpg" width="724" height="1086" alt="Seoul von oben in pastelligem Licht, Hochhäuser und bewaldete Hügel"></picture>
+        </div>
+        <div class="pb__t">
+          <p>Von oben sieht man erst, wie groß Seoul wirklich ist — es hört einfach nicht auf.</p>
+          <p>Zwischen den beiden Aufnahmen liegen keine zwei Minuten. Trotzdem dreht das Licht komplett: links warm und golden, rechts schon kühl und pastellig.</p>
+          <div class="ex">Links &nbsp;· &nbsp;f/9 · 1/100 s · ISO 400<br>Rechts &nbsp;· &nbsp;f/8 · 1/100 s · ISO 250</div>
+        </div>
+      </div>
+
+      <div class="pb pb--hero">
+        <div class="pb__rail"><b>02</b> &nbsp;— &nbsp;Nach oben geschaut</div>
+        <div class="pb__bg" aria-hidden="true">
+          <span class="bgl sm" data-speed="0.09"><span class="kr">경복궁</span> · GYEONGBOKGUNG</span>
+          <span class="bgl xl" data-speed="0.10"><span class="kr">단청</span></span>
+          <span class="bgl md i1" data-speed="0.11">JEDES BRETT BEMALT</span>
+          <span class="bgl lg i2" data-speed="0.12">NACH OBEN</span>
+          <span class="bgl sm i3" data-speed="0.13">85 mm · f/1.4 · ISO 200</span>
+        </div>
+        <div class="pb__t">
+          <p>Irgendwann hab ich nach oben geschaut und bin stehen geblieben. Diese Dachunterseiten sind komplett durchgemalt, jedes einzelne Brett — das nennt sich <em>Dancheong</em>. Das Glöckchen in der Mitte klingelt bei Wind.</p>
+          <div class="ex">85 mm · f/1.4 · 1/6400 s · ISO 200</div>
+        </div>
+        <div class="pb__img pb__i" data-pjlb="../assets/img/seoul/tag-tempeldach.jpg" data-pjcap="Dancheong am Tempeldach · 85 mm · f/1.4 · 1/6400 s · ISO 200">
+          <picture><source srcset="../assets/img/seoul/tag-tempeldach.webp" type="image/webp"><img src="../assets/img/seoul/tag-tempeldach.jpg" width="1100" height="1400" alt="Tempeldach von unten, bemalte Dachsparren im Dancheong-Muster, Windglöckchen und Drachenfigur an der Spitze"></picture>
+        </div>
+      </div>
+
+      <div class="pb pb--left">
+        <div class="pb__rail"><b>03</b> &nbsp;— &nbsp;Der Pavillon</div>
+        <div class="pb__bg" aria-hidden="true">
+          <span class="bgl sm" data-speed="0.09"><span class="kr">향원정</span> · HYANGWONJEONG</span>
+          <span class="bgl xl" data-speed="0.10">PAVILLON</span>
+          <span class="bgl md i1" data-speed="0.11"><span class="kr">물 위에</span></span>
+          <span class="bgl md i2" data-speed="0.12">BEWÖLKT</span>
+          <span class="bgl sm i3" data-speed="0.13">85 mm · f/1.4 · ISO 100</span>
+        </div>
+        <div class="pb__img pb__i" data-pjlb="../assets/img/seoul/tag-pavillon.jpg" data-pjcap="Pavillon im Teich · 85 mm · f/1.4 · 1/2000 s · ISO 100">
+          <picture><source srcset="../assets/img/seoul/tag-pavillon.webp" type="image/webp"><img src="../assets/img/seoul/tag-pavillon.jpg" width="724" height="1086" alt="Koreanischer Holzpavillon auf einer Insel im Teich, davor Seerosen, dahinter Bäume"></picture>
+        </div>
+        <div class="pb__t">
+          <p>Steht mitten im Teich im Gyeongbokgung-Palast. Bewölkt und schwül — was dem Bild gutgetan hat, weil keine harten Schatten auf dem Holz lagen.</p>
+          <div class="ex">85 mm · f/1.4 · 1/2000 s · ISO 100</div>
+        </div>
+      </div>
+
+      <div class="pb pb--pair">
+        <div class="pb__rail"><b>04</b> &nbsp;— &nbsp;Zwei Momente</div>
+        <div class="pb__bg" aria-hidden="true">
+          <span class="bgl sm" data-speed="0.09"><span class="kr">태극기</span> · <span class="kr">비</span></span>
+          <span class="bgl xl" data-speed="0.10">MOMENTE</span>
+          <span class="bgl md i1" data-speed="0.11">EINFACH SO PASSIERT</span>
+          <span class="bgl lg i2" data-speed="0.12">REGEN</span>
+          <span class="bgl sm i3" data-speed="0.13">85 mm · f/1.4</span>
+        </div>
+        <div class="pb__img pb__a" data-pjlb="../assets/img/seoul/tag-flagge.jpg" data-pjcap="Flagge im Laub · 85 mm · f/1.4 · 1/5000 s · ISO 100">
+          <picture><source srcset="../assets/img/seoul/tag-flagge.webp" type="image/webp"><img src="../assets/img/seoul/tag-flagge.jpg" width="933" height="1400" alt="Koreanische Flagge an einer Laterne, von Blättern gerahmt, Stadt unscharf dahinter"></picture>
+        </div>
+        <div class="pb__img pb__b" data-pjlb="../assets/img/seoul/tag-regen.jpg" data-pjcap="Zwei Schirme im Regen · 85 mm · f/1.4 · 1/800 s · ISO 125">
+          <picture><source srcset="../assets/img/seoul/tag-regen.webp" type="image/webp"><img src="../assets/img/seoul/tag-regen.jpg" width="1285" height="1400" alt="Zwei Menschen von hinten als Silhouette mit Regenschirmen, einer davon pink, dahinter ein Berg im Dunst"></picture>
+        </div>
+        <div class="pb__t">
+          <p>Zwei Bilder, die einfach so passiert sind. Die Blätter standen zufällig genau so, dass nur der Taeguk-Kreis frei lag.</p>
+          <p>Beim anderen hat es geschüttet — der pinke Schirm ist die einzige Farbe im ganzen Bild.</p>
+          <div class="ex">Links &nbsp;· &nbsp;1/5000 s · ISO 100<br>Rechts &nbsp;· &nbsp;1/800 s · ISO 125</div>
+        </div>
+      </div>
+
+    </div>
+
+    <a class="pj-back" href="#oben" style="margin:6px 0 80px">↑ nach oben</a>
+  </div>
+</div>
+
+<!-- KAPITEL 03 — PORTRÄTS -->
+<div class="chapter chapter--slate" id="kap-portraits">
+  <div class="chapter__mark">Projekt 03 &nbsp;·&nbsp; Porträts</div>
+  <div class="wrap">
+    <div class="pt">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">85 MM · f/1.4</span>
+        <span class="bgl xl" data-speed="0.105">MENSCHEN</span>
+        <span class="bgl md i1" data-speed="0.110">OHNE BLITZ</span>
+        <span class="bgl lg i2" data-speed="0.115">PORTRÄT</span>
+        <span class="bgl sm i3" data-speed="0.120">PROJEKT 03</span>
+      </div>
+
+      <div class="pt__sticky">
+        <p class="kicker">Projekt 03 · Porträt</p>
+        <h1 id="ptName">Timo</h1>
+        <p class="lead">Am liebsten mit offener Blende und ohne Blitz — 85 mm bei f/1.4, nur mit dem Licht, das gerade da ist. Die meisten Bilder entstehen nebenbei, während wir reden.</p>
+        <div class="pj-facts">
+          <span class="tag">85 mm · f/1.4</span>
+          <span class="tag">verfügbares Licht</span>
+          <span class="tag">Sony α7 III</span>
+        </div>
+      </div>
+
+      <div class="pt__stream">
+        <figure class="pt__shot pt__p1" data-name="Timo" data-pjlb="../assets/img/portraits/portraet-brille.jpg" data-pjcap="Timo — Im Türrahmen · 85 mm · f/1.4 · 1/4000 s">
+          <picture><source srcset="../assets/img/portraits/portraet-brille.webp" type="image/webp"><img src="../assets/img/portraits/portraet-brille.jpg" width="933" height="1400" alt="Porträt von Timo mit Brille vor einer dunklen Holzwand, lachend"></picture>
+          <figcaption class="pt__cap"><div class="n">Timo — Im Türrahmen</div><div class="s">85 mm · f/1.4 · 1/4000 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p2 pt__shot--tief" data-name="Ares" data-pjlb="../assets/img/portraits/portraet-goldlicht.jpg" data-pjcap="Ares — Letztes Licht · 85 mm · f/1.4 · 1/640 s">
+          <picture><source srcset="../assets/img/portraits/portraet-goldlicht.webp" type="image/webp"><img src="../assets/img/portraits/portraet-goldlicht.jpg" width="925" height="1400" alt="Porträt von Ares im gemusterten Kleid im Gegenlicht, Park im Hintergrund"></picture>
+          <figcaption class="pt__cap"><div class="n">Ares — Letztes Licht</div><div class="s">85 mm · f/1.4 · 1/640 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p3" data-name="Ares" data-pjlb="../assets/img/portraits/portraet-ares-quer.jpg" data-pjcap="Ares — Weite Arme · 85 mm · f/1.4 · 1/200 s">
+          <picture><source srcset="../assets/img/portraits/portraet-ares-quer.webp" type="image/webp"><img src="../assets/img/portraits/portraet-ares-quer.jpg" width="1400" height="933" alt="Ares mit ausgebreiteten Armen im warmen Abendlicht, lachend"></picture>
+          <figcaption class="pt__cap"><div class="n">Ares — Weite Arme</div><div class="s">85 mm · f/1.4 · 1/200 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p4" data-name="Gabriel" data-pjlb="../assets/img/portraits/portraet-gruen.jpg" data-pjcap="Gabriel — Durchs Blattwerk · 85 mm · f/1.4 · 1/1600 s">
+          <picture><source srcset="../assets/img/portraits/portraet-gruen.webp" type="image/webp"><img src="../assets/img/portraits/portraet-gruen.jpg" width="937" height="1400" alt="Porträt von Gabriel an einem Baumstamm, unscharfe grüne Blätter im Vordergrund"></picture>
+          <figcaption class="pt__cap"><div class="n">Gabriel — Durchs Blattwerk</div><div class="s">85 mm · f/1.4 · 1/1600 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p5" data-name="Gabriel" data-pjlb="../assets/img/portraits/portraet-feld.jpg" data-pjcap="Gabriel — Gegen den Himmel · 85 mm · f/1.4 · 1/2000 s">
+          <picture><source srcset="../assets/img/portraits/portraet-feld.webp" type="image/webp"><img src="../assets/img/portraits/portraet-feld.jpg" width="1700" height="1109" alt="Querformat-Porträt von Gabriel mit dunklen Locken vor hellem Himmel"></picture>
+          <figcaption class="pt__cap"><div class="n">Gabriel — Gegen den Himmel</div><div class="s">85 mm · f/1.4 · 1/2000 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p6" data-name="Paul" data-pjlb="../assets/img/portraits/portraet-himbeere.jpg" data-pjcap="Paul — Himbeere · 85 mm · f/1.4 · 1/1000 s">
+          <picture><source srcset="../assets/img/portraits/portraet-himbeere.webp" type="image/webp"><img src="../assets/img/portraits/portraet-himbeere.jpg" width="933" height="1400" alt="Paul steckt sich eine Himbeere in den Mund und zwinkert"></picture>
+          <figcaption class="pt__cap"><div class="n">Paul — Himbeere</div><div class="s">85 mm · f/1.4 · 1/1000 s</div></figcaption>
+        </figure>
+        <figure class="pt__shot pt__p7 pt__shot--tief" data-name="Robin" data-pjlb="../assets/img/portraits/portraet-cap.jpg" data-pjcap="Robin — Am Straßenrand · 85 mm · f/1.4 · 1/2000 s">
+          <picture><source srcset="../assets/img/portraits/portraet-cap.webp" type="image/webp"><img src="../assets/img/portraits/portraet-cap.jpg" width="935" height="1400" alt="Robin mit roter Cap und Lederjacke neben einem Auto"></picture>
+          <figcaption class="pt__cap"><div class="n">Robin — Am Straßenrand</div><div class="s">85 mm · f/1.4 · 1/2000 s</div></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div style="height:90px"></div>
+  </div>
+</div>
+
+
+<!-- KAPITEL 04 — SONNENAUFGÄNGE -->
+<div class="chapter chapter--dawn" id="kap-sonnenaufgang">
+  <div class="chapter__glow" aria-hidden="true">
+    <i style="left:-14%;top:34%;width:74vw;height:74vw;animation-duration:46s;background:radial-gradient(circle,rgba(255,186,120,.30),rgba(255,186,120,0) 66%)"></i>
+    <i style="left:44%;top:10%;width:58vw;height:58vw;animation-duration:58s;animation-delay:-18s;background:radial-gradient(circle,rgba(198,160,200,.26),rgba(198,160,200,0) 68%)"></i>
+    <i style="left:12%;top:70%;width:64vw;height:64vw;animation-duration:52s;animation-delay:-30s;background:radial-gradient(circle,rgba(120,140,190,.22),rgba(120,140,190,0) 70%)"></i>
+  </div>
+  <div class="chapter__mark">Projekt 04 &nbsp;·&nbsp; Sonnenaufgänge</div>
+  <div class="wrap">
+    <div class="sr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">DONAU · PASSAU</span>
+        <span class="bgl xl" data-speed="0.105">NEBEL</span>
+        <span class="bgl md i1" data-speed="0.110">VIEL ZU FRÜH AUF</span>
+        <span class="bgl lg i2" data-speed="0.115">MORGENS</span>
+        <span class="bgl sm i3" data-speed="0.120">PROJEKT 04</span>
+      </div>
+
+        <figure class="sr__lead" data-pjlb="../assets/img/sonnenaufgang/sa-donau-blau.jpg" data-pjcap="Die Donau, kurz vor sechs · 70 mm · f/9 · 1/125 s · ISO 100">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-donau-blau.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-donau-blau.jpg" width="1700" height="1133" alt="Die Donau im dichten Nebel, blaugrau, Bäume auf einer Landzunge spiegeln sich im stillen Wasser"></picture>
+          <figcaption class="kap__cap"><div class="n">Die Donau, kurz vor sechs</div><div class="s">70 mm · f/9 · 1/125 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__a" data-pjlb="../assets/img/sonnenaufgang/sa-bruecke-nebel.jpg" data-pjcap="Die Brücke verschwindet · 70 mm · f/2.8 · 1/250 s · ISO 100">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-bruecke-nebel.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-bruecke-nebel.jpg" width="1400" height="933" alt="Eine Stahlbrücke, die nach wenigen Metern im Nebel verschwindet"></picture>
+          <figcaption class="kap__cap"><div class="n">Die Brücke verschwindet</div><div class="s">70 mm · f/2.8 · 1/250 s · ISO 100</div></figcaption>
+        </figure>
+
+      <div class="sr__txt">
+        <p class="kicker">Projekt 04 · Landschaft</p>
+        <p>Ich bin für diese Bilder öfter früh aufgestanden, als man mir zutrauen würde. Runter an die Donau, bevor die Sonne über die Brücke kommt — weil dann der Nebel noch auf dem Wasser liegt.</p>
+        <p>Das Licht dreht da innerhalb von Minuten: erst ist alles blaugrau und vollkommen still, dann kippt es ins Goldene und der Nebel fängt an zu leuchten. Dafür lohnt sich das frühe Aufstehen jedes Mal.</p>
+        <p>Eins der Bilder hier ist gar nicht von der Donau — das mit dem Wald im Nebel habe ich aus unserem Badezimmerfenster in Passau gemacht. Das war lange mein Lieblingsbild.</p>
+      </div>
+
+        <figure class="sr__b" data-pjlb="../assets/img/sonnenaufgang/sa-donau-gold.jpg" data-pjcap="Wenn es ins Goldene kippt · 70 mm · f/9 · 1/640 s · ISO 100">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-donau-gold.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-donau-gold.jpg" width="1400" height="933" alt="Die Donau im goldenen Morgennebel, Bäume und Hügel dahinter"></picture>
+          <figcaption class="kap__cap"><div class="n">Wenn es ins Goldene kippt</div><div class="s">70 mm · f/9 · 1/640 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__c" data-pjlb="../assets/img/sonnenaufgang/sa-donau-gaense.jpg" data-pjcap="Gänse im Gegenlicht · 180 mm · f/9 · 1/800 s · ISO 100">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-donau-gaense.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-donau-gaense.jpg" width="933" height="1400" alt="Hochformat der Donau im Morgennebel, eine Reihe Pappeln, Gänse auf dem Wasser"></picture>
+          <figcaption class="kap__cap"><div class="n">Gänse im Gegenlicht</div><div class="s">180 mm · f/9 · 1/800 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__d" data-pjlb="../assets/img/sonnenaufgang/sa-baum-bruecke.jpg" data-pjcap="Der Baum und die Brücke · 70 mm · f/2.8 · 1/1600 s · ISO 100">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-baum-bruecke.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-baum-bruecke.jpg" width="1400" height="933" alt="Silhouette eines Baums vor der Eisenbahnbrücke im Sonnenaufgang"></picture>
+          <figcaption class="kap__cap"><div class="n">Der Baum und die Brücke</div><div class="s">70 mm · f/2.8 · 1/1600 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__e" data-pjlb="../assets/img/sonnenaufgang/sa-sonne-bruecke.jpg" data-pjcap="Die Sonne kommt über · 70 mm · f/5 · 1/3200 s · ISO 100">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-sonne-bruecke.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-sonne-bruecke.jpg" width="1400" height="933" alt="Die Sonne steigt hinter der Brücke auf, warmer Dunst über den Feldern"></picture>
+          <figcaption class="kap__cap"><div class="n">Die Sonne kommt über</div><div class="s">70 mm · f/5 · 1/3200 s · ISO 100</div></figcaption>
+        </figure>
+        <figure class="sr__f" data-pjlb="../assets/img/sonnenaufgang/sa-badezimmer.jpg" data-pjcap="Aus dem Badezimmerfenster — lange mein Lieblingsbild · 55 mm · f/4.5 · 1/8000 s · ISO 200">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-badezimmer.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-badezimmer.jpg" width="1500" height="999" alt="Wald und Büsche im Sonnenaufgang, Nebelschwaden zwischen den Baumreihen, Passau"></picture>
+          <figcaption class="kap__cap"><div class="n">Aus dem Badezimmerfenster — lange mein Lieblingsbild</div><div class="s">55 mm · f/4.5 · 1/8000 s · ISO 200</div></figcaption>
+        </figure>
+    </div>
+  </div>
+</div>
+
+<!-- KAPITEL 05 — TIERE -->
+<div class="chapter chapter--forest" id="kap-tiere">
+  <div class="chapter__mark">Projekt 05 &nbsp;·&nbsp; Tiere</div>
+  <div class="wrap">
+    <div class="tr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">GEDULD</span>
+        <span class="bgl xl" data-speed="0.105">TIERE</span>
+        <span class="bgl md i1" data-speed="0.110">EIN VERSUCH</span>
+        <span class="bgl lg i2" data-speed="0.115">NAH DRAN</span>
+        <span class="bgl sm i3" data-speed="0.120">PROJEKT 05</span>
+      </div>
+
+        <figure class="tr__xl" data-pjlb="../assets/img/tiere/tier-zunge.jpg" data-pjcap="Zunge raus · 332 mm · f/6.3 · 1/800 s · ISO 5000">
+          <picture><source srcset="../assets/img/tiere/tier-zunge.webp" type="image/webp"><img src="../assets/img/tiere/tier-zunge.jpg" width="1800" height="1199" alt="Nahaufnahme einer dreifarbigen Katze im Gras, die Zunge herausgestreckt, dunkelgrüner Hintergrund"></picture>
+          <figcaption class="kap__cap"><div class="n">Zunge raus</div><div class="s">332 mm · f/6.3 · 1/800 s · ISO 5000</div></figcaption>
+        </figure>
+
+      <div class="tr__txt">
+        <p class="kicker">Projekt 05 · Tiere</p>
+        <p>Tiere sind das Gegenteil von Porträts: Man kann nichts absprechen und nichts nochmal machen. Entweder man ist im richtigen Moment da — oder eben nicht.</p>
+        <p>Meistens heißt das: lange auf dem Boden liegen, warten, und dann in einer halben Sekunde entscheiden.</p>
+      </div>
+
+        <figure class="tr__a" data-pjlb="../assets/img/tiere/tier-gelb.jpg" data-pjcap="Gegen das gelbe Feld · 350 mm · f/6.3 · 1/640 s · ISO 640">
+          <picture><source srcset="../assets/img/tiere/tier-gelb.webp" type="image/webp"><img src="../assets/img/tiere/tier-gelb.jpg" width="933" height="1400" alt="Katze liegt auf dem Boden und schaut nach oben, leuchtend gelber Hintergrund"></picture>
+          <figcaption class="kap__cap"><div class="n">Gegen das gelbe Feld</div><div class="s">350 mm · f/6.3 · 1/640 s · ISO 640</div></figcaption>
+        </figure>
+        <figure class="tr__b" data-pjlb="../assets/img/tiere/tier-gaehnen.jpg" data-pjcap="Mitten im Gähnen · 350 mm · f/6.3 · 1/500 s · ISO 200">
+          <picture><source srcset="../assets/img/tiere/tier-gaehnen.webp" type="image/webp"><img src="../assets/img/tiere/tier-gaehnen.jpg" width="933" height="1400" alt="Katze mit weit aufgerissenem Maul vor Himmel und Bergen"></picture>
+          <figcaption class="kap__cap"><div class="n">Mitten im Gähnen</div><div class="s">350 mm · f/6.3 · 1/500 s · ISO 200</div></figcaption>
+        </figure>
+        <figure class="tr__hoch" data-pjlb="../assets/img/tiere/tier-dunkel.jpg" data-pjcap="Kommt direkt auf dich zu · 100 mm · f/5 · 1/800 s · ISO 640">
+          <picture><source srcset="../assets/img/tiere/tier-dunkel.webp" type="image/webp"><img src="../assets/img/tiere/tier-dunkel.jpg" width="1155" height="1800" alt="Katze läuft frontal auf die Kamera zu, dunkle Umgebung, direkter Blick"></picture>
+          <figcaption class="kap__cap"><div class="n">Kommt direkt auf dich zu</div><div class="s">100 mm · f/5 · 1/800 s · ISO 640</div></figcaption>
+        </figure>
+        <figure class="tr__c" data-pjlb="../assets/img/tiere/tier-hund.jpg" data-pjcap="Augen · 180 mm · f/4.5 · 1/2000 s · ISO 5000">
+          <picture><source srcset="../assets/img/tiere/tier-hund.webp" type="image/webp"><img src="../assets/img/tiere/tier-hund.jpg" width="933" height="1400" alt="Nahaufnahme eines braun-weißen Hundes, der direkt in die Kamera schaut"></picture>
+          <figcaption class="kap__cap"><div class="n">Augen</div><div class="s">180 mm · f/4.5 · 1/2000 s · ISO 5000</div></figcaption>
+        </figure>
+        <figure class="tr__d" data-pjlb="../assets/img/tiere/tier-hund-profil.jpg" data-pjcap="Im Profil · 180 mm · f/4.5 · 1/2000 s · ISO 800">
+          <picture><source srcset="../assets/img/tiere/tier-hund-profil.webp" type="image/webp"><img src="../assets/img/tiere/tier-hund-profil.jpg" width="1400" height="933" alt="Derselbe Hund im Profil vor unscharfem Hintergrund"></picture>
+          <figcaption class="kap__cap"><div class="n">Im Profil</div><div class="s">180 mm · f/4.5 · 1/2000 s · ISO 800</div></figcaption>
+        </figure>
+    </div>
+
+    <a class="pj-back" href="#oben" style="margin:80px 0 100px">↑ nach oben</a>
+  </div>
+</div>
+
+
+<!-- KAPITEL 06 — iBee -->
+<div class="chapter chapter--graphit" id="p-ibee">
+  <div class="chapter__mark">Projekt 06 &nbsp;·&nbsp; Design &amp; 3D</div>
+  <div class="wrap">
+    <div class="tr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">PRODUKTENTWURF</span>
+        <span class="bgl xl" data-speed="0.105">iBee</span>
+        <span class="bgl md i1" data-speed="0.110">ENTWORFEN UND GEBAUT</span>
+        <span class="bgl lg i2" data-speed="0.115">BLENDER</span>
+        <span class="bgl sm i3" data-speed="0.120">HOCHSCHULPROJEKT</span>
+      </div>
+
+      <figure class="tr__xl" data-pjlb="../assets/img/design3d/ibee-hell.jpg" data-pjcap="iBee — Produktansicht">
+        <picture><source srcset="../assets/img/design3d/ibee-hell.webp" type="image/webp"><img src="../assets/img/design3d/ibee-hell.jpg" alt="Der iBee-Lautsprecher, schräg stehend auf hellem Grund"></picture>
+        <figcaption class="kap__cap"><div class="n">iBee</div><div class="s">Produktansicht</div></figcaption>
+      </figure>
+
+      <div class="tr__txt">
+        <p class="kicker">Projekt 06 · Design &amp; 3D</p>
+        <p>Die Aufgabe war, ein Gerät zu entwerfen, das es bei Apple so noch nicht gibt. Herausgekommen ist <em>iBee</em> — ein Lautsprecher mit rundem Display und eigenem Speicher, irgendwo zwischen HomePod und Bildschirm.</p>
+        <p>Vom ersten Entwurf bis zum Rendering habe ich alles selbst gemacht: modelliert, texturiert, ausgeleuchtet und die Oberfläche gestaltet.</p>
+      </div>
+
+      <figure class="tr__a" data-pjlb="../assets/img/design3d/ibee-roentgen.jpg" data-pjcap="Schnittansicht — Treiber und Kammer">
+        <picture><source srcset="../assets/img/design3d/ibee-roentgen.webp" type="image/webp"><img src="../assets/img/design3d/ibee-roentgen.jpg" alt="Durchsichtige Schnittansicht des Lautsprechers mit drei Treibern"></picture>
+        <figcaption class="kap__cap"><div class="n">Der Schnitt</div><div class="s">Treiber und Kammer</div></figcaption>
+      </figure>
+      <figure class="tr__b" data-pjlb="../assets/img/design3d/ibee-chip.jpg" data-pjcap="Innenansicht mit Chip">
+        <picture><source srcset="../assets/img/design3d/ibee-chip.webp" type="image/webp"><img src="../assets/img/design3d/ibee-chip.jpg" alt="Aufgeschnittene Ansicht mit sichtbarem Chip in der Mitte"></picture>
+        <figcaption class="kap__cap"><div class="n">Das Innere</div><div class="s">Antrieb und Chip</div></figcaption>
+      </figure>
+      <figure class="tr__c" data-pjlb="../assets/img/design3d/ibee-gewebe.jpg" data-pjcap="Das Gewebe aus der Nähe">
+        <picture><source srcset="../assets/img/design3d/ibee-gewebe.webp" type="image/webp"><img src="../assets/img/design3d/ibee-gewebe.jpg" alt="Nahaufnahme des Lautsprechergewebes"></picture>
+        <figcaption class="kap__cap"><div class="n">Das Gewebe</div><div class="s">Detailrendering</div></figcaption>
+      </figure>
+      <figure class="tr__d" data-pjlb="../assets/img/design3d/ibee-dunkel.jpg" data-pjcap="iBee im Dunkeln">
+        <picture><source srcset="../assets/img/design3d/ibee-dunkel.webp" type="image/webp"><img src="../assets/img/design3d/ibee-dunkel.jpg" alt="Der Lautsprecher auf schwarzem Grund, nur die Gewebekante leuchtet"></picture>
+        <figcaption class="kap__cap"><div class="n">Im Dunkeln</div><div class="s">Produktansicht</div></figcaption>
+      </figure>
+      <figure class="tr__e" data-pjlb="../assets/img/design3d/ibee-produkte.jpg" data-pjcap="Drei Zustände der Oberfläche">
+        <picture><source srcset="../assets/img/design3d/ibee-produkte.webp" type="image/webp"><img src="../assets/img/design3d/ibee-produkte.jpg" alt="Drei iBee-Geräte nebeneinander mit unterschiedlichen Anzeigen"></picture>
+        <figcaption class="kap__cap"><div class="n">Drei Zustände</div><div class="s">Oberfläche</div></figcaption>
+      </figure>
+      <figure class="tr__f" data-pjlb="../assets/img/design3d/ibee-tv.jpg" data-pjcap="iBee am Fernseher">
+        <picture><source srcset="../assets/img/design3d/ibee-tv.webp" type="image/webp"><img src="../assets/img/design3d/ibee-tv.jpg" alt="iBee vor einem Fernseher, auf den er ein Bild überträgt"></picture>
+        <figcaption class="kap__cap"><div class="n">Am Fernseher</div><div class="s">Bild weitergeben</div></figcaption>
+      </figure>
+      <figure class="tr__g" data-pjlb="../assets/img/design3d/ibee-blender.jpg" data-pjcap="Der Aufbau in Blender">
+        <picture><source srcset="../assets/img/design3d/ibee-blender.webp" type="image/webp"><img src="../assets/img/design3d/ibee-blender.jpg" alt="Bildschirmfoto der 3D-Software mit dem Lautsprechermodell"></picture>
+        <figcaption class="kap__cap"><div class="n">Im Aufbau</div><div class="s">Blender</div></figcaption>
+      </figure>
+    </div>
+    <a class="pj-back" href="#oben" style="margin:44px 0 80px">↑ nach oben</a>
+  </div>
+</div>
+
+<!-- KAPITEL 07 — Politische Plakate -->
+<div class="chapter chapter--tinte" id="p-plakate">
+  <div class="chapter__mark">Projekt 07 &nbsp;·&nbsp; Design</div>
+  <div class="wrap">
+    <div class="sr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">PLAKAT · PRINT</span>
+        <span class="bgl xl" data-speed="0.105">HALTUNG</span>
+        <span class="bgl md i1" data-speed="0.110">DREI ENTWÜRFE</span>
+        <span class="bgl lg i2" data-speed="0.115">LAUT WERDEN</span>
+        <span class="bgl sm i3" data-speed="0.120">HOCHSCHULPROJEKT</span>
+      </div>
+
+      <figure class="sr__a" data-pjlb="../assets/img/design3d/plakat-rechts.jpg" data-pjcap="Rechts ist nie ein Weg">
+        <picture><source srcset="../assets/img/design3d/plakat-rechts.webp" type="image/webp"><img src="../assets/img/design3d/plakat-rechts.jpg" alt="Plakat mit räumlichen Buchstaben in einem Betonhof: Rechts ist nie ein Weg"></picture>
+        <figcaption class="kap__cap"><div class="n">Rechts ist nie ein Weg</div><div class="s">3D-Typografie</div></figcaption>
+      </figure>
+
+      <div class="sr__txt">
+        <p class="kicker">Projekt 07 · Design</p>
+        <p>Eine Plakatserie zu politischer Haltung — entstanden im Studium, gedruckt und ausgestellt.</p>
+        <p>Jedes Plakat sucht eine andere Bildsprache für dieselbe Sache: einmal räumliche Buchstaben, die aus dem Boden wachsen, einmal eine Schrift, die sich verzerrt und kaum noch halten lässt, einmal klare Typografie über einer Seifenblase.</p>
+        <p>Gemeinsam ist ihnen, dass die Schrift selbst das Bild ist.</p>
+      </div>
+
+      <figure class="sr__b" data-pjlb="../assets/img/design3d/plakat-nazis.jpg" data-pjcap="Kein Platz für Nazis">
+        <picture><source srcset="../assets/img/design3d/plakat-nazis.webp" type="image/webp"><img src="../assets/img/design3d/plakat-nazis.jpg" alt="Plakat mit stark verzerrter, farbiger Schrift: Kein Platz für Nazis"></picture>
+        <figcaption class="kap__cap"><div class="n">Kein Platz für Nazis</div><div class="s">verzerrte Schrift</div></figcaption>
+      </figure>
+      <figure class="sr__c" data-pjlb="../assets/img/design3d/plakat-bubble.jpg" data-pjcap="Democracy begins where your bubble ends">
+        <picture><source srcset="../assets/img/design3d/plakat-bubble.webp" type="image/webp"><img src="../assets/img/design3d/plakat-bubble.jpg" alt="Plakat mit fetter Schrift über gelbgrünen Seifenblasen"></picture>
+        <figcaption class="kap__cap"><div class="n">Where your bubble ends</div><div class="s">Typografie über Blasen</div></figcaption>
+      </figure>
+      <figure class="sr__f" data-pjlb="../assets/img/design3d/plakat-bubble-3d.jpg" data-pjcap="Die Blasen für das Plakat, modelliert in Blender">
+        <picture><source srcset="../assets/img/design3d/plakat-bubble-3d.webp" type="image/webp"><img src="../assets/img/design3d/plakat-bubble-3d.jpg" alt="Bildschirmfoto der 3D-Software mit den modellierten Blasen für das Plakat"></picture>
+        <figcaption class="kap__cap"><div class="n">Die Blasen entstehen</div><div class="s">3D-Modell zum Plakat</div></figcaption>
+      </figure>
+      <figure class="sr__d" data-pjlb="../assets/img/design3d/plakat-syntheca.jpg" data-pjcap="Syntheca — Druckversuch">
+        <picture><source srcset="../assets/img/design3d/plakat-syntheca.webp" type="image/webp"><img src="../assets/img/design3d/plakat-syntheca.jpg" alt="Ein gedruckter Aufkleber mit einer antiken Büste und dem Schriftzug Syntheca"></picture>
+        <figcaption class="kap__cap"><div class="n">Syntheca</div><div class="s">Druckversuch</div></figcaption>
+      </figure>
+      <figure class="sr__e--halb" data-pjlb="../assets/img/design3d/plakat-ausstellung.jpg" data-pjcap="Die Reihe in der Ausstellung">
+        <picture><source srcset="../assets/img/design3d/plakat-ausstellung.webp" type="image/webp"><img src="../assets/img/design3d/plakat-ausstellung.jpg" alt="Die gedruckten Plakate nebeneinander an einer Ausstellungswand"></picture>
+        <figcaption class="kap__cap"><div class="n">In der Ausstellung</div><div class="s">gedruckt und gehängt</div></figcaption>
+      </figure>
+    </div>
+    <a class="pj-back" href="#oben" style="margin:44px 0 80px">↑ nach oben</a>
+  </div>
+</div>
+
+<!-- KAPITEL 08b — Flyer -->
+<div class="chapter chapter--tinte" id="p-flyer">
+  <div class="chapter__mark">Projekt 08 &nbsp;·&nbsp; Print</div>
+  <div class="wrap">
+    <div class="tr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">PRINT · LAYOUT</span>
+        <span class="bgl xl" data-speed="0.105">FLYER</span>
+        <span class="bgl md i1" data-speed="0.110">TYPOGRAFIE UND BILD</span>
+        <span class="bgl lg i2" data-speed="0.115">AUS EINER HAND</span>
+        <span class="bgl sm i3" data-speed="0.120">ADOBE INDESIGN</span>
+      </div>
+      <figure class="tr__hoch" data-pjlb="../assets/img/design/flyer-full.jpg" data-pjcap="Der fertige Flyer">
+        <picture><source srcset="../assets/img/design/flyer-full.webp" type="image/webp"><img src="../assets/img/design/flyer-full.jpg" alt="Der fertig gestaltete Flyer"></picture>
+        <figcaption class="kap__cap"><div class="n">Der fertige Flyer</div><div class="s">Print</div></figcaption>
+      </figure>
+      <div class="tr__txt">
+        <p class="kicker">Projekt 08 · Print</p>
+        <p>Ein gestalteter Flyer als Beispielarbeit — Typografie, Layout und Bildauswahl komplett selbst gemacht.</p>
+        <p><a class="btnlink" href="../assets/img/design/flyer-fertig.pdf" target="_blank" rel="noopener">⤓ Flyer als PDF</a></p>
+      </div>
+    </div>
+    <a class="pj-back" href="#oben" style="margin:44px 0 80px">↑ nach oben</a>
+  </div>
+</div>
+
+<!-- KAPITEL 08 — Therme -->
+<div class="chapter chapter--wasser" id="p-therme">
+  <div class="chapter__mark">Projekt 08 &nbsp;·&nbsp; 3D &amp; Animation</div>
+  <div class="wrap">
+    <div class="tr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">BAD FÜSSING</span>
+        <span class="bgl xl" data-speed="0.105">UNTER WASSER</span>
+        <span class="bgl md i1" data-speed="0.110">AUF DIE BECKENWAND</span>
+        <span class="bgl lg i2" data-speed="0.115">FISCHE</span>
+        <span class="bgl sm i3" data-speed="0.120">2 MIN 45 · BLENDER</span>
+      </div>
+
+      <div class="tr__xl kapvideo">
+        <video controls muted loop playsinline preload="none" poster="../assets/video/therme-fische-poster.jpg">
+          <source src="../assets/video/therme-fische.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Die Animation, wie sie in der Therme läuft — 2 min 45</div>
+      </div>
+
+      <div class="tr__txt">
+        <p class="kicker">Projekt 08 · 3D &amp; Animation</p>
+        <p>Für die Therme in Bad Füssing sollte eine Unterwasserwelt entstehen, die auf eine Beckenwand projiziert wird — also etwas, das man nebenbei anschaut, während man im Wasser liegt.</p>
+        <p>Alles in Blender gebaut: Fische, Pflanzen, Korallen, das Licht, das von oben durchs Wasser fällt. Es darf nichts passieren, was aufschreckt — die Bewegung soll ruhig bleiben und nie enden.</p>
+      </div>
+
+      <figure class="tr__c" data-pjlb="../assets/img/design3d/therme-arbeitsplatz.jpg" data-pjcap="Am Schnittplatz">
+        <picture><source srcset="../assets/img/design3d/therme-arbeitsplatz.webp" type="image/webp"><img src="../assets/img/design3d/therme-arbeitsplatz.jpg" alt="Arbeitsplatz mit drei Bildschirmen, auf denen die Unterwasserszene bearbeitet wird"></picture>
+        <figcaption class="kap__cap"><div class="n">Am Arbeitsplatz</div><div class="s">drei Bildschirme</div></figcaption>
+      </figure>
+      <figure class="tr__d" data-pjlb="../assets/video/therme-fische-poster.jpg" data-pjcap="Standbild aus der Animation">
+        <picture><source srcset="../assets/video/therme-fische-poster.webp" type="image/webp"><img src="../assets/video/therme-fische-poster.jpg" alt="Standbild der Unterwasseranimation mit Fischen, Seegras und Korallen"></picture>
+        <figcaption class="kap__cap"><div class="n">Standbild</div><div class="s">aus der Animation</div></figcaption>
+      </figure>
+    </div>
+    <a class="pj-back" href="#oben" style="margin:44px 0 80px">↑ nach oben</a>
+  </div>
+</div>
+
+<!-- KAPITEL 09 — Video & Drohne (Material folgt) -->
+<div class="chapter chapter--film" id="p-video">
+  <div class="chapter__mark">Projekt 09 &nbsp;·&nbsp; Video &amp; Drohne</div>
+  <div class="wrap">
+    <div class="tr">
+      <div class="pb__bg" aria-hidden="true">
+        <span class="bgl sm" data-speed="0.100">DOKU · IMAGE · SPOT</span>
+        <span class="bgl xl" data-speed="0.105">BEWEGUNG</span>
+        <span class="bgl md i1" data-speed="0.110">MATERIAL FOLGT</span>
+        <span class="bgl lg i2" data-speed="0.115">FPV</span>
+        <span class="bgl sm i3" data-speed="0.120">IN ARBEIT</span>
+      </div>
+      <div class="tr__txt">
+        <p class="kicker">Projekt 09 · Video &amp; Drohne</p>
+        <p>Hier kommen die Filmprojekte rein: die Doku aus dem Graphitbergwerk Kropfmühl, das Personenporträt über einen Pfarrer, der Imagefilm mit der ARRI Alexa Mini, der Werbespot für den Studiengang — und die Drohnenaufnahmen.</p>
+        <p>Das Material dafür liefert Max noch nach.</p>
+      </div>
+      <div class="tr__a warten"><span>Doku · Unter Tage</span></div>
+      <div class="tr__b warten"><span>Personenporträt</span></div>
+      <div class="tr__c warten"><span>Imagefilm · ARRI</span></div>
+      <div class="tr__d warten"><span>Drohne · FPV</span></div>
+    </div>
+    <a class="pj-back" href="#oben" style="margin:44px 0 90px">↑ nach oben</a>
+  </div>
+</div>
+</main>
+
+<!-- PROJEKT-LIGHTBOX (neu) -->
+<div class="pjlb" id="pjlb">
+  <span class="pjlb__close" id="pjlbClose">✕</span>
+  <img id="pjlbImg" alt="">
+  <div class="pjlb__cap" id="pjlbCap"></div>
+</div>
+
+<script>
+/* Karten einblenden */
+(function(){
+  var k=[].slice.call(document.querySelectorAll('.proj'));
+  if(!k.length) return;
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){k.forEach(function(x){x.classList.add('is-in');});return;}
+  function pruef(){var vh=innerHeight,offen=0;
+    k.forEach(function(x){if(x.classList.contains('is-in'))return;
+      var r=x.getBoundingClientRect();
+      if(r.height&&r.top<vh*0.95&&r.bottom>-50)x.classList.add('is-in');else offen++;});
+    return offen;}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target);}});},{threshold:.06});
+    k.forEach(function(x){io.observe(x);});
+  }
+  addEventListener('scroll',pruef,{passive:true});addEventListener('resize',pruef);
+  var t=0,iv=setInterval(function(){t++;if(pruef()===0||t>20){clearInterval(iv);
+    if(t>20)k.forEach(function(x){x.classList.add('is-in');});}},300);
+  pruef();
+})();
+
+/* Reihen wandern beim Scrollen seitlich; bleiben dabei von Hand wischbar */
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  var reihen=[].slice.call(document.querySelectorAll('.reihe'));
+  if(!reihen.length) return;
+  function schieben(){
+    var vh=innerHeight;
+    reihen.forEach(function(r){
+      var t=r.querySelector('.track'), w=r.closest('.welt');
+      if(!t||!w) return;
+      var ueber=t.scrollWidth-r.clientWidth;
+      var rect=w.getBoundingClientRect();
+      /* am Handy nicht mitschieben: das stört das Wischen */
+      if(innerWidth<700) ueber=0;
+      if(rect.bottom<-200||rect.top>vh+200) return;
+      var p=(vh-rect.top)/(rect.height+vh*0.45);
+      p=Math.min(1,Math.max(0,p));
+      if(ueber>4) r.scrollLeft=p*ueber;
+      var wort=w.querySelector('.wort');
+      if(wort){
+        var ri=parseFloat(wort.getAttribute('data-richtung'))||1;
+        wort.style.transform='translateY(-50%) translateX('+((p-0.5)*150*ri).toFixed(1)+'px)';
+      }
+    });
+  }
+  var tick=false;
+  addEventListener('scroll',function(){ if(tick)return; tick=true;
+    requestAnimationFrame(function(){schieben();tick=false;}); },{passive:true});
+  addEventListener('resize',schieben); addEventListener('load',schieben); schieben();
+})();
+
+/* Vollbild */
+(function(){
+  var b=document.getElementById('vollbild');
+  if(!b) return;
+  /* iOS erlaubt Vollbild nur für Videos, nicht für die Seite — dort Knopf ausblenden */
+  var kann=document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen;
+  if(!kann){ b.hidden=true; return; }
+  b.addEventListener('click',function(){
+    if(!document.fullscreenElement){ if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen(); }
+    else if(document.exitFullscreen) document.exitFullscreen();
+  });
+  document.addEventListener('fullscreenchange',function(){ b.textContent=document.fullscreenElement?'\u2715':'\u26F6'; });
+})();</script>
+<script>/* Projekt-Lightbox — eigenständig, greift nicht in die bestehende Logik ein */
+(function(){
+  var box=document.getElementById('pjlb');
+  if(!box) return;
+  var img=document.getElementById('pjlbImg'), cap=document.getElementById('pjlbCap');
+  function open(src,text,rot){ img.src=src; cap.textContent=text||''; img.classList.toggle('is-rot',!!rot); box.classList.add('open'); }
+  function close(){ box.classList.remove('open'); img.src=''; }
+  document.querySelectorAll('[data-pjlb]').forEach(function(el){
+    el.addEventListener('click',function(){ open(el.getAttribute('data-pjlb'),el.getAttribute('data-pjcap'),el.getAttribute('data-pjrot')); });
+  });
+  document.getElementById('pjlbClose').addEventListener('click',close);
+  box.addEventListener('click',function(e){ if(e.target===box) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+
+  /* Hintergrund-Typo: jede Zeile scrollt in eigenem Tempo */
+  var words=[].slice.call(document.querySelectorAll('.pb__bg .bgl'));
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function moveWords(){
+    if(reduce||!words.length) return;
+    var vh=window.innerHeight;
+    words.forEach(function(w){
+      var blk=w.closest('.pb__bg').parentElement; if(!blk) return;
+      var r=blk.getBoundingClientRect();
+      if(!r.height||r.bottom<-400||r.top>vh+400) return;
+      var center=r.top+r.height/2-vh/2;
+      var s=parseFloat(w.getAttribute('data-speed'))||0.12;
+      w.style.transform='translate3d(0,'+(center*s).toFixed(1)+'px,0)';
+    });
+  }
+  var tick=false;
+  window.addEventListener('scroll',function(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){ moveWords(); tick=false; });
+  },{passive:true});
+  /* rote Lichtspuren: zufällig, nur in sichtbaren Blöcken */
+  var fxLayers=[].slice.call(document.querySelectorAll('.pb__fx'));
+  function sichtbar(l){ var r=l.getBoundingClientRect(); return r.height>0&&r.bottom>0&&r.top<window.innerHeight; }
+  function streak(layer){
+    var w=layer.clientWidth,h=layer.clientHeight;
+    if(!w||!h||layer.childElementCount>5) return;
+    var el=document.createElement('span'); el.className='streak';
+    /* Tempo: 0 = gemächlich, 1 = zischt vorbei */
+    var tempo=Math.random();
+    var dauer=Math.max(150,1500-tempo*1260+(Math.random()*240-120));
+    /* Dicke unabhängig gewürfelt, dünn ist häufig, richtig fett selten */
+    var d=Math.random();
+    var dick=d<0.30?1:d<0.54?2:d<0.72?3:d<0.84?4:d<0.93?6:8;
+    var len=70+Math.random()*Math.min(520,w*0.5);
+    var hell=0.55+Math.random()*0.45;
+    var rtl=Math.random()<0.35;
+    el.style.width=len+'px'; el.style.height=dick+'px';
+    el.style.borderRadius=dick+'px';
+    el.style.top=(Math.random()*h)+'px';
+    el.style.left=(rtl?w:-len)+'px';
+    el.style.boxShadow='0 0 '+(7+dick*4)+'px rgba(247,7,2,'+Math.min(0.6,0.26+dick*0.06).toFixed(2)+')';
+    layer.appendChild(el);
+    var weg=(w+len)*(rtl?-1:1);
+    /* schnelle Streifen ziehen straffer durch, langsame schweben eher */
+    var kurve=tempo>0.6?'cubic-bezier(.1,.75,.25,1)':'cubic-bezier(.4,.15,.5,.9)';
+    var a=el.animate([
+      {transform:'translateX(0)',opacity:0},
+      {opacity:hell,offset:0.18},
+      {opacity:hell,offset:0.7},
+      {transform:'translateX('+weg+'px)',opacity:0}
+    ],{duration:dauer,easing:kurve});
+    a.onfinish=function(){ el.remove(); };
+    setTimeout(function(){ if(el.parentNode) el.remove(); },dauer+1600);
+  }
+  function feuern(){
+    if(!reduce&&!document.hidden){
+      var da=fxLayers.filter(sichtbar);
+      if(da.length){
+        streak(da[Math.floor(Math.random()*da.length)]);
+        if(Math.random()<0.3) setTimeout(function(){
+          var d2=fxLayers.filter(sichtbar);
+          if(d2.length) streak(d2[Math.floor(Math.random()*d2.length)]);
+        },90+Math.random()*170);
+      }
+    }
+    setTimeout(feuern,520+Math.random()*1900);
+  }
+  if(fxLayers.length) setTimeout(feuern,800);
+
+  /* Porträts blenden beim Reinscrollen einzeln ein.
+     Mehrfach abgesichert: ein Bild darf unter keinen Umständen unsichtbar bleiben. */
+  var ptStream=document.querySelector('.pt__stream');
+  var ptShots=ptStream?[].slice.call(ptStream.querySelectorAll('.pt__shot')):[];
+  if(ptStream&&ptShots.length&&!reduce){
+    ptStream.classList.add('js-reveal');
+    var ptCheck=function(){
+      var vh=window.innerHeight, offen=0;
+      ptShots.forEach(function(f){
+        if(f.classList.contains('is-in')) return;
+        var r=f.getBoundingClientRect();
+        if(r.height&&r.top<vh*0.92&&r.bottom>0) f.classList.add('is-in'); else offen++;
+      });
+      return offen;
+    };
+    // 1) bevorzugt der Observer
+    if('IntersectionObserver' in window){
+      var ptIO=new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); ptIO.unobserve(e.target); } });
+      },{threshold:0.15});
+      ptShots.forEach(function(f){ ptIO.observe(f); });
+    }
+    // 2) zusätzlich bei jedem Scrollen
+    window.addEventListener('scroll',ptCheck,{passive:true});
+    window.addEventListener('resize',ptCheck);
+    // 3) Notnagel: falls beides nicht greift, nach 6 s alles zeigen
+    var ptTicks=0, ptTimer=setInterval(function(){
+      ptTicks++;
+      if(ptCheck()===0||ptTicks>20){ clearInterval(ptTimer);
+        if(ptTicks>20) ptShots.forEach(function(f){ f.classList.add('is-in'); });
+      }
+    },300);
+    ptCheck();
+  }
+
+  /* Die Überschrift links zeigt den Namen der Person, die gerade daneben steht */
+  var ptTitel=document.getElementById('ptName');
+  if(ptTitel&&ptShots.length){
+    var ptAktuell=ptTitel.textContent.trim(), ptWartend=null, ptSwapTimer=null;
+    var ptNamen=function(){
+      if(!ptTitel.getBoundingClientRect().height) return;
+      /* Bezug ist die Bildschirmmitte, nicht die Titelzeile: die klebende Spalte
+         steht am Ende des Bereichs still, sonst käme das letzte Bild nie dran */
+      var mitte=window.innerHeight/2, beste=null, kleinste=Infinity;
+      ptShots.forEach(function(f){
+        var r=f.getBoundingClientRect(); if(!r.height) return;
+        /* Abstand von Bildmitte zu Titelmitte — so gewinnt bei zwei Bildern
+           nebeneinander mal das linke, mal das rechte, statt immer das erste */
+        var d=Math.abs((r.top+r.bottom)/2-mitte);
+        if(d<kleinste){ kleinste=d; beste=f; }
+      });
+      /* am Seitenende kann kein Bild mehr nachrücken -> letztes gewinnt */
+      var restScroll=document.documentElement.scrollHeight-window.innerHeight-window.pageYOffset;
+      if(restScroll<40){ var l=ptShots[ptShots.length-1]; if(l.getBoundingClientRect().height) beste=l; }
+      var name=beste&&beste.getAttribute('data-name');
+      if(!name||name===ptAktuell||name===ptWartend) return;
+      ptAktuell=name; ptWartend=name;
+      ptTitel.classList.add('wechselt');
+      clearTimeout(ptSwapTimer);
+      ptSwapTimer=setTimeout(function(){
+        ptTitel.textContent=ptWartend; ptTitel.classList.remove('wechselt'); ptWartend=null;
+      },260);
+    };
+    window.addEventListener('scroll',ptNamen,{passive:true});
+    window.addEventListener('resize',ptNamen);
+    ptNamen();
+  }
+
+  /* Karten, die zu einem bestimmten Kapitel springen sollen */
+  document.querySelectorAll('[data-scroll]').forEach(function(el){
+    el.addEventListener('click',function(){
+      var ziel=document.querySelector(el.getAttribute('data-scroll'));
+      if(ziel) setTimeout(function(){ ziel.scrollIntoView({behavior:'smooth',block:'start'}); },520);
+    });
+  });
+
+  window.addEventListener('resize',moveWords);
+  window.addEventListener('load',moveWords);
+  /* nach einem Ansichtswechsel neu berechnen (Views sind vorher display:none) */
+  document.querySelectorAll('[data-go]').forEach(function(el){
+    el.addEventListener('click',function(){ setTimeout(moveWords,420); });
+  });
+  moveWords();
+})();
+</script>
+</body>
+</html>
