@@ -5,6 +5,50 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 13.09.2026 — spät nachts (eigenes Drohnenkapitel)
+
+**Die Seite hat jetzt elf Kapitel und keinen einzigen Platzhalter mehr.**
+
+Neu: **Projekt 10 · Drohne & FPV** (`#p-drohne`), Farbwelt „Himmel" `#101625`. Hinten
+angehängt, damit nur ein Farbverlauf zu setzen war. Enthält drei Clips:
+
+| Clip | Original | auf der Seite |
+|---|---|---|
+| Papierflieger (2:23) | 1930 MB | **47,5 MB** (CRF 30, mit Ton) |
+| Winter/Timeline (0:33) | 449 MB | 6,1 MB (stumm) |
+| Autos, vordere Hälfte (1:43) | 2801 MB | 21,7 MB (stumm) |
+
+Papierflieger brauchte CRF 30, weil er bei 28 auf 63 MB kam. Autos wurde auf Max' Wunsch
+gekürzt und dafür **neu aus dem Original** gerechnet; die Langfassung `fpv-autos.mp4`
+(44,6 MB) ist gelöscht, sie war nirgends eingebunden.
+
+Karte 02.04 heißt jetzt „Drohne & FPV", hat ein echtes Bild und springt auf `#p-drohne`.
+
+**Die elf beigelegten Bilder wurden bewusst nicht verwendet** — Produktfotos aus
+Herstellershops, KI-Bilder, schlechte Freisteller. Alle Standbilder kommen stattdessen aus
+Max' eigenem Material. Begründung in `02-vorgeschichte.md`, Abschnitt 12. Max ist informiert.
+
+Geprüft: CSS 404/404, div 309/309, video 8/8, a 25/25, keine doppelten IDs, keine doppelten
+Kartennummern, alle Anker lösen auf, alle 123 Asset-Verweise vorhanden, null `warten`-Kacheln.
+Bei 1400 px stehen die drei Clips im Zickzack (687×408), am Handy gestapelt, kein Querscrollen.
+Hintergrundzeilen im neuen Kapitel: 15 px Luft. Farbkette geprüft — der neue Verlauf stimmt.
+
+### Zwei ältere Fehler gefunden, bewusst nicht repariert
+
+Beide stammen **nicht** aus dieser Sitzung und wurden Max gemeldet:
+
+1. **`p-flyer` hat den falschen Farbverlauf.** Es teilt sich die Klasse `chapter--tinte` mit
+   `p-plakate`, blendet deshalb von Graphit ein, obwohl davor schon Tinte liegt — schwacher
+   dunkler Streifen am Kapitelanfang. Fix wäre eine eigene Klasse mit
+   `linear-gradient(to bottom,#141013 …)`.
+2. **Zwei Kapitel tragen „Projekt 08"** (Flyer und Therme), und die Zählung endet bei 10,
+   obwohl es elf Kapitel sind.
+
+**Größe:** `assets/video` liegt bei 279 MB. Größte Datei ist jetzt `fpv-papierflieger.mp4`
+mit 47,5 MB. `showreel.mp4` (36,7 MB) wird weiterhin von keiner Seite benutzt.
+
+---
+
 ## Stand vom 13.09.2026 — nachts (Imagefilm drin, vier Videos auf Halde)
 
 **Kapitel 09 hat jetzt vier Filme.** Dazu liegen vier weitere Videos komprimiert bereit, die

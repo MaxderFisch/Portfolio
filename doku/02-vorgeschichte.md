@@ -506,3 +506,82 @@ GitHubs Warnschwelle von 50 MB. Bei 4K/50p über 2:44 ist das die teuerste Datei
 → **Achtung für später:** Max sagt, es kommen **noch mehr FPV-Aufnahmen**. Bei rund 40 MB pro
 Clip wächst das Repo schnell. Wenn es viele werden, sollte man mit ihm über kürzere Ausschnitte
 oder einen Zusammenschnitt reden, statt jeden Clip vollständig abzulegen.
+
+---
+
+## 12. Eigenes Kapitel für Drohne & FPV (13.09.2026)
+
+Max lieferte den Film **„Papierflieger"** nach und bat darum, aus den FPV-Aufnahmen einen
+eigenen Bereich zu bauen. Dazu legte er einen Ordner mit elf Bildern bei, aus denen ich die
+besten auswählen sollte.
+
+### Die beigelegten Bilder wurden bewusst NICHT verwendet
+
+**Keines der elf Bilder stammt von Max.** Beim Durchsehen:
+
+- **Produktfotos aus Herstellershops** — die Dateinamen tragen noch die Artikelnummern
+  (`nazgul-evoque-f5-v3-frame-kit-preorder-7194380.webp`, `Pavo20_Pro_O4_Pro_1080x.webp`),
+  dazu DJI-Goggles und O4 Air Unit
+- **zwei KI-Bilder**, erkennbar an `Gemini_Generated_Image_…` — darunter die RadioMaster-Fernsteuerung
+- **zwei schlecht freigestellte PNGs** mit sichtbaren weißen und grünen Streifen im Bild
+
+→ **Nicht eingebaut, und zwar aus drei Gründen:** fremde Produktfotos auf einer
+Bewerbungsseite sind rechtlich heikel; KI-Bilder in einem Portfolio, das eigene Arbeit zeigen
+soll, können bei einem Medientechnik-Betrieb genau falsch ankommen; und die freigestellten
+Bilder sind handwerklich schlecht.
+**Stattdessen:** Alle Standbilder kommen aus Max' eigenem Filmmaterial. Die Drohnentypen
+werden im Text genannt — zu schreiben, womit man fliegt, ist unproblematisch.
+→ **Diese Entscheidung wurde Max offen mitgeteilt.** Wenn er die Produktbilder trotzdem will,
+ist das seine Sache, aber es soll bewusst passieren.
+
+### Die beiden Drohnen
+
+Aus den Dateinamen eindeutig, deshalb nicht geraten:
+**iFlight Nazgul Evoque F5** (die große, für schnelle Verfolgungen) und
+**BetaFPV Pavo20 Pro** (die kleine, für enge Stellen). Max' Diktat sagte „Airblade Nazgul,
+die Evoke da" — gemeint war die Nazgul Evoque.
+
+### Der Film „Papierflieger"
+
+Flüge durch den Wald; am Ende faltet jemand aus einem Hinweisblatt einen Papierflieger. Auf
+dem Blatt steht sinngemäß, dass der Betrieb von Drohnen im Nationalpark untersagt ist.
+Der Film ist also ein kleines Statement, keine reine Aneinanderreihung von Flügen.
+
+### Kompression
+
+| Clip | Original | fertig | |
+|---|---|---|---|
+| Papierflieger (2:23) | 1930 MB | **47,5 MB** | CRF 30, Ton bleibt (−19,8 dB) |
+| Winter/Timeline (0:33) | 449 MB | 6,1 MB | stumm |
+| Autos, **vordere Hälfte** (1:43) | 2801 MB | **21,7 MB** | stumm |
+
+**Papierflieger brauchte CRF 30 statt 28.** Bei 28 kam er auf **63 MB** und lag damit über
+GitHubs 50-MB-Warnschwelle — 4K/60p durch dichten Wald ist mit das teuerste Material überhaupt.
+
+**Autos wurde gekürzt**, weil Max es so wollte („die Hälfte hinten weglöschen"). Gekürzt wurde
+**neu aus dem Original**, nicht aus der fertigen Fassung geschnitten — sonst hätte es einen
+zweiten Kompressionsdurchlauf gegeben. Die alte Langfassung `fpv-autos.mp4` (44,6 MB) wurde
+entfernt; sie war von keiner Seite eingebunden.
+
+### Das neue Kapitel
+
+`#p-drohne`, **Projekt 10**, Farbwelt „Himmel" (`#101625`, kaltes Indigo) — die erste Farbe im
+Projekt, die ins Blaue geht, damit sie sich vom Filmschwarz davor absetzt.
+
+**Sicher eingefügt:** Das Kapitel hängt **ganz hinten**. Damit war nur *ein* Verlauf zu setzen
+(aus `#121212`, dem Filmschwarz davor) und kein Nachbar zu reparieren — genau der Grund,
+warum Anhängen einfacher ist als Einschieben (siehe `05-fallen.md`, verkettete Übergänge).
+
+Die Karte 02.04 zeigt jetzt auf `#p-drohne` statt auf `#p-video` und hat ein echtes Bild.
+Damit gibt es **keinen einzigen `warten`-Platzhalter mehr** auf der Seite.
+
+### Dabei gefunden, nicht angefasst
+
+Beim Prüfen der Farbkette fiel ein **älterer** Fehler auf: `p-flyer` benutzt dieselbe Klasse
+`chapter--tinte` wie `p-plakate`. Sein Verlauf blendet deshalb von Graphit `#0b0c0e` ein,
+obwohl davor schon Tinte `#141013` liegt — ein schwacher dunkler Streifen am Kapitelanfang.
+Stammt nicht aus dieser Sitzung. **Nicht repariert, weil nicht beauftragt; Max wurde informiert.**
+Behebung wäre eine eigene Klasse für `p-flyer` mit `linear-gradient(to bottom,#141013 …)`.
+
+Ebenfalls weiterhin offen: **zwei Kapitel tragen „Projekt 08"** (Flyer und Therme), und die
+Zählung endet bei 10, obwohl es elf Kapitel sind.

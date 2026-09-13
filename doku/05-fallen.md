@@ -224,3 +224,28 @@ grep -i 'Executing push' ~/Library/Application\ Support/GitHub\ Desktop/logs/*.l
 ```
 Die Zeitstempel dort sind **UTC**, die Uhr des Rechners steht auf **UTC+9**.
 
+
+### Beigelegtes Material ist nicht automatisch eigenes Material
+Max legte für das Drohnenkapitel elf Bilder bei mit der Bitte, „die besten auszusuchen".
+Beim Ansehen war **keines davon von ihm**: Produktfotos aus Herstellershops (Artikelnummern
+standen noch im Dateinamen), zwei mit Gemini erzeugte KI-Bilder, zwei schlecht freigestellte
+PNGs mit Streifen im Bild.
+→ **Vor dem Einbauen prüfen, woher ein Bild kommt.** Dateiname, Maße und Bildinhalt verraten
+viel: Shop-Bilder haben Artikelnummern oder Größensuffixe wie `_1080x`, KI-Bilder heißen oft
+nach dem Werkzeug, Freisteller haben harte Kanten und Artefakte.
+Die Seite ist eine **Bewerbungsunterlage** — fremde Produktfotos sind rechtlich heikel, und
+KI-Bilder untergraben genau die Aussage, die ein Portfolio machen soll.
+Wenn eigenes Material da ist, Standbilder daraus ziehen. Und Max sagen, warum.
+
+### Beim Kürzen neu aus dem Original rechnen
+Max wollte von einem Clip nur die vordere Hälfte. Aus der bereits komprimierten Fassung zu
+schneiden hätte einen zweiten Kompressionsdurchlauf bedeutet (oder einen unsauberen Schnitt
+am nächsten Keyframe).
+→ `-t <sekunden>` direkt auf das **Original** anwenden. Danach die überholte Langfassung
+löschen, wenn sie von keiner Seite mehr eingebunden ist — vorher mit `grep` nachsehen.
+
+### Neue Kapitel hinten anhängen, nicht einschieben
+Wegen der verketteten Farbübergänge ist das **letzte** Kapitel die einzige Stelle, an der ein
+neues Kapitel nur *einen* Verlauf braucht und keinen Nachbarn kaputtmacht.
+→ Wenn die Reihenfolge nicht zwingend ist: hinten anhängen.
+
