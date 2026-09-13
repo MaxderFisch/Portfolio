@@ -585,3 +585,55 @@ Behebung wäre eine eigene Klasse für `p-flyer` mit `linear-gradient(to bottom,
 
 Ebenfalls weiterhin offen: **zwei Kapitel tragen „Projekt 08"** (Flyer und Therme), und die
 Zählung endet bei 10, obwohl es elf Kapitel sind.
+
+---
+
+## 13. Kameradrohne und echte FPV-Fotos (13.09.2026)
+
+Nachtrag am selben Abend, zwei getrennte Wünsche von Max.
+
+### Die zwei alten Clips sind gar nicht FPV
+
+`zeitraffer.mp4` und `drone-clip-1.mp4` lagen seit den v1–v6-Zeiten unbenutzt in
+`assets/video/`. In `04-stand.md` stand als offene Frage, ob sie brauchbar sind.
+**Max hat sie beantwortet:** Beide sind mit einer **DJI Mini 4 Pro** gefilmt, also einer
+ganz normalen Kameradrohne — nicht FPV.
+
+Das Kapitel hat deshalb jetzt **zwei Hälften**: oben FPV, selbst geflogen; unten der ruhige
+Teil mit der Kameradrohne, eingeleitet durch einen eigenen kurzen Text. Fachlich ist der
+Unterschied groß genug, dass es sich lohnt, ihn auf der Seite zu benennen.
+
+**Nicht neu komprimiert.** Beide sind 1440×1080 bei rund 1,0 Mbit/s und 21 bzw. 16 Sekunden
+lang — also bereits Zielformat. Nach der Regel aus Abschnitt 11 wurden sie unverändert
+übernommen; ergänzt wurden nur die fehlenden WebP-Poster.
+Ungewöhnlich: beide sind **4:3**, nicht 16:9. Deshalb haben sie ihre eigenen Plätze
+(`.tr__m1`, `.tr__m2`) statt der 16:9-Plätze der Filme.
+
+### Endlich eigene Bilder zu den Drohnen
+
+Nachdem die elf beigelegten Bilder aus Abschnitt 12 allesamt Fremdmaterial waren, lieferte
+Max **zwei eigene Fotos** nach (`IMG_1713.HEIC`, `IMG_7616.HEIC`, je 4032×3024):
+
+- **Die Flotte** — sieben FPV-Drohnen mit bunten Propellern auf einem runden Gartentisch
+- **Vor dem Start** — Funke, FPV-Brille, eine Reihe Akkus und die kleine Cinewhoop
+
+Beide liegen jetzt unter den FPV-Videos, mit Großansicht wie die übrigen Kapitelbilder
+(`data-pjlb`). Die Bildunterschriften bleiben bei dem, was zu sehen ist — es steht **nicht**
+dort, dass er die Drohnen selbst gebaut hat, weil ich das nicht weiß.
+→ Damit ist das Kapitel vollständig aus Max' eigenem Material gebaut.
+
+HEIC lässt sich mit `sips` direkt verarbeiten, ein Zwischenschritt ist nicht nötig:
+```bash
+sips -Z 1400 -s format jpeg -s formatOptions 62 bild.HEIC --out ziel.jpg
+```
+
+### Was dabei aufgefallen ist
+
+Das Kapitel ist mit sechs Hintergrundzeilen und 2606 px Blockhöhe der zweitgrößte Block der
+Seite. Die engste Stelle liegt bei **12 px** — noch im Rahmen (10–16 px), aber am unteren
+Ende. Wer dort eine weitere Zeile ergänzt, muss neu nachmessen.
+
+**Die Seite lädt beim Aufruf inzwischen 5,2 MB** (65 Dateien), davon 629 KB allein die zwei
+neuen Fotos. Grund: **keines der 63 Bilder hat `loading="lazy"`**, es lädt also alles sofort,
+auch was zehn Bildschirmhöhen weiter unten liegt. Max wurde darauf hingewiesen; die Änderung
+wäre klein, war aber nicht beauftragt.

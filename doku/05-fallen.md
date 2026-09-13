@@ -249,3 +249,17 @@ Wegen der verketteten Farbübergänge ist das **letzte** Kapitel die einzige Ste
 neues Kapitel nur *einen* Verlauf braucht und keinen Nachbarn kaputtmacht.
 → Wenn die Reihenfolge nicht zwingend ist: hinten anhängen.
 
+
+### Alles lädt sofort — die Seite hat kein `loading="lazy"`
+Keines der inzwischen 63 Bilder ist verzögert eingebunden. Beim Aufruf lädt der Browser
+**alles**, auch Bilder zehn Bildschirmhöhen weiter unten. Stand 13.09.: **5,2 MB** beim
+Seitenaufruf. Die Videos fallen nicht ins Gewicht, die haben `preload="none"`.
+→ Wer Bilder ergänzt, sollte das Gewicht im Blick behalten:
+```bash
+node -e 'const fs=require("fs");const s=fs.readFileSync("live/index.html","utf8");let n=0,sum=0;
+[...new Set([...s.matchAll(/srcset="\.\.\/([^"]+\.webp)"/g)].map(m=>m[1]))].forEach(p=>{try{sum+=fs.statSync(p).size;n++}catch(e){}});
+console.log(n+" Dateien, "+(sum/1048576).toFixed(1)+" MB")'
+```
+Der Fix wäre `loading="lazy"` an allen Bildern außer dem Auftakt — klein, aber **mit Max
+absprechen**, weil er das nie beauftragt hat.
+

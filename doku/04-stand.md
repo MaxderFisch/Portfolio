@@ -5,6 +5,45 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 13.09.2026 — Nachtrag (Kameradrohne und eigene Fotos)
+
+Das Drohnenkapitel hat jetzt **zwei Hälften** und ist vollständig aus Max' eigenem Material.
+
+**Oben FPV, selbst geflogen:** Papierflieger, Winter, Autos — dazu **zwei eigene Fotos**
+(die Flotte auf dem Gartentisch, und Funke/Brille/Akkus), beide mit Großansicht.
+
+**Unten die Kameradrohne:** `zeitraffer.mp4` (21 s) und `drone-clip-1.mp4` (16 s). Max hat
+die offene Frage aus dem vorigen Stand beantwortet — beide sind mit einer **DJI Mini 4 Pro**
+gefilmt, also keine FPV-Aufnahmen. **Nicht neu komprimiert**, weil sie mit 1440×1080 bei
+1,0 Mbit/s schon Zielformat sind; nur die fehlenden WebP-Poster ergänzt. Beide sind **4:3**
+und haben deshalb eigene Plätze (`.tr__m1`, `.tr__m2`).
+
+Geprüft: CSS 412/412, div 318/318, figure 39/39, video 10/10, 63 picture-Paare stimmig, alle
+49 Großansicht-Ziele vorhanden, keine doppelten IDs, alle 131 Asset-Verweise da. Großansicht
+an einem der neuen Fotos getestet: öffnet, zeigt Bild und Bildunterschrift, schließt wieder.
+Bei 1400 px sitzen Fotos und Clips asymmetrisch versetzt, am Handy stapelt alles auf 295 px,
+kein Querscrollen. Hintergrundzeilen: **12 px** Luft bei 2606 px Blockhöhe — noch im Rahmen
+(10–16), aber am unteren Ende. Wer dort eine Zeile ergänzt, muss neu messen.
+
+### Neuer offener Punkt: Seitengewicht
+
+**Beim Aufruf lädt die Seite 5,2 MB** (65 Dateien). Grund: **keines der 63 Bilder hat
+`loading="lazy"`** — es lädt alles sofort, auch was weit unten liegt. Die zwei neuen Fotos
+sind allein 629 KB davon.
+Max testet die Seite mit Freunden **am Handy**; das ist dort spürbar. Der Fix wäre klein
+(`loading="lazy"` an allen Bildern außer dem Auftakt), ist aber **nicht beauftragt**.
+Max wurde darauf hingewiesen.
+
+### Weiterhin offen
+
+- `p-flyer` hat den falschen Farbverlauf (teilt sich die Klasse mit `p-plakate`)
+- zwei Kapitel tragen „Projekt 08"; die Zählung endet bei 10, es sind aber elf Kapitel
+- `film-animals.mp4` und `film-imker.mp4` liegen komprimiert da, sind bewusst nicht eingebaut
+- `showreel.mp4` (36,7 MB) wird von keiner Seite benutzt
+- `Portfolio/index.html` leitet weiter auf `v1`
+
+---
+
 ## Stand vom 13.09.2026 — spät nachts (eigenes Drohnenkapitel)
 
 **Die Seite hat jetzt elf Kapitel und keinen einzigen Platzhalter mehr.**

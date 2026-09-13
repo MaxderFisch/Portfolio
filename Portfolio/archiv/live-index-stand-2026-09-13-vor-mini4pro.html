@@ -417,22 +417,12 @@
   .tr__f2{grid-column:2/span 8}
   .tr__f3{grid-column:5/span 8}
   .tr__f4{grid-column:2/span 8}
-  /* Drohnenkapitel: zwei Fotos, dann der ruhige Teil mit der Kameradrohne */
-  .tr__g1{grid-column:1/span 7}
-  .tr__g2{grid-column:8/span 5}
-  .tr__zwi{grid-column:1/span 6;align-self:center;position:relative;z-index:2}
-  .tr__zwi p{color:var(--ink);font-size:15px;line-height:1.85;margin-bottom:13px}
-  .tr__zwi p:last-child{margin-bottom:0}
-  .tr__zwi .kicker{display:block;margin-bottom:13px}
-  .tr__m1{grid-column:7/span 6}
-  .tr__m2{grid-column:4/span 6}
 
   @media(prefers-reduced-motion:reduce){.chapter__glow i{animation:none}}
   @media(max-width:900px){
     .sr,.tr{grid-template-columns:1fr;gap:15px}
     .sr__lead,.sr__txt,.sr__a,.sr__b,.sr__c,.sr__d,.sr__e,.sr__f,
-    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3,.tr__f4,
-    .tr__g1,.tr__g2,.tr__zwi,.tr__m1,.tr__m2{grid-column:1/-1;grid-row:auto}
+    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3,.tr__f4{grid-column:1/-1;grid-row:auto}
     .sr__txt,.tr__txt{padding:8px 0 12px}
   }
 
@@ -1320,14 +1310,12 @@
         <span class="bgl md i1" data-speed="0.110">NAZGUL EVOQUE</span>
         <span class="bgl lg i2" data-speed="0.115">ÜBER DEN BÄUMEN</span>
         <span class="bgl sm i3" data-speed="0.120">PAVO20 PRO</span>
-        <span class="bgl md" data-speed="0.125">MINI 4 PRO</span>
       </div>
       <div class="tr__txt">
         <p class="kicker">Projekt 10 · Drohne &amp; FPV</p>
         <p>FPV heißt: Ich sehe durch eine Brille genau das, was die Drohne sieht, und fliege von Hand. Kein Assistent, der abfängt — wenn ich einen Baum zu spät sehe, ist der Flug vorbei.</p>
         <p>Ich fliege zwei: eine <em>iFlight Nazgul Evoque F5</em> für schnelle Verfolgungen im Freien, und eine kleine <em>BetaFPV Pavo20 Pro</em> für enge Stellen, an die man mit der großen nicht herankommt.</p>
         <p>Das Schwierigste ist nicht das Fliegen, sondern die Linie vorher im Kopf zu haben.</p>
-        <p>Für die ruhigen Sachen habe ich außerdem eine ganz normale Kameradrohne — die steht weiter unten.</p>
       </div>
 
       <div class="tr__f1 kapvideo">
@@ -1349,36 +1337,6 @@
           <source src="../assets/video/fpv-autos-kurz.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Autos über Feldwege verfolgt — tief, schnell, nah dran · 1 min 43</div>
-      </div>
-
-      <figure class="tr__g1" data-pjlb="../assets/img/drohne/fpv-flotte.jpg" data-pjcap="Was sich über die Zeit angesammelt hat">
-        <picture><source srcset="../assets/img/drohne/fpv-flotte.webp" type="image/webp"><img src="../assets/img/drohne/fpv-flotte.jpg" width="1400" height="1050" alt="Sieben FPV-Drohnen mit bunten Propellern auf einem runden Gartentisch"></picture>
-        <figcaption class="kap__cap"><div class="n">Die Flotte</div><div class="s">Was sich über die Zeit angesammelt hat</div></figcaption>
-      </figure>
-
-      <figure class="tr__g2" data-pjlb="../assets/img/drohne/fpv-ausruestung.jpg" data-pjcap="Funke, Brille, Akkus — und die kleine Pavo20 für enge Stellen">
-        <picture><source srcset="../assets/img/drohne/fpv-ausruestung.webp" type="image/webp"><img src="../assets/img/drohne/fpv-ausruestung.jpg" width="1400" height="1050" alt="Fernsteuerung, FPV-Brille, Akkus und eine kleine Cinewhoop-Drohne auf einem Tisch"></picture>
-        <figcaption class="kap__cap"><div class="n">Vor dem Start</div><div class="s">Funke, Brille, Akkus — und die Kleine für enge Stellen</div></figcaption>
-      </figure>
-
-      <div class="tr__zwi">
-        <p class="kicker">Ohne Brille · DJI Mini 4 Pro</p>
-        <p>Nicht alles muss schnell sein. Für ruhige Aufnahmen nehme ich eine normale Kameradrohne. Die hält die Position von allein, fliegt sauber geradeaus und macht genau das, was mit FPV schwierig ist.</p>
-        <p>Beides zusammen deckt eigentlich alles ab: die eine für Tempo und Nähe, die andere für den ruhigen Blick von oben.</p>
-      </div>
-
-      <div class="tr__m1 kapvideo">
-        <video controls playsinline preload="none" poster="../assets/video/zeitraffer-poster.jpg">
-          <source src="../assets/video/zeitraffer.mp4" type="video/mp4">
-        </video>
-        <div class="kapvideo__bu">Zeitraffer aus der Luft · Mini 4 Pro · 21 Sekunden</div>
-      </div>
-
-      <div class="tr__m2 kapvideo">
-        <video controls playsinline preload="none" poster="../assets/video/drone-clip-1-poster.jpg">
-          <source src="../assets/video/drone-clip-1.mp4" type="video/mp4">
-        </video>
-        <div class="kapvideo__bu">Ruhiger Überflug · Mini 4 Pro · 16 Sekunden</div>
       </div>
     </div>
     <a class="pj-back" href="#oben" style="margin:44px 0 90px">↑ nach oben</a>
