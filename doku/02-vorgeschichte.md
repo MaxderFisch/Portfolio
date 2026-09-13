@@ -637,3 +637,65 @@ Ende. Wer dort eine weitere Zeile ergänzt, muss neu nachmessen.
 neuen Fotos. Grund: **keines der 63 Bilder hat `loading="lazy"`**, es lädt also alles sofort,
 auch was zehn Bildschirmhöhen weiter unten liegt. Max wurde darauf hingewiesen; die Änderung
 wäre klein, war aber nicht beauftragt.
+
+---
+
+## 14. Videos spielen von allein — immer nur das mittigste (13.09.2026)
+
+Max' Wunsch: Alle Videos sollen beim Scrollen von selbst starten, sobald sie am Bildschirmrand
+auftauchen, und erst anhalten, wenn sie ganz verschwunden sind. Sind mehrere gleichzeitig zu
+sehen, soll **nur das laufen, das der Bildschirmmitte am nächsten ist**.
+
+### Zwei Dinge, die vorher geklärt werden mussten
+
+**Automatisches Abspielen erlauben Browser nur stumm.** Chrome, Safari und Firefox blockieren
+Ton ohne vorherige Nutzerinteraktion — das ist keine Einstellung, sondern eine feste Regel.
+Alle zehn Videos haben deshalb jetzt `muted`. Die `controls` bleiben, wer Ton will, klickt
+aufs Lautsprechersymbol. **Für die Filme mit Sprache und Musik ist das ein echter Verlust**,
+für die stummen FPV-Clips belanglos. Max wurde darauf hingewiesen, bevor gebaut wurde.
+
+**`preload="none"` bleibt.** Sonst hätte die Seite beim Aufruf über 200 MB Video angefangen zu
+laden. So lädt nur das Video, das gerade an der Reihe ist. Der Preis: beim ersten Start eine
+kurze Verzögerung, während gepuffert wird. Alle Dateien haben `faststart`, das hält sie klein.
+
+### Wie es gebaut ist
+
+Eine eigene Funktion am Ende des zweiten Skriptblocks, `window.videoWahl`:
+- bei jedem Scroll (auf `requestAnimationFrame` gedrosselt, wie die übrigen Effekte)
+- Abstand von jeder Videomitte zur Bildschirmmitte, das kleinste gewinnt
+- alle anderen laufenden Videos werden angehalten
+- ein Video, das **gar nicht mehr sichtbar** ist, wird angehalten; war es zu Ende gelaufen,
+  wird es auf Anfang zurückgespult, damit es beim nächsten Mal wieder starten kann
+
+**Zwei Feinheiten, die nicht beauftragt waren, aber nötig sind:**
+
+1. **Eigenes Pausieren wird respektiert.** Ohne das würde die Steuerung ein Video, das der
+   Nutzer gerade angehalten hat, beim nächsten Scrollpixel sofort wieder starten. Gelöst über
+   ein Flag `data-von-hand`, das beim `pause`-Ereignis gesetzt wird — aber nur, wenn der Halt
+   *nicht* von uns kam (`eigenerHalt`) und das Video nicht einfach zu Ende war.
+   Das Flag verfällt, sobald das Video den Bildschirm ganz verlässt.
+2. **`prefers-reduced-motion` schaltet alles ab.** Wer im Betriebssystem weniger Bewegung
+   eingestellt hat, bekommt kein automatisches Abspielen. Betrifft fast niemanden, ist aber
+   genau der Fall, für den die Einstellung existiert. **Max weiß davon**, und es lässt sich in
+   einer Zeile entfernen, wenn er es anders will.
+
+### Prüfung — und was nicht prüfbar war
+
+Im zugeklappten Browser-Bereich **setzt die Wiedergabe aus**: `readyState` war 4, 2,24 s
+gepuffert, `play()` warf keinen Fehler — und trotzdem blieb `currentTime` bei 0. Ein echtes
+Abspielen ließ sich hier also nicht zeigen. Der Bereich ließ sich auch nicht aufklappen.
+
+**Stattdessen wurde geprüft, welche Aufrufe die Steuerung macht**, indem `play` und `pause`
+protokolliert wurden. Das prüft den echten Code, nicht eine Nachbildung:
+
+| Fall | Ergebnis |
+|---|---|
+| 7 Scrollpositionen, je 2–3 Videos sichtbar | jedes Mal das mittigste gewählt, Abstände nachgerechnet |
+| kein Video sichtbar | kein Aufruf |
+| zwei laufen, ein drittes ist mittig | beide angehalten, das mittige gestartet |
+| laufendes Video komplett aus dem Bild | angehalten |
+| Nutzer pausiert selbst | kein Neustart, solange es sichtbar bleibt |
+| danach weg- und wieder hingescrollt | Merker verfällt, startet wieder |
+
+→ **Offen bleibt allein, ob die Bilder tatsächlich laufen.** Das muss Max im richtigen Browser
+ansehen. Muster zum Protokollieren von Medienaufrufen steht in `05-fallen.md`.

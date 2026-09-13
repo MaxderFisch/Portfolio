@@ -263,3 +263,36 @@ console.log(n+" Dateien, "+(sum/1048576).toFixed(1)+" MB")'
 Der Fix wäre `loading="lazy"` an allen Bildern außer dem Auftakt — klein, aber **mit Max
 absprechen**, weil er das nie beauftragt hat.
 
+
+### Im zugeklappten Bereich spielt kein Video — auch wenn alles bereit ist
+Beim Prüfen der Autoplay-Steuerung: `readyState=4`, 2,24 s gepuffert, `play()` warf **keinen
+Fehler** — und `currentTime` blieb trotzdem bei 0. Der Browser-Bereich setzt die Wiedergabe
+aus, solange er nicht sichtbar ist, und meldet das nirgends.
+→ **Ein ausbleibender Fehler ist kein Beweis, dass etwas läuft.** Nie „Video spielt" melden,
+nur weil `play()` durchging.
+
+**Was stattdessen geht: die Aufrufe protokollieren.** Das prüft den echten Code der Seite,
+nicht eine Nachbildung der Logik:
+```js
+const P=HTMLMediaElement.prototype, echtPlay=P.play, echtPause=P.pause, log=[];
+P.play=function(){ log.push('PLAY '+this.currentSrc); return Promise.resolve(); };
+P.pause=function(){ log.push('PAUSE '+this.currentSrc); };
+window.scrollTo({top:Y,behavior:'instant'}); window.videoWahl();
+P.play=echtPlay; P.pause=echtPause; log;
+```
+Für den Gegentest lässt sich ein Video als „laufend" vortäuschen, weil `paused` nur lesbar ist:
+```js
+Object.defineProperty(v,'paused',{configurable:true,get:()=>false});  // danach: delete v.paused
+```
+
+### Autoplay geht nur stumm — und nur mit Plan fürs Laden
+Zwei feste Regeln, die jedes Autoplay-Vorhaben bestimmen:
+1. **Ohne `muted` startet nichts.** Alle Browser blockieren Ton ohne Nutzerinteraktion.
+2. **Abspielen heißt Herunterladen.** `preload="none"` muss bleiben, sonst zieht die Seite beim
+   Aufruf alle Videos (hier über 200 MB). Nur das gerade aktive Video anspielen, nie alle
+   sichtbaren.
+
+Und: Wer automatisch startet, muss **eigenes Pausieren des Nutzers respektieren**, sonst
+startet die Steuerung beim nächsten Scrollpixel wieder. Dafür unterscheiden, ob ein
+`pause`-Ereignis vom eigenen Code kam oder vom Nutzer.
+

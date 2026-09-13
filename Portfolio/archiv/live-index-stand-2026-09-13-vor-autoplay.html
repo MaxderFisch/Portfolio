@@ -1280,27 +1280,27 @@
         <p>Die Drohnenaufnahmen stehen <a href="#p-drohne" style="color:inherit">im eigenen Kapitel darunter</a>.</p>
       </div>
       <div class="tr__f1 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/film-bergmann-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/film-bergmann-poster.jpg">
           <source src="../assets/video/film-bergmann.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Ein Tag als Bergmann — Graphitbergwerk Kropfmühl · 5 min 48 · mein Part: Ton</div>
       </div>
 
       <div class="tr__f2 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/film-kommt-zu-mir-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/film-kommt-zu-mir-poster.jpg">
           <source src="../assets/video/film-kommt-zu-mir.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Kommt zu mir — Porträt über Felix Schandl, Jugendseelsorger an der THD · 5 min 17 · mein Part: Produktion</div>
       </div>
       <div class="tr__f3 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/film-hostage-holiday-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/film-hostage-holiday-poster.jpg">
           <source src="../assets/video/film-hostage-holiday.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Hostage Holiday — erster Kurzfilm, erstes Semester · ohne Dialog · 2 min 18 · mein Part: Regie und Schnitt, zu viert</div>
       </div>
 
       <div class="tr__f4 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/film-electrify-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/film-electrify-poster.jpg">
           <source src="../assets/video/film-electrify.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Electrify Your Future — Imagefilm für den Studiengang Elektrotechnik, gedreht auf der ARRI Alexa Mini · 3 min 01 · mein Part: Szenenbild</div>
@@ -1331,21 +1331,21 @@
       </div>
 
       <div class="tr__f1 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/fpv-papierflieger-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/fpv-papierflieger-poster.jpg">
           <source src="../assets/video/fpv-papierflieger.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Papierflieger — durch den Wald, und am Ende wird aus dem Hinweisblatt ein Flieger · 2 min 23</div>
       </div>
 
       <div class="tr__f2 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/fpv-timeline-1-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/fpv-timeline-1-poster.jpg">
           <source src="../assets/video/fpv-timeline-1.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Winter in den Bergen — Gipfelkreuz, Gegenlicht, viel Schnee · 33 Sekunden</div>
       </div>
 
       <div class="tr__f3 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/fpv-autos-kurz-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/fpv-autos-kurz-poster.jpg">
           <source src="../assets/video/fpv-autos-kurz.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Autos über Feldwege verfolgt — tief, schnell, nah dran · 1 min 43</div>
@@ -1368,14 +1368,14 @@
       </div>
 
       <div class="tr__m1 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/zeitraffer-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/zeitraffer-poster.jpg">
           <source src="../assets/video/zeitraffer.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Zeitraffer aus der Luft · Mini 4 Pro · 21 Sekunden</div>
       </div>
 
       <div class="tr__m2 kapvideo">
-        <video controls muted playsinline preload="none" poster="../assets/video/drone-clip-1-poster.jpg">
+        <video controls playsinline preload="none" poster="../assets/video/drone-clip-1-poster.jpg">
           <source src="../assets/video/drone-clip-1.mp4" type="video/mp4">
         </video>
         <div class="kapvideo__bu">Ruhiger Überflug · Mini 4 Pro · 16 Sekunden</div>
@@ -1625,60 +1625,6 @@
     el.addEventListener('click',function(){ setTimeout(moveWords,420); });
   });
   moveWords();
-})();
-
-/* Videos spielen von allein — aber immer nur eines: das, dessen Mitte der
-   Bildschirmmitte am nächsten ist. Alles andere hält an. Automatisches
-   Abspielen erlauben Browser nur stumm, deshalb tragen alle Videos muted. */
-(function(){
-  var videos=[].slice.call(document.querySelectorAll('video'));
-  if(!videos.length) return;
-  var ruhe=window.matchMedia('(prefers-reduced-motion:reduce)');
-  var eigenerHalt=false;   /* unterscheidet unser pause() vom Klick des Nutzers */
-
-  videos.forEach(function(v){
-    v.addEventListener('pause',function(){
-      if(!eigenerHalt && !v.ended) v.dataset.vonHand='1';
-    });
-    v.addEventListener('play',function(){ delete v.dataset.vonHand; });
-  });
-
-  function anhalten(v){ eigenerHalt=true; v.pause(); eigenerHalt=false; }
-
-  function waehlen(){
-    if(ruhe.matches){
-      videos.forEach(function(v){ if(!v.paused) anhalten(v); });
-      return;
-    }
-    var mitte=window.innerHeight/2, aktiv=null, beste=Infinity;
-    videos.forEach(function(v){
-      var r=v.getBoundingClientRect();
-      /* gar nicht mehr zu sehen: anhalten, Merker zurücksetzen, Abgelaufenes zurückspulen */
-      if(!r.height || r.bottom<=0 || r.top>=window.innerHeight){
-        delete v.dataset.vonHand;
-        if(v.ended){ try{ v.currentTime=0; }catch(e){} }
-        return;
-      }
-      var d=Math.abs(r.top+r.height/2-mitte);
-      if(d<beste){ beste=d; aktiv=v; }
-    });
-    videos.forEach(function(v){ if(v!==aktiv && !v.paused) anhalten(v); });
-    if(aktiv && aktiv.paused && !aktiv.dataset.vonHand){
-      var p=aktiv.play();
-      if(p && p['catch']) p['catch'](function(){});  /* abgelehnt: Poster bleibt stehen */
-    }
-  }
-
-  var tick=false;
-  window.addEventListener('scroll',function(){
-    if(tick) return; tick=true;
-    requestAnimationFrame(function(){ waehlen(); tick=false; });
-  },{passive:true});
-  window.addEventListener('resize',waehlen);
-  window.addEventListener('load',waehlen);
-  if(ruhe.addEventListener) ruhe.addEventListener('change',waehlen);
-  window.videoWahl=waehlen;   /* für Prüfungen von außen */
-  waehlen();
 })();
 </script>
 </body>

@@ -5,6 +5,33 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 13.09.2026 — Videos starten von allein
+
+Alle zehn Videos starten jetzt beim Scrollen von selbst. Es läuft **immer nur eines**: das,
+dessen Mitte der Bildschirmmitte am nächsten ist. Wird ein Video ganz unsichtbar, hält es an.
+
+**Zwei unvermeidbare Folgen, beide mit Max besprochen:**
+1. **Alle Videos sind jetzt `muted`.** Browser erlauben automatisches Abspielen nur stumm.
+   Für die Filme mit Sprache und Musik ist das ein Verlust — `controls` bleiben, man kann
+   von Hand Ton anschalten.
+2. **`preload="none"` bleibt**, damit die Seite nicht beim Aufruf über 200 MB Video zieht.
+   Der Preis ist eine kurze Verzögerung beim ersten Start.
+
+Zusätzlich eingebaut, weil ohne das die Bedienung kaputt wäre: Wer selbst auf Pause drückt,
+bekommt keinen Neustart aufgezwungen. Und bei `prefers-reduced-motion` bleibt alles aus.
+
+**Wichtig für die Prüfung:** Im zugeklappten Browser-Bereich spielt **kein** Video, auch wenn
+`readyState=4` ist und `play()` keinen Fehler wirft. Die Auswahl-Logik wurde deshalb über
+protokollierte `play`/`pause`-Aufrufe geprüft — 7 Scrollpositionen, Umschalten zwischen
+mehreren laufenden, Anhalten beim Verlassen des Bildes, Respekt vor eigenem Pausieren:
+**alles korrekt**. Muster dafür in `05-fallen.md`.
+
+→ **Was noch offen ist: ob die Bilder im echten Browser tatsächlich laufen.** Das kann nur
+Max am Gerät sehen. Wenn etwas nicht startet, zuerst prüfen, ob `muted` noch an allen
+Videos steht.
+
+---
+
 ## Stand vom 13.09.2026 — Nachtrag (Kameradrohne und eigene Fotos)
 
 Das Drohnenkapitel hat jetzt **zwei Hälften** und ist vollständig aus Max' eigenem Material.
