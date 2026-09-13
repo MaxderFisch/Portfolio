@@ -175,3 +175,15 @@ if(!s.includes(alt)) throw new Error('nicht gefunden: '+alt.slice(0,50));
 Beim Bau von `live/index.html` wanderte die alte Galerie-Lightbox **mit ihrem Markup, aber
 ohne ihr JavaScript** mit — ein Dialog, der sich weder öffnen noch schließen ließ.
 → Wenn Markup übernommen wird, prüfen, ob das zugehörige Skript mitkommt oder das Markup weg muss.
+
+### „Stummfilm" ist keine Aussage über den Ton
+Max nannte „Hostage Holiday" einen Stummfilm. Gemeint war **ohne Dialog**. Die Datei hat eine
+volle Musikspur mit 320 kbit/s und −19,4 dB. Wer daraufhin den `-an`-Befehl nimmt, liefert
+einen stummen Film aus und merkt es nicht, weil das Bild in Ordnung aussieht.
+→ **Vor jeder Videokompression den Pegel messen, nicht der Beschreibung glauben:**
+```bash
+ffmpeg -hide_banner -nostats -i datei.mp4 -vn -af volumedetect -f null /dev/null 2>&1 | grep mean_volume
+```
+Kein Audiostrom = wirklich stumm. Ein Strom allein beweist nichts — es gibt auch Spuren, auf
+denen nur Stille liegt. Erst der Pegel entscheidet.
+

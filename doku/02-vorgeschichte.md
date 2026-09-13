@@ -379,3 +379,66 @@ Die Karte 02.02 hieß „Personenporträt" mit dem Untertitel „Ein Pfarrer, ei
 Beides stammte aus einer früheren Session und war **erfunden bzw. falsch**: Schandl ist
 Karmelitenpater und Jugendseelsorger, nicht Pfarrer, und „ein Tag, eine Kamera" war Deko.
 Jetzt: „Kommt zu mir — Porträt über den Jugendseelsorger der THD." Max weiß davon.
+
+---
+
+## 10. „Hostage Holiday" — der dritte Film (13.09.2026)
+
+Max lieferte nach: `TeamA4_MaxAulinger_NoahBarber_PatriceDjemai_JoaodeLimaLubeck.mp4`, sein
+**erstes Filmprojekt im ersten Semester**. Er beschrieb ihn als „Stummfilm".
+
+### Der Titel und die Rollen standen nicht im Dateinamen
+
+Der Dateiname nennt nur das Team. Titel und Rollen habe ich aus dem Film selbst abgelesen:
+Titelkarte am Anfang, Abspannrolle am Ende.
+
+**Titel: „Hostage Holiday".** Eine Entführungsgeschichte ohne Dialog, die am Ende als
+Überraschungsparty aufgelöst wird. 2:18 lang, entstanden in der Vorlesung **Kameratechnik**
+unter Leitung von **Ilona Meier**, © TH Deggendorf.
+
+| Rolle | Namen |
+|---|---|
+| **Regie, Schnitt und Party-Gäste** | **Max Aulinger**, Noah Barber, Patrice Djemai, Joao De Lima Lübeck |
+| Entführer | Marvin Schmirler |
+| Geisel | Johann Hacker |
+| Schrift-FX | Noah Barber |
+| Color Grading | Patrice Djemai |
+| Musik | Royalty-free sound effects, pixabay.com |
+
+→ Hier ist Max' Rolle **eine andere als in den beiden anderen Filmen**: Regie und Schnitt, zu
+viert geteilt. Das Team ist bis auf Max dasselbe wie bei „Kommt zu mir". Auf der Seite steht
+deshalb „mein Part: Regie und Schnitt, zu viert".
+
+### „Stummfilm" heißt nicht tonlos
+
+**Fast danebengegangen.** Nach Max' Beschreibung hätte man den ffmpeg-Befehl für stumme
+Schleifen genommen — also `-an`, Ton weg. Der Film hat aber eine volle Tonspur:
+AAC mit 320 kbit/s, gemessen **−19,4 dB mittlere Lautstärke**. Gemeint war „ohne Dialog",
+nicht „ohne Ton". Die Musik ist da und gehört dazu.
+→ **Immer messen statt glauben:**
+```bash
+ffmpeg -hide_banner -nostats -i datei.mp4 -vn -af volumedetect -f null /dev/null 2>&1 | grep mean_volume
+```
+
+### Kompression
+
+Der Film ist mit 2:18 kurz genug, dass Qualität fast nichts kostet. Deshalb hier **CRF 24**
+statt der 28 der langen Filme, und Musik mit **128 kbit/s** statt 96 — Musik verträgt die
+niedrige Rate schlechter als Sprache.
+
+| Original | auf der Seite |
+|---|---|
+| 364 MB, 1920×1080, 24 fps, 22 Mbit/s | **14,6 MB**, 1280×720 |
+
+Gegenprobe: Tonspur nach der Kompression bei −19,5 dB, also unverändert.
+
+### Einordnung auf der Seite
+
+- Neue Karte **02.06** am Ende der Video-Reihe. Bewusst **angehängt statt eingeschoben**,
+  damit 02.01–02.05 ihre Nummern behalten und keine Verweise brechen.
+- Im Kapitel ein dritter Filmplatz `.tr__f3` (Spalte 5–12). Damit stehen die drei Filme im
+  Zickzack: rechts, links, rechts.
+- Vorschaubild ist die maskierte Gestalt im Türrahmen bei 0:80. **Absichtlich kein Bild aus
+  dem Party-Ende** — das ist die Pointe des Films.
+- Die Hintergrundzeilen vertragen den höheren Block: 14 px Luft über den ganzen Scrollweg,
+  vorher 15. Liegt weiter im Rahmen der übrigen Kapitel (10–16 px).

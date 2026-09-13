@@ -5,6 +5,39 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 13.09.2026 — spätabends (dritter Film)
+
+Max lieferte „Hostage Holiday" nach, sein erstes Filmprojekt aus dem ersten Semester.
+Kapitel 09 hat jetzt **drei** Filme.
+
+| Film | Original | auf der Seite | Max' Rolle |
+|---|---|---|---|
+| Ein Tag als Bergmann (5:48) | 337 MB | 37,2 MB | Ton |
+| Kommt zu mir (5:17) | 222 MB | 23,0 MB | Produktion |
+| **Hostage Holiday (2:18)** | **364 MB** | **14,6 MB** | **Regie und Schnitt, zu viert** |
+
+Hostage Holiday lief mit **CRF 24** statt 28, weil er kurz genug ist, dass Qualität kaum
+etwas kostet; Musik mit 128 kbit/s statt 96.
+
+**Beinahe-Fehler, der festgehalten gehört:** Max nannte den Film „Stummfilm", gemeint war
+*ohne Dialog*. Die Datei hat eine Musikspur mit 320 kbit/s bei −19,4 dB. Mit dem
+`-an`-Befehl wäre die Musik weg gewesen. Steht jetzt in `05-fallen.md`.
+
+Auf der Seite: neue Karte **02.06** (angehängt, damit 02.01–02.05 ihre Nummern behalten),
+dritter Filmplatz `.tr__f3`, Vorschaubild bewusst **nicht** aus dem Party-Ende — das ist die
+Pointe. Einleitungstext auf drei Filme und drei Rollen umgeschrieben.
+
+Geprüft: CSS 402/402, div 302/302, video 4/4, a 24/24, 59 picture-Paare alle stimmig, keine
+doppelten IDs, alle Anker lösen auf, alle 111 Asset-Verweise vorhanden, beide Skripte in
+Ordnung. Bei 1400 px stehen die drei Filme im Zickzack (687×408/419/419), am Handy stapeln
+sie auf 295 px, kein Querscrollen. Hintergrundzeilen: 14 px Luft über den ganzen Scrollweg.
+
+**Noch offen:** Imagefilm (ARRI), Werbespot Elektrotechnik, Drohne — Karten 02.03–02.05
+stehen weiter auf „folgt", zwei Platzhalterkacheln im Kapitel. Für den Werbespot gibt es
+weiterhin keine eigene Kachel.
+
+---
+
 ## Stand vom 13.09.2026 — abends (zwei Filme eingebaut)
 
 **Kapitel 09 „Video & Drohne" ist nicht mehr leer.** Max lieferte `Neu/Videos/` mit zwei
