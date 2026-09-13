@@ -442,3 +442,67 @@ Gegenprobe: Tonspur nach der Kompression bei −19,5 dB, also unverändert.
   dem Party-Ende** — das ist die Pointe des Films.
 - Die Hintergrundzeilen vertragen den höheren Block: 14 px Luft über den ganzen Scrollweg,
   vorher 15. Liegt weiter im Rahmen der übrigen Kapitel (10–16 px).
+
+---
+
+## 11. Imagefilm eingebaut, vier weitere Videos nur komprimiert (13.09.2026)
+
+Max lieferte fünf Dateien in drei Ordnern nach und gab dazu **unterschiedliche Aufträge**:
+den Imagefilm einbauen, die anderen nur komprimieren und liegen lassen, weil er noch nicht
+weiß, wie er sie zeigen will. Die FPV-Aufnahmen sind erst zwei von mehreren.
+
+### „Electrify Your Future" — eingebaut
+
+Max' Hinweis war entscheidend: **Imagefilm und Werbespot Elektrotechnik sind dasselbe.**
+Auf der Seite standen dafür zwei getrennte Karten (02.03 und 02.04). Die sind jetzt **zu
+einer zusammengelegt**, und 02.05/02.06 sind auf 02.04/02.05 nachgerückt, damit keine Lücke
+in der Nummerierung bleibt. Die Nummern sind reine Anzeige, keine Sprungziele — das Umnummerieren
+bricht nichts.
+
+**Die Datei war schon web-fertig** und wurde deshalb **unverändert übernommen**: 1280×720,
+1,0 Mbit/s, 24,6 MB bei 3:01, AAC 128k, faststart schon gesetzt. Sie nochmal durch x264 zu
+schicken hätte nur Generationsverlust gebracht und kaum Platz gespart.
+→ **Regel daraus: vor dem Komprimieren prüfen, ob die Quelle schon Zielformat hat.**
+
+Rollen aus dem Abspann abgelesen — **Max war Production Designer**, also Szenenbild:
+
+| Rolle | |
+|---|---|
+| Writer/Director | Sarah Abinger |
+| Editor | Tamara Blüml |
+| Producer | Johann Hacker |
+| Technical Producer | Yannick Köhler |
+| DP | Laura Mutzl |
+| DOA | Benedict Müller |
+| **Production Designer** | **Max Aulinger** |
+| Gaffer | Karolina Grün |
+
+Der Film liegt in **Breitwand mit Balken**: echter Bildbereich 1280×480 ab y=120, ermittelt
+mit `cropdetect`. Der Kartenausschnitt musste deshalb aus diesem Streifen kommen, nicht aus
+dem vollen Bild — sonst wären schwarze Balken in der Vorschau gelandet.
+
+Damit hat Max in **jedem** der vier Filme einen anderen Job gehabt: Ton, Produktion,
+Szenenbild, und Regie/Schnitt zu viert. Genau das sagt jetzt auch der Einleitungstext.
+
+### Nur komprimiert, absichtlich nicht eingebaut
+
+| Datei | Original | fertig | Ton |
+|---|---|---|---|
+| `film-animals.mp4` | 1874 MB, 4K/50p | **34,0 MB** (CRF 29) | bleibt, −31,2 dB |
+| `film-imker.mp4` | 846 MB, 4K/50p | **14,4 MB** (CRF 28) | bleibt, −27,9 dB |
+| `fpv-autos.mp4` | 2801 MB, 4K/60p | **44,6 MB** (CRF 28) | **entfernt** |
+| `fpv-timeline-1.mp4` | 449 MB, 4K/60p | **6,1 MB** (CRF 28) | **entfernt** |
+
+Alle vier liegen in `assets/video/`, sind aber von **keiner Seite eingebunden** — das war
+Max' ausdrücklicher Wunsch. Wer sie einbaut, sollte vorher mit ihm reden.
+
+**Warum bei den FPV-Clips der Ton weg durfte:** gemessen −91,0 dB in Mittel *und* Spitze,
+also digitale Stille. Die Pegelmessung aus Abschnitt 10 hat sich damit gleich zweimal
+ausgezahlt — einmal um Musik zu retten, einmal um leere Spuren wegzuwerfen.
+
+**Animals lief auf CRF 29 statt 28**, weil er bei 28 auf 52 MB gekommen wäre und damit über
+GitHubs Warnschwelle von 50 MB. Bei 4K/50p über 2:44 ist das die teuerste Datei im Projekt.
+
+→ **Achtung für später:** Max sagt, es kommen **noch mehr FPV-Aufnahmen**. Bei rund 40 MB pro
+Clip wächst das Repo schnell. Wenn es viele werden, sollte man mit ihm über kürzere Ausschnitte
+oder einen Zusammenschnitt reden, statt jeden Clip vollständig abzulegen.

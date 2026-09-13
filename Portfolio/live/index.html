@@ -416,12 +416,13 @@
   .tr__f1{grid-column:5/span 8}
   .tr__f2{grid-column:2/span 8}
   .tr__f3{grid-column:5/span 8}
+  .tr__f4{grid-column:2/span 8}
 
   @media(prefers-reduced-motion:reduce){.chapter__glow i{animation:none}}
   @media(max-width:900px){
     .sr,.tr{grid-template-columns:1fr;gap:15px}
     .sr__lead,.sr__txt,.sr__a,.sr__b,.sr__c,.sr__d,.sr__e,.sr__f,
-    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3{grid-column:1/-1;grid-row:auto}
+    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3,.tr__f4{grid-column:1/-1;grid-row:auto}
     .sr__txt,.tr__txt{padding:8px 0 12px}
   }
 
@@ -620,25 +621,17 @@
             </div>
           </a>
           <a class="proj" href="#p-video">
-            <div class="proj__cover proj__cover--leer"><span>folgt</span></div>
+            <div class="proj__cover"><picture><source srcset="../assets/img/video/electrify-cover.webp" type="image/webp"><img src="../assets/img/video/electrify-cover.jpg" width="720" height="900" alt="Rennwagen des Formula-Student-Teams in der Werkstatt"></picture></div>
             <div class="proj__body">
               <div class="proj__k"><span class="proj__no">02.03</span> · Video &amp; Drohne</div>
-              <div class="proj__t">Imagefilm</div>
-              <div class="proj__s">Gedreht mit der ARRI Alexa Mini.</div>
+              <div class="proj__t">Electrify Your Future</div>
+              <div class="proj__s">Imagefilm für den Studiengang, auf ARRI Alexa Mini.</div>
             </div>
           </a>
           <a class="proj" href="#p-video">
             <div class="proj__cover proj__cover--leer"><span>folgt</span></div>
             <div class="proj__body">
               <div class="proj__k"><span class="proj__no">02.04</span> · Video &amp; Drohne</div>
-              <div class="proj__t">Werbespot Elektrotechnik</div>
-              <div class="proj__s">Spot für den eigenen Studiengang.</div>
-            </div>
-          </a>
-          <a class="proj" href="#p-video">
-            <div class="proj__cover proj__cover--leer"><span>folgt</span></div>
-            <div class="proj__body">
-              <div class="proj__k"><span class="proj__no">02.05</span> · Video &amp; Drohne</div>
               <div class="proj__t">Drohne</div>
               <div class="proj__s">FPV und cinematisch.</div>
             </div>
@@ -646,7 +639,7 @@
           <a class="proj" href="#p-video">
             <div class="proj__cover"><picture><source srcset="../assets/img/video/hostage-holiday-cover.webp" type="image/webp"><img src="../assets/img/video/hostage-holiday-cover.jpg" width="720" height="900" alt="Maskierte Gestalt im Türrahmen eines dunklen Flurs"></picture></div>
             <div class="proj__body">
-              <div class="proj__k"><span class="proj__no">02.06</span> · Video &amp; Drohne</div>
+              <div class="proj__k"><span class="proj__no">02.05</span> · Video &amp; Drohne</div>
               <div class="proj__t">Hostage Holiday</div>
               <div class="proj__s">Kurzfilm ohne Dialog, erstes Semester.</div>
             </div>
@@ -1271,8 +1264,8 @@
       </div>
       <div class="tr__txt">
         <p class="kicker">Projekt 09 · Video &amp; Drohne</p>
-        <p>Drei Filme aus dem Studium, alle im Team entstanden — und in jedem hatte ich einen anderen Job: beim Bergwerk den Ton, beim Porträt die Produktion, und beim ersten Kurzfilm haben wir uns Regie und Schnitt zu viert geteilt.</p>
-        <p>Imagefilm, Werbespot und die Drohnenaufnahmen kommen noch dazu.</p>
+        <p>Vier Filme aus dem Studium, alle im Team entstanden — und in jedem hatte ich einen anderen Job: beim Bergwerk den Ton, beim Porträt die Produktion, beim Imagefilm das Szenenbild, und beim ersten Kurzfilm haben wir uns Regie und Schnitt zu viert geteilt.</p>
+        <p>Die Drohnenaufnahmen kommen noch dazu.</p>
       </div>
       <div class="tr__f1 kapvideo">
         <video controls playsinline preload="none" poster="../assets/video/film-bergmann-poster.jpg">
@@ -1294,7 +1287,12 @@
         <div class="kapvideo__bu">Hostage Holiday — erster Kurzfilm, erstes Semester · ohne Dialog · 2 min 18 · mein Part: Regie und Schnitt, zu viert</div>
       </div>
 
-      <div class="tr__c warten"><span>Imagefilm · ARRI</span></div>
+      <div class="tr__f4 kapvideo">
+        <video controls playsinline preload="none" poster="../assets/video/film-electrify-poster.jpg">
+          <source src="../assets/video/film-electrify.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Electrify Your Future — Imagefilm für den Studiengang Elektrotechnik, gedreht auf der ARRI Alexa Mini · 3 min 01 · mein Part: Szenenbild</div>
+      </div>
       <div class="tr__d warten"><span>Drohne · FPV</span></div>
     </div>
     <a class="pj-back" href="#oben" style="margin:44px 0 90px">↑ nach oben</a>

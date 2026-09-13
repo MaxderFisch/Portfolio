@@ -5,6 +5,54 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 13.09.2026 — nachts (Imagefilm drin, vier Videos auf Halde)
+
+**Kapitel 09 hat jetzt vier Filme.** Dazu liegen vier weitere Videos komprimiert bereit, die
+Max **absichtlich noch nicht** auf der Seite haben will.
+
+### Eingebaut
+
+| Karte | Film | auf der Seite | Max' Rolle |
+|---|---|---|---|
+| 02.01 | Ein Tag als Bergmann (5:48) | 37,2 MB | Ton |
+| 02.02 | Kommt zu mir (5:17) | 23,0 MB | Produktion |
+| **02.03** | **Electrify Your Future (3:01)** | **24,6 MB** | **Szenenbild** |
+| 02.04 | Drohne | — „folgt" | — |
+| 02.05 | Hostage Holiday (2:18) | 14,6 MB | Regie und Schnitt, zu viert |
+
+Max sagte, **Imagefilm und Werbespot Elektrotechnik sind dasselbe** — die beiden getrennten
+Karten 02.03 und 02.04 wurden deshalb zu einer zusammengelegt, der Rest ist nachgerückt.
+Die Datei war **schon web-fertig** und wurde unverändert übernommen statt neu gerechnet.
+
+Im Kapitel ist nur noch **ein** Platzhalter übrig: „Drohne · FPV".
+
+### Komprimiert, aber bewusst nicht eingebunden
+
+Liegen in `assets/video/`, werden von keiner Seite referenziert:
+
+| Datei | Original | fertig |
+|---|---|---|
+| `film-animals.mp4` | 1874 MB | 34,0 MB |
+| `film-imker.mp4` | 846 MB | 14,4 MB |
+| `fpv-autos.mp4` | 2801 MB | 44,6 MB |
+| `fpv-timeline-1.mp4` | 449 MB | 6,1 MB |
+
+Die beiden FPV-Clips sind **wirklich stumm** (−91 dB), deshalb ohne Tonspur. Animals und
+Imker behalten ihren Ton. **Nicht einbauen ohne Rücksprache mit Max** — er weiß noch nicht,
+wie er sie zeigen will, und bei FPV kommen noch mehrere Aufnahmen dazu.
+
+Geprüft: CSS 403/403, div 298/298, video 5/5, a 23/23, 60 picture-Paare stimmig, keine
+doppelten IDs und keine doppelten Kartennummern, alle Anker lösen auf, alle 115 Asset-Verweise
+vorhanden. Bei 1400 px stehen die vier Filme im Zickzack, am Handy stapeln sie auf 295 px,
+kein Querscrollen. Hintergrundzeilen: 13 px Luft — der Block ist auf 2122 px gewachsen, liegt
+damit aber weiter im Rahmen der übrigen Kapitel (10–16 px).
+
+**Größe im Blick behalten:** `assets/video` liegt jetzt bei rund 240 MB. Wenn Max viele
+weitere FPV-Clips liefert (je ~40 MB), sollte man über Ausschnitte oder einen Zusammenschnitt
+reden, statt jeden Clip ganz abzulegen.
+
+---
+
 ## Stand vom 13.09.2026 — spätabends (dritter Film)
 
 Max lieferte „Hostage Holiday" nach, sein erstes Filmprojekt aus dem ersten Semester.

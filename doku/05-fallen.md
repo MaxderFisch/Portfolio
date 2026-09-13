@@ -187,3 +187,20 @@ ffmpeg -hide_banner -nostats -i datei.mp4 -vn -af volumedetect -f null /dev/null
 Kein Audiostrom = wirklich stumm. Ein Strom allein beweist nichts — es gibt auch Spuren, auf
 denen nur Stille liegt. Erst der Pegel entscheidet.
 
+
+### Nicht komprimieren, was schon komprimiert ist
+„Electrify Your Future" kam bereits als 1280×720 mit 1,0 Mbit/s, AAC 128k und gesetztem
+faststart — also genau im Zielformat. Ein weiterer x264-Durchlauf hätte nur
+**Generationsverlust** gebracht und kaum Platz gespart.
+→ Vor jedem Durchlauf `ffprobe` fragen: Ist die Quelle schon 1280 breit und unter ~2 Mbit/s?
+Dann kopieren statt rechnen.
+
+### Breitwandfilme haben schwarze Balken im Bild
+Derselbe Film liegt als 1280×720 vor, das eigentliche Bild ist aber nur 1280×480 ab y=120.
+Ein naiver 4:5-Ausschnitt fürs Vorschaubild hätte oben und unten **schwarze Balken** enthalten.
+→ Bildbereich erst ermitteln, dann daraus schneiden:
+```bash
+ffmpeg -hide_banner -nostats -ss 30 -t 12 -i film.mp4 -vf cropdetect=24:2:0 -f null - 2>&1 \
+  | grep -o 'crop=[0-9:]*' | sort | uniq -c | sort -rn | head -3
+```
+
