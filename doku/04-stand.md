@@ -43,9 +43,18 @@ auf Klick.
 - Der Untertitel der Karte 02.02 („Ein Pfarrer, ein Tag, eine Kamera") war erfunden und
   sachlich falsch. Ersetzt.
 
-**Neu offen:** Der ffmpeg-Befehl in `CLAUDE.md` wirft mit `-an` den Ton weg. Das gilt nur
-für stumme Schleifen wie die Therme-Animation, nicht für Filme. Steht jetzt in
-`02-vorgeschichte.md`, gehört bei Gelegenheit sauber in `CLAUDE.md` unterschieden.
+**Erledigt im selben Zug:** Der ffmpeg-Befehl in `CLAUDE.md` warf mit `-an` pauschal den Ton
+weg. Dort stehen jetzt **zwei** Befehle — einer für Filme mit Sprache (AAC 96k bleibt drin),
+einer für stumme Schleifen wie die Therme-Animation. Dazu die Regel, CRF an einer Probe zu
+kalibrieren statt zu raten, und die GitHub-Grenzen (100 MB blockt, 50 MB warnt).
+
+**Gepusht am 13.09. abends:** `4c29f7d` und `5b3b83d`. Live geprüft — die neue Fassung steht,
+alle zehn neuen Dateien werden von GitHub ausgeliefert, die Originale in `Neu/` bleiben mit
+404 privat.
+
+**Offen geblieben:** Wie `56956b8` (die Übergabe-Doku) auf GitHub gelandet ist, ist ungeklärt.
+Ich habe den Commit nur lokal angelegt und keinen Push ausgeführt; im Reflog steht trotzdem
+„update by push". Max gefragt, Antwort steht noch aus.
 
 ---
 
