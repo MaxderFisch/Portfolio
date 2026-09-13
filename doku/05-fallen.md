@@ -17,9 +17,18 @@ Fehler, die Seite sieht kaputt aus — **ohne dass am Code etwas falsch wäre**.
 Beim letzten Mal waren **71 Dateien** gleichzeitig betroffen.
 
 ```bash
-ls -lO Portfolio/assets/img/*/*.jpg Portfolio/assets/img/*/*.webp | grep dataless
-for f in $(ls -lO Portfolio/assets/img/*/* | grep dataless | awk '{print $NF}'); do cat "$f" >/dev/null & done; wait
+# finden (voller Pfad bleibt erhalten — WICHTIG, siehe unten)
+find Cloud_Portfolio/Portfolio/assets -type f \\( -name '*.jpg' -o -name '*.webp' -o -name '*.mp4' -o -name '*.pdf' \\) -print0 \\
+| xargs -0 -n1 -P8 sh -c 'ls -lO "$0" 2>/dev/null | grep -q dataless && printf "%s\\n" "$0"' > /tmp/dl.txt
+# zurückholen
+while IFS= read -r f; do cat "$f" >/dev/null & done < /tmp/dl.txt; wait
 ```
+
+**Der naheliegende Einzeiler ist falsch und hat mich am 13.09. erwischt:** `ls -lO ordner1/* ordner2/*`
+gruppiert die Ausgabe nach Ordnern und schreibt nur noch die **Dateinamen ohne Pfad**. `awk '{print $NF}'`
+liefert dann `cat-tongue.jpg` statt `assets/img/tiere/cat-tongue.jpg`, `cat` findet nichts, und die
+Meldung „236 zurückgeholt" ist gelogen — es waren 0. Deshalb oben `find` mit `-print0` benutzen und
+**hinterher nachzählen**, statt dem Erfolg zu glauben.
 
 Vor jedem Test und vor jedem Commit prüfen.
 
@@ -86,6 +95,15 @@ Faustregel: Drift zwischen zwei Nachbarzeilen ≈ `Tempodifferenz × (400 + Bloc
 - hohe Blöcke (> 1500 px): Stufen von **0,005**, sonst reicht der Zeilenabstand nicht
 
 Immer über den **gesamten** Scrollweg prüfen, nicht nur an einer Stelle.
+
+### Die Kapitelübergänge sind verkettet
+Jedes Kapitel blendet oben über einen Verlauf die Farbe des **vorherigen** Kapitels aus:
+`linear-gradient(to bottom,#vorherige-farbe 0,rgba(eigene,0) 460px)`.
+Diese Vorgängerfarbe steht als fester Wert im CSS.
+
+→ Ein Kapitel einfügen, löschen oder umsortieren bricht die Kette: an einer Stelle steht dann
+die falsche Farbe im Verlauf und es entsteht eine sichtbare Kante. Nach jedem solchen Eingriff
+die Verläufe aller Nachbarn durchgehen.
 
 ### `position: sticky` bricht
 Ein Vorfahre mit `overflow` ungleich `visible` macht das Kleben wirkungslos. Das ist hier

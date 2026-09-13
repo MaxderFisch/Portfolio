@@ -5,6 +5,50 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 13.09.2026 — abends (zwei Filme eingebaut)
+
+**Kapitel 09 „Video & Drohne" ist nicht mehr leer.** Max lieferte `Neu/Videos/` mit zwei
+fertigen Filmen; beide sind eingebaut, komprimiert und geprüft.
+
+| | Original | auf der Seite | Karte |
+|---|---|---|---|
+| Ein Tag als Bergmann (5:48) | 337 MB | `film-bergmann.mp4` — **37,2 MB** | 02.01, Vorschaubild gesetzt |
+| Kommt zu mir (5:17) | 222 MB | `film-kommt-zu-mir.mp4` — **23,0 MB** | 02.02, Vorschaubild gesetzt |
+
+Beide 1280×720, CRF 28, Ton als AAC 96 kbit/s, `faststart`, `preload="none"` mit Poster.
+Kein Google Drive nötig — GitHub blockt erst bei 100 MB pro Datei.
+
+**Max' Rollen stehen im Abspann und so auch auf der Seite:** Bergmann = **Ton**,
+Kommt zu mir = **Produktion**. Beides sind Teamproduktionen. Details und das ganze Team in
+`02-vorgeschichte.md`, Abschnitt 9. Nicht zu Alleinleistungen umschreiben.
+
+Geprüft: CSS 401/401, div 295/295, video 3/3, picture 58/58 und alle auf dasselbe Bild
+zeigend, keine doppelten IDs, alle Anker lösen auf, alle 107 Asset-Verweise vorhanden,
+beide Skripte syntaktisch in Ordnung. Bei 1400 px sitzen die Filme mit 687×387 versetzt,
+am Handy (375 px) stapeln sie auf volle Breite, kein Querscrollen. Hintergrundzeilen:
+15 px Luft über den ganzen Scrollweg.
+
+**Noch offen in diesem Kapitel:** Imagefilm (ARRI), Werbespot Elektrotechnik und Drohne.
+Die Karten 02.03–02.05 stehen weiter auf „folgt", zwei Platzhalterkacheln (`tr__c`,
+`tr__d`) sind im Kapitel geblieben. Für den Werbespot gibt es keine eigene Kachel.
+
+**Größen jetzt:** `assets/img` 38 MB, `assets/video` 113 MB. Größte Dateien:
+`film-bergmann.mp4` 37,2 MB, `showreel.mp4` 36,7 MB (wird von keiner Seite benutzt),
+`film-kommt-zu-mir.mp4` 23,0 MB. Beim reinen Seitenaufruf laden 3,8 MB, die Filme erst
+auf Klick.
+
+**Zwei Dinge nebenbei repariert:**
+- Der iCloud-Rückholbefehl in `CLAUDE.md` und `05-fallen.md` war **kaputt** und meldete
+  Erfolg, obwohl er nichts geholt hat. Korrigiert, mit Erklärung in `05-fallen.md`.
+- Der Untertitel der Karte 02.02 („Ein Pfarrer, ein Tag, eine Kamera") war erfunden und
+  sachlich falsch. Ersetzt.
+
+**Neu offen:** Der ffmpeg-Befehl in `CLAUDE.md` wirft mit `-an` den Ton weg. Das gilt nur
+für stumme Schleifen wie die Therme-Animation, nicht für Filme. Steht jetzt in
+`02-vorgeschichte.md`, gehört bei Gelegenheit sauber in `CLAUDE.md` unterschieden.
+
+---
+
 ## Stand vom 13.09.2026
 
 ### Woran zuletzt gearbeitet wurde
@@ -45,6 +89,14 @@ Eingebunden ist nur `therme-fische.mp4`. Die drei stammen aus den alten Designve
 *Offene Frage an Max: sollen die ins Video-Kapitel, oder sind sie veraltet?*
 `showreel.mp4` ist mit 37 MB in jedem Fall zu groß und müsste vorher neu kodiert werden.
 
+**Und in `Material/` (außerhalb des Repos) liegen sechs weitere Videos**, die gut zum
+Video-Kapitel passen könnten: `Drohne_Winter_01.mp4`, `Drone.mp4`, `Timeline 1.mp4`,
+`Nexus_Papierflieger.mov`, `0001-0375.mp4`, `0001-0500.mp4`.
+Vorsicht bei der Beurteilung: Der ganze Ordner ist **iCloud-ausgelagert**, `du -sh` meldet
+deshalb 12 KB für 14 Dateien. Das heißt *nicht*, dass er leer ist — vor dem Anschauen
+zurückholen (siehe `05-fallen.md`).
+*Offene Frage an Max: ist das brauchbares Material oder Reste?*
+
 ### Was nicht stimmt, aber nichts kaputt macht
 
 - **`Portfolio/index.html` leitet auf `v1/index.html` weiter** (Stand 24.07.2026). Wer die
@@ -76,8 +128,21 @@ bleibt es vorerst dort. *Offene Frage an Max: soll `CLAUDE.md` zusätzlich ins R
 
 1. **Diese Dokumentation committen** (passiert direkt im Anschluss).
 2. **Video-Material von Max abwarten** und Kapitel 09 füllen — der einzige inhaltliche Rest.
-3. **Weiterleitung in `Portfolio/index.html`** klären (siehe oben, nur nach Rückfrage).
+3. **Weiterleitung in `Portfolio/index.html`** klären — siehe „Was nicht stimmt, aber nichts
+   kaputt macht". Nur nach Rückfrage.
 4. Nichts davon ist dringend. Die Seite ist vorzeigbar und Max verschickt den Link bereits.
+
+### Offene Fragen an Max
+
+Gesammelt beim Durchlesen mit fremden Augen. **Nicht raten — nachfragen.**
+
+1. Sollen die vorhandenen Videos (`showreel`, `drone-clip-1`, `zeitraffer` in `assets/video/`
+   und die sechs in `Material/`) ins Video-Kapitel, oder sind sie veraltet?
+2. Soll `Portfolio/index.html` künftig auf `live/index.html` weiterleiten statt auf `v1`?
+3. Soll `CLAUDE.md` zusätzlich ins Repo, damit es bei einem `git clone` dabei ist?
+4. **Warum ist die Git-Wurzel `Cloud_Portfolio/` und nicht `Portfolio/`?** Grund unbekannt.
+   Folge ist der doppelte Pfad in der Adresse: `…/Portfolio/Portfolio/live/index.html`.
+   Falls das stört, ließe es sich ändern — aber alle bestehenden Links würden brechen.
 
 ### Wo der Code gerade steht
 

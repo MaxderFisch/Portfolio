@@ -104,6 +104,44 @@ Diese CSS-Klassen ziehen sich durch alle Kapitel:
 
 ---
 
+## Ein neues Kapitel hinzufügen
+
+Alles passiert in derselben Datei, `live/index.html`. Vier Stellen:
+
+1. **Bilder komprimieren** nach dem Ablauf in `CLAUDE.md` und nach
+   `assets/img/<bereich>/` legen — immer JPEG **und** WebP mit gleichem Namen.
+2. **Vorschaukarte** in die passende Bereichsreihe einfügen. Muster:
+   ```html
+   <a class="proj" href="#p-neu">
+     <div class="proj__cover"><picture>
+       <source srcset="../assets/img/design3d/neu-cover.webp" type="image/webp">
+       <img src="../assets/img/design3d/neu-cover.jpg" alt=""></picture></div>
+     <div class="proj__body">
+       <div class="proj__k"><span class="proj__no">03.04</span> · Design &amp; 3D</div>
+       <div class="proj__t">Titel</div>
+       <div class="proj__s">Ein Satz dazu.</div>
+     </div>
+   </a>
+   ```
+   Der Pfad geht von `live/` aus, also immer mit `../`.
+3. **Kapitel** unten anhängen: `<div class="chapter chapter--xyz" id="p-neu">` mit
+   `chapter__mark`, `wrap`, Raster (`.sr` oder `.tr`), `pb__bg` und dem
+   `↑ nach oben`-Link am Ende.
+4. **Farbwelt** im CSS definieren:
+   ```css
+   .chapter--xyz{--ink:…; --ink-strong:…; --faint:…; --rail:…;
+     background-color:#neu;
+     background-image:linear-gradient(to bottom,#vorher 0,rgba(r,g,b,0) 460px)}
+   ```
+   **Achtung:** Der Verlauf nennt die Farbe des **vorherigen** Kapitels ausdrücklich.
+   Wer ein Kapitel dazwischenschiebt, muss den Verlauf des **folgenden** Kapitels mitändern,
+   sonst entsteht eine harte Kante. Siehe `05-fallen.md`.
+
+Für die Hintergrundzeilen (`.bgl`) gelten eigene Regeln beim `data-speed` —
+unbedingt `05-fallen.md`, Abschnitt „Hintergrundzeilen überlappen sich" lesen.
+
+---
+
 ## Was tot ist, aber liegen bleibt
 
 - **`Website/`** — der erste Anlauf (Juni/Juli 2026). Zwei Designversionen plus eine

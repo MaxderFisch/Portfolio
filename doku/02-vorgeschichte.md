@@ -88,6 +88,8 @@ in vier Größenstufen, die 60–66 % der Blockfläche füllen.
 - **Rote Akzentwörter**: Die Farbe stammt nicht aus der Luft, sondern wurde per Canvas aus
   Max' eigenen Bildern gemessen (Rücklichter `#f70702`, Turmlichter `#d93a2c`,
   Linien `#ce261d`) → gemittelt zu **`#df2219`**.
+  Im Code steht er als `rgba(223,34,25,.62)` in `.pb__bg .bgl.red` — nach „df2219" zu suchen
+  führt ins Leere.
   Erst 3 rote Wörter, dann auf Wunsch 4, dann wieder auf **2** reduziert
   („nur die beiden unteren"): **BELICHTUNG** und **LEUCHTRÖHREN**.
   → **BELICHTUNG ist ausdrücklich eingefroren** — Max: „das wort belichtung oben soll so bleiben".
@@ -231,6 +233,10 @@ einzelnen Bilder"). Dann sollte A noch einmal etwas völlig Neues werden.
 
 ### Das Ergebnis: „Drift"
 
+Daraus wurde `startseite-a.html` — das ist der **direkte Vorfahr** der Live-Seite und die
+einzige der drei Startseiten, die schon den `scrollLeft`-Drift benutzt. `startseite-b.html`
+und `-c.html` sind die verworfenen Geschwister und liegen nur noch als Vergleich herum.
+
 Die Fassung, die in der Live-Seite steckt:
 - **Bereichsname steht senkrecht** am linken Rand statt als Überschrift darüber — spart Höhe
 - **Die Reihen wandern beim vertikalen Scrollen von selbst seitlich**
@@ -302,3 +308,74 @@ wohl nur die Antwort auf meine Rückfrage.
 Rückfrage auch die Freigabe für X ist.** Im Zweifel kurz bestätigen lassen.
 Am Inhalt wurde nichts geändert, nur Darstellung auf schmalen Bildschirmen.
 Rückgängig ginge es mit `git revert 2694697`.
+
+---
+
+## 9. Die zwei Filme im Video-Kapitel (13.09.2026)
+
+Max legte `Neu/Videos/` an: zwei fertige Filme aus dem Studium plus das Exposé zum zweiten.
+Damit ist Kapitel 09 zur Hälfte gefüllt; Imagefilm, Werbespot und Drohne fehlen weiter.
+
+### Max' Rollen — nachgeschlagen, nicht geraten
+
+Das ist der wichtigste Punkt an diesem Kapitel. **Beide Filme sind Teamproduktionen der THD,
+Max hat sie nicht allein gemacht.** Die Rollen stehen im Abspann, ich habe sie dort abgelesen:
+
+| Film | Max' Rolle | Übriges Team |
+|---|---|---|
+| Ein Tag als Bergmann | **Ton** | Regie Anita Evseenko · Kamera Tobias Schreiber · Reporter/Schnitt Bastian Fuchs · Licht Viktoria Bulich · Post Tobias Schreiber |
+| Kommt zu mir | **Produktion** | Regie Noah Barber · Kamera Joao Rio de Lima Lübeck · Ton Patrice Djemai · Schnitt Finn Eichler |
+
+→ **Die Seite sagt das auch so** („mein Part: Ton" bzw. „mein Part: Produktion"). Wer hier
+Texte ändert, darf daraus keine Alleinleistung machen.
+
+### Worum es geht
+
+- **Ein Tag als Bergmann** — Reportage im Graphitbergwerk Kropfmühl, ein Reporter fährt ein
+  und spricht unter Tage mit den Bergleuten. 5:48.
+- **Kommt zu mir** — Porträt über **Felix M. Schandl**, Karmelitenpater und katholischer
+  Jugendseelsorger an der TH Deggendorf. 5:17. Den Inhalt musste ich nicht raten: im selben
+  Ordner lag `A_03_ Exposé.pdf`, aus dem ich den Text gezogen habe (FlateDecode-Ströme mit
+  Node entpackt, weil es kein PDF-Werkzeug gibt). Kernsatz daraus: *kein Porträt über einen
+  Beruf, sondern über eine Haltung*.
+  **Achtung:** Der Film benutzt Musik unter **CC BY 3.0** („Traveling Around The World" von
+  Alex-Productions). Die Namensnennung steht im Abspann des Films selbst — die Lizenz ist
+  damit erfüllt, solange der Abspann drin bleibt. **Den Film nicht kürzen.**
+
+### Kompression
+
+Die Regel aus `CLAUDE.md` musste angepasst werden: der dortige ffmpeg-Aufruf wirft mit `-an`
+den **Ton weg**. Das war für die Therme-Animation richtig (stumme Schleife), für Filme mit
+Sprache ist es falsch. Hier stattdessen AAC mit 96 kbit/s.
+
+| | Original | 1280×720, CRF 28, Ton 96k |
+|---|---|---|
+| Ein Tag als Bergmann | 337 MB | **37,2 MB** |
+| Kommt zu mir | 222 MB | **23,0 MB** |
+
+CRF 28 wurde an 40-Sekunden-Proben bei 26/28/30 kalibriert und danach an einer **dunklen
+Stollenszene** gegengeprüft — dort fällt Kompression am ehesten auf, und der Unterschied zum
+Original war nicht zu sehen. GitHub blockt erst bei 100 MB pro Datei und warnt ab 50 MB;
+beide bleiben darunter, Google Drive war also nicht nötig.
+
+### Gestaltung
+
+Die beiden Platzhalterkacheln `tr__a`/`tr__b` sind durch zwei 16:9-Plätze ersetzt:
+`.tr__f1` (Spalte 5–12) und `.tr__f2` (Spalte 2–9), also **versetzt statt nebeneinander** —
+passend zur Asymmetrie im Rest der Seite. `tr__c`/`tr__d` bleiben als Platzhalter für
+Imagefilm und Drohne unverändert stehen.
+
+Die Hintergrundwörter „MATERIAL FOLGT" und „IN ARBEIT" stimmten nicht mehr und wurden zu
+„UNTER TAGE" und „KOMMT ZU MIR". Die `data-speed`-Stufen von 0,005 blieben; nachgemessen
+über den ganzen Scrollweg bleiben **15 px Luft** zwischen den engsten Nachbarzeilen — das
+liegt im selben Rahmen wie die übrigen Kapitel (10–16 px).
+
+Der Einleitungstext sprach vorher in der **dritten Person** über Max („Das Material dafür
+liefert Max noch nach") — auf seiner eigenen Seite. Jetzt in Ich-Form wie überall sonst.
+
+### Was ich korrigiert habe, ohne gefragt zu werden
+
+Die Karte 02.02 hieß „Personenporträt" mit dem Untertitel „Ein Pfarrer, ein Tag, eine Kamera."
+Beides stammte aus einer früheren Session und war **erfunden bzw. falsch**: Schandl ist
+Karmelitenpater und Jugendseelsorger, nicht Pfarrer, und „ein Tag, eine Kamera" war Deko.
+Jetzt: „Kommt zu mir — Porträt über den Jugendseelsorger der THD." Max weiß davon.
