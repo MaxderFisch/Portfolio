@@ -204,3 +204,23 @@ ffmpeg -hide_banner -nostats -ss 30 -t 12 -i film.mp4 -vf cropdetect=24:2:0 -f n
   | grep -o 'crop=[0-9:]*' | sort | uniq -c | sort -rn | head -3
 ```
 
+
+### „Lokal committet" ist hier kein sicherer Zwischenzustand
+Auf Max' Rechner läuft **GitHub Desktop** mit diesem Repo geöffnet. Im Protokoll
+(`~/Library/Application Support/GitHub Desktop/logs/`) stehen Push-Vorgänge, die mit `[ui]`
+markiert sind — also von Hand in der Oberfläche ausgelöst, nicht von einem Hook. Max drückt
+dort offenbar routinemäßig auf „Push origin".
+
+**Folge:** Ein Commit, den man „erstmal nur lokal" ablegt, kann Minuten später öffentlich
+sein, ohne dass man selbst gepusht hat. Der Zustand „committet, aber noch nicht
+veröffentlicht" hält hier also nicht von allein.
+
+→ Nichts committen, was nicht veröffentlicht werden darf. Wenn etwas wirklich zurückgehalten
+werden soll, mit Max reden statt auf „ist ja noch nicht gepusht" zu bauen.
+Und: Wenn `origin/main` weiter ist, als der eigene Push erklärt, ist das **kein Rätsel** —
+zuerst hier nachsehen:
+```bash
+grep -i 'Executing push' ~/Library/Application\ Support/GitHub\ Desktop/logs/*.log | tail
+```
+Die Zeitstempel dort sind **UTC**, die Uhr des Rechners steht auf **UTC+9**.
+

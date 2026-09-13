@@ -133,9 +133,12 @@ kalibrieren statt zu raten, und die GitHub-Grenzen (100 MB blockt, 50 MB warnt).
 alle zehn neuen Dateien werden von GitHub ausgeliefert, die Originale in `Neu/` bleiben mit
 404 privat.
 
-**Offen geblieben:** Wie `56956b8` (die Übergabe-Doku) auf GitHub gelandet ist, ist ungeklärt.
-Ich habe den Commit nur lokal angelegt und keinen Push ausgeführt; im Reflog steht trotzdem
-„update by push". Max gefragt, Antwort steht noch aus.
+**Geklärt (13.09. nachts):** Die Commits landeten auf GitHub, ohne dass ich gepusht hätte,
+weil auf dem Rechner **GitHub Desktop** mit diesem Repo offen ist und Max dort von Hand auf
+„Push origin" drückt. Im Protokoll stehen die Vorgänge als `[ui]` — also Mensch, kein Hook.
+Es gibt weder Git-Hooks noch `core.hooksPath` noch eine Automatik.
+→ **Wichtig:** „Nur lokal committet" ist dadurch kein sicherer Zwischenzustand. Details in
+`05-fallen.md`.
 
 ---
 
