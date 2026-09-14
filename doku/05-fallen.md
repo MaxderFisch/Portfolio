@@ -638,3 +638,22 @@ var mx=(g.left+g.width/2-c.left)/c.width*B, my=(g.top+g.height/2-c.top)/c.height
 ```
 Das folgt auch Transformationen automatisch. Abweichung danach: 1–3 px.
 
+
+### Zwei Elemente tauschen, ohne dass das Layout springt
+Wenn zwei unterschiedlich hohe Texte an derselben Stelle wechseln sollen, ist absolute
+Positionierung die naheliegende, aber schlechte Lösung — man muss die Höhe des Containers raten
+und sie stimmt spätestens bei anderer Fensterbreite nicht mehr.
+→ **Beide ins selbe Rasterfeld legen.** Der Container nimmt automatisch die Höhe des Höheren:
+```css
+.stapel{display:grid;align-items:center;justify-items:center}
+.stapel>*{grid-area:1/1}
+```
+Nachgemessen: Höhe am Rechner 233 px, am Handy 96 px — jeweils vor und nach dem Tausch gleich.
+
+### Mehr Fläche bei gleicher Punktzahl wirkt blasser
+Die Partikelwolke wurde für einen weichen Rand vergrößert — und war plötzlich halb so hell
+(Kern von 13 auf 7). Die Punktzahl war konstant geblieben, die Fläche aber um das 1,6-fache
+gewachsen.
+→ Bei Partikelsystemen die Anzahl **an die Fläche koppeln** und nach jeder Größenänderung die
+Helligkeit nachmessen, nicht nur hinsehen.
+

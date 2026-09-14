@@ -5,6 +5,34 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — weiche Wolkenkante, Schriftzug tauscht sich
+
+Zwei letzte Wünsche von Max zum Auftakt der Produktseite:
+
+**1. Weicher Rand statt harter Kante — nur am Anfang.** Die Wolke endete abrupt. Jetzt läuft
+sie über fünf Ringe aus und ist am Anfang etwas größer; beim Scrollen zieht sie sich wieder
+zusammen, der Rest bleibt wie er war.
+
+| Ring | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|---|---|---|---|---|---|---|---|---|---|
+| vorher | 13 | 11 | 11 | 11 | 10 | 11 | **11** | **3** | 0 |
+| jetzt | 12 | 12 | 10 | 10 | 9 | 8 | 5 | 3 | 1 |
+
+Dabei fiel auf: dieselbe Punktzahl auf größerer Fläche wirkt blasser (Kern von 13 auf 7).
+Ausgeglichen mit 6811 statt 5250 Punkten und mehr Helligkeit — Kern jetzt 12.
+
+**2. Der Schriftzug tauscht sich.** Ganz oben steht **iCapsule**, ab etwa 90 px Scrollweg wird
+daraus **Erinnerungen neu erleben.** in derselben Größe am selben Platz. Der Untertitel als
+eigene Zeile ist entfallen.
+Gelöst über ein **Rasterfeld**, in dem beide Texte übereinanderliegen (`grid-area:1/1`) —
+dadurch bestimmt der längere die Höhe und **beim Tausch springt nichts**: Titelhöhe 233 px am
+Rechner, 96 px am Handy, jeweils vor und nach dem Tausch identisch.
+
+Geprüft: kein Querscrollen am Rechner und am Handy, Wolke weiterhin auf das Gerät zentriert,
+Schwung-Mechanik unverändert. Seite 9897 px.
+
+---
+
 ## Stand vom 14.09.2026 — Auftakt der Produktseite fertig
 
 Max' vier letzte Punkte umgesetzt:

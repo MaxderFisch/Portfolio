@@ -1282,3 +1282,61 @@ Danach fällt alles wieder auf den Ruhewert (850 / 1104 / 431).
 Scroll-Ereignisse** — `pageYOffset` ändert sich, aber kein `scroll` kommt an. Alles, was an
 Scrollen hängt, muss über `window.dispatchEvent(new Event('scroll'))` von Hand ausgelöst
 werden. Steht in `05-fallen.md`.
+
+---
+
+## 27. Weiche Wolkenkante und der Schriftzug, der sich tauscht (14.09.2026)
+
+Zwei letzte Wünsche von Max zum Auftakt.
+
+### Die Wolke hatte am Anfang eine harte Kante
+
+Die Punkte lagen gleichverteilt in einer Kreisfläche — dadurch endete die Wolke abrupt.
+Gemessen als Helligkeit je Ring von innen nach außen:
+
+| Ring | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
+|---|---|---|---|---|---|---|---|---|---|
+| vorher | 13 | 11 | 11 | 11 | 10 | 11 | **11** | **3** | 0 |
+| jetzt | 12 | 12 | 10 | 10 | 9 | 8 | 5 | 3 | 1 |
+
+Vorher brach es von 11 auf 3 auf 0 ab. Jetzt läuft es über fünf Ringe aus.
+
+Umgesetzt mit einem weichen Abfall, der **nur am Anfang lang ist** und sich beim Scrollen
+zusammenzieht — Max wollte den Rest ausdrücklich unverändert:
+```js
+var weichAb=0.34+p*0.34;                  // zu Beginn frueher ausfransen
+var f=q.r<=weichAb ? 1 : Math.max(0,1-(q.r-weichAb)/(1.06-weichAb));
+f=f*f*(3-2*f);                            // sanfte Kurve
+```
+Dazu die Wolke am Anfang größer (`0.58-p*0.12` statt fest `0.46`) und die Punkte reichen mit
+`*1.06` etwas über den alten Rand hinaus, damit der Verlauf Platz hat.
+
+**Dabei ein Nebeneffekt, der nachgemessen werden musste:** Dieselbe Punktzahl auf größerer
+Fläche wirkt blasser — der Kern fiel von 13 auf 7. Ausgeglichen mit mehr Punkten
+(`B*H/185` statt `/240`, jetzt 6811 statt 5250) und etwas mehr Helligkeit. Kern jetzt 12.
+
+### Der Schriftzug tauscht sich beim ersten Scrollen
+
+Max' Idee: Ganz oben steht **iCapsule**, sobald man leicht scrollt, wird daraus
+**Erinnerungen neu erleben.** — in derselben Größe, am selben Platz. Der Untertitel als eigene
+Zeile entfällt damit.
+
+**Gelöst über ein Rasterfeld**, in dem beide Schriftzüge übereinanderliegen:
+```css
+.auftakt__titel{display:grid;align-items:center;justify-items:center}
+.auftakt__titel>*{grid-area:1/1}
+```
+Damit bestimmt der längere Text die Höhe, und beim Tausch springt nichts — nachgemessen:
+Titelhöhe **233 px am Rechner und 96 px am Handy, vor und nach dem Tausch identisch**.
+Mit absoluter Positionierung hätte man die Höhe raten müssen.
+
+Der Tausch läuft weich über Deckkraft, eine leichte Skalierung und einen kurzen Weichzeichner
+in beide Richtungen:
+```js
+var wechsel=Math.min(1,Math.max(0,(p-0.015)/0.085));
+wechsel=wechsel*wechsel*(3-2*wechsel);
+```
+Gemessen: bis 50 px Scrollweg steht iCapsule allein, ab etwa 90 px ist der Spruch da,
+ab 160 px vollständig getauscht. Die ersten ~47 px passieren nichts, weil der klebende Rahmen
+erst unter der Leiste hervorkommen muss — das fühlt sich richtig an, weil es dem „ganz oben"
+entspricht, das Max beschrieben hat.
