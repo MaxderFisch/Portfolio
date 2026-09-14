@@ -1196,3 +1196,41 @@ bei beliebigem Fortschritt erzwingt:
 | Querscrollen | keins, auch ohne `overflow-x:hidden` |
 
 **Was nur Max beurteilen kann: ob es gut aussieht.**
+
+---
+
+## 25. Produkt freigestellt, Auftakt scharf (14.09.2026)
+
+Max zur Partikelfassung: „die Partikel sind sehr gut, nur das Bild ist sehr verpixelt und
+nicht ausgeschnitten, also da ist so ein rechteckiger schwarzer Rahmen um das Produkt."
+
+Beide Punkte waren echte Fehler.
+
+**Der schwarze Rahmen** war ein undurchsichtiges JPEG. Auf schwarzem Grund fällt so ein Kasten
+nicht auf — über einer Partikelanimation schneidet er ein Rechteck heraus. Die Renderings haben
+zwar einen Alphakanal, der ist aber **komplett deckend**; sie wurden auf Schwarz ausgegeben.
+
+**Freigestellt in drei Anläufen** (Details in `05-fallen.md`): Zeilen-/Spaltenspanne ergab ein
+Karomuster, Flutung vom Rand lief durch eine dunkle Lücke ins Innere — erst die **konvexe Hülle
+aller hellen Punkte** saß sauber. Das Objekt ist von dieser Seite konvex, dunkle Innenflächen
+bleiben damit automatisch drin.
+
+**Die Verpixelung** war nachrechenbar: Quelle 584 px Produkt, Datei 1200 px (2,05× hochgerechnet),
+Darstellung 600 CSS-px — auf Retina also 1200 echte Punkte aus 584. 
+
+Dabei fiel auf: **Im PDF stecken höher aufgelöste Fassungen als in der Präsentation.** Eines ist
+sogar 3840 × 2160. Für den Auftakt gibt es dort `bild28.jpg` mit 635 × 578, schon eng gerahmt —
+nicht viel mehr, aber besser. Daraus neu freigestellt, mit Lanczos auf 952 px, dargestellt mit
+500 CSS-px: **1,05× statt 2,05×.** Praktisch scharf.
+
+→ **Merke: die Bildquellen dieses Projekts liegen an zwei Orten.** `iBee.pdf` enthält 30
+eingebettete JPEGs, teils höher aufgelöst als die 28 Bilder in der `.pptx`. Vor dem nächsten
+Bildtausch beide durchsehen.
+
+Nachgemessen: Ecke des Bildes durchsichtig, Mitte deckend, **17 % der Fläche hinter dem Gerät
+zeigen Partikel** — sie laufen also wirklich dahinter durch. Am Handy 263 px (70 % der Breite),
+WebP mit Alphakanal, kein Querscrollen.
+
+**Die Auflösungsgrenze bleibt:** 635 px echtes Produkt. Größer als etwa 500 CSS-px wird es
+wieder weich. Ein neues Rendering, eng gerahmt und **mit transparentem Hintergrund exportiert**,
+wäre weiterhin der größte Gewinn — und würde das Freistellen gleich überflüssig machen.

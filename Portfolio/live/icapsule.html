@@ -42,12 +42,13 @@
                   margin-top:11px;letter-spacing:-.014em}
   .auftakt__preis{margin-top:14px;font-size:16px;color:#a1a1a6}
   .auftakt__preis b{color:#fff;font-weight:600}
-  .auftakt__geraet{margin:26px auto 0;max-width:min(600px,46vw);will-change:transform}
+  .auftakt__geraet{margin:26px auto 0;max-width:min(500px,40vw);will-change:transform;
+                   filter:drop-shadow(0 30px 60px rgba(0,0,0,.7))}
   .auftakt__hinweis{position:absolute;left:0;right:0;bottom:26px;text-align:center;
                     font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#6e6e73;z-index:2}
   @media(max-width:880px){
     .auftakt{height:152svh}
-    .auftakt__geraet{max-width:74vw;margin-top:20px}
+    .auftakt__geraet{max-width:70vw;margin-top:20px}
   }
   @media(prefers-reduced-motion:reduce){
     .auftakt{height:auto}
@@ -146,7 +147,10 @@
       <p class="auftakt__unter" id="aUnter">Erinnerungen neu erleben.</p>
       <p class="auftakt__preis" id="aPreis">Ab <b>1.349&nbsp;€</b> &nbsp;·&nbsp; in Mitternacht und Weiß</p>
       <div class="auftakt__geraet" id="aGeraet">
-        <img src="../assets/img/icapsule/hero-dunkel.jpg" width="1200" height="1118" alt="iCapsule in Mitternacht">
+        <picture>
+          <source srcset="../assets/img/icapsule/hero-frei.webp" type="image/webp">
+          <img src="../assets/img/icapsule/hero-frei.png" width="952" height="866" alt="iCapsule in Mitternacht">
+        </picture>
       </div>
     </div>
     <div class="auftakt__hinweis" id="aHinweis">Scrollen</div>

@@ -5,6 +5,33 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Produkt freigestellt, Auftakt scharf
+
+Max' Rückmeldung zur Partikelfassung: Partikel gut, aber das Bild verpixelt und mit einem
+**rechteckigen schwarzen Rahmen** um das Produkt. Beides waren echte Fehler.
+
+**Der Rahmen:** ein undurchsichtiges JPEG über einer Animation schneidet ein Rechteck heraus.
+Die Renderings haben einen Alphakanal, der ist aber **komplett deckend** — sie wurden auf
+Schwarz ausgegeben. Freigestellt über die **konvexe Hülle** aller hellen Punkte (zwei andere
+Verfahren scheiterten, siehe `05-fallen.md`), jetzt als PNG und WebP mit Transparenz.
+
+**Die Verpixelung:** Quelle 584 px Produkt, Datei 1200 px (2,05× hochgerechnet), Darstellung
+600 CSS-px. Neu aus `bild28.jpg` des PDF (635 × 578), Ausgabe 952 px, Darstellung 500 CSS-px
+→ **1,05× statt 2,05×.**
+
+**Wichtiger Fund: die Bildquellen liegen an zwei Orten.** `iBee.pdf` enthält **30** eingebettete
+JPEGs, teils höher aufgelöst als die 28 in der `.pptx` — eines sogar 3840 × 2160.
+Vor dem nächsten Bildtausch beide durchsehen.
+
+Nachgemessen: Ecke durchsichtig, Mitte deckend, **17 % der Fläche hinter dem Gerät zeigen
+Partikel**. Am Handy 263 px (70 %), kein Querscrollen.
+
+**Grenze bleibt:** 635 px echtes Produkt. Über etwa 500 CSS-px wird es wieder weich. Ein neues
+Rendering **mit transparentem Hintergrund** wäre weiterhin der größte Gewinn und würde das
+Freistellen überflüssig machen.
+
+---
+
 ## Stand vom 14.09.2026 — Partikelwolke im Auftakt
 
 Der Auftakt der Produktseite ist jetzt eine **Partikelanimation** auf einem Canvas, ohne

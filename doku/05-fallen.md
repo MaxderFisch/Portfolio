@@ -570,3 +570,42 @@ bringt, hinterlässt **eine Bildschirmhöhe leere Fläche**.
 → Entweder den Inhalt sichtbar lassen und ihn natürlich hinausscrollen lassen, oder die
 Ausblendung erst im letzten Viertel der Gesamthöhe beginnen.
 
+
+### Ein Bild auf Schwarz schneidet ein Loch in alles dahinter
+Der Auftakt hatte Partikel hinter dem Produkt — und mitten darin ein **rechteckiges schwarzes
+Loch**. Ursache: Das Produktbild war ein JPEG mit undurchsichtigem schwarzem Hintergrund. Auf
+schwarzem Grund sieht man den Kasten normalerweise nicht, über einer Animation schon.
+→ Vor einem bewegten Hintergrund gehören Produktbilder **freigestellt**, mit Alphakanal
+(PNG oder WebP — JPEG kann das nicht).
+
+**Die Renderings hatten zwar einen Alphakanal, aber einen komplett deckenden.** Immer prüfen,
+ob er auch benutzt wird, nicht nur ob er existiert:
+```bash
+sips -g hasAlpha bild.png          # sagt nur, DASS es einen gibt
+ffmpeg -v error -i bild.png -vf scale=160:90 -pix_fmt rgba -frames:v 1 -f rawvideo -   # und dann zaehlen
+```
+
+### Freistellen: konvexe Hülle statt Flutung
+Drei Anläufe, nur der dritte taugte:
+1. **Zeilen- und Spaltenspanne, dann geschnitten** → Karomuster im Inneren, weil beide Spannen
+   an dunklen Randstellen unterschiedlich weit reichen.
+2. **Flutung vom Bildrand** (alles Dunkle, das vom Rand erreichbar ist, ist Hintergrund) →
+   lief durch eine dunkle Lücke im Rand ins Innere und machte die Kuppel durchsichtig.
+3. **Konvexe Hülle aller hellen Punkte, Polygon zeilenweise gefüllt** → sauber. Funktioniert,
+   weil das Objekt von dieser Seite konvex ist; dunkle Innenflächen bleiben automatisch drin.
+Danach die Maske zweimal weichzeichnen und leicht anziehen (`a*1.3-0.14`), sonst ist die Kante
+entweder hart oder ausgefranst.
+
+Zum Prüfen die Freistellung **auf eine grelle Farbe legen** — Reste sieht man sonst nicht:
+```bash
+ffmpeg -v error -y -f lavfi -i color=c=0xcc2222:s=WxH:d=1 -i frei.png \
+  -filter_complex "[0][1]overlay" -frames:v 1 -update 1 test.jpg
+```
+
+### Hochskalieren: rechnen, nicht schätzen
+Das Auftaktbild war sichtbar verpixelt. Rechnung: Quelle 584 px Produkt, ausgegeben als 1200er
+Datei (2,05× hochgerechnet), dargestellt mit 600 CSS-px — auf einem Retina-Bildschirm sind das
+1200 echte Bildpunkte aus 584 echten. Nach dem Neuschnitt aus einer 635er Quelle, Ausgabe 952 px,
+Darstellung 500 CSS-px: **1,05×**. Faustformel:
+`Hochskalierung = Darstellungsbreite × 2 ÷ echte Quellbreite` — über 1,3 sieht man es.
+
