@@ -5,6 +5,38 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — nur das mittige Video lädt
+
+Max meldete, beim Durchscrollen laden die oberen Videos und **die unteren dann gar nicht mehr**.
+Seine Vermutung war richtig: **`pause()` bricht den Download nicht ab.** Acht Videos luden
+weiter im Hintergrund, belegten die sechs Verbindungen pro Server und machten die Leitung dicht.
+
+**Behoben:**
+1. Verliert ein Video die Mitte, wird sein `<source>` entfernt und `load()` gerufen — das
+   bricht den Download wirklich ab. Kommt es zurück in die Mitte, wird die Quelle neu gesetzt.
+   Ausnahme: schon angespielte Videos (`currentTime > 0`) behalten ihre Quelle, solange sie
+   sichtbar sind — sonst springen sie beim Zusehen auf Anfang.
+2. **160 ms Wartezeit**, bevor überhaupt geladen wird. Wer nur vorbeiscrollt, löst nichts aus.
+
+**Am Netzwerkprotokoll nachgewiesen** (der einzige verlässliche Beweis — `play()`-Aufrufe
+sagen nichts darüber, was über die Leitung geht):
+
+| Vorgang | Videoanfragen |
+|---|---|
+| 93 Scrollschritte über die ganze Seite | **0** |
+| unten stehen bleiben | 1 |
+| hoch zum ersten Film | 1, die vorige mit `ERR_ABORTED` beendet |
+
+Am Handy identisch. Zu jedem Zeitpunkt hält **genau ein** Video eine Quelle.
+
+Für Prüfungen stellt die Steuerung `window.videoZustand()` bereit (hatQuelle, abgebaut,
+networkState, currentTime).
+
+→ **Weiterhin nur von Max prüfbar: ob die Bilder wirklich laufen.** Der Browser-Bereich hier
+setzt Wiedergabe aus. Und: **muss gepusht werden**, sonst ändert sich für ihn nichts.
+
+---
+
 ## Stand vom 14.09.2026 — Autoplay repariert, Layout steht still
 
 Max meldete, die Videos spielten nicht von selbst. **Drei Ursachen**, alle behoben:

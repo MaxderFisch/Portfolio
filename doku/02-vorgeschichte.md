@@ -745,3 +745,41 @@ Videos ergeben jetzt **9** `play()`-Aufrufe statt Dutzenden.
 
 **Weiterhin nicht prüfbar:** ob die Bilder tatsächlich laufen — der Browser-Bereich setzt
 Wiedergabe aus. Das muss Max am Gerät sehen.
+
+---
+
+## 16. Nur das mittige Video lädt — Downloads wirklich abbrechen (14.09.2026)
+
+Max meldete, dass beim Durchscrollen die oberen Videos zu laden anfangen und **die unteren
+dann gar nicht mehr**. Seine Vermutung — „weil die oberen glaube ich gerade noch runterladen" —
+war genau richtig.
+
+**Die Ursache war mein Fehler:** `pause()` hält die Wiedergabe an, **bricht den Download aber
+nicht ab**. Nach einem Durchlauf luden acht Videos weiter im Hintergrund, belegten die sechs
+Verbindungen, die ein Browser pro Server erlaubt, und machten die Leitung dicht.
+
+**Zwei Änderungen:**
+
+1. **Abbauen statt nur anhalten.** Verliert ein Video die Mitte, wird sein `<source>` entfernt
+   und `load()` gerufen — das bricht den Download wirklich ab und stellt das Poster wieder her.
+   Wird es wieder mittig, kommt die Quelle zurück; die Datei liegt dann im Zwischenspeicher.
+   Ausnahme: Ein Video, das schon angespielt wurde (`currentTime > 0`), behält seine Quelle,
+   solange es sichtbar bleibt — sonst würde es beim kleinsten Scrollen auf Anfang springen,
+   während man zusieht.
+2. **160 ms Wartezeit vor dem Laden.** Wer nur vorbeiscrollt, löst gar keine Anfrage mehr aus.
+
+### Nachgewiesen am Netzwerkprotokoll
+
+Das war die entscheidende Lehre: Die Anzahl der `play()`-Aufrufe sagt **nichts** darüber, was
+über die Leitung geht. Erst das Netzwerkprotokoll zeigt es.
+
+| Vorgang | Videoanfragen |
+|---|---|
+| 93 Scrollschritte über die ganze Seite | **0** |
+| unten stehen bleiben | 1 (`drone-clip-1.mp4`) |
+| hoch zum ersten Film | 1 (`film-bergmann.mp4`); die erste wurde mit `ERR_ABORTED` beendet |
+
+Am Handy dasselbe Bild: Durchscrollen null Videos, Stehenbleiben genau eines. Zu jedem
+Zeitpunkt hält **genau ein** Video eine Quelle, die anderen neun sind abgebaut.
+
+Für spätere Prüfungen stellt die Steuerung `window.videoZustand()` bereit.

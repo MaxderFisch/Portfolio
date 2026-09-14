@@ -348,3 +348,41 @@ Messbar: 13 Scrollschritte über 10 Videos ergaben **9** `play()`-Aufrufe statt 
 bleibt `_anfrage` gesetzt und das Video lässt sich weder anhalten noch neu starten. Da es in
 dem Fall ohnehin nicht spielt, ist der Schaden gering — aber es steht hier, falls es auffällt.
 
+
+### `pause()` bricht den Download nicht ab — das legt die ganze Seite lahm
+**Der Fehler, den Max selbst richtig diagnostiziert hat.** Wer beim Scrollen Videos anspielt
+und danach nur `pause()` ruft, lässt sie **weiter im Hintergrund laden**. Nach einem Durchlauf
+durch die Seite laden acht Videos gleichzeitig, belegen die **sechs Verbindungen**, die ein
+Browser pro Server erlaubt, und fressen die Bandbreite. Die unteren Videos laden dann gar
+nicht mehr — genau das Symptom.
+
+→ **Die Quelle entfernen und `load()` rufen.** Das bricht den laufenden Download wirklich ab
+und stellt das Poster wieder her:
+```js
+var q=v.querySelector('source'); if(q) v.removeChild(q);
+v.removeAttribute('src'); v.load();          // Download abgebrochen
+```
+Zum Wiederherstellen ein neues `<source>` anhängen und nochmal `load()`. Die Datei kommt beim
+zweiten Mal aus dem Browser-Zwischenspeicher, das ist billig.
+
+**Dazu eine Verzögerung vor dem Laden.** Wer nur vorbeiscrollt, soll gar nicht erst anfangen:
+Ein Video muss hier **160 ms** mittig bleiben, bevor Quelle und Wiedergabe aufgebaut werden.
+
+Nachgemessen mit dem Netzwerk-Protokoll — das ist der einzige verlässliche Beweis, weil
+`play()`-Aufrufe nichts darüber sagen, was wirklich über die Leitung geht:
+
+| Vorgang | Anfragen |
+|---|---|
+| 93 Scrollschritte über die ganze Seite | **0** |
+| danach unten stehen bleiben | 1 (`drone-clip-1.mp4`) |
+| danach hochscrollen zum ersten Film | 1 (`film-bergmann.mp4`), die erste mit `ERR_ABORTED` |
+
+`ERR_ABORTED` im Protokoll ist hier das **gewünschte** Ergebnis, kein Fehler.
+
+Prüfmuster:
+```js
+// Zustand aller Videos auf einen Blick (die Steuerung stellt das bereit)
+window.videoZustand();   // -> hatQuelle, abgebaut, networkState, currentTime
+```
+Und im Netzwerk-Werkzeug nach `.mp4` filtern. Mehr als **eine** aktive Anfrage ist ein Fehler.
+

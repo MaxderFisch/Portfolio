@@ -1628,73 +1628,31 @@
 })();
 
 /* Videos spielen von allein — aber immer nur eines: das, dessen Mitte der
-   Bildschirmmitte am nächsten ist.
-
-   Drei Dinge, die hier wehtun, wenn man sie nicht beachtet:
-   1. Automatisches Abspielen erlauben Browser nur stumm -> alle Videos muted.
-   2. play() ist asynchron und bei preload="none" laedt das Video erst danach.
-      Jede Startanfrage muss verfolgt werden, sonst feuert jeder Scrollpixel
-      ein neues play() und ein pause() dazwischen bricht es ab.
-   3. pause() STOPPT DEN DOWNLOAD NICHT. Wer nur pausiert, hat nach dem
-      Durchscrollen acht Videos, die weiter im Hintergrund laden, die sechs
-      erlaubten Verbindungen belegen und die Leitung dichtmachen -- die
-      unteren Videos laden dann gar nicht mehr. Deshalb wird die Quelle
-      entfernt und load() gerufen: das bricht den Download wirklich ab.
-   Dazu eine kurze Verzoegerung: Wer nur vorbeiscrollt, soll gar nicht
-   erst anfangen zu laden. */
+   Bildschirmmitte am nächsten ist. Alles andere hält an.
+   Automatisches Abspielen erlauben Browser nur stumm, deshalb tragen alle
+   Videos muted. play() ist asynchron und die Videos laden erst beim Start
+   (preload="none"), deshalb muss jede Startanfrage verfolgt werden — sonst
+   feuert jeder Scrollpixel ein neues play() und ein dazwischenkommendes
+   pause() bricht die laufende Anfrage ab. */
 (function(){
   var videos=[].slice.call(document.querySelectorAll('video'));
   if(!videos.length) return;
   var ruhe=window.matchMedia('(prefers-reduced-motion:reduce)');
-  var eigenerHalt=false;
-  var WARTEZEIT=160;   /* so lange muss ein Video mittig bleiben, bevor geladen wird */
+  var eigenerHalt=false;   /* unterscheidet unser pause() vom Klick des Nutzers */
 
   videos.forEach(function(v){
-    v.muted=true;                         /* iOS ignoriert das Attribut manchmal */
-    var q=v.querySelector('source');
-    v._quelle=q?q.getAttribute('src'):null;
-    v._abgebaut=false; v._anfrage=false; v._sollHalten=false;
+    v.muted=true;                      /* iOS ignoriert das Attribut manchmal */
+    v._anfrage=false;                  /* laeuft gerade ein play()? */
+    v._sollHalten=false;               /* waehrenddessen kam ein Haltewunsch */
     v.addEventListener('pause',function(){
+      /* nur echtes Pausieren durch den Nutzer merken */
       if(!eigenerHalt && !v.ended && !v._anfrage) v.dataset.vonHand='1';
     });
     v.addEventListener('play',function(){ delete v.dataset.vonHand; });
   });
 
-  function sichtbar(v){
-    var r=v.getBoundingClientRect();
-    return r.height>0 && r.bottom>0 && r.top<window.innerHeight;
-  }
-
-  function anhalten(v){
-    if(v._anfrage){ v._sollHalten=true; return; }
-    if(v.paused) return;
-    eigenerHalt=true; v.pause(); eigenerHalt=false;
-  }
-
-  /* Quelle entfernen -> laufender Download wird abgebrochen, Poster kommt zurueck */
-  function abbauen(v){
-    if(v._abgebaut || !v._quelle) return;
-    anhalten(v);
-    try{
-      var q=v.querySelector('source'); if(q) v.removeChild(q);
-      v.removeAttribute('src');
-      v.load();
-    }catch(e){}
-    v._abgebaut=true; v._anfrage=false; v._sollHalten=false;
-  }
-
-  function aufbauen(v){
-    if(!v._abgebaut) return;
-    try{
-      var q=document.createElement('source');
-      q.setAttribute('src',v._quelle); q.setAttribute('type','video/mp4');
-      v.appendChild(q); v.load();
-    }catch(e){}
-    v._abgebaut=false;
-  }
-
   function starten(v){
-    if(v._anfrage || !v.paused) return;
+    if(v._anfrage || !v.paused) return;     /* laeuft schon oder ist angefordert */
     v._anfrage=true; v._sollHalten=false;
     var p;
     try{ p=v.play(); }catch(e){ v._anfrage=false; return; }
@@ -1703,45 +1661,34 @@
         v._anfrage=false;
         if(v._sollHalten){ v._sollHalten=false; anhalten(v); }
       },function(){
+        /* abgelehnt (z.B. Stromsparmodus): Poster bleibt stehen, kein Merker setzen */
         v._anfrage=false; v._sollHalten=false; delete v.dataset.vonHand;
       });
     } else { v._anfrage=false; }
   }
 
-  var wartendAuf=null, uhr=null;
+  function anhalten(v){
+    if(v._anfrage){ v._sollHalten=true; return; }  /* erst die Startanfrage abwarten */
+    if(v.paused) return;
+    eigenerHalt=true; v.pause(); eigenerHalt=false;
+  }
 
   function waehlen(){
-    if(ruhe.matches){ videos.forEach(function(v){ anhalten(v); abbauen(v); }); return; }
+    if(ruhe.matches){ videos.forEach(anhalten); return; }
     var mitte=window.innerHeight/2, aktiv=null, beste=Infinity;
     videos.forEach(function(v){
-      if(!sichtbar(v)) return;
       var r=v.getBoundingClientRect();
+      /* gar nicht mehr zu sehen: anhalten, Merker zuruecksetzen, Abgelaufenes zurueckspulen */
+      if(!r.height || r.bottom<=0 || r.top>=window.innerHeight){
+        delete v.dataset.vonHand;
+        if(v.ended){ try{ v.currentTime=0; }catch(e){} }
+        return;
+      }
       var d=Math.abs(r.top+r.height/2-mitte);
       if(d<beste){ beste=d; aktiv=v; }
     });
-
-    videos.forEach(function(v){
-      if(v===aktiv) return;
-      anhalten(v);
-      /* ganz aus dem Bild: immer abbauen. Noch sichtbar, aber nie angespielt:
-         auch abbauen -- das ist der Fall "nur vorbeigescrollt". Wer schon etwas
-         gesehen hat (currentTime>0), behaelt seine Quelle, solange er im Bild ist. */
-      if(!sichtbar(v) || !v.currentTime){
-        delete v.dataset.vonHand;
-        abbauen(v);
-      } else if(v.ended){ try{ v.currentTime=0; }catch(e){} }
-    });
-
-    if(aktiv!==wartendAuf){
-      wartendAuf=aktiv;
-      if(uhr){ clearTimeout(uhr); uhr=null; }
-      if(aktiv) uhr=setTimeout(function(){
-        uhr=null;
-        if(wartendAuf!==aktiv || !sichtbar(aktiv)) return;
-        aufbauen(aktiv);
-        if(!aktiv.dataset.vonHand) starten(aktiv);
-      },WARTEZEIT);
-    }
+    videos.forEach(function(v){ if(v!==aktiv) anhalten(v); });
+    if(aktiv && !aktiv.dataset.vonHand) starten(aktiv);
   }
 
   var tick=false;
@@ -1752,11 +1699,7 @@
   window.addEventListener('resize',waehlen);
   window.addEventListener('load',waehlen);
   if(ruhe.addEventListener) ruhe.addEventListener('change',waehlen);
-  window.videoWahl=waehlen;
-  window.videoZustand=function(){ return videos.map(function(v){
-    return {n:v._quelle?v._quelle.split('/').pop():'?', abgebaut:v._abgebaut,
-            hatQuelle:!!v.querySelector('source'), netz:v.networkState,
-            zeit:+v.currentTime.toFixed(2), paused:v.paused}; }); };
+  window.videoWahl=waehlen;   /* fuer Pruefungen von aussen */
   waehlen();
 })();
 </script>
