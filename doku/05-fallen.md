@@ -509,3 +509,40 @@ Herstellers ist üblich und völlig in Ordnung — eine Seite, die sich als dies
 → Und immer eine klare Einordnung im Anschluss: wessen Entwurf, dass er nicht verkauft wird,
   dass Preis und Daten erfunden sind, wem die Marken gehören.
 
+
+### Bildfüllend heißt nichts, wenn das Bild selbst leer ist
+Die Renderings liefen über die volle Fensterbreite — und das Produkt sah trotzdem winzig aus.
+Grund: **Die Bilder selbst waren zu 70–90 % leerer Hintergrund.** Gemessen am Anteil der
+genutzten Bildfläche: Auftakt **12 %**, Assistent **17 %**, Bildschirme **32 %**.
+Ein Bild auf volle Breite zu ziehen vergrößert dann nur die Leere mit.
+
+→ **Erst zuschneiden, dann vergrößern.** Und: **kein Format erzwingen.** Der erste Versuch
+schnitt auf 16:9 zu — bei hochkantem oder quadratischem Inhalt bleibt dann zwangsläufig
+seitlich Leere (der Chip kam von 47 % auf 47 %, also gar nichts gewonnen). Auf die
+**natürliche Form** des Inhalts schneiden und das Layout danach richten:
+breite Zuschnitte über die volle Breite, quadratische mittig mit Maximalbreite.
+
+**Der Trick dahinter:** Wenn Bild- und Seitenhintergrund dieselbe Farbe haben, ist der Bildrand
+unsichtbar — das Produkt steht scheinbar frei auf der Seite statt in einem Kasten.
+
+`cropdetect` reichte hier nicht (fand bei dunklem Produkt auf Schwarz gar nichts). Stattdessen
+eigene Erkennung: Bild klein in Graustufen auslesen, Hintergrund aus den vier Ecken mitteln,
+und alles zählen, was um mehr als eine Schwelle abweicht:
+```bash
+ffmpeg -v error -i bild.png -vf scale=320:180,format=gray -frames:v 1 -f rawvideo -
+```
+Danach den Rahmen in Quellpixel zurückrechnen und mit etwas Luft schneiden.
+
+### `sips` wandelt stillschweigend die alte Datei um
+Beim Zuschneiden schlug `ffmpeg` fehl (ein `:` im Dateinamen der Skalierungsoption), die
+Zwischendatei blieb aber vom vorigen Durchlauf liegen — `sips` wandelte sie brav erneut um.
+Ergebnis: **sieben scheinbar erfolgreiche Bilder, alle mit demselben Inhalt.** Aufgefallen nur,
+weil alle exakt gleich groß waren.
+→ Zwischendatei vor jedem Durchlauf löschen und danach prüfen, dass sie existiert und nicht
+leer ist:
+```bash
+rm -f "$T/z.png"
+ffmpeg … "$T/z.png" || { echo fehlgeschlagen; continue; }
+[ -s "$T/z.png" ] || { echo leer; continue; }
+```
+

@@ -5,6 +5,36 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Renderings zugeschnitten
+
+Max schickte ein Bildschirmfoto: Produkt winzig, ringsum nur Schwarz. Sein Einwand war
+richtig und traf einen Grundfehler.
+
+**Die Bilder selbst waren fast leer.** Genutzte Bildfläche: Auftakt **12 %**, Assistent
+**17 %**, Bildschirme 32 %. Sie bildfüllend zu zeigen vergrößerte nur die Leere mit.
+
+**Der erste Reparaturversuch war auch falsch:** Zuschnitt auf 16:9. Bei quadratischem Inhalt
+bleibt dann seitlich Leere — der Chip kam von 47 % auf 47 %, also nichts gewonnen.
+
+**Richtig:** auf die natürliche Form des Inhalts schneiden, Layout danach richten.
+Breite Zuschnitte über die volle Breite, quadratische mittig oder im Paar neben dem Text.
+Weil Bild- und Seitenhintergrund beide Schwarz sind, ist der Bildrand danach unsichtbar —
+das Produkt steht scheinbar frei auf der Seite.
+
+Seite jetzt **8832 px**. Bilder teils kleiner in Pixeln, zeigen aber 100 % Produkt statt 25 %.
+
+Geprüft: 14 Bilder, alle Maße im Markup stimmen mit den Dateien, kein Querscrollen am Rechner
+und am Handy, Einblenden 16 von 16.
+
+### Der größte verbleibende Hebel
+
+Die Quellrenderings sind nur **1920 × 1080**, und davon ist beim Auftakt nur **584 × 544**
+echtes Produkt. Für die wichtigsten zwei, drei Bilder wäre ein **neues Rendering, eng gerahmt
+und hochauflösend**, der deutlichste Qualitätsgewinn. Max hat angeboten, bei Bedarf neu zu
+rendern — das ist der Punkt, an dem es sich lohnt.
+
+---
+
 ## Stand vom 14.09.2026 — Produktseite mit bildfüllenden Renderings
 
 Nach Max' Rückmeldung nachgeschärft: Die Renderings waren in der kompakten Fassung nur

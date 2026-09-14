@@ -17,70 +17,71 @@
   img{width:100%;height:auto;display:block}
   a{color:inherit;text-decoration:none}
 
-  .bar{position:sticky;top:0;z-index:90;background:rgba(22,22,23,.8);
+  .bar{position:sticky;top:0;z-index:90;background:rgba(22,22,23,.78);
        backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
        border-bottom:1px solid rgba(255,255,255,.08)}
   .bar__in{max-width:1180px;margin:0 auto;padding:0 22px;height:46px;
            display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .bar__z{font-size:13px;color:#d2d2d7;white-space:nowrap;transition:color .3s}
+  .bar__z{font-size:13px;color:#d2d2d7;transition:color .3s;white-space:nowrap}
   .bar__z:hover{color:#fff}
   .bar__n{font-size:18px;font-weight:600;letter-spacing:-.02em}
   .bar__p{font-size:13px;color:#d2d2d7;white-space:nowrap}
   @media(max-width:560px){ .bar__p{display:none} }
 
-  .mitte{max-width:1180px;margin:0 auto;padding:0 22px}
-  .eng{max-width:760px;margin:0 auto}
-  .auge{font-size:15px;font-weight:600;color:var(--blau);margin-bottom:9px}
-  h1{font-size:clamp(48px,8.6vw,96px);font-weight:700;letter-spacing:-.026em;line-height:1.02}
-  h2{font-size:clamp(30px,4.8vw,58px);font-weight:700;letter-spacing:-.022em;line-height:1.07}
-  h3{font-size:clamp(20px,2.5vw,28px);font-weight:600;letter-spacing:-.015em;line-height:1.15}
-  .s{font-size:clamp(16px,1.95vw,20px);line-height:1.5;color:#d2d2d7;margin-top:15px}
+  .mitte{max-width:1200px;margin:0 auto;padding:0 24px}
+  .auge{font-size:14px;font-weight:600;color:var(--blau);letter-spacing:.01em;margin-bottom:9px}
+  h1{font-size:clamp(52px,9vw,104px);font-weight:700;letter-spacing:-.028em;line-height:1}
+  h2{font-size:clamp(30px,4.6vw,56px);font-weight:700;letter-spacing:-.024em;line-height:1.06}
+  .s{font-size:clamp(16px,1.9vw,19px);line-height:1.52;color:#a1a1a6;margin-top:15px;max-width:46ch}
+  .mittig .s{margin-left:auto;margin-right:auto}
   .hell .s,.grau .s{color:#6e6e73}
-  .bu{font-size:12px;color:var(--grau);margin-top:14px;line-height:1.5}
-  .hell .bu,.grau .bu{color:#86868b}
+  .bu{font-size:12px;color:#6e6e73;margin-top:13px;line-height:1.5}
 
   .hell{background:#fff;color:var(--tinte)}
   .grau{background:#f5f5f7;color:var(--tinte)}
-  .dunkel{background:#000;color:#fff}
+  .mittig{text-align:center}
 
-  /* Kopf eines Abschnitts: Text mittig, darunter das grosse Bild */
-  .kopf{padding:86px 22px 0;text-align:center}
-  .kopf--eng{padding-top:64px}
-  /* bildfuellend: keine Begrenzung, das Bild nimmt die ganze Breite */
-  .voll{margin-top:38px}
-  .voll img{width:100%}
-  .nachsatz{padding:18px 22px 86px;text-align:center}
+  /* Buehne: Produkt gross und frei auf der Seite, Bildrand ist unsichtbar */
+  .buehne{padding:86px 24px 96px}
+  .buehne__bild{margin:44px auto 0}
+  .b560{max-width:560px} .b640{max-width:640px} .b700{max-width:700px} .b460{max-width:460px}
 
-  .hero{padding:66px 0 0;text-align:center}
-  .hero .preis{margin-top:17px;font-size:17px;color:#d2d2d7}
-  .hero .preis b{color:#fff;font-weight:600}
+  /* Paar: Bild und Text auf gleicher Hoehe, Bild bekommt mehr Platz */
+  .paar{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;
+        max-width:1200px;margin:0 auto;padding:86px 24px}
+  .paar--textLinks{grid-template-columns:.85fr 1.15fr}
+  .paar--textLinks .txt{order:1} .paar--textLinks .bild{order:2}
+  .paar .txt .s{max-width:40ch}
 
-  /* Erinnerungsstreifen */
-  .streifenbilder{margin-top:40px;display:grid;grid-template-columns:repeat(6,1fr);gap:12px;
-                  max-width:1320px;margin-left:auto;margin-right:auto;padding:0 22px}
+  /* volle Breite, ohne Rand */
+  .breit{padding:0}
+  .breit__kopf{padding:86px 24px 0;text-align:center}
+  .breit__bild{margin-top:40px}
+  .breit__fuss{padding:16px 24px 90px;text-align:center}
+
+  .streifenbilder{margin-top:42px;display:grid;grid-template-columns:repeat(6,1fr);gap:12px;
+                  max-width:1320px;margin-left:auto;margin-right:auto;padding:0 24px}
   .streifenbilder img{aspect-ratio:1;object-fit:cover;border-radius:16px}
 
-  /* Zahlen */
-  .zahlen{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;text-align:center;
-          max-width:940px;margin:46px auto 0;padding:0 22px}
-  .zahlen .z{font-size:clamp(26px,3.6vw,44px);font-weight:700;letter-spacing:-.022em;line-height:1}
+  .zahlen{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;
+          max-width:900px;margin:0 auto;padding:0 24px 92px}
+  .zahlen .z{font-size:clamp(26px,3.4vw,42px);font-weight:700;letter-spacing:-.024em;line-height:1}
   .zahlen .b{font-size:12px;color:var(--grau);margin-top:7px}
 
-  /* Band mit Text darauf */
   .band{position:relative;overflow:hidden}
-  .band__txt{position:absolute;left:0;right:0;bottom:0;padding:56px 30px 42px;text-align:center;
-             background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.45) 48%,rgba(0,0,0,0) 100%)}
-  .band__txt h2,.band__txt .s{color:#fff}
-  @media(max-width:760px){ .band__txt{position:static;background:#000;padding:32px 22px} }
+  .band__txt{position:absolute;left:0;right:0;bottom:0;padding:60px 30px 44px;text-align:center;
+             background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.45) 50%,rgba(0,0,0,0) 100%)}
+  .band__txt h2{color:#fff}
+  .band__txt .s{color:#d2d2d7;margin-left:auto;margin-right:auto}
+  @media(max-width:760px){ .band__txt{position:static;background:#000;padding:34px 24px} }
 
-  /* Daten */
-  .daten{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:38px}
-  .d{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:15px 0;
+  .daten{display:grid;grid-template-columns:1fr 1fr;gap:0 52px;margin-top:40px}
+  .d{display:grid;grid-template-columns:148px 1fr;gap:16px;padding:15px 0;
      border-top:1px solid #d2d2d7;font-size:15px;line-height:1.5}
   .d dt{font-weight:600}
   .d dd{color:#424245}
 
-  .fuss{background:#f5f5f7;color:#6e6e73;padding:48px 0 62px;font-size:13px;line-height:1.65}
+  .fuss{background:#f5f5f7;color:#6e6e73;padding:50px 0 64px;font-size:13px;line-height:1.65}
   .fuss h4{font-size:15px;font-weight:600;color:var(--tinte);margin-bottom:10px}
   .fuss p{margin-bottom:11px}
   .fuss .trenner{height:1px;background:#d2d2d7;margin:24px 0}
@@ -88,16 +89,19 @@
            background:#0071e3;color:#fff;font-size:15px;transition:background .3s}
   .zurueck:hover{background:#0077ed}
 
-  .auf{opacity:0;transform:translateY(24px);
-       transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+  .auf{opacity:0;transform:translateY(26px);
+       transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
   .auf.da{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){.auf{opacity:1;transform:none;transition:none}}
 
-  @media(max-width:860px){
-    .kopf{padding-top:58px}
-    .nachsatz{padding-bottom:58px}
-    .streifenbilder{grid-template-columns:repeat(3,1fr);gap:9px}
-    .zahlen{grid-template-columns:repeat(2,1fr);gap:28px}
+  @media(max-width:880px){
+    .paar,.paar--textLinks{grid-template-columns:1fr;gap:30px;padding:60px 24px}
+    .paar--textLinks .txt,.paar--textLinks .bild{order:initial}
+    .paar .txt .s,.s{max-width:none}
+    .buehne{padding:60px 24px 68px}
+    .breit__kopf{padding-top:60px} .breit__fuss{padding-bottom:64px}
+    .streifenbilder{grid-template-columns:repeat(3,1fr);gap:10px}
+    .zahlen{grid-template-columns:repeat(2,1fr);gap:30px;padding-bottom:64px}
     .daten{grid-template-columns:1fr;gap:0}
   }
 </style>
@@ -112,23 +116,23 @@
   </div>
 </header>
 
-<!-- Auftakt -->
-<section class="hero dunkel">
+<!-- Auftakt: Produkt frei auf Schwarz -->
+<section class="buehne mittig" style="padding-top:62px">
   <div class="mitte">
     <h1>iCapsule</h1>
-    <p style="font-size:clamp(20px,2.7vw,28px);font-weight:600;color:#f5f5f7;margin-top:11px;letter-spacing:-.012em">Erinnerungen neu erleben.</p>
-    <p class="preis">Ab <b>1.349&nbsp;€</b> &nbsp;·&nbsp; in Mitternacht und Weiß</p>
+    <p style="font-size:clamp(21px,2.8vw,30px);font-weight:600;color:#f5f5f7;margin-top:12px;letter-spacing:-.014em">Erinnerungen neu erleben.</p>
+    <p style="margin-top:16px;font-size:17px;color:#a1a1a6">Ab <b style="color:#fff;font-weight:600">1.349&nbsp;€</b> &nbsp;·&nbsp; in Mitternacht und Weiß</p>
   </div>
-  <div class="voll" style="margin-top:26px">
-    <img src="../assets/img/icapsule/hero-dunkel.jpg" width="1920" height="1080"
-         alt="iCapsule in Mitternacht, freigestellt auf schwarzem Grund">
+  <div class="buehne__bild b640">
+    <img src="../assets/img/icapsule/hero-dunkel.jpg" width="1200" height="1118"
+         alt="iCapsule in Mitternacht">
   </div>
 </section>
 
 <!-- Speicher -->
-<section class="dunkel">
-  <div class="kopf">
-    <div class="eng auf">
+<section class="breit">
+  <div class="breit__kopf">
+    <div class="mitte mittig auf">
       <p class="auge">Speicher</p>
       <h2>Bis zu 20&nbsp;TB.<br>Für alles, was bleiben soll.</h2>
       <p class="s">Jedes Foto, jedes Video, jeder Moment — an einem Ort, der einem gehört.</p>
@@ -142,35 +146,35 @@
     <picture><source srcset="../assets/img/icapsule/erinnerung-5.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-5.jpg" width="800" height="800" loading="lazy" alt="Erinnerung: Katze am Straßenrand"></picture>
     <picture><source srcset="../assets/img/icapsule/erinnerung-6.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-6.jpg" width="800" height="800" loading="lazy" alt="Erinnerung: Pilz im Wald"></picture>
   </div>
-  <p class="bu nachsatz">Die Erinnerungen auf den Bildschirmen sind eigene Fotos.</p>
+  <p class="bu breit__fuss">Die Erinnerungen auf den Bildschirmen sind eigene Fotos.</p>
 </section>
 
-<!-- Klang — technisches Rendering, bildfuellend -->
-<section class="dunkel">
-  <div class="kopf">
-    <div class="eng auf">
+<!-- Klang: Bild links, gross -->
+<section>
+  <div class="paar auf">
+    <div class="bild">
+      <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1400" height="1136" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
+    </div>
+    <div class="txt">
       <p class="auge">Klang</p>
       <h2>Brillante Höhen.<br>Tiefe Bässe.</h2>
       <p class="s">Sieben ringförmig angeordnete Hochtöner verteilen den Klang in jede Richtung. Darunter arbeitet ein High-Excursion-Tieftöner.</p>
+      <p class="bu">Röntgenansicht aus dem 3D-Modell — die Anordnung der Treiber wurde als eigenes Bauteil gebaut.</p>
     </div>
   </div>
-  <div class="voll auf">
-    <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1920" height="1080" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
-  </div>
-  <p class="bu nachsatz">Röntgenansicht aus dem 3D-Modell — die Anordnung der Treiber wurde als eigenes Bauteil gebaut.</p>
 </section>
 
-<!-- Leistung — technisches Rendering, bildfuellend -->
-<section class="dunkel">
-  <div class="kopf">
-    <div class="eng auf">
+<!-- Leistung: Text links, Chip rechts gross -->
+<section>
+  <div class="paar paar--textLinks auf">
+    <div class="txt">
       <p class="auge">Leistung</p>
-      <h2>Maximale Leistung.</h2>
+      <h2>Maximale<br>Leistung.</h2>
       <p class="s">M4-Chip mit 16&nbsp;Kernen. Genug Reserven, um Aufnahmen zu ordnen, Gesichter zu erkennen und Inhalte in Echtzeit aufzubereiten.</p>
     </div>
-  </div>
-  <div class="voll auf">
-    <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1920" height="1080" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
+    <div class="bild">
+      <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1300" height="1276" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
+    </div>
   </div>
   <div class="zahlen auf">
     <div><div class="z">20&nbsp;TB</div><div class="b">Speicher</div></div>
@@ -178,82 +182,73 @@
     <div><div class="z">7</div><div class="b">Hochtöner</div></div>
     <div><div class="z">6&nbsp;&Prime;</div><div class="b">OLED</div></div>
   </div>
-  <div style="height:86px"></div>
 </section>
 
-<!-- Bildschirm — bildfuellend -->
-<section class="dunkel">
-  <div class="kopf">
-    <div class="eng auf">
+<!-- Bildschirm: breiter Streifen -->
+<section class="breit">
+  <div class="breit__kopf">
+    <div class="mitte mittig auf">
       <p class="auge">Bildschirm</p>
       <h2>Farbig leuchtende<br>Erinnerungen.</h2>
       <p class="s">Ein 6&nbsp;Zoll großer OLED-Bildschirm sitzt in der Öffnung. Er zeigt, was gerade zählt — ein Bild, eine Auswahl, ein Gesicht.</p>
     </div>
   </div>
-  <div class="voll auf">
-    <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1920" height="1080" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
+  <div class="breit__bild auf">
+    <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1600" height="554" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
   </div>
-  <div style="height:86px"></div>
+  <div style="height:90px"></div>
 </section>
 
 <!-- Assistent -->
-<section class="grau">
-  <div class="kopf">
-    <div class="eng auf">
-      <p class="auge">Assistent</p>
-      <h2>Mehr als nur<br>ein Assistent.</h2>
-      <p class="s">Er analysiert die eigenen Daten und lernt durch Interaktionen — und wird dadurch mit der Zeit persönlicher.</p>
-    </div>
+<section class="buehne mittig grau">
+  <div class="mitte auf">
+    <p class="auge">Assistent</p>
+    <h2>Mehr als nur ein Assistent.</h2>
+    <p class="s">Er analysiert die eigenen Daten und lernt durch Interaktionen — und wird dadurch mit der Zeit persönlicher.</p>
   </div>
-  <div class="voll auf">
-    <picture><source srcset="../assets/img/icapsule/assistent.webp" type="image/webp"><img src="../assets/img/icapsule/assistent.jpg" width="1920" height="1080" loading="lazy" alt="Gerät mit einem Gesicht auf dem Bildschirm"></picture>
+  <div class="buehne__bild b460 auf">
+    <picture><source srcset="../assets/img/icapsule/assistent.webp" type="image/webp"><img src="../assets/img/icapsule/assistent.jpg" width="920" height="848" loading="lazy" alt="Gerät mit einem Gesicht auf dem Bildschirm"></picture>
   </div>
-  <div style="height:86px"></div>
 </section>
 
-<!-- Zu Hause — Band mit Text darauf -->
+<!-- Zu Hause -->
 <section class="band auf">
   <picture><source srcset="../assets/img/icapsule/wohnzimmer.webp" type="image/webp"><img src="../assets/img/icapsule/wohnzimmer.jpg" width="1920" height="1080" loading="lazy" alt="Das Gerät im Wohnzimmer unter einem Fernseher"></picture>
   <div class="band__txt">
-    <div class="eng">
-      <h2>Steht da, wo man<br>zusammenkommt.</h2>
-      <p class="s">Klein genug fürs Regal unter dem Fernseher. Groß genug, dass man hinschaut.</p>
-    </div>
+    <h2>Steht da, wo man<br>zusammenkommt.</h2>
+    <p class="s">Klein genug fürs Regal unter dem Fernseher. Groß genug, dass man hinschaut.</p>
   </div>
 </section>
 
-<!-- Farben — bildfuellend, zweimal -->
-<section class="dunkel">
-  <div class="kopf">
-    <div class="eng auf">
+<!-- Farben: volle Breite -->
+<section class="breit">
+  <div class="breit__kopf">
+    <div class="mitte mittig auf">
       <p class="auge">Farben</p>
       <h2>Mitternacht.<br>Und Weiß.</h2>
       <p class="s">Zwei Oberflächen, ein Gehäuse. Das Gewebe wurde als eigenes Material aufgebaut, damit es in beiden Farben richtig reagiert.</p>
     </div>
   </div>
-  <div class="voll auf">
-    <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1920" height="1080" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
+  <div class="breit__bild auf">
+    <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1920" height="988" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
   </div>
-  <div style="height:60px"></div>
+  <div style="height:70px"></div>
 </section>
 
-<section class="hell">
-  <div class="kopf kopf--eng">
-    <div class="eng auf">
-      <h2>Ab 1.349&nbsp;€.</h2>
-      <p class="s">In Mitternacht und Weiß.</p>
-    </div>
+<section class="hell buehne mittig" style="padding-bottom:0">
+  <div class="mitte auf">
+    <h2>Ab 1.349&nbsp;€.</h2>
+    <p class="s">In Mitternacht und Weiß.</p>
   </div>
-  <div class="voll auf">
-    <picture><source srcset="../assets/img/icapsule/hero-weiss.webp" type="image/webp"><img src="../assets/img/icapsule/hero-weiss.jpg" width="1920" height="1080" loading="lazy" alt="iCapsule in Weiß auf hellem Grund"></picture>
+  <div class="auf" style="margin-top:36px">
+    <picture><source srcset="../assets/img/icapsule/hero-weiss.webp" type="image/webp"><img src="../assets/img/icapsule/hero-weiss.jpg" width="1600" height="900" loading="lazy" alt="iCapsule in Weiß auf hellem Grund"></picture>
   </div>
 </section>
 
-<!-- Technische Daten -->
-<section class="grau" style="padding:80px 0">
+<section class="grau" style="padding:84px 0">
   <div class="mitte">
-    <div class="eng auf" style="text-align:center">
-      <h2 style="font-size:clamp(24px,3.4vw,38px)">Technische Daten</h2>
+    <div class="mittig auf">
+      <h2 style="font-size:clamp(24px,3.2vw,38px)">Technische Daten</h2>
     </div>
     <dl class="daten auf">
       <div class="d"><dt>Speicher</dt><dd>bis zu 20&nbsp;TB</dd></div>

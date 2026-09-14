@@ -1047,3 +1047,59 @@ eigenständig ist.
 
 Am Handy bleibt alles sinnvoll: Renderings 375 × 211, die Fotokacheln brechen von sechs auf
 drei Spalten um, der Bandtext rutscht unter das Bild.
+
+---
+
+## 22. Die Renderings zugeschnitten (14.09.2026)
+
+Max schickte einen Bildschirmfoto des Auftakts: das Produkt winzig in der Mitte, ringsum nur
+Schwarz. Sein Einwand: „da ist doch alles leere Fläche darum, wieso schneidest du die Bilder
+nicht zu". Dazu: die Seite überzeuge ihn insgesamt noch nicht.
+
+**Er hatte recht, und der Fehler war grundsätzlich.** Ich hatte die Bilder bildfüllend gemacht,
+aber die Bilder selbst waren fast leer. Gemessener Anteil genutzter Bildfläche:
+
+| Bild | genutzt |
+|---|---|
+| Auftakt | **12 %** |
+| Assistent | **17 %** |
+| Bildschirme | 32 % |
+| Chip | 47 % |
+| Röntgenansicht | 46 % |
+
+Ein fast leeres Bild auf volle Breite zu ziehen vergrößert nur die Leere mit.
+
+**Erster Reparaturversuch: auch falsch.** Ich schnitt auf 16:9 zu, weil das Layout darauf
+ausgelegt war. Bei hochkantem oder quadratischem Inhalt bleibt dann aber zwangsläufig seitlich
+Leere — der Chip kam von 47 % auf 47 %, also null Gewinn.
+
+**Richtig war:** auf die **natürliche Form** des Inhalts schneiden und das Layout danach
+richten. Ergebnis:
+
+| Bild | Zuschnitt | Form |
+|---|---|---|
+| Auftakt | 584 × 544 | quadratisch |
+| Röntgenansicht | 1188 × 964 | 1,23 |
+| Chip | 1096 × 1076 | quadratisch |
+| Assistent | 724 × 668 | quadratisch |
+| Bildschirme | 1524 × 528 | **2,89 — breiter Streifen** |
+| Farben | 1920 × 988 | 1,94 |
+
+Danach das Layout darauf abgestimmt: breite Zuschnitte laufen über die volle Breite, die
+quadratischen stehen mittig mit Maximalbreite oder im Paar neben dem Text.
+
+**Der entscheidende Kniff:** Bild- und Seitenhintergrund sind beide Schwarz. Nach dem engen
+Zuschnitt ist der Bildrand damit unsichtbar — das Produkt steht scheinbar frei auf der Seite
+statt in einem Kasten. Genau so machen es Herstellerseiten.
+
+`cropdetect` von ffmpeg war dafür unbrauchbar (fand bei dunklem Produkt auf Schwarz nichts).
+Ersatz: eigene Erkennung über ein Graustufenraster, Hintergrund aus den vier Ecken gemittelt.
+Muster in `05-fallen.md`.
+
+Die Seite liegt jetzt bei **8832 px**. Die Bilder sind in Pixeln teils kleiner als vorher —
+aber sie zeigen jetzt zu 100 % Produkt statt zu 25 %.
+
+**Offen und Max mitgeteilt:** Die Quellrenderings sind nur 1920 × 1080, der Auftakt enthält
+davon nur 584 × 544 echtes Produkt. Für die zwei, drei wichtigsten Bilder wäre ein **neues
+Rendering, eng gerahmt und hochauflösend**, der größte verbleibende Qualitätsgewinn —
+Max hatte angeboten, bei Bedarf neu zu rendern.
