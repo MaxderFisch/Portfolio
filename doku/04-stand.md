@@ -5,6 +5,41 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — iCapsule als Produktwelt im Portfolio
+
+Projekt 06 ist umgebaut: Das Apple-Konzeptprojekt wird jetzt **als Produktseite präsentiert**,
+mitten im Portfolio, ohne die Seite zu verlassen.
+
+**Ablauf beim Durchscrollen:** dunkles Kapitel führt hin → schwarzer Auftakt wächst per
+Verlauf aus der Kapitelfarbe → die Produktwelt in voller Fensterbreite (Weiß/Schwarz/Grau im
+Wechsel, Systemschrift, riesige Typo, ganzseitige Renderings, Datenblatt) → Verlauf zurück in
+die Kapitelfarbe → ehrliche Einordnung im Portfolio-Stil.
+
+**Alle Inhalte stammen aus Max' Präsentation**, nicht erfunden: 20 TB, M4 mit 16 Kernen,
+7 Hochtöner, 6″ OLED, „Erinnerungen neu erleben.", 1.349 €. Das Produkt heißt **iCapsule** —
+iBee ist nur der Dateiname. Die Karte 03.01 wurde entsprechend umbenannt.
+*Offene Frage: Falls „iBee" doch der richtige Projektname ist, sagen — dann zurück.*
+
+Die Renderings wurden neu aus der `.pptx` gezogen (`ppt/media/`), sie sind deutlich
+hochauflösender als die vorher aus dem PDF geschnittenen. Sie liegen in
+`assets/img/icapsule/` (12 Dateien, zusammen rund 660 KB als WebP).
+
+**Bewusst nicht gebaut:** keine Apple-Logos, keine nachgebaute apple.com-Navigation, nichts,
+was sich als Apple ausgibt. Begründung in `02-vorgeschichte.md`, Abschnitt 19.
+
+Geprüft: CSS 459/459, div 363/363, 67 picture-Paare stimmig, keine doppelten IDs oder
+Kartennummern, alle 141 Asset-Verweise vorhanden, Seitenhöhe 36950 ohne Sprung, Produktwelt
+volle Fensterbreite, Farbkette intakt, Hintergrundzeilen 17 px Luft, kein Querscrollen am
+Rechner und am Handy, Einblenden 22 von 22.
+
+**Die Seite ist dadurch von 27805 auf 36950 px gewachsen.** Max mag kurze Seiten — falls es
+ihm zu lang wird, lassen sich Tafeln zusammenlegen (Assistent und Bildschirm zum Beispiel).
+
+**Vorher gesichert**, wie von Max gewünscht: `Backups/stand-2026-09-14-1434/` (323 MB, der
+komplette veröffentlichte Stand plus Doku, außerhalb des Repos).
+
+---
+
 ## Stand vom 14.09.2026 — Therme-Video entzerrt, Springen weg
 
 **Max bestätigt: Das Autoplay funktioniert.** Offen war nur noch das Fisch-Video in Projekt 08.

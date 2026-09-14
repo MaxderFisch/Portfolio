@@ -477,3 +477,35 @@ Gegenprüfung, dass Markup und Dateien übereinstimmen — lohnt sich nach jedem
 ```
 Beim Therme-Video: **1040 × 147 in allen vier**, Seitenhöhe konstant.
 
+
+### `aspect-ratio` schlägt die `height`-Angabe des Bildes nicht
+Die Erinnerungskacheln der Produktwelt bekamen `aspect-ratio:1` — und reservierten trotzdem
+**215 × 899**, also die Höhe aus dem `height`-Attribut. Ohne `height:auto` gewinnt das Attribut.
+```css
+.kacheln img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}   /* height:auto ist Pflicht */
+```
+Dieselbe Falle wie bei Bildern und Videos, nur andersherum: Dort fehlten die Maße, hier
+verhinderten sie das gewünschte Verhältnis. **Regel: Maße ins Markup, `height:auto` ins CSS —
+immer beides.**
+
+### Inhalte aus PowerPoint holen
+Eine `.pptx` ist ein ZIP. Folientexte und Bilder kommen ohne Zusatzwerkzeug heraus:
+```bash
+unzip -qo datei.pptx -d ordner
+# Texte:
+node -e 'const s=require("fs").readFileSync(process.argv[1],"utf8");
+ console.log([...s.matchAll(/<a:t>([^<]*)<\/a:t>/g)].map(m=>m[1]).join("\n"))' ordner/ppt/slides/slide2.xml
+# Bilder liegen in ordner/ppt/media/
+```
+Das war bei der iCapsule die Quelle **aller** Produktangaben — und die Bilder dort waren
+deutlich hochauflösender als die zuvor aus dem PDF geschnittenen.
+
+### Fremde Marken im Portfolio
+Die Seite ist eine **Bewerbungsunterlage**. Ein studentischer Konzeptentwurf im Stil eines
+Herstellers ist üblich und völlig in Ordnung — eine Seite, die sich als dieser Hersteller
+**ausgibt**, ist es nicht.
+→ Formensprache ja: Typografie, Weißraum, Tafelrhythmus, ganzseitige Produktbilder.
+→ Fremde Logos, nachgebaute Navigation der echten Firma, Anschein eines echten Angebots: nein.
+→ Und immer eine klare Einordnung im Anschluss: wessen Entwurf, dass er nicht verkauft wird,
+  dass Preis und Daten erfunden sind, wem die Marken gehören.
+

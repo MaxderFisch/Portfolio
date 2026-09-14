@@ -867,3 +867,79 @@ ist richtiggestellt.
 
 **Nicht geändert, weil Max es ausdrücklich nicht wollte:** Am Handy ist das Band bei 295 px
 Breite nur 43 px hoch. Auf die Rückfrage kam „ne das layout passt dann schon".
+
+---
+
+## 19. Die iCapsule als Produktseite mitten im Portfolio (14.09.2026)
+
+Max' Auftrag: Das Apple-Projekt so präsentieren, „dass man kurz meint, man sei jetzt auf der
+Website von Apple". Zuerst hatte ich es als **eigene Seite** gebaut — das war falsch verstanden.
+Seine Korrektur: Es soll **an seinem Platz zwischen den anderen Projekten bleiben**, damit man
+beim Durchscrollen von oben nach unten auch durch diesen Bereich scrollt. Die eigenständige
+Seite wurde wieder gelöscht, damit nicht zwei Fassungen auseinanderdriften.
+
+### Woher der Inhalt kommt
+
+Aus Max' eigener Präsentation, nicht erfunden. Die `.pptx` ist ein ZIP — die Folientexte
+stehen als `<a:t>` in `ppt/slides/slideN.xml`, die Bilder liegen in `ppt/media/`:
+```bash
+unzip -qo praesentation.pptx -d ordner
+node -e '…[...s.matchAll(/<a:t>([^<]*)<\/a:t>/g)]…'
+```
+Daraus stammen **alle** Claims: „Erinnerungen sicher aufbewahren. Bis zu 20TB Speicher.",
+„7 Ringförmig angeordnete Hochtöner", „M4-Chip mit 16 Kernen", „6 Zoll OLED-Bildschirm",
+„Erhältlich in Mitternacht und Weiß. 1349€", und der Leitsatz „Erinnerungen neu erleben."
+
+**Das Produkt heißt iCapsule**, nicht iBee — iBee ist nur der Dateiname der Projektunterlagen.
+Die Karte 03.01 hieß deshalb falsch und wurde umbenannt. *Falls iBee der richtige Projektname
+sein soll: Max fragen.*
+
+In `ppt/media/` lagen außerdem **28 Bilder**, deutlich hochauflösender als die, die vorher auf
+der Seite waren (aus dem PDF geschnitten). Die Renderings wurden daraus neu gezogen.
+Bemerkenswert: Die „Erinnerungen" auf den Gerätebildschirmen sind **Max' eigene Fotos** —
+Grillen am See, Sonnenblume, Gipfel über dem Nebelmeer. Die stehen jetzt auch so auf der Seite.
+
+### Die Gestaltung — und wo die Grenze liegt
+
+**Nicht gebaut:** keine Apple-Logos, keine nachgebaute apple.com-Navigation, nichts, was sich
+als Apple ausgibt. Eine Bewerbungsseite, die eine echte Firma imitiert, wäre rechtlich heikel
+und würde die Aussage kaputtmachen — ein Betrieb soll ja sehen, dass **Max** das entworfen hat.
+
+**Gebaut:** die Formensprache. Systemschrift (`-apple-system` liefert auf Apple-Geräten SF Pro),
+riesige eng laufende Überschriften, sehr viel Luft, Tafeln im Wechsel Schwarz/Weiß/Grau,
+blaue Akzentzeile, ganzseitige Renderings, Datenblatt am Ende.
+
+**Der Übergang** war Max ausdrücklich wichtig („keinen schlechten Fake"). Gelöst so:
+1. Der dunkle Kapitelanfang **führt hin** und sagt, was kommt: „Ab hier übernimmt der Entwurf."
+2. Dann ein **schwarzer Auftakt**, der per Verlauf aus der Kapitelfarbe `#0b0c0e` herauswächst —
+   dunkel zu schwarz ist nahtlos, der Bruch fällt nicht auf.
+3. Erst danach kippt es auf Weiß. Der Wechsel wirkt dadurch gewollt.
+4. Am Ende führt ein Verlauf über Schwarz **zurück** in die Kapitelfarbe, gefolgt von der
+   ehrlichen Einordnung im Stil des übrigen Portfolios.
+
+**Technisch gekapselt:** Alle Klassen tragen das Präfix `ap-`, die Schriftumstellung gilt nur
+innerhalb von `.ap`. Die Welt bricht per `width:100%` aus dem `.wrap` aus, liegt aber weiter
+im Kapitel — die **Farbkette bleibt damit intakt** (`p-plakate` blendet weiter aus `#0b0c0e`
+ein, geprüft).
+
+### Ehrlichkeit
+
+Auf der Seite steht am Ende des Bereichs deutlich: **keine Seite von Apple**, studentischer
+Konzeptentwurf, wird nicht verkauft, Preis und Daten erfunden, Apple und M4 sind Marken von
+Apple Inc., keine Verbindung dorthin. Das kostet den Effekt nichts — es kommt *nach* der Schau.
+
+### Geprüft
+
+| | |
+|---|---|
+| Seitenhöhe vor/nach dem Laden | 36950 / 36950, **Sprung 0** |
+| Produktwelt volle Fensterbreite | ja (1400 von 1400) |
+| Farbkette | intakt, `p-ibee` endet auf `#0b0c0e` |
+| Hintergrundzeilen im Einleitungsblock | 17 px Luft |
+| Querscrollen Rechner / Handy | nein / nein |
+| Handy | Kacheln quadratisch, Raster brechen um, nichts läuft über |
+| Einblenden | 22 von 22 (über das Auffangnetz, da der Beobachter hier einfriert) |
+
+**Ein Fehler dabei gemacht und behoben:** Die Erinnerungskacheln reservierten 215 × 899 statt
+quadratisch — `aspect-ratio` allein reicht nicht, es fehlte `height:auto` gegen die
+`height`-Angabe im Bild. Dieselbe Falle wie bei den Videos, nur andersherum.
