@@ -826,3 +826,44 @@ Ursache war — und acht Runden hoch und runter gefahren, mit Prüfung an **jede
 | echte Netzwerkanfragen über 5 Runden | 9, davon 7 sauber abgebrochen |
 
 Vorher wäre nach wenigen Runden ein Video nach dem anderen blockiert gewesen.
+
+---
+
+## 18. Das Therme-Video war anamorph (14.09.2026)
+
+Max meldete: Beim Fisch-Video ist das Standbild verzerrt, und die Seite springt beim Scrollen,
+„weil wenn das Video wieder stoppt, springt es kurz ins verzerrte Format zurück". Wieder eine
+präzise Beschreibung, die direkt zur Ursache führte.
+
+**Das Video hat nicht-quadratische Pixel.** Gespeichert 1280 × 720, aber
+`sample_aspect_ratio=2067:512` — dargestellt also **689:96, rund 7,2:1**. Ein ultrabreites
+Band, was für eine Projektion auf eine Beckenwand auch genau richtig ist. Das Original in
+`Neu/Projekte/` ist genauso gebaut: 1920 × 1080 gespeichert, 7751 × 1080 dargestellt.
+
+Im Markup standen die **gespeicherten** Maße. Der Browser reservierte damit einen 16:9-Kasten,
+korrigierte ihn beim Eintreffen der Metadaten auf das echte Verhältnis — und beim Abbauen
+sprang er zurück. Da die Autoplay-Steuerung ständig auf- und abbaut, hüpfte die Seite dauernd.
+Das Vorschaubild war aus demselben Grund gestaucht.
+
+**Behoben durch Neurechnen aus dem Original mit quadratischen Pixeln:**
+`scale=2756:384,setsar=1` — 2756 × 384 ist exakt 689:96 und beide Maße sind gerade.
+Danach stimmen gespeicherte und dargestellte Größe überein, und ein einziger Wert passt
+überall. Das Poster wurde aus der korrigierten Fassung neu erzeugt.
+
+| | vorher | jetzt |
+|---|---|---|
+| Datei | 1280 × 720 anamorph, 10,8 MB | 2756 × 384 quadratisch, 15,0 MB |
+| Kasten beim Laden / Spielen / Abbauen | sprang | **1040 × 147 in allen Zuständen** |
+| Vorschaubild | gestaucht | richtig |
+
+Dabei fiel auf, dass dasselbe Standbild im Kapitel auch als normales Bild vorkommt — es trug
+noch die alten Maße und wurde mitkorrigiert. Zur Sicherheit wurden **alle** Maße im Markup
+gegen die Dateien geprüft: 57 Bilder und 10 Videos, **keine Abweichung**.
+
+**Und eine alte Doku-Stelle war falsch:** In `05-fallen.md` stand, `mdls` habe bei den
+Videomaßen „gelogen", weil es 7751 × 1080 meldete. Es hatte recht — das ist die
+*Darstellungs*größe dieses anamorphen Videos, `ffprobe` nennt die *gespeicherte*. Der Eintrag
+ist richtiggestellt.
+
+**Nicht geändert, weil Max es ausdrücklich nicht wollte:** Am Handy ist das Band bei 295 px
+Breite nur 43 px hoch. Auf die Rückfrage kam „ne das layout passt dann schon".

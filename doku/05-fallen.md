@@ -32,9 +32,21 @@ Meldung „236 zurückgeholt" ist gelogen — es waren 0. Deshalb oben `find` mi
 
 Vor jedem Test und vor jedem Commit prüfen.
 
-### `mdls` lügt bei Videomaßen
-Meldete 7751 × 1080 für ein Video, das tatsächlich 1920 × 1080 war. Ich habe daraufhin
-versehentlich **hoch**skaliert — 27,8 MB statt der möglichen 10,8 MB.
+### `mdls` und `ffprobe` meinen verschiedene Maße — und beide haben recht
+**Am 14.09. richtiggestellt.** Früher stand hier, `mdls` habe „gelogen", weil es 7751 × 1080
+für ein Video meldete, das `ffprobe` als 1920 × 1080 auswies. Das war **falsch verstanden**:
+Das Therme-Video hat **nicht-quadratische Pixel** (`sample_aspect_ratio=2067:512`). 1920 × 1080
+ist die *gespeicherte* Größe, 7751 × 1080 die *dargestellte*. `mdls` nannte die Darstellung.
+
+Der Schaden war trotzdem echt: Ich hatte auf die Darstellungsbreite skaliert und damit
+hochgerechnet — 27,8 MB statt 10,8 MB.
+
+→ **Immer beide Werte holen** und auf `sample_aspect_ratio` achten. Ist es nicht `1:1`, muss
+beim Web-Export mit `setsar=1` auf quadratische Pixel umgerechnet werden, sonst stimmen die
+Maße im Markup nie:
+```bash
+ffmpeg -i quelle.mp4 -vf "scale=2756:384,setsar=1" ... ziel.mp4
+```
 → **Immer `ffprobe`**:
 ```bash
 /opt/homebrew/bin/ffprobe -v error -select_streams v:0 -show_entries stream=width,height,duration -of default=noprint_wrappers=1 datei.mp4
@@ -435,4 +447,33 @@ Runden hoch und runter fahren und **an jedem Schritt** die Invarianten prüfen:
 if(vs.filter(v=>v.querySelector('source')).length>1) fehler++;
 ```
 Acht Runden über ~500 Schritte haben hier gereicht, um die Fehler sichtbar zu machen.
+
+
+### Anamorphe Videos lassen die Seite springen
+**Das Therme-Video hatte nicht-quadratische Pixel:** gespeichert 1280 × 720, dargestellt aber
+**689:96, also rund 7,2:1** — ein ultrabreites Band für die Projektion auf eine Beckenwand.
+
+Im Markup standen die *gespeicherten* Maße. Folge: Der Browser reserviert einen 16:9-Kasten,
+korrigiert ihn auf das echte Verhältnis, sobald die Metadaten da sind — und **beim Abbauen
+springt er zurück**. Mit der Autoplay-Steuerung, die ständig auf- und abbaut, hüpfte die Seite
+dauernd. Dazu war das Vorschaubild gestaucht, weil es aus den gespeicherten Maßen stammte.
+
+→ **Prüfen, bevor man Maße einträgt:**
+```bash
+ffprobe -v error -select_streams v:0 \
+  -show_entries stream=width,height,sample_aspect_ratio,display_aspect_ratio \
+  -of default=noprint_wrappers=1 datei.mp4
+```
+Ist `sample_aspect_ratio` nicht `1:1`, **neu rechnen mit `setsar=1`**, damit gespeicherte und
+dargestellte Maße übereinstimmen. Danach passt ein einziger Wert überall — Markup, Poster,
+Großansicht.
+
+→ **Und das Poster aus der korrigierten Fassung neu erzeugen**, nicht aus der anamorphen.
+
+Gegenprüfung, dass Markup und Dateien übereinstimmen — lohnt sich nach jedem Videotausch:
+```js
+// Kasten muss in allen vier Zustaenden gleich gross sein:
+// frisch geladen / Quelle aufgebaut / abgebaut / erneut aufgebaut
+```
+Beim Therme-Video: **1040 × 147 in allen vier**, Seitenhöhe konstant.
 

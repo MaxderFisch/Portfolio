@@ -5,6 +5,35 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Therme-Video entzerrt, Springen weg
+
+**Max bestätigt: Das Autoplay funktioniert.** Offen war nur noch das Fisch-Video in Projekt 08.
+
+**Ursache:** Das Video ist **anamorph** — gespeichert 1280 × 720, dargestellt aber 689:96
+(rund 7,2:1), ein ultrabreites Band für die Beckenwand-Projektion. Im Markup standen die
+gespeicherten Maße, also reservierte der Browser einen 16:9-Kasten und korrigierte ihn beim
+Laden. Weil die Autoplay-Steuerung ständig auf- und abbaut, sprang die Seite dauernd.
+
+**Behoben:** aus dem Original neu gerechnet mit `scale=2756:384,setsar=1` — quadratische
+Pixel, exakt 689:96. Poster aus der korrigierten Fassung neu erzeugt.
+
+| | vorher | jetzt |
+|---|---|---|
+| Datei | 1280 × 720 anamorph, 10,8 MB | 2756 × 384, 15,0 MB |
+| Kasten beim Laden / Spielen / Abbauen | sprang | **1040 × 147 in allen Zuständen** |
+| Vorschaubild | gestaucht | richtig |
+
+Zur Sicherheit **alle** Maße gegen die Dateien geprüft: 57 Bilder, 10 Videos, keine Abweichung.
+Kein weiteres Video ist anamorph.
+
+Richtiggestellt: Der alte `mdls`-Eintrag in `05-fallen.md` war falsch — `mdls` meldete die
+Darstellungsgröße, nicht Unsinn.
+
+**Bewusst nicht geändert:** Am Handy ist das Band nur 43 px hoch. Max dazu: „ne das layout
+passt dann schon."
+
+---
+
 ## Stand vom 14.09.2026 — Autoplay stabil nach mehrmaligem Scrollen
 
 Max: „anfangs hat es gut funktioniert, aber wenn ich dann öfter hoch und runter scrolle, hat
