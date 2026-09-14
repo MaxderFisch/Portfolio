@@ -657,3 +657,29 @@ gewachsen.
 → Bei Partikelsystemen die Anzahl **an die Fläche koppeln** und nach jeder Größenänderung die
 Helligkeit nachmessen, nicht nur hinsehen.
 
+
+### `style="grid-column:…"` am Element schlägt jede Medienabfrage
+Zwei neue Bilder bekamen ihre Rasterposition als Attribut direkt am `<figure>`. Am Rechner sah
+es richtig aus, am Handy blieben sie ~70–86 px schmal: Die Regel
+`@media(max-width:900px){…{grid-column:1/-1}}` kam per Spezifität nicht dagegen an, und die
+festen Spaltenangaben erzeugten im einspaltigen Raster zusätzlich **implizite Spalten**.
+→ Rasterpositionen **immer als Klasse** im Stylesheet, nie als `style`-Attribut. Prüfen mit
+`grep -c 'style="[^"]*grid-column' datei.html` — die Antwort muss `0` sein.
+
+### Eine gelöschte Medienabfrage fällt am Rechner nicht auf
+Beim Ausbauen eines nicht mehr gebrauchten CSS-Blocks verschwand die einzige Regel, die das
+zwölfspaltige Raster am Handy auf eine Spalte zusammenlegt. Am Rechner war **nichts** zu sehen,
+die Seite war vollständig in Ordnung — kaputt war sie nur unter 900 px, und dort in *allen acht
+Kapiteln* gleichzeitig, nicht nur in dem, an dem gearbeitet wurde.
+→ Nach jedem Eingriff ins Stylesheet gegenprüfen, dass die Regel noch da ist, und die Seite
+**einmal bei 375 px messen**, nicht nur ansehen:
+```js
+[...document.querySelectorAll('.sr>*,.tr>*')].every(e=>getComputedStyle(e).gridColumnStart==='1')
+```
+Muss `true` ergeben. Kaputte Regeln melden sich nicht von selbst — CSS wirft keine Fehler.
+
+### Das Stylesheet hängt im Zwischenspeicher
+Nach einer CSS-Änderung zeigte die Messung im Browser weiter die alten 70 px, obwohl die Datei
+auf der Platte richtig war. Erst ein hartes Neuladen brachte die erwarteten 423/247 px.
+→ Wenn eine Messung einer gerade gemachten Änderung widerspricht: **zuerst hart neu laden**,
+bevor man anfängt, die Ursache im Code zu suchen.

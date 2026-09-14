@@ -5,6 +5,48 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 (später) — iCapsule im Projektabschnitt
+
+Geändert wurde **nur** `live/index.html`. `live/icapsule.html` ist unberührt
+(`git diff --name-only` bestätigt das) — so von Max beauftragt.
+
+**Was drin ist:** Aufmacher des Abschnitts `#p-ibee` von `hero-dunkel.jpg` auf
+`hero-weiss.jpg` getauscht, Bildunterschrift „Mitternacht" → „Weiß". Zwei
+Behind-the-Scenes-Bilder aus Blender vor dem Weiterlesen-Knopf (`.tr__bts1` Spalte 1–5,
+`.tr__bts2` Spalte 7–9, dazu eine Zeile Text in `.tr__btstxt`). Vier veraltete Bildmaße
+korrigiert.
+
+**Was dabei kaputtging und repariert wurde:** Die Handy-Regel `@media(max-width:900px)` für das
+Raster wurde versehentlich mitgelöscht — das hätte **alle acht Kapitel** am Handy zerlegt, nicht
+nur die iCapsule. Aus `archiv/live-index-stand-2026-09-14-vor-umbau-separat.html`
+wiederhergestellt und um die drei neuen Klassen ergänzt. Der erste Reparaturversuch mit
+`style="grid-column:…"` am Element war ebenfalls falsch (schlägt die Medienabfrage) und wurde
+durch echte Klassen ersetzt. Beides steht in `05-fallen.md`.
+
+**Nachgemessen:**
+
+| | Ergebnis |
+|---|---|
+| Rechner 1400 px | Aufmacher 1040×586, bts1 423 px, bts2 247 px, zwölfspaltiges Raster intakt |
+| Handy 375 px | alle sieben Bilder 295 px, alle acht Kapitel einspaltig |
+| Struktur | CSS 424/424, div 323/323, figure 38/38, picture 62/62, keine doppelten IDs |
+| Verweise | alle 131 Dateien vorhanden, 56 Bildmaße gegen die echten Dateien geprüft, 0 falsch |
+| Sonstiges | kein Querlauf, Seitenhöhe stabil, 0 iCloud-ausgelagerte Dateien |
+
+**Offen, seit Längerem und weiterhin unbeantwortet:**
+- Heißt das Projekt **iBee** oder **iCapsule**? Beides steht derzeit nebeneinander.
+- Soll `Portfolio/index.html` auf `live/` zeigen statt auf `v1`?
+- Gehört die `CLAUDE.md` ins Repo?
+- `p-flyer` hat einen falschen Farbverlauf, und „Projekt 08" ist doppelt vergeben — beides
+  älter als diese Sitzung, beides bisher nicht angefasst.
+- `loading="lazy"` fehlt noch an einigen Bildern.
+- Ein hochauflösender Freisteller der iCapsule mit echter Transparenz wäre besser als der
+  errechnete Ausschnitt auf der Apple-Seite.
+
+Die Commits sind **nicht gepusht** — Max pusht selbst über GitHub Desktop.
+
+---
+
 ## Stand vom 14.09.2026 — Spruch einzeilig
 
 Max wollte „Erinnerungen neu erleben." etwas kleiner, damit es **in eine Zeile** passt.

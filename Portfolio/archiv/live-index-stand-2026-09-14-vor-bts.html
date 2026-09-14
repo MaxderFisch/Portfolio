@@ -413,10 +413,6 @@
   .tr__c{grid-column:1/span 6}
   .tr__d{grid-column:7/span 6}
   /* Filmplätze im Video-Kapitel: 16:9, versetzt statt gleichmäßig */
-  /* Arbeitsansichten aus Blender, nebeneinander und leicht versetzt */
-  .tr__bts1{grid-column:1/span 5;margin-top:30px}
-  .tr__bts2{grid-column:7/span 3;margin-top:30px;align-self:end}
-  .tr__btstxt{grid-column:1/-1;margin-top:6px;align-self:start}
   .tr__f1{grid-column:5/span 8}
   .tr__f2{grid-column:2/span 8}
   .tr__f3{grid-column:5/span 8}
@@ -447,15 +443,6 @@
   @media(max-width:640px){
     .tor a{grid-template-columns:1fr;gap:16px;padding:24px 22px}
     .tor__pfeil{justify-self:start}
-  }
-
-  @media(max-width:900px){
-    .sr,.tr{grid-template-columns:1fr;gap:15px}
-    .sr__lead,.sr__txt,.sr__a,.sr__b,.sr__c,.sr__d,.sr__e,.sr__f,
-    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3,.tr__f4,
-    .tr__g1,.tr__g2,.tr__zwi,.tr__m1,.tr__m2,
-    .tr__bts1,.tr__bts2,.tr__btstxt{grid-column:1/-1;grid-row:auto}
-    .sr__txt,.tr__txt{padding:8px 0 12px}
   }
 
   /* ================= STARTSEITE ================= */
@@ -1125,9 +1112,9 @@
         <span class="bgl sm i3" data-speed="0.120">BLENDER</span>
       </div>
 
-      <figure class="tr__xl" data-pjlb="../assets/img/icapsule/hero-weiss.jpg" data-pjcap="iCapsule in Weiß">
-        <picture><source srcset="../assets/img/icapsule/hero-weiss.webp" type="image/webp"><img src="../assets/img/icapsule/hero-weiss.jpg" width="1600" height="900" loading="lazy" alt="iCapsule in Weiß auf hellem Grund"></picture>
-        <figcaption class="kap__cap"><div class="n">iCapsule</div><div class="s">Weiß</div></figcaption>
+      <figure class="tr__xl" data-pjlb="../assets/img/icapsule/hero-dunkel.jpg" data-pjcap="iCapsule in Mitternacht">
+        <picture><source srcset="../assets/img/icapsule/hero-dunkel.webp" type="image/webp"><img src="../assets/img/icapsule/hero-dunkel.jpg" width="1800" height="1012" loading="lazy" alt="iCapsule in Mitternacht, freigestellt auf schwarzem Grund"></picture>
+        <figcaption class="kap__cap"><div class="n">iCapsule</div><div class="s">Mitternacht</div></figcaption>
       </figure>
 
       <div class="tr__txt">
@@ -1137,34 +1124,22 @@
       </div>
 
       <figure class="tr__a" data-pjlb="../assets/img/icapsule/innen.jpg" data-pjcap="Röntgenansicht — sieben Hochtöner im Ring">
-        <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1400" height="1136" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
+        <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1800" height="1012" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
         <figcaption class="kap__cap"><div class="n">Der Schnitt</div><div class="s">Sieben Hochtöner im Ring</div></figcaption>
       </figure>
       <figure class="tr__b" data-pjlb="../assets/img/icapsule/chip.jpg" data-pjcap="Blick von oben auf den Chip">
-        <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1300" height="1276" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
+        <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1800" height="1012" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
         <figcaption class="kap__cap"><div class="n">Das Innere</div><div class="s">Antrieb und Chip</div></figcaption>
       </figure>
 
       <figure class="tr__c" data-pjlb="../assets/img/icapsule/farben.jpg" data-pjcap="Mitternacht und Weiß">
-        <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1920" height="988" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
+        <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1800" height="1012" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
         <figcaption class="kap__cap"><div class="n">Zwei Farben</div><div class="s">Gewebe als eigenes Material</div></figcaption>
       </figure>
       <figure class="tr__d" data-pjlb="../assets/img/icapsule/bildschirme.jpg" data-pjcap="Drei Geräte, drei Bildschirminhalte">
-        <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1600" height="554" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
+        <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1800" height="1012" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
         <figcaption class="kap__cap"><div class="n">Der Bildschirm</div><div class="s">6 Zoll OLED</div></figcaption>
       </figure>
-
-      <figure class="tr__bts1" data-pjlb="../assets/img/design3d/ibee-blender.jpg" data-pjcap="Das Modell in Blender — Gehäuse, Gitter und Innenleben als eigene Objekte">
-        <picture><source srcset="../assets/img/design3d/ibee-blender.webp" type="image/webp"><img src="../assets/img/design3d/ibee-blender.jpg" width="1024" height="768" loading="lazy" alt="Bildschirmfoto von Blender mit dem Modell der iCapsule im Aufbau"></picture>
-        <figcaption class="kap__cap"><div class="n">Im Aufbau</div><div class="s">Blender · das ganze Gerät</div></figcaption>
-      </figure>
-      <figure class="tr__bts2" data-pjlb="../assets/img/design3d/ibee-innen.jpg" data-pjcap="Die Innenansicht der Lautsprecher lag in einer eigenen Datei">
-        <picture><source srcset="../assets/img/design3d/ibee-innen.webp" type="image/webp"><img src="../assets/img/design3d/ibee-innen.jpg" width="768" height="1024" loading="lazy" alt="Bildschirmfoto von Blender mit der Innenansicht der Lautsprecher"></picture>
-        <figcaption class="kap__cap"><div class="n">Das Innenleben</div><div class="s">Blender · eigene Datei</div></figcaption>
-      </figure>
-      <div class="tr__btstxt">
-        <p style="color:var(--rail);font-size:13px;max-width:62ch">Gebaut in Blender: Gehäuse, Gewebe und die sieben Treiber sind eigene Objekte, das Innenleben lag in einer separaten Datei.</p>
-      </div>
 
       <div class="tor">
         <a href="icapsule.html" id="zurProduktseite">

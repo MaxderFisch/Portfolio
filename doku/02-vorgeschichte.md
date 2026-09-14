@@ -1340,3 +1340,45 @@ Gemessen: bis 50 px Scrollweg steht iCapsule allein, ab etwa 90 px ist der Spruc
 ab 160 px vollständig getauscht. Die ersten ~47 px passieren nichts, weil der klebende Rahmen
 erst unter der Leiste hervorkommen muss — das fühlt sich richtig an, weil es dem „ganz oben"
 entspricht, das Max beschrieben hat.
+
+---
+
+## 28. Die iCapsule auf der normalen Portfolio-Seite (14.09.2026)
+
+Die Apple-Nachbau-Seite (`icapsule.html`) ist das eine; der Projektabschnitt auf der normalen
+Portfolio-Seite ist das andere. Max wollte ausdrücklich nur Letzteren geändert haben:
+*„bitte nichts an der apple seite ändern sondern an der anderen"*. `icapsule.html` blieb
+unberührt, belegt über `git diff --name-only`.
+
+### Aufmacherbild getauscht
+Statt `hero-dunkel.jpg` („Mitternacht") steht jetzt `hero-weiss.jpg` („Weiß") an erster Stelle.
+Grund: Max' Wunsch, das Produkt vor hellem Hintergrund zu zeigen. Auf der Apple-Seite bleibt
+die dunkle Fassung, weil sie dort vor dem schwarzen Partikelhintergrund steht.
+
+### Zwei Behind-the-Scenes-Bilder aus Blender
+Max wollte zeigen, *wie* das Produkt entstanden ist. Dafür zwei Werkstattbilder direkt vor dem
+Weiterlesen-Knopf:
+
+| Bild | Maße | Inhalt | Rasterfeld |
+|---|---|---|---|
+| `design3d/ibee-blender.jpg` | 1024×768 | Blender mit dem ganzen Modell | `.tr__bts1`, Spalte 1–5 |
+| `design3d/ibee-innen.jpg` | 768×1024 | „INNENANSICHT LAUTSPRECHER.blend" | `.tr__bts2`, Spalte 7–9 |
+
+Darunter eine kurze Zeile Fließtext (`.tr__btstxt`), damit klar ist, dass das kein Rendering
+aus einem Katalog ist, sondern selbst gebaut.
+
+### Was dabei schiefging — und warum es hier steht
+Beim Entfernen eines alten CSS-Blocks wurde **versehentlich die komplette Handy-Regel für das
+Raster gelöscht** (`@media(max-width:900px)`). Das betraf nicht nur die iCapsule, sondern
+**jedes Kapitel der Seite** — auf dem Handy wären alle Bilder in ein zwölfspaltiges Raster
+gequetscht worden, also etwa 25 px breit. Wiederhergestellt aus
+`archiv/live-index-stand-2026-09-14-vor-umbau-separat.html` und um die drei neuen Klassen
+ergänzt.
+
+Der zweite Versuch war ebenfalls falsch: Die neuen Bilder bekamen zunächst
+`style="grid-column:…"` direkt am Element. Ein solches Attribut schlägt jede Medienabfrage, die
+Bilder blieben am Handy schmal. Erst mit echten Klassen stimmte es. Beides steht in
+`05-fallen.md`.
+
+Nebenbei vier veraltete Bildmaße korrigiert (innen, chip, farben, bildschirme) — sie stammten
+noch aus der Zeit vor dem Zuschnitt und hätten das Layout beim Laden springen lassen.
