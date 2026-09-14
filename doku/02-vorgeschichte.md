@@ -993,3 +993,57 @@ Wieder ein normales Projektkapitel in der Sprache der Seite: Hintergrundtypograf
 Renderings im gewohnten Raster mit Großansicht, der Projekttext — und darunter der Knopf
 (`.tor`), der in Ruhe erklärt, wohin er führt. Die Seite ist dadurch von 36950 wieder auf
 **27264 px** geschrumpft, also sogar etwas kürzer als vor dem ganzen Umbau.
+
+---
+
+## 21. Große Renderings, und die Fotos richtiggestellt (14.09.2026)
+
+Max nach der kompakten Fassung: zu klein geworden, „wichtige Bilder sind zu klein … die
+Renderings sollen teils schon sehr bildfüllend sein, vor allem auch die technischen".
+Und: der Fotobereich auf Weiß gefiel ihm nicht, „weil da die Maße der Fotos so komisch sind".
+
+### Der Fotobereich war tatsächlich kaputt
+
+Er hatte recht, und die Ursache war ein Fehler von mir. Die Erinnerungsfotos hatte ich aus
+`image16.png` bis `image19.png` der Präsentation gezogen. Das sind aber **keine Fotos**,
+sondern **durchsichtige quadratische Flächen mit einem gerundeten Foto darin** — jedes in
+anderer Größe und anderem Seitenverhältnis. Beim Umwandeln nach JPEG wurde die Transparenz
+**weiß**. Ergebnis: Fotos, die mit ungleichen weißen Rändern in ihren Kacheln schwammen,
+noch dazu gerundet in einer gerundeten Kachel.
+
+→ **Behoben mit den Originalfotos.** In der Präsentation liegen unter `image1` bis `image15`
+und `image20` die echten Aufnahmen, sauber 4:3 oder 3:4. Sechs davon wurden mittig quadratisch
+beschnitten (800 × 800) und ersetzen die Montagen: türkiser See, verschneiter Grat,
+Hafenstadt in der Dämmerung, Polarlicht, Katze, Pilz im Wald.
+Quadratisch passt außerdem besser zum runden Bildschirm des Geräts.
+
+```bash
+# mittiger Quadratschnitt, unabhaengig vom Ausgangsformat
+ffmpeg -i foto.jpg -vf "crop='min(iw,ih)':'min(iw,ih)',scale=800:800" ziel.png
+```
+
+### Bildfüllende Renderings
+
+Die kompakte Fassung hatte die Renderings in geteilte Abschnitte gesteckt — dort waren sie nur
+**542 px breit**. Für ein Produktbild, das beeindrucken soll, ist das zu wenig, besonders bei
+der Röntgenansicht und dem Chip.
+
+Jetzt laufen **acht Renderings über die volle Fensterbreite**: Text mittig darüber, darunter
+das Bild ohne jede Begrenzung. Gemessen bei 1400 × 900: **1400 × 788 px, also 100 % der
+Fensterbreite und 88 % der Fensterhöhe.**
+
+Dafür wurden sie auch neu gezogen — jetzt in der vollen Quellauflösung **1920 × 1080** statt
+1800 px, weil sie auf großen Bildschirmen bildfüllend laufen.
+
+| Fassung | Höhe | Renderings |
+|---|---|---|
+| erste, eine Kolonne | 11279 px | mittig, begrenzt |
+| kompakt (nebeneinander) | 6184 px | **542 px breit — zu klein** |
+| jetzt | **10587 px** | **volle Fensterbreite** |
+
+Länger als die kompakte Fassung, aber kürzer als die erste — und der Platz geht jetzt in die
+Bilder statt in leeren Raum. Das war ausdrücklich Max' Wunsch, nachdem die Seite ohnehin
+eigenständig ist.
+
+Am Handy bleibt alles sinnvoll: Renderings 375 × 211, die Fotokacheln brechen von sechs auf
+drei Spalten um, der Bandtext rutscht unter das Bild.

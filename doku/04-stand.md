@@ -5,6 +5,35 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Produktseite mit bildfüllenden Renderings
+
+Nach Max' Rückmeldung nachgeschärft: Die Renderings waren in der kompakten Fassung nur
+**542 px breit** — zu klein für Bilder, die beeindrucken sollen.
+
+**Jetzt laufen acht Renderings über die volle Fensterbreite.** Gemessen bei 1400 × 900:
+**1400 × 788 px, also 100 % der Breite und 88 % der Höhe.** Dafür neu gezogen in voller
+Quellauflösung 1920 × 1080.
+
+**Der Fotobereich war echt kaputt** und Max hat es gemerkt. Die Erinnerungsfotos stammten aus
+`image16-19.png` der Präsentation — das sind **durchsichtige quadratische Flächen mit einem
+gerundeten Foto darin**, jedes anders groß. Die Transparenz wurde beim Umwandeln weiß, also
+schwammen die Fotos mit ungleichen weißen Rändern in ihren Kacheln.
+→ Ersetzt durch die **Originalfotos** (`image1-15`, `image20`), mittig quadratisch
+beschnitten auf 800 × 800. Sechs Stück, einheitlich.
+
+| Fassung | Höhe | Renderings |
+|---|---|---|
+| erste, eine Kolonne | 11279 px | mittig, begrenzt |
+| kompakt | 6184 px | 542 px — zu klein |
+| **jetzt** | **10587 px** | **volle Fensterbreite** |
+
+Am Handy: Renderings 375 × 211, Fotokacheln von sechs auf drei Spalten, Bandtext unter das
+Bild, kein Querscrollen.
+
+Bildordner `assets/img/icapsule/`: 3,7 MB gesamt, davon 992 KB als WebP.
+
+---
+
 ## Stand vom 14.09.2026 — iCapsule als eigene Produktseite
 
 Nach Max' Korrektur umgebaut: Das Projekt steht im Portfolio wieder **als normales Projekt**,
