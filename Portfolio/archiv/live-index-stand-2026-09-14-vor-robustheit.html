@@ -1628,105 +1628,90 @@
 })();
 
 /* Videos spielen von allein — aber immer nur eines: das, dessen Mitte der
-   Bildschirmmitte am naechsten ist. Nur dieses eine haelt eine Quelle, alle
-   anderen werden abgebaut.
+   Bildschirmmitte am nächsten ist.
 
-   Vier Dinge, die hier wehtun:
+   Drei Dinge, die hier wehtun, wenn man sie nicht beachtet:
    1. Automatisches Abspielen erlauben Browser nur stumm -> alle Videos muted.
-   2. play() ist asynchron; bei preload="none" laedt das Video erst danach.
+   2. play() ist asynchron und bei preload="none" laedt das Video erst danach.
       Jede Startanfrage muss verfolgt werden, sonst feuert jeder Scrollpixel
       ein neues play() und ein pause() dazwischen bricht es ab.
-   3. pause() bricht den Download NICHT ab. Wer nur pausiert, hat nach dem
-      Durchscrollen acht Videos, die weiterladen und die sechs erlaubten
-      Verbindungen belegen -- dann laedt unten gar nichts mehr.
-   4. load() feuert ein pause-Ereignis, und zwar VERZOEGERT. Wer nur eine
-      synchrone Schutzmarke setzt, haelt dieses Ereignis faelschlich fuer
-      "der Nutzer hat pausiert" und blockiert das Video dauerhaft. Genau das
-      haeufte sich beim Hoch- und Runterscrollen an.
-      -> Schutzmarke je Element, die erst nach 150 ms verfaellt. */
+   3. pause() STOPPT DEN DOWNLOAD NICHT. Wer nur pausiert, hat nach dem
+      Durchscrollen acht Videos, die weiter im Hintergrund laden, die sechs
+      erlaubten Verbindungen belegen und die Leitung dichtmachen -- die
+      unteren Videos laden dann gar nicht mehr. Deshalb wird die Quelle
+      entfernt und load() gerufen: das bricht den Download wirklich ab.
+   Dazu eine kurze Verzoegerung: Wer nur vorbeiscrollt, soll gar nicht
+   erst anfangen zu laden. */
 (function(){
   var videos=[].slice.call(document.querySelectorAll('video'));
   if(!videos.length) return;
   var ruhe=window.matchMedia('(prefers-reduced-motion:reduce)');
-  var WARTEZEIT=160;    /* so lange muss ein Video mittig bleiben, bevor geladen wird */
-  var SCHUTZ=150;       /* so lange gelten verzoegerte Ereignisse noch als "von uns" */
-  var MAX_FEHL=3;       /* so oft wird ein abgelehnter Start wiederholt */
+  var eigenerHalt=false;
+  var WARTEZEIT=160;   /* so lange muss ein Video mittig bleiben, bevor geladen wird */
 
   videos.forEach(function(v){
-    v.muted=true;
+    v.muted=true;                         /* iOS ignoriert das Attribut manchmal */
     var q=v.querySelector('source');
     v._quelle=q?q.getAttribute('src'):null;
-    v._wir=0; v._anfrage=false; v._sollHalten=false; v._fehl=0;
+    v._abgebaut=false; v._anfrage=false; v._sollHalten=false;
     v.addEventListener('pause',function(){
-      if(!v._wir && !v.ended && !v._anfrage) v.dataset.vonHand='1';
+      if(!eigenerHalt && !v.ended && !v._anfrage) v.dataset.vonHand='1';
     });
-    v.addEventListener('play',function(){ delete v.dataset.vonHand; v._fehl=0; });
+    v.addEventListener('play',function(){ delete v.dataset.vonHand; });
   });
-
-  /* alles, was wir selbst am Element tun, wird markiert -- auch fuer die
-     Ereignisse, die erst danach eintrudeln */
-  function unserTun(v,fn){
-    v._wir++;
-    try{ fn(); }catch(e){}
-    setTimeout(function(){ if(v._wir>0) v._wir--; },SCHUTZ);
-  }
 
   function sichtbar(v){
     var r=v.getBoundingClientRect();
     return r.height>0 && r.bottom>0 && r.top<window.innerHeight;
   }
-  function hatQuelle(v){ return !!v.querySelector('source'); }
 
   function anhalten(v){
     if(v._anfrage){ v._sollHalten=true; return; }
     if(v.paused) return;
-    unserTun(v,function(){ v.pause(); });
+    eigenerHalt=true; v.pause(); eigenerHalt=false;
   }
 
-  /* Quelle entfernen -> laufender Download wird wirklich abgebrochen */
+  /* Quelle entfernen -> laufender Download wird abgebrochen, Poster kommt zurueck */
   function abbauen(v){
-    if(!v._quelle || !hatQuelle(v)) return;
-    unserTun(v,function(){
-      if(!v.paused) v.pause();
+    if(v._abgebaut || !v._quelle) return;
+    anhalten(v);
+    try{
       var q=v.querySelector('source'); if(q) v.removeChild(q);
       v.removeAttribute('src');
       v.load();
-    });
-    v._anfrage=false; v._sollHalten=false; v._fehl=0;
-    delete v.dataset.vonHand;      /* frischer Zustand -- kein alter Merker darf haengen bleiben */
+    }catch(e){}
+    v._abgebaut=true; v._anfrage=false; v._sollHalten=false;
   }
 
   function aufbauen(v){
-    if(!v._quelle || hatQuelle(v)) return;   /* der DOM ist die Wahrheit, nicht ein Merker */
-    unserTun(v,function(){
+    if(!v._abgebaut) return;
+    try{
       var q=document.createElement('source');
       q.setAttribute('src',v._quelle); q.setAttribute('type','video/mp4');
       v.appendChild(q); v.load();
-    });
+    }catch(e){}
+    v._abgebaut=false;
   }
 
   function starten(v){
-    if(v._anfrage || !v.paused || !hatQuelle(v) || v._fehl>=MAX_FEHL) return;
+    if(v._anfrage || !v.paused) return;
     v._anfrage=true; v._sollHalten=false;
     var p;
-    try{ p=v.play(); }catch(e){ v._anfrage=false; v._fehl++; return; }
+    try{ p=v.play(); }catch(e){ v._anfrage=false; return; }
     if(p && p.then){
       p.then(function(){
-        v._anfrage=false; v._fehl=0; v._sollHalten=false;
-        /* Lage kann sich waehrend des Starts geaendert haben: nur weiterlaufen,
-           wenn dieses Video immer noch das mittige ist und eine Quelle hat */
-        if(v!==aktuell || !hatQuelle(v)) anhalten(v);
+        v._anfrage=false;
+        if(v._sollHalten){ v._sollHalten=false; anhalten(v); }
       },function(){
-        v._anfrage=false; v._sollHalten=false; v._fehl++;
-        delete v.dataset.vonHand;
+        v._anfrage=false; v._sollHalten=false; delete v.dataset.vonHand;
       });
     } else { v._anfrage=false; }
   }
 
-  var wartendAuf=null, uhr=null, aktuell=null;
+  var wartendAuf=null, uhr=null;
 
   function waehlen(){
-    if(ruhe.matches){ aktuell=null; videos.forEach(function(v){ anhalten(v); abbauen(v); }); return; }
+    if(ruhe.matches){ videos.forEach(function(v){ anhalten(v); abbauen(v); }); return; }
     var mitte=window.innerHeight/2, aktiv=null, beste=Infinity;
     videos.forEach(function(v){
       if(!sichtbar(v)) return;
@@ -1734,12 +1719,17 @@
       var d=Math.abs(r.top+r.height/2-mitte);
       if(d<beste){ beste=d; aktiv=v; }
     });
-    aktuell=aktiv;
 
-    /* genau eines behaelt die Quelle -- alles andere wird angehalten und abgebaut */
     videos.forEach(function(v){
       if(v===aktiv) return;
-      anhalten(v); abbauen(v);
+      anhalten(v);
+      /* ganz aus dem Bild: immer abbauen. Noch sichtbar, aber nie angespielt:
+         auch abbauen -- das ist der Fall "nur vorbeigescrollt". Wer schon etwas
+         gesehen hat (currentTime>0), behaelt seine Quelle, solange er im Bild ist. */
+      if(!sichtbar(v) || !v.currentTime){
+        delete v.dataset.vonHand;
+        abbauen(v);
+      } else if(v.ended){ try{ v.currentTime=0; }catch(e){} }
     });
 
     if(aktiv!==wartendAuf){
@@ -1748,11 +1738,9 @@
       if(aktiv) uhr=setTimeout(function(){
         uhr=null;
         if(wartendAuf!==aktiv || !sichtbar(aktiv)) return;
-        aufbauen(aktiv); starten(aktiv);
+        aufbauen(aktiv);
+        if(!aktiv.dataset.vonHand) starten(aktiv);
       },WARTEZEIT);
-    } else if(aktiv && hatQuelle(aktiv)){
-      /* Selbstheilung: steht das mittige Video trotz Quelle still, nochmal versuchen */
-      starten(aktiv);
     }
   }
 
@@ -1766,9 +1754,9 @@
   if(ruhe.addEventListener) ruhe.addEventListener('change',waehlen);
   window.videoWahl=waehlen;
   window.videoZustand=function(){ return videos.map(function(v){
-    return {n:v._quelle?v._quelle.split('/').pop():'?', quelle:hatQuelle(v),
-            netz:v.networkState, zeit:+v.currentTime.toFixed(2), paused:v.paused,
-            vonHand:!!v.dataset.vonHand, anfrage:v._anfrage, wir:v._wir, fehl:v._fehl}; }); };
+    return {n:v._quelle?v._quelle.split('/').pop():'?', abgebaut:v._abgebaut,
+            hatQuelle:!!v.querySelector('source'), netz:v.networkState,
+            zeit:+v.currentTime.toFixed(2), paused:v.paused}; }); };
   waehlen();
 })();
 </script>

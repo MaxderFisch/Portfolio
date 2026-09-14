@@ -5,6 +5,42 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Autoplay stabil nach mehrmaligem Scrollen
+
+Max: „anfangs hat es gut funktioniert, aber wenn ich dann öfter hoch und runter scrolle, hat
+es dann wieder nicht mehr gestartet." Ein Fehler, der sich **anhäuft**.
+
+**Ursache:** `load()` feuert sein `pause`-Ereignis **verzögert**. Meine Schutzmarke, die
+eigenes Pausieren vom Nutzerklick unterscheidet, war nur synchron gesetzt — das verspätete
+Ereignis galt deshalb als Nutzerklick, das Video wurde als „von Hand angehalten" markiert und
+**startete nie wieder**. Bei jedem Hoch und Runter traf es ein weiteres Video.
+
+**Behoben:**
+1. Schutzmarke je Element als **Zähler, der erst nach 150 ms verfällt** — deckt verzögerte
+   Ereignisse ab.
+2. **Beim Abbauen werden alle Merker gelöscht**; danach ist das Element frisch.
+3. Nach einem asynchronen Start wird **die Lage neu geprüft** statt einem vorher gesetzten
+   Wunsch vertraut, der durch einen Abbau verschwunden sein kann.
+4. Der **DOM entscheidet**, ob ein Video eine Quelle hat, nicht ein Flag.
+5. Die Ausnahme „schon angesehene Videos behalten ihre Quelle" ist gefallen — jetzt hält
+   **immer genau eines** eine Quelle.
+
+**Geprüft durch Wiederholung**, weil ein einzelner Durchlauf solche Fehler nicht zeigt: echte
+Wiedergabe nachgebildet (inklusive des verzögerten `pause` aus `load()`), acht Runden hoch
+und runter, Prüfung an jedem der rund 500 Schritte.
+
+| Prüfung | Ergebnis |
+|---|---|
+| jemals mehr als eine Quelle aktiv | **0 Mal** |
+| jemals mehr als ein Video spielend | **0 Mal** |
+| blockierte Videos am Ende | **keines** |
+| echte Netzwerkanfragen über 5 Runden | 9, davon 7 sauber abgebrochen |
+
+→ **Nach wie vor nur von Max prüfbar, ob die Bilder wirklich laufen.**
+→ **Muss gepusht werden**, sonst sieht er auf der Live-Seite weiter den alten Stand.
+
+---
+
 ## Stand vom 14.09.2026 — nur das mittige Video lädt
 
 Max meldete, beim Durchscrollen laden die oberen Videos und **die unteren dann gar nicht mehr**.

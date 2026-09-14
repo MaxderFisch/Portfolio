@@ -386,3 +386,53 @@ window.videoZustand();   // -> hatQuelle, abgebaut, networkState, currentTime
 ```
 Und im Netzwerk-Werkzeug nach `.mp4` filtern. Mehr als **eine** aktive Anfrage ist ein Fehler.
 
+
+### `load()` feuert `pause` VERZÖGERT — und blockiert damit das Video für immer
+**Der Fehler, der sich beim Hoch- und Runterscrollen anhäufte.** Die Steuerung merkt sich,
+wenn der Nutzer selbst pausiert, um ihn nicht zu überfahren. Dafür braucht sie eine
+Schutzmarke um das eigene `pause()`.
+
+Das reicht nicht: **`load()` feuert sein `pause`-Ereignis erst später**, als eigene Aufgabe in
+der Warteschlange. Eine Marke, die synchron gesetzt und gleich wieder gelöscht wird, ist dann
+längst weg — das Ereignis gilt fälschlich als Nutzerklick, das Video wird als „von Hand
+angehalten" markiert und **startet nie wieder**. Da der Merker nur bei *nicht*-aktiven Videos
+aufgeräumt wurde, blieb ein aktives Video dauerhaft blockiert.
+
+→ **Schutzmarke je Element, die erst nach ~150 ms verfällt**, und zwar als Zähler, nicht als
+Schalter (mehrere Vorgänge können sich überlappen):
+```js
+function unserTun(v,fn){
+  v._wir++;
+  try{ fn(); }catch(e){}
+  setTimeout(function(){ if(v._wir>0) v._wir--; },150);
+}
+// im Ereignis:  if(!v._wir && !v.ended) v.dataset.vonHand='1';
+```
+→ Und: **beim Abbauen jeden Merker löschen.** Nach einem Abbau ist das Element frisch, ein
+alter „von Hand"-Merker darf nicht überleben.
+
+### Nach einem asynchronen Start die Lage neu prüfen
+`play()` kann fertig werden, wenn längst woanders hingescrollt wurde. Sich zu merken
+„danach anhalten" reicht nicht, weil ein zwischenzeitlicher Abbau diesen Wunsch löscht.
+→ Im Ergebnis des Starts **gegen den aktuellen Zustand prüfen**, nicht gegen einen Merker:
+```js
+p.then(function(){ v._anfrage=false;
+  if(v!==aktuell || !hatQuelle(v)) anhalten(v); });
+```
+
+### Der DOM ist die Wahrheit, nicht ein Merker
+`_abgebaut`-Flags laufen irgendwann aus dem Takt (ein Aufbau schlägt fehl, ein Ereignis kommt
+doppelt). Dann steht das Flag auf „aufgebaut", es gibt aber kein `<source>` — und nichts
+startet mehr.
+→ Immer am DOM prüfen: `function hatQuelle(v){ return !!v.querySelector('source'); }`
+
+### So prüft man das Anhäufen von Zustandsfehlern
+Ein einzelner Durchlauf zeigt solche Fehler nicht — sie entstehen erst durch Wiederholung.
+Muster: echte Wiedergabe nachbilden (inklusive des verzögerten `pause` aus `load()`), viele
+Runden hoch und runter fahren und **an jedem Schritt** die Invarianten prüfen:
+```js
+// hoechstens eine Quelle, hoechstens eines spielend, keines blockiert
+if(vs.filter(v=>v.querySelector('source')).length>1) fehler++;
+```
+Acht Runden über ~500 Schritte haben hier gereicht, um die Fehler sichtbar zu machen.
+

@@ -783,3 +783,46 @@ Am Handy dasselbe Bild: Durchscrollen null Videos, Stehenbleiben genau eines. Zu
 Zeitpunkt hält **genau ein** Video eine Quelle, die anderen neun sind abgebaut.
 
 Für spätere Prüfungen stellt die Steuerung `window.videoZustand()` bereit.
+
+---
+
+## 17. Warum es nach mehrmaligem Scrollen aufhörte (14.09.2026)
+
+Max: „anfangs hat es gut funktioniert, aber wenn ich dann öfter hoch und runter scrolle, hat
+es dann wieder nicht mehr gestartet". Ein Zustandsfehler, der sich anhäuft — die schwierigste
+Sorte, weil ein einzelner Durchlauf sie nicht zeigt.
+
+**Ursache: `load()` feuert sein `pause`-Ereignis verzögert.**
+Die Steuerung merkt sich, wenn der Nutzer selbst pausiert, damit sie ihn nicht überfährt.
+Meine Schutzmarke dafür wurde synchron gesetzt und sofort wieder gelöscht. Das `pause` aus
+`load()` traf aber erst danach ein — und galt deshalb als Nutzerklick. Das Video wurde als
+„von Hand angehalten" markiert und **startete nie wieder**. Aufgeräumt wurde der Merker nur
+bei nicht-aktiven Videos, ein aktives blieb also dauerhaft blockiert. Nach jedem Hoch und
+Runter traf es ein weiteres Video — genau das beschriebene Verhalten.
+
+**Drei Änderungen:**
+1. **Schutzmarke je Element als Zähler, die erst nach 150 ms verfällt.** Damit fallen auch
+   verzögerte Ereignisse noch darunter.
+2. **Beim Abbauen werden alle Merker gelöscht.** Nach einem Abbau ist das Element frisch.
+3. **Nach einem asynchronen Start wird die Lage neu geprüft**, statt sich auf einen vorher
+   gesetzten Wunsch zu verlassen — der kann durch einen Abbau verschwunden sein.
+
+Dazu aufgeräumt: Der DOM entscheidet, ob ein Video eine Quelle hat, nicht ein Flag. Und die
+Ausnahme „schon angesehene Videos behalten ihre Quelle" ist gefallen — jetzt hält **immer
+genau eines** eine Quelle, das ist vorhersagbarer und war ohnehin Max' Wunsch.
+
+### Wie es geprüft wurde
+
+Der entscheidende Punkt: Solche Fehler zeigen sich erst durch **Wiederholung**. Also wurde
+echte Wiedergabe nachgebildet — inklusive des verzögerten `pause` aus `load()`, das ja die
+Ursache war — und acht Runden hoch und runter gefahren, mit Prüfung an **jedem** der rund
+500 Schritte:
+
+| Prüfung | Ergebnis |
+|---|---|
+| jemals mehr als eine Quelle aktiv | **0 Mal** |
+| jemals mehr als ein Video spielend | **0 Mal** |
+| blockierte Videos am Ende | **keines** |
+| echte Netzwerkanfragen über 5 Runden | 9, davon 7 sauber abgebrochen |
+
+Vorher wäre nach wenigen Runden ein Video nach dem anderen blockiert gewesen.
