@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iCapsule — Konzeptstudie von Max Aulinger</title>
+<meta name="description" content="iCapsule: eine fiktive Produktstudie im Stil einer Herstellerseite. Studienprojekt von Max Aulinger, TH Deggendorf. Kein Produkt von Apple.">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --sf:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --blau:#2997ff; --grau:#86868b; --tinte:#1d1d1f;
+  }
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:var(--sf);background:#000;color:#fff;line-height:1.4;
+       -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{width:100%;height:auto;display:block}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- Leiste ---------- */
+  .bar{position:sticky;top:0;z-index:90;background:rgba(22,22,23,.8);
+       backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
+       border-bottom:1px solid rgba(255,255,255,.08)}
+  .bar__in{max-width:1180px;margin:0 auto;padding:0 22px;height:46px;
+           display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .bar__z{font-size:13px;color:#d2d2d7;white-space:nowrap;transition:color .3s}
+  .bar__z:hover{color:#fff}
+  .bar__n{font-size:18px;font-weight:600;letter-spacing:-.02em}
+  .bar__p{font-size:13px;color:#d2d2d7;white-space:nowrap}
+  @media(max-width:560px){ .bar__p{display:none} }
+
+  /* ---------- Bausteine ---------- */
+  .mitte{max-width:1180px;margin:0 auto;padding:0 22px}
+  .eng{max-width:720px;margin:0 auto}
+  .auge{font-size:15px;font-weight:600;color:var(--blau);letter-spacing:.004em;margin-bottom:8px}
+  h1{font-size:clamp(48px,8.6vw,92px);font-weight:700;letter-spacing:-.026em;line-height:1.02}
+  h2{font-size:clamp(28px,4.2vw,50px);font-weight:700;letter-spacing:-.022em;line-height:1.08}
+  h3{font-size:clamp(21px,2.7vw,30px);font-weight:600;letter-spacing:-.015em;line-height:1.14}
+  .s{font-size:clamp(16px,1.9vw,19px);line-height:1.5;color:#d2d2d7;margin-top:14px}
+  .hell .s{color:#6e6e73}
+  .bu{font-size:12px;color:var(--grau);margin-top:11px;line-height:1.5}
+
+  .hell{background:#fff;color:var(--tinte)}
+  .grau{background:#f5f5f7;color:var(--tinte)}
+  .dunkel{background:#000;color:#fff}
+  .abschnitt{padding:74px 0}
+  .abschnitt--eng{padding:54px 0}
+
+  /* ---------- Auftakt ---------- */
+  .hero{padding:64px 0 0;text-align:center}
+  .hero .preis{margin-top:16px;font-size:16px;color:#d2d2d7}
+  .hero .preis b{color:#fff;font-weight:600}
+  .hero__bild{margin-top:30px}
+
+  /* ---------- Bento ---------- */
+  .bento{display:grid;gap:16px;grid-template-columns:1.35fr 1fr;align-items:stretch}
+  .kachel{border-radius:22px;overflow:hidden;padding:36px 34px;display:flex;flex-direction:column;justify-content:space-between}
+  .kachel--dunkel{background:#0b0b0c;color:#fff}
+  .kachel--grau{background:#f5f5f7;color:var(--tinte)}
+  .kachel--bild{padding:0;background:#000}
+  .riesen{font-size:clamp(46px,7vw,84px);font-weight:700;letter-spacing:-.03em;line-height:1}
+  .riesen span{font-size:.46em;font-weight:600;letter-spacing:-.01em}
+  .vier{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
+  .vier img{aspect-ratio:1;object-fit:cover;border-radius:13px}
+
+  /* ---------- geteilte Abschnitte ---------- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center}
+  .split--bildLinks .txt{order:2}
+  .split--bildLinks .bild{order:1}
+  .split .bild img{border-radius:18px}
+
+  /* ---------- Band mit Text darauf ---------- */
+  .band{position:relative;overflow:hidden}
+  .band img{width:100%}
+  .band__txt{position:absolute;left:0;right:0;bottom:0;padding:44px 30px 34px;text-align:center;
+             background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.45) 45%,rgba(0,0,0,0) 100%)}
+  .band__txt h2,.band__txt .s{color:#fff}
+  @media(max-width:700px){ .band__txt{position:static;background:#000;padding:30px 22px} }
+
+  /* ---------- Zahlenstreifen ---------- */
+  .streifen{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;margin-top:44px}
+  .streifen .z{font-size:clamp(24px,3.2vw,38px);font-weight:700;letter-spacing:-.02em;line-height:1}
+  .streifen .b{font-size:12px;color:var(--grau);margin-top:6px}
+
+  /* ---------- zwei Karten ---------- */
+  .zwei{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .karte{background:#0b0b0c;border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+  .grau .karte{background:#fff}
+  .karte__t{padding:30px 30px 0}
+  .karte__b{margin-top:auto;padding:22px 0 0}
+
+  /* ---------- Daten ---------- */
+  .daten{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;margin-top:38px}
+  .d{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:15px 0;
+     border-top:1px solid #d2d2d7;font-size:15px;line-height:1.5}
+  .d dt{font-weight:600}
+  .d dd{color:#424245}
+
+  /* ---------- Abspann ---------- */
+  .fuss{background:#f5f5f7;color:#6e6e73;padding:46px 0 60px;font-size:13px;line-height:1.65}
+  .fuss h4{font-size:15px;font-weight:600;color:var(--tinte);margin-bottom:10px}
+  .fuss p{margin-bottom:11px}
+  .fuss .trenner{height:1px;background:#d2d2d7;margin:24px 0}
+  .zurueck{display:inline-block;margin-top:6px;padding:11px 22px;border-radius:980px;
+           background:#0071e3;color:#fff;font-size:15px;transition:background .3s}
+  .zurueck:hover{background:#0077ed}
+
+  /* ---------- Einblenden ---------- */
+  .auf{opacity:0;transform:translateY(24px);
+       transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+  .auf.da{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.auf{opacity:1;transform:none;transition:none}}
+
+  @media(max-width:860px){
+    .bento{grid-template-columns:1fr}
+    .split{grid-template-columns:1fr;gap:28px}
+    .split--bildLinks .txt,.split--bildLinks .bild{order:initial}
+    .zwei{grid-template-columns:1fr}
+    .daten{grid-template-columns:1fr;gap:0}
+    .abschnitt{padding:56px 0}
+    .streifen{grid-template-columns:repeat(2,1fr);gap:28px}
+    .kachel{padding:30px 26px}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar__in">
+    <a class="bar__z" href="index.html#p-ibee">&larr; Portfolio</a>
+    <div class="bar__n">iCapsule</div>
+    <div class="bar__p">Konzeptstudie</div>
+  </div>
+</header>
+
+<section class="hero dunkel">
+  <div class="mitte">
+    <h1>iCapsule</h1>
+    <p class="s" style="font-size:clamp(19px,2.6vw,26px);font-weight:600;color:#f5f5f7;margin-top:10px">Erinnerungen neu erleben.</p>
+    <p class="preis">Ab <b>1.349&nbsp;€</b> &nbsp;·&nbsp; in Mitternacht und Weiß</p>
+  </div>
+  <div class="hero__bild">
+    <img src="../assets/img/icapsule/hero-dunkel.jpg" width="1800" height="1012"
+         alt="iCapsule in Mitternacht, freigestellt auf schwarzem Grund">
+  </div>
+</section>
+
+<section class="abschnitt dunkel">
+  <div class="mitte">
+    <div class="bento auf">
+      <div class="kachel kachel--dunkel">
+        <div>
+          <p class="auge">Speicher</p>
+          <div class="riesen">20<span>&nbsp;TB</span></div>
+          <h3 style="margin-top:16px">Erinnerungen sicher aufbewahren.</h3>
+          <p class="s" style="font-size:16px">Jedes Foto, jedes Video, jeder Moment — an einem Ort, der einem gehört.</p>
+        </div>
+        <div class="vier">
+          <picture><source srcset="../assets/img/icapsule/erinnerung-1.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-1.jpg" width="900" height="899" loading="lazy" alt="Erinnerung: Grillen am See"></picture>
+          <picture><source srcset="../assets/img/icapsule/erinnerung-2.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-2.jpg" width="900" height="899" loading="lazy" alt="Erinnerung: Sonnenblume"></picture>
+          <picture><source srcset="../assets/img/icapsule/erinnerung-3.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-3.jpg" width="900" height="899" loading="lazy" alt="Erinnerung: Gipfel über dem Nebelmeer"></picture>
+          <picture><source srcset="../assets/img/icapsule/erinnerung-4.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-4.jpg" width="900" height="899" loading="lazy" alt="Erinnerung: Moosboden im Wald"></picture>
+        </div>
+      </div>
+      <div class="kachel kachel--dunkel">
+        <div>
+          <p class="auge">Bildschirm</p>
+          <div class="riesen">6<span>&nbsp;&Prime; OLED</span></div>
+          <h3 style="margin-top:16px">Farbig leuchtende Erinnerungen.</h3>
+          <p class="s" style="font-size:16px">Er zeigt, was gerade zählt — ein Bild, eine Auswahl, ein Gesicht.</p>
+        </div>
+        <div style="margin-top:26px;border-radius:14px;overflow:hidden">
+          <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1800" height="1012" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="abschnitt dunkel">
+  <div class="mitte">
+    <div class="split split--bildLinks auf">
+      <div class="bild">
+        <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1800" height="1012" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
+      </div>
+      <div class="txt">
+        <p class="auge">Klang</p>
+        <h2>Brillante Höhen.<br>Tiefe Bässe.</h2>
+        <p class="s">Sieben ringförmig angeordnete Hochtöner verteilen den Klang in jede Richtung. Darunter arbeitet ein High-Excursion-Tieftöner.</p>
+        <p class="bu">Röntgenansicht aus dem 3D-Modell — die Anordnung der Treiber wurde als eigenes Bauteil gebaut.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="abschnitt hell">
+  <div class="mitte">
+    <div class="split auf">
+      <div class="txt">
+        <p class="auge">Leistung</p>
+        <h2>Maximale<br>Leistung.</h2>
+        <p class="s">M4-Chip mit 16&nbsp;Kernen. Genug Reserven, um Aufnahmen zu ordnen, Gesichter zu erkennen und Inhalte in Echtzeit aufzubereiten.</p>
+      </div>
+      <div class="bild">
+        <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1800" height="1012" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
+      </div>
+    </div>
+    <div class="streifen auf" style="color:var(--tinte)">
+      <div><div class="z">20&nbsp;TB</div><div class="b">Speicher</div></div>
+      <div><div class="z">16</div><div class="b">Kerne</div></div>
+      <div><div class="z">7</div><div class="b">Hochtöner</div></div>
+      <div><div class="z">6&nbsp;&Prime;</div><div class="b">OLED</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band auf">
+  <img src="../assets/img/icapsule/wohnzimmer.jpg" width="1800" height="1012" loading="lazy"
+       alt="Das Gerät im Wohnzimmer unter einem Fernseher">
+  <div class="band__txt">
+    <div class="eng">
+      <h2>Steht da, wo man zusammenkommt.</h2>
+      <p class="s">Klein genug fürs Regal unter dem Fernseher. Groß genug, dass man hinschaut.</p>
+    </div>
+  </div>
+</section>
+
+<section class="abschnitt grau">
+  <div class="mitte">
+    <div class="zwei auf">
+      <div class="karte">
+        <div class="karte__t">
+          <p class="auge">Assistent</p>
+          <h3>Mehr als nur ein Assistent.</h3>
+          <p class="s" style="font-size:16px">Er analysiert die eigenen Daten und lernt durch Interaktionen — und wird dadurch mit der Zeit persönlicher.</p>
+        </div>
+        <div class="karte__b">
+          <picture><source srcset="../assets/img/icapsule/assistent.webp" type="image/webp"><img src="../assets/img/icapsule/assistent.jpg" width="1600" height="900" loading="lazy" alt="Gerät mit einem Gesicht auf dem Bildschirm"></picture>
+        </div>
+      </div>
+      <div class="karte">
+        <div class="karte__t">
+          <p class="auge">Farben</p>
+          <h3>Mitternacht. Und Weiß.</h3>
+          <p class="s" style="font-size:16px">Zwei Oberflächen, ein Gehäuse. Das Gewebe wurde als eigenes Material aufgebaut, damit es in beiden Farben richtig reagiert.</p>
+        </div>
+        <div class="karte__b">
+          <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1800" height="1012" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="abschnitt--eng hell" style="padding-bottom:0">
+  <div class="mitte eng" style="text-align:center">
+    <h2 class="auf">Ab 1.349&nbsp;€.</h2>
+    <p class="s auf">In Mitternacht und Weiß.</p>
+  </div>
+  <div class="auf" style="max-width:1180px;margin:26px auto 0;padding:0 22px">
+    <picture><source srcset="../assets/img/icapsule/hero-weiss.webp" type="image/webp"><img src="../assets/img/icapsule/hero-weiss.jpg" width="1800" height="1012" loading="lazy" alt="iCapsule in Weiß auf hellem Grund"></picture>
+  </div>
+</section>
+
+<section class="abschnitt grau">
+  <div class="mitte">
+    <div class="eng auf" style="text-align:center">
+      <h2 style="font-size:clamp(24px,3.4vw,38px)">Technische Daten</h2>
+    </div>
+    <dl class="daten auf">
+      <div class="d"><dt>Speicher</dt><dd>bis zu 20&nbsp;TB</dd></div>
+      <div class="d"><dt>Chip</dt><dd>M4 mit 16&nbsp;Kernen</dd></div>
+      <div class="d"><dt>Audio</dt><dd>7 Hochtöner im Ring, High-Excursion-Tieftöner</dd></div>
+      <div class="d"><dt>Bildschirm</dt><dd>6&nbsp;Zoll OLED</dd></div>
+      <div class="d"><dt>Assistent</dt><dd>lernt durch Interaktionen</dd></div>
+      <div class="d"><dt>Farben</dt><dd>Mitternacht, Weiß</dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer class="fuss">
+  <div class="mitte">
+    <h4>Wie es entstanden ist</h4>
+    <p>Die Aufgabe im Studium war, ein Gerät zu entwerfen, das es bei Apple so noch nicht gibt — und es so zu
+       präsentieren, wie der Hersteller es tun würde. Vom ersten Entwurf bis zum Rendering habe ich alles selbst
+       gemacht: modelliert, texturiert, ausgeleuchtet und die Oberfläche gestaltet. Die Erinnerungen auf den
+       Bildschirmen sind eigene Fotos.</p>
+    <div class="trenner"></div>
+    <h4>Zur Einordnung</h4>
+    <p><b>Dies ist keine Seite von Apple.</b> iCapsule ist ein studentischer Konzeptentwurf von Max Aulinger an der
+       TH Deggendorf und wird nicht verkauft. Apple und M4 sind Marken von Apple&nbsp;Inc.; es besteht keine
+       Verbindung zu Apple&nbsp;Inc. Preis und technische Angaben sind erfunden und Teil der Studienaufgabe.</p>
+    <div class="trenner"></div>
+    <a class="zurueck" href="index.html#p-ibee">&larr; Zurück zum Portfolio</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var teile=[].slice.call(document.querySelectorAll('.auf'));
+  if(!teile.length) return;
+  function zeigen(el){ el.classList.add('da'); }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ zeigen(e.target); io.unobserve(e.target); } });
+    },{rootMargin:'0px 0px -10% 0px',threshold:.05});
+    teile.forEach(function(t){ io.observe(t); });
+  }
+  function nachsehen(){
+    var h=window.innerHeight;
+    teile.forEach(function(t){
+      if(t.classList.contains('da')) return;
+      var r=t.getBoundingClientRect();
+      if(r.top < h*0.94 && r.bottom > 0) zeigen(t);
+    });
+  }
+  var tick=false;
+  window.addEventListener('scroll',function(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){ nachsehen(); tick=false; });
+  },{passive:true});
+  window.addEventListener('resize',nachsehen);
+  window.addEventListener('load',nachsehen);
+  setTimeout(nachsehen,400);
+  setTimeout(function(){ teile.forEach(zeigen); },4500);
+  nachsehen();
+})();
+</script>
+</body>
+</html>

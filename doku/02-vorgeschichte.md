@@ -943,3 +943,53 @@ Apple Inc., keine Verbindung dorthin. Das kostet den Effekt nichts — es kommt 
 **Ein Fehler dabei gemacht und behoben:** Die Erinnerungskacheln reservierten 215 × 899 statt
 quadratisch — `aspect-ratio` allein reicht nicht, es fehlte `height:auto` gegen die
 `height`-Angabe im Bild. Dieselbe Falle wie bei den Videos, nur andersherum.
+
+---
+
+## 20. Doch als eigene Seite — und kürzer (14.09.2026)
+
+Max' Korrektur zur Fassung aus Abschnitt 19, in zwei Punkten:
+
+1. **Doch wieder eine eigene Seite.** Im Portfolio soll das Projekt normal als Projekt stehen,
+   mit einem **großen Knopf** zur Produktseite — und beim Zurückkommen soll man „wieder genau
+   dahin zurück" kommen.
+2. **Die Produktseite war zu lang und zu eintönig:** „wirkt alles so einfach nur untereinander
+   in Reihe gepackt, rechts und links ist immer so viel leerer Raum".
+
+Der zweite Punkt war berechtigt. Die erste Fassung war eine einzige Kolonne aus mittig
+gesetzten Tafeln — das ist genau *eine* von Apples Bausteinen, und wenn man nur die benutzt,
+wird es lang und monoton.
+
+### Was sich am Aufbau geändert hat
+
+| vorher | jetzt |
+|---|---|
+| 9 mittige Tafeln untereinander | Auftakt, **Bento** (zwei Kacheln nebeneinander), **geteilter Abschnitt** (Bild links, Text rechts), **geteilt andersherum** plus Zahlenstreifen, **Bildband mit Text darauf**, **zwei Karten nebeneinander**, Preis, zweispaltiges Datenblatt |
+| 11279 px hoch | **6184 px** — 45 % kürzer |
+
+Alles nebeneinander statt untereinander: Dadurch verschwindet der leere Raum an den Seiten,
+und die Seite wird fast halb so lang, ohne dass Inhalt wegfällt.
+Am Handy bricht alles sauber auf eine Spalte um; der Text des Bildbands rutscht dann unter das
+Bild, statt darüber zu liegen.
+
+### Der Rückweg, exakt
+
+Ein Anker allein (`#p-ibee`) bringt einen nur an den Kapitelanfang. Max wollte **genau die
+Stelle** zurück, an der er weggegangen ist. Gelöst über `sessionStorage`:
+
+- Klick auf den Knopf merkt `window.pageYOffset`
+- Beim Laden der Portfolio-Seite: liegt ein Wert vor **und** ist der Anker `#p-ibee`, wird
+  exakt dorthin gesprungen statt zum Anker — mit `behavior:'instant'`, sonst kämpft
+  `scroll-behavior:smooth` dagegen
+- Danach wird der Merker gelöscht, damit ein *normaler* Aufruf des Kapitels sich normal verhält
+- Nachgefasst wird bei `load` und nach 120/450/900 ms, weil Bilder und Schriften später kommen
+  und die Seitenhöhe bis dahin noch wandert
+
+Gemessen: hingehen bei 17167, zurückkommen bei 17167 — **Abweichung 0**.
+
+### Das Kapitel im Portfolio
+
+Wieder ein normales Projektkapitel in der Sprache der Seite: Hintergrundtypografie, fünf
+Renderings im gewohnten Raster mit Großansicht, der Projekttext — und darunter der Knopf
+(`.tor`), der in Ruhe erklärt, wohin er führt. Die Seite ist dadurch von 36950 wieder auf
+**27264 px** geschrumpft, also sogar etwas kürzer als vor dem ganzen Umbau.

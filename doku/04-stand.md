@@ -5,6 +5,35 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — iCapsule als eigene Produktseite
+
+Nach Max' Korrektur umgebaut: Das Projekt steht im Portfolio wieder **als normales Projekt**,
+mit einem großen Knopf zur Produktseite.
+
+**Zwei Dateien:**
+- `live/index.html` → Kapitel `#p-ibee`: fünf Renderings im gewohnten Raster, Projekttext,
+  darunter der Knopf `.tor` → `icapsule.html`. Seite wieder **27264 px** (vorher 36950).
+- `live/icapsule.html` → die Produktseite, 16 KB.
+
+**Die Produktseite wurde kürzer und abwechslungsreicher.** Max' Kritik an der ersten Fassung
+(„alles nur untereinander in Reihe, rechts und links viel leerer Raum") war berechtigt.
+Jetzt: Auftakt, Bento mit zwei Kacheln nebeneinander, geteilter Abschnitt Bild/Text, geteilt
+andersherum plus Zahlenstreifen, Bildband mit Text darauf, zwei Karten nebeneinander, Preis,
+zweispaltiges Datenblatt. **6184 px statt 11279 px — 45 % kürzer.**
+
+**Der Rückweg ist exakt.** Über `sessionStorage` wird beim Klick der Scrollstand gemerkt und
+beim Zurückkommen genau dorthin gesprungen, nicht nur zum Anker. Gemessen: hin bei 17167,
+zurück bei 17167, **Abweichung 0**. Der Merker wird danach gelöscht.
+
+Geprüft: beide Dateien strukturell sauber, index 127 und icapsule 22 Asset-Verweise vollständig,
+60 picture-Paare stimmig, keine doppelten IDs, alle Anker lösen auf, kein Querscrollen am
+Rechner und am Handy, am Handy bricht alles auf eine Spalte um.
+
+**Offene Frage bleibt:** Heißt das Projekt iBee oder iCapsule? Die Präsentation sagt iCapsule,
+die Dateien heißen iBee. Karte und Kapitel stehen aktuell auf iCapsule.
+
+---
+
 ## Stand vom 14.09.2026 — iCapsule als Produktwelt im Portfolio
 
 Projekt 06 ist umgebaut: Das Apple-Konzeptprojekt wird jetzt **als Produktseite präsentiert**,

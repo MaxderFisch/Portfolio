@@ -427,22 +427,79 @@
   .tr__m1{grid-column:7/span 6}
   .tr__m2{grid-column:4/span 6}
 
-  /* grosser Knopf zur Produktseite */
-  .tor{grid-column:1/-1;margin-top:40px;display:flex;justify-content:center}
-  .tor a{display:block;max-width:760px;width:100%;text-decoration:none;
-         border:1px solid var(--faint);background:rgba(255,255,255,.02);
-         padding:30px 34px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;
-         transition:background .45s,border-color .45s,transform .45s cubic-bezier(.16,1,.3,1)}
-  .tor a:hover{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.34);transform:translateY(-2px)}
-  .tor__k{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--rail);margin-bottom:9px}
-  .tor__t{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.7vw,29px);
-          letter-spacing:-.01em;color:var(--ink-strong);line-height:1.15}
-  .tor__s{font-size:14px;color:var(--ink);margin-top:9px;line-height:1.6}
-  .tor__pfeil{font-size:26px;color:var(--ink-strong);opacity:.65;transition:opacity .45s,transform .45s cubic-bezier(.16,1,.3,1)}
-  .tor a:hover .tor__pfeil{opacity:1;transform:translateX(5px)}
-  @media(max-width:640px){
-    .tor a{grid-template-columns:1fr;gap:16px;padding:24px 22px}
-    .tor__pfeil{justify-self:start}
+  /* ================= PROJEKT 06 — die Produktwelt ==================
+     Eigene Welt innerhalb des Kapitels: volle Breite, Systemschrift,
+     riesige Typo, viel Luft. Alles mit ap- vorangestellt, damit es
+     nichts ausserhalb dieses Kapitels beruehrt. */
+  .ap{--sf:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+      --ap-blau:#2997ff; --ap-grau:#86868b;
+      position:relative;z-index:1;width:100%;font-family:var(--sf);line-height:1.4;margin-top:70px}
+  .ap *{font-family:var(--sf)}
+  .ap img{width:100%;height:auto;display:block}
+
+  /* Uebergang hinein: Kapitelfarbe laeuft in Schwarz aus */
+  .ap__auftakt{background:#000;background-image:linear-gradient(to bottom,#0b0c0e 0,rgba(0,0,0,0) 220px);
+               padding:96px 22px 0;text-align:center;color:#fff}
+  .ap__name{font-size:clamp(44px,8.4vw,96px);font-weight:700;letter-spacing:-.026em;line-height:1.02;color:#fff}
+  .ap__unter{font-size:clamp(20px,2.9vw,29px);font-weight:600;letter-spacing:-.01em;color:#f5f5f7;margin-top:12px}
+  .ap__preis{margin-top:18px;font-size:16px;color:#d2d2d7}
+  .ap__preis b{color:#fff;font-weight:600}
+
+  .ap__t{padding:92px 22px 0;text-align:center}
+  .ap__t--hell{background:#fff;color:#1d1d1f}
+  .ap__t--grau{background:#f5f5f7;color:#1d1d1f}
+  .ap__t--dunkel{background:#000;color:#fff}
+  .ap__m{max-width:900px;margin:0 auto}
+  .ap__auge{font-size:clamp(16px,2vw,20px);font-weight:600;color:var(--ap-blau);margin-bottom:8px}
+  .ap__t--hell .ap__auge,.ap__t--grau .ap__auge{color:#0071e3}
+  .ap__h{font-size:clamp(31px,5vw,60px);font-weight:700;letter-spacing:-.022em;line-height:1.07;margin:0}
+  .ap__s{font-size:clamp(17px,2.3vw,23px);font-weight:400;line-height:1.4;margin:18px auto 0;max-width:620px;color:#d2d2d7}
+  .ap__t--hell .ap__s,.ap__t--grau .ap__s{color:#6e6e73}
+  .ap__bild{margin:44px auto 0;max-width:1080px}
+  .ap__bild--breit{max-width:1340px}
+  .ap__bild--schmal{max-width:760px}
+  .ap__bu{font-size:12px;color:var(--ap-grau);margin:12px auto 0;max-width:600px;line-height:1.5}
+  .ap__luft{height:92px}
+
+  .ap__kacheln{margin:40px auto 0;max-width:840px;display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+  .ap__kacheln img{aspect-ratio:1;object-fit:cover;border-radius:15px}
+
+  .ap__zahlen{margin:48px auto 0;max-width:860px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;text-align:center}
+  .ap__zahlen .z{font-size:clamp(26px,3.6vw,40px);font-weight:700;letter-spacing:-.02em;line-height:1;color:#fff}
+  .ap__zahlen .b{font-size:12px;color:var(--ap-grau);margin-top:7px}
+
+  .ap__daten{background:#f5f5f7;color:#1d1d1f;padding:88px 22px}
+  .ap__daten dl{max-width:760px;margin:40px auto 0}
+  .ap__z{display:grid;grid-template-columns:180px 1fr;gap:20px;padding:16px 0;border-top:1px solid #d2d2d7;font-size:15px;line-height:1.5}
+  .ap__z:last-child{border-bottom:1px solid #d2d2d7}
+  .ap__z dt{font-weight:600}
+  .ap__z dd{color:#424245;margin:0}
+
+  /* Uebergang hinaus: zurueck in die Kapitelfarbe */
+  .ap__schluss{background:#000;background-image:linear-gradient(to bottom,rgba(0,0,0,0) 0,#0b0c0e 100%);height:200px}
+
+  .ap__auf{opacity:0;transform:translateY(26px);
+           transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+  .ap__auf.da{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.ap__auf{opacity:1;transform:none;transition:none}}
+
+  @media(max-width:760px){
+    .ap{margin-top:44px}
+    .ap__auftakt{padding-top:70px}
+    .ap__t{padding-top:68px}
+    .ap__luft{height:64px}
+    .ap__kacheln{grid-template-columns:repeat(2,1fr)}
+    .ap__zahlen{grid-template-columns:repeat(2,1fr);gap:30px}
+    .ap__z{grid-template-columns:1fr;gap:3px}
+  }
+
+  @media(prefers-reduced-motion:reduce){.chapter__glow i{animation:none}}
+  @media(max-width:900px){
+    .sr,.tr{grid-template-columns:1fr;gap:15px}
+    .sr__lead,.sr__txt,.sr__a,.sr__b,.sr__c,.sr__d,.sr__e,.sr__f,
+    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3,.tr__f4,
+    .tr__g1,.tr__g2,.tr__zwi,.tr__m1,.tr__m2{grid-column:1/-1;grid-row:auto}
+    .sr__txt,.tr__txt{padding:8px 0 12px}
   }
 
   /* ================= STARTSEITE ================= */
@@ -1111,48 +1168,157 @@
         <span class="bgl lg i2" data-speed="0.115">iCAPSULE</span>
         <span class="bgl sm i3" data-speed="0.120">BLENDER</span>
       </div>
-
-      <figure class="tr__xl" data-pjlb="../assets/img/icapsule/hero-dunkel.jpg" data-pjcap="iCapsule in Mitternacht">
-        <picture><source srcset="../assets/img/icapsule/hero-dunkel.webp" type="image/webp"><img src="../assets/img/icapsule/hero-dunkel.jpg" width="1800" height="1012" loading="lazy" alt="iCapsule in Mitternacht, freigestellt auf schwarzem Grund"></picture>
-        <figcaption class="kap__cap"><div class="n">iCapsule</div><div class="s">Mitternacht</div></figcaption>
-      </figure>
-
-      <div class="tr__txt">
+      <div class="tr__txt" style="grid-column:1/span 6">
         <p class="kicker">Projekt 06 · Design &amp; 3D</p>
-        <p>Die Aufgabe war, ein Gerät zu entwerfen, das es bei Apple so noch nicht gibt. Herausgekommen ist die <em>iCapsule</em>: ein Speicher für Erinnerungen, halb Lautsprecher, halb Bilderrahmen.</p>
-        <p>Vom ersten Entwurf bis zum Rendering habe ich alles selbst gemacht — modelliert, texturiert, ausgeleuchtet und die Oberfläche gestaltet.</p>
-      </div>
-
-      <figure class="tr__a" data-pjlb="../assets/img/icapsule/innen.jpg" data-pjcap="Röntgenansicht — sieben Hochtöner im Ring">
-        <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1800" height="1012" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
-        <figcaption class="kap__cap"><div class="n">Der Schnitt</div><div class="s">Sieben Hochtöner im Ring</div></figcaption>
-      </figure>
-      <figure class="tr__b" data-pjlb="../assets/img/icapsule/chip.jpg" data-pjcap="Blick von oben auf den Chip">
-        <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1800" height="1012" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
-        <figcaption class="kap__cap"><div class="n">Das Innere</div><div class="s">Antrieb und Chip</div></figcaption>
-      </figure>
-
-      <figure class="tr__c" data-pjlb="../assets/img/icapsule/farben.jpg" data-pjcap="Mitternacht und Weiß">
-        <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1800" height="1012" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
-        <figcaption class="kap__cap"><div class="n">Zwei Farben</div><div class="s">Gewebe als eigenes Material</div></figcaption>
-      </figure>
-      <figure class="tr__d" data-pjlb="../assets/img/icapsule/bildschirme.jpg" data-pjcap="Drei Geräte, drei Bildschirminhalte">
-        <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1800" height="1012" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
-        <figcaption class="kap__cap"><div class="n">Der Bildschirm</div><div class="s">6 Zoll OLED</div></figcaption>
-      </figure>
-
-      <div class="tor">
-        <a href="icapsule.html" id="zurProduktseite">
-          <div>
-            <div class="tor__k">Die Aufgabe ging weiter</div>
-            <div class="tor__t">Und so würde es aussehen,<br>wenn der Hersteller es verkaufen würde.</div>
-            <div class="tor__s">Die komplette Produktseite zur iCapsule — Speicher, Klang, Leistung, Farben und technische Daten.</div>
-          </div>
-          <div class="tor__pfeil" aria-hidden="true">→</div>
-        </a>
+        <p>Die Aufgabe im Studium war, ein Gerät zu entwerfen, das es bei Apple so noch nicht gibt — und es dann so zu zeigen, wie der Hersteller es zeigen würde. Herausgekommen ist die <em>iCapsule</em>: ein Speicher für Erinnerungen, halb Lautsprecher, halb Bilderrahmen.</p>
+        <p>Vom ersten Entwurf bis zum Rendering habe ich alles selbst gemacht — modelliert, texturiert, ausgeleuchtet und die Oberfläche gestaltet. Die technischen Ansichten sind bewusst wie Produktbilder eines Herstellers aufgebaut.</p>
+        <p style="color:var(--rail);font-size:13px">Ab hier übernimmt der Entwurf. So sähe die Produktseite aus.</p>
       </div>
     </div>
-    <a class="pj-back" href="#oben" style="margin:44px 0 80px">↑ nach oben</a>
+  </div>
+
+  <div class="ap">
+
+    <div class="ap__auftakt">
+      <div class="ap__m">
+        <h2 class="ap__name">iCapsule</h2>
+        <p class="ap__unter">Erinnerungen neu erleben.</p>
+        <p class="ap__preis">Ab <b>1.349&nbsp;€</b> &nbsp;·&nbsp; in Mitternacht und Weiß</p>
+      </div>
+      <div class="ap__bild ap__bild--breit ap__auf">
+        <picture><source srcset="../assets/img/icapsule/hero-dunkel.webp" type="image/webp"><img src="../assets/img/icapsule/hero-dunkel.jpg" width="1800" height="1012" loading="lazy" alt="iCapsule in Mitternacht, freigestellt auf schwarzem Grund"></picture>
+      </div>
+      <div class="ap__luft"></div>
+    </div>
+
+    <div class="ap__t ap__t--hell">
+      <div class="ap__m ap__auf">
+        <p class="ap__auge">Speicher</p>
+        <h3 class="ap__h">Erinnerungen<br>sicher aufbewahren.</h3>
+        <p class="ap__s">Bis zu 20&nbsp;TB. Genug für jedes Foto, jedes Video und jeden Moment, den man behalten will — an einem Ort, der einem gehört.</p>
+      </div>
+      <div class="ap__kacheln ap__auf">
+        <picture><source srcset="../assets/img/icapsule/erinnerung-1.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-1.jpg" width="900" height="899" loading="lazy" alt="Erinnerung: Grillen am See"></picture>
+        <picture><source srcset="../assets/img/icapsule/erinnerung-2.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-2.jpg" width="900" height="899" loading="lazy" alt="Erinnerung: Sonnenblume"></picture>
+        <picture><source srcset="../assets/img/icapsule/erinnerung-3.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-3.jpg" width="900" height="899" loading="lazy" alt="Erinnerung: Gipfel über dem Nebelmeer"></picture>
+        <picture><source srcset="../assets/img/icapsule/erinnerung-4.webp" type="image/webp"><img src="../assets/img/icapsule/erinnerung-4.jpg" width="900" height="899" loading="lazy" alt="Erinnerung: Moosboden im Wald"></picture>
+      </div>
+      <p class="ap__bu ap__auf">Die Erinnerungen auf den Bildschirmen sind eigene Fotos.</p>
+      <div class="ap__luft"></div>
+    </div>
+
+    <div class="ap__t ap__t--dunkel">
+      <div class="ap__m ap__auf">
+        <p class="ap__auge">Klang</p>
+        <h3 class="ap__h">Brillante Höhen.<br>Tiefe Bässe.</h3>
+        <p class="ap__s">Sieben ringförmig angeordnete Hochtöner verteilen den Klang in jede Richtung. Darunter arbeitet ein High-Excursion-Tieftöner.</p>
+      </div>
+      <div class="ap__bild ap__auf">
+        <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1800" height="1012" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
+      </div>
+      <p class="ap__bu ap__auf">Röntgenansicht aus dem 3D-Modell — die Anordnung der Treiber wurde als eigenes Bauteil gebaut.</p>
+      <div class="ap__luft"></div>
+    </div>
+
+    <div class="ap__t ap__t--dunkel">
+      <div class="ap__m ap__auf">
+        <p class="ap__auge">Leistung</p>
+        <h3 class="ap__h">Maximale Leistung.</h3>
+        <p class="ap__s">M4-Chip mit 16&nbsp;Kernen. Genug Reserven, um Aufnahmen zu ordnen, Gesichter zu erkennen und Inhalte in Echtzeit aufzubereiten.</p>
+      </div>
+      <div class="ap__bild ap__auf">
+        <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1800" height="1012" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
+      </div>
+      <div class="ap__zahlen ap__auf">
+        <div><div class="z">20&nbsp;TB</div><div class="b">Speicher</div></div>
+        <div><div class="z">16</div><div class="b">Kerne</div></div>
+        <div><div class="z">7</div><div class="b">Hochtöner</div></div>
+        <div><div class="z">6&nbsp;&Prime;</div><div class="b">OLED</div></div>
+      </div>
+      <div class="ap__luft"></div>
+    </div>
+
+    <div class="ap__t ap__t--grau">
+      <div class="ap__m ap__auf">
+        <p class="ap__auge">Assistent</p>
+        <h3 class="ap__h">Mehr als nur<br>ein Assistent.</h3>
+        <p class="ap__s">Er analysiert die eigenen Daten und lernt durch Interaktionen — und wird dadurch mit der Zeit persönlicher.</p>
+      </div>
+      <div class="ap__bild ap__bild--schmal ap__auf">
+        <picture><source srcset="../assets/img/icapsule/assistent.webp" type="image/webp"><img src="../assets/img/icapsule/assistent.jpg" width="1600" height="900" loading="lazy" alt="Gerät mit einem Gesicht auf dem Bildschirm"></picture>
+      </div>
+      <div class="ap__luft"></div>
+    </div>
+
+    <div class="ap__t ap__t--dunkel">
+      <div class="ap__m ap__auf">
+        <p class="ap__auge">Bildschirm</p>
+        <h3 class="ap__h">Farbig leuchtende<br>Erinnerungen.</h3>
+        <p class="ap__s">Ein 6&nbsp;Zoll großer OLED-Bildschirm sitzt in der Öffnung. Er zeigt, was gerade zählt — ein Bild, eine Auswahl, ein Gesicht.</p>
+      </div>
+      <div class="ap__bild ap__bild--breit ap__auf">
+        <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1800" height="1012" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
+      </div>
+      <div class="ap__luft"></div>
+    </div>
+
+    <div class="ap__t ap__t--hell">
+      <div class="ap__m ap__auf">
+        <p class="ap__auge">Zu Hause</p>
+        <h3 class="ap__h">Steht da, wo man<br>zusammenkommt.</h3>
+        <p class="ap__s">Klein genug fürs Regal unter dem Fernseher. Groß genug, dass man hinschaut.</p>
+      </div>
+      <div class="ap__bild ap__bild--breit ap__auf">
+        <picture><source srcset="../assets/img/icapsule/wohnzimmer.webp" type="image/webp"><img src="../assets/img/icapsule/wohnzimmer.jpg" width="1800" height="1012" loading="lazy" alt="Das Gerät im Wohnzimmer unter einem Fernseher"></picture>
+      </div>
+      <div class="ap__luft"></div>
+    </div>
+
+    <div class="ap__t ap__t--dunkel">
+      <div class="ap__m ap__auf">
+        <p class="ap__auge">Farben</p>
+        <h3 class="ap__h">Mitternacht.<br>Und Weiß.</h3>
+        <p class="ap__s">Zwei Oberflächen, ein Gehäuse. Das Gewebe wurde als eigenes Material aufgebaut, damit es in beiden Farben richtig reagiert.</p>
+      </div>
+      <div class="ap__bild ap__bild--breit ap__auf">
+        <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1800" height="1012" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
+      </div>
+      <div class="ap__bild ap__bild--breit ap__auf" style="margin-top:22px">
+        <picture><source srcset="../assets/img/icapsule/hero-weiss.webp" type="image/webp"><img src="../assets/img/icapsule/hero-weiss.jpg" width="1800" height="1012" loading="lazy" alt="iCapsule in Weiß auf hellem Grund"></picture>
+      </div>
+      <div class="ap__m ap__auf" style="margin-top:40px">
+        <p class="ap__preis">Ab <b>1.349&nbsp;€</b></p>
+      </div>
+      <div class="ap__luft"></div>
+    </div>
+
+    <div class="ap__daten">
+      <div class="ap__m ap__auf">
+        <h3 class="ap__h" style="font-size:clamp(26px,3.6vw,40px)">Technische Daten</h3>
+      </div>
+      <dl class="ap__auf">
+        <div class="ap__z"><dt>Speicher</dt><dd>bis zu 20&nbsp;TB</dd></div>
+        <div class="ap__z"><dt>Chip</dt><dd>M4 mit 16&nbsp;Kernen</dd></div>
+        <div class="ap__z"><dt>Audio</dt><dd>7 ringförmig angeordnete Hochtöner, High-Excursion-Tieftöner</dd></div>
+        <div class="ap__z"><dt>Bildschirm</dt><dd>6&nbsp;Zoll OLED</dd></div>
+        <div class="ap__z"><dt>Assistent</dt><dd>analysiert Daten, lernt durch Interaktionen</dd></div>
+        <div class="ap__z"><dt>Farben</dt><dd>Mitternacht, Weiß</dd></div>
+        <div class="ap__z"><dt>Preis</dt><dd>1.349&nbsp;€</dd></div>
+      </dl>
+    </div>
+
+    <div class="ap__schluss"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="tr" style="padding-top:26px">
+      <div class="tr__txt" style="grid-column:1/span 7;align-self:start">
+        <p class="kicker">Zur Einordnung</p>
+        <p>Das war der Entwurf, gezeigt so, wie die Aufgabe es verlangt hat. <strong>Es ist keine Seite von Apple</strong> — iCapsule ist ein studentischer Konzeptentwurf und wird nicht verkauft. Preis und technische Angaben sind erfunden und Teil der Studienaufgabe.</p>
+        <p style="color:var(--rail);font-size:13px">Apple und M4 sind Marken von Apple&nbsp;Inc. Es besteht keine Verbindung zu Apple&nbsp;Inc.</p>
+      </div>
+    </div>
+    <a class="pj-back" href="#oben" style="margin:38px 0 80px">↑ nach oben</a>
   </div>
 </div>
 
@@ -1635,30 +1801,38 @@
   moveWords();
 })();
 
-/* Weg zur Produktseite und zurueck: Scrollstand merken, damit man
-   beim Zurueckkommen genau wieder an derselben Stelle steht und nicht
-   nur irgendwo im Kapitel. */
+/* Produktwelt in Projekt 06: Abschnitte beim Hochscrollen einblenden.
+   Eigener Beobachter, weil die uebrigen Effekte andere Klassen benutzen.
+   Mit Auffangnetz, weil der Beobachter in manchen Umgebungen einfriert. */
 (function(){
-  var SCHLUESSEL='icapsule-zurueck';
-  var knopf=document.getElementById('zurProduktseite');
-  if(knopf) knopf.addEventListener('click',function(){
-    try{ sessionStorage.setItem(SCHLUESSEL,String(Math.round(window.pageYOffset))); }catch(e){}
-  });
-  /* zurueckgekommen? dann exakt dorthin, sonst normal zum Anker */
-  var gemerkt=null;
-  try{ gemerkt=sessionStorage.getItem(SCHLUESSEL); }catch(e){}
-  if(gemerkt!==null && location.hash==='#p-ibee'){
-    try{ sessionStorage.removeItem(SCHLUESSEL); }catch(e){}
-    var y=parseInt(gemerkt,10);
-    if(!isNaN(y)){
-      if('scrollRestoration' in history) history.scrollRestoration='manual';
-      var hin=function(){ window.scrollTo({top:y,behavior:'instant'}); };
-      hin();
-      /* Bilder und Schriften kommen spaeter -- danach nochmal nachfassen */
-      window.addEventListener('load',hin);
-      setTimeout(hin,120); setTimeout(hin,450); setTimeout(hin,900);
-    }
+  var teile=[].slice.call(document.querySelectorAll('.ap__auf'));
+  if(!teile.length) return;
+  function zeigen(el){ el.classList.add('da'); }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ zeigen(e.target); io.unobserve(e.target); } });
+    },{rootMargin:'0px 0px -10% 0px',threshold:.06});
+    teile.forEach(function(t){ io.observe(t); });
   }
+  function nachsehen(){
+    var h=window.innerHeight;
+    teile.forEach(function(t){
+      if(t.classList.contains('da')) return;
+      var r=t.getBoundingClientRect();
+      if(r.top < h*0.93 && r.bottom > 0) zeigen(t);
+    });
+  }
+  var tick=false;
+  window.addEventListener('scroll',function(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){ nachsehen(); tick=false; });
+  },{passive:true});
+  window.addEventListener('resize',nachsehen);
+  window.addEventListener('load',nachsehen);
+  setTimeout(nachsehen,500);
+  setTimeout(function(){ teile.forEach(zeigen); },5000);   /* nach 5 s ist alles sichtbar */
+  window.apZeigen=function(){ teile.forEach(zeigen); };
+  nachsehen();
 })();
 
 /* Videos spielen von allein — aber immer nur eines: das, dessen Mitte der
