@@ -1234,3 +1234,51 @@ WebP mit Alphakanal, kein Querscrollen.
 **Die Auflösungsgrenze bleibt:** 635 px echtes Produkt. Größer als etwa 500 CSS-px wird es
 wieder weich. Ein neues Rendering, eng gerahmt und **mit transparentem Hintergrund exportiert**,
 wäre weiterhin der größte Gewinn — und würde das Freistellen gleich überflüssig machen.
+
+---
+
+## 26. Auftakt fertig: zentriert, ruhig im Stand, Wucht beim Scrollen (14.09.2026)
+
+Max' vier Punkte zur Partikelfassung, alle umgesetzt.
+
+**1. Das Produkt saß nicht in der Mitte der Wolke.** Die Wolke war auf die Canvasmitte
+gerechnet, das Gerät sitzt aber tiefer, weil Titel und Untertitel darüber Platz brauchen.
+→ Die Wolkenmitte kommt jetzt **aus dem Gerät selbst** (`getBoundingClientRect` des Bildes,
+umgerechnet in Canvaskoordinaten). Da die Scroll-Verschiebung des Geräts eine Transformation
+ist, folgt die Wolke ihm automatisch. Gemessen: **Abweichung 1–3 px.**
+
+**2. Preiszeile entfernt.** Sie lag mitten in den Partikeln und war kaum lesbar. Der Preis
+steht ohnehin zweimal weiter unten.
+
+**3. Titel bekommt einen Auftritt.** Größer (bis 116 px statt 100), mit Einblenden beim Laden
+(Titel, dann versetzt der Untertitel). Beim Scrollen **schrumpft der Titel auf 0,86 und steigt**,
+während das **Gerät von 0,88 auf 1,18 wächst** — der Entwurf tritt aus dem Titel hervor.
+
+**4. Ruhe im Stand, Wucht beim Scrollen.** Vorher liefen die Wellen immer gleich stark.
+Jetzt gibt es einen **Schwung**, der sich beim Scrollen auflädt und abklingt:
+```js
+window.addEventListener('scroll',function(){
+  schwung=Math.min(1,schwung+Math.abs(y-letzteHoehe)*0.010); },{passive:true});
+// je Bild:  schwung*=0.945;   kraft=0.10+schwung*0.95;
+```
+`kraft` steuert Wellentakt, Schub und Aufleuchten. Das Atmen der Punkte ist im Stand halbiert.
+
+**Ein Denkfehler dabei:** Zuerst merkte sich jede Welle ihre Kraft **beim Entstehen**. Dadurch
+blieben laufende Wellen schwach, wenn man zu scrollen anfing — der Ausschlag kam erst mit der
+nächsten Welle, also bis zu 2,6 s später. Jetzt lesen die Wellen die **aktuelle** Kraft, der
+Ausschlag kommt sofort.
+
+### Gemessen
+
+| | im Stand | beim Scrollen |
+|---|---|---|
+| aufleuchtende Partikel | 780 | **5125 — 6,6×** |
+| Gesamthelligkeit | 1088 | 1945 (1,8×) |
+| Außenkante der Wolke | 431 px | 451 px |
+
+Danach fällt alles wieder auf den Ruhewert (850 / 1104 / 431).
+
+**Wichtig für künftige Prüfungen:** In diesem Browser-Bereich **feuern überhaupt keine
+Scroll-Ereignisse** — `pageYOffset` ändert sich, aber kein `scroll` kommt an. Alles, was an
+Scrollen hängt, muss über `window.dispatchEvent(new Event('scroll'))` von Hand ausgelöst
+werden. Steht in `05-fallen.md`.

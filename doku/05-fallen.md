@@ -609,3 +609,32 @@ Datei (2,05× hochgerechnet), dargestellt mit 600 CSS-px — auf einem Retina-Bi
 Darstellung 500 CSS-px: **1,05×**. Faustformel:
 `Hochskalierung = Darstellungsbreite × 2 ÷ echte Quellbreite` — über 1,3 sieht man es.
 
+
+### Im Browser-Bereich feuern gar keine Scroll-Ereignisse
+Nicht nur `requestAnimationFrame` friert ein — **`scroll` wird überhaupt nicht ausgelöst**.
+`window.scrollTo` ändert `pageYOffset` tatsächlich, aber kein einziger Zuhörer wird gerufen.
+Gemessen: 0 Ereignisse bei 9 Scrollschritten über 520 px.
+→ Alles, was an Scrollen hängt, von Hand auslösen:
+```js
+window.scrollTo({top:y,behavior:'instant'});
+window.dispatchEvent(new Event('scroll'));
+```
+Sonst misst man einen Ruhezustand und hält ihn für das Ergebnis.
+
+### Zustand beim Entstehen einfrieren macht Effekte träge
+Die Wellen der Partikelwolke merkten sich ihre Stärke **beim Entstehen**. Wer zu scrollen
+anfing, sah deshalb bis zu 2,6 Sekunden lang nichts — die laufenden Wellen blieben schwach,
+erst die nächste war kräftig.
+→ Bei Effekten, die auf eine Eingabe reagieren sollen, den **aktuellen** Wert lesen, nicht den
+gespeicherten. Messbar: aufleuchtende Partikel vorher 1,0× (kein Unterschied), danach **6,6×**.
+
+### Einen Effekt auf ein Element zentrieren, nicht auf die Fläche
+Die Partikelwolke war auf die Canvasmitte gerechnet, das Produkt saß aber tiefer — es wirkte
+nach unten versetzt. Statt einen festen Versatz zu raten, den Mittelpunkt **aus dem Element
+holen**:
+```js
+var g=el.getBoundingClientRect(), c=canvas.getBoundingClientRect();
+var mx=(g.left+g.width/2-c.left)/c.width*B, my=(g.top+g.height/2-c.top)/c.height*H;
+```
+Das folgt auch Transformationen automatisch. Abweichung danach: 1–3 px.
+

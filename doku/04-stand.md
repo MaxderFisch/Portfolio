@@ -5,6 +5,33 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Auftakt der Produktseite fertig
+
+Max' vier letzte Punkte umgesetzt:
+
+1. **Wolke sitzt auf dem Gerät.** Der Mittelpunkt kommt jetzt aus dem Bild selbst statt aus der
+   Canvasmitte — Abweichung **1–3 px**. Folgt automatisch der Scroll-Verschiebung.
+2. **Preiszeile entfernt** (lag in den Partikeln, unlesbar; steht ohnehin zweimal weiter unten).
+3. **Titel bekommt einen Auftritt:** größer (116 px), Einblenden beim Laden, und beim Scrollen
+   schrumpft er auf 0,86 und steigt, während das Gerät von 0,88 auf 1,18 wächst.
+4. **Ruhe im Stand, Wucht beim Scrollen** über einen Schwung, der sich beim Scrollen auflädt
+   (`+|delta|*0.010`) und je Bild um 5,5 % abklingt.
+
+| | im Stand | beim Scrollen |
+|---|---|---|
+| aufleuchtende Partikel | 780 | **5125 — 6,6×** |
+| Gesamthelligkeit | 1088 | 1945 |
+| Außenkante der Wolke | 431 px | 451 px |
+
+Danach zurück auf Ruhewerte. Am Handy: 1600 Punkte, 6,8 % Deckung, Gerät 62 %, Titel 54 px,
+kein Querscrollen. Seite 9897 px.
+
+**Neu in `05-fallen.md` und wichtig für alle künftigen Prüfungen:** Im Browser-Bereich feuern
+**überhaupt keine Scroll-Ereignisse** — `pageYOffset` ändert sich, aber kein `scroll` kommt an.
+Alles Scrollabhängige muss mit `window.dispatchEvent(new Event('scroll'))` ausgelöst werden.
+
+---
+
 ## Stand vom 14.09.2026 — Produkt freigestellt, Auftakt scharf
 
 Max' Rückmeldung zur Partikelfassung: Partikel gut, aber das Bild verpixelt und mit einem
