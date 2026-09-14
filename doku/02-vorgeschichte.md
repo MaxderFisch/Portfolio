@@ -1103,3 +1103,33 @@ aber sie zeigen jetzt zu 100 % Produkt statt zu 25 %.
 davon nur 584 × 544 echtes Produkt. Für die zwei, drei wichtigsten Bilder wäre ein **neues
 Rendering, eng gerahmt und hochauflösend**, der größte verbleibende Qualitätsgewinn —
 Max hatte angeboten, bei Bedarf neu zu rendern.
+
+---
+
+## 23. Größer, dunkler, und der Text nicht mehr über dem Produkt (14.09.2026)
+
+Max schickte drei Bildschirmfotos mit drei Einwänden. Alle drei waren berechtigt.
+
+**1. „Immer noch nur schwarze Fläche um das Bild."**
+Diesmal lag es *nicht* mehr am Bild — der Zuschnitt aus Abschnitt 22 war eng. Es lag daran,
+dass ich das Bild zu klein zeigte: **640 px auf einem 1400er Fenster, also 45 %.**
+Max sagte dazu: „keine Ahnung, wenn du sagen würdest dass Apple das auch machen würde, dann
+lass es so." → **Würde Apple nicht.** Deren Produktbilder nehmen typisch 60–80 % der
+Fensterbreite ein. Jetzt: **980 px, also 70 %.** Am Handy 87 % statt 70 %, weil die
+Prozentgrenze dort zu stark griff.
+
+**2. „Da ist der Text über der Kapsel."**
+Das Wohnzimmerbild lief als Band mit Text darüber. Auf dem Bild steht das Gerät klein unter
+dem Fernseher — genau dort, wo die Überschrift lag. Der Text verdeckte also ausgerechnet das
+Produkt. **Die Textüberlagerung ist ganz raus**, das Bild läuft jetzt wie die anderen über die
+volle Breite mit dem Text darüber. Das zugehörige CSS wurde mit entfernt, damit nichts
+Ungenutztes liegen bleibt.
+→ **Lehre: Text über einem Bild nur, wenn man weiß, was an der Stelle im Bild steht.**
+
+**3. „Der Bereich mit dem Opa wirkt sehr komisch."**
+Der Assistenten-Abschnitt lag auf hellem Grau — und das Rendering ist ein **schwarzes
+Quadrat**. Ein schwarzer Klotz auf hellgrauem Feld, klein in der Mitte. Jetzt auf Schwarz,
+womit der Bildrand wieder unsichtbar ist, und von 460 auf 680 px vergrößert.
+
+Damit sind alle Produktabschnitte dunkel; hell bleibt nur der Preisabschnitt, wo das Rendering
+selbst einen hellen Hintergrund hat — dort passt es.

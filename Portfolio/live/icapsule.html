@@ -44,7 +44,9 @@
   /* Buehne: Produkt gross und frei auf der Seite, Bildrand ist unsichtbar */
   .buehne{padding:86px 24px 96px}
   .buehne__bild{margin:44px auto 0}
-  .b560{max-width:560px} .b640{max-width:640px} .b700{max-width:700px} .b460{max-width:460px}
+  /* Produktbilder gross: Apple zeigt sie ueber 60-80% der Fensterbreite */
+  .bGross{max-width:min(980px,70vw)}
+  .bMittel{max-width:min(680px,58vw)}
 
   /* Paar: Bild und Text auf gleicher Hoehe, Bild bekommt mehr Platz */
   .paar{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;
@@ -67,13 +69,6 @@
           max-width:900px;margin:0 auto;padding:0 24px 92px}
   .zahlen .z{font-size:clamp(26px,3.4vw,42px);font-weight:700;letter-spacing:-.024em;line-height:1}
   .zahlen .b{font-size:12px;color:var(--grau);margin-top:7px}
-
-  .band{position:relative;overflow:hidden}
-  .band__txt{position:absolute;left:0;right:0;bottom:0;padding:60px 30px 44px;text-align:center;
-             background:linear-gradient(to top,rgba(0,0,0,.82) 0%,rgba(0,0,0,.45) 50%,rgba(0,0,0,0) 100%)}
-  .band__txt h2{color:#fff}
-  .band__txt .s{color:#d2d2d7;margin-left:auto;margin-right:auto}
-  @media(max-width:760px){ .band__txt{position:static;background:#000;padding:34px 24px} }
 
   .daten{display:grid;grid-template-columns:1fr 1fr;gap:0 52px;margin-top:40px}
   .d{display:grid;grid-template-columns:148px 1fr;gap:16px;padding:15px 0;
@@ -99,6 +94,7 @@
     .paar--textLinks .txt,.paar--textLinks .bild{order:initial}
     .paar .txt .s,.s{max-width:none}
     .buehne{padding:60px 24px 68px}
+    .bGross{max-width:92vw} .bMittel{max-width:86vw}
     .breit__kopf{padding-top:60px} .breit__fuss{padding-bottom:64px}
     .streifenbilder{grid-template-columns:repeat(3,1fr);gap:10px}
     .zahlen{grid-template-columns:repeat(2,1fr);gap:30px;padding-bottom:64px}
@@ -123,7 +119,7 @@
     <p style="font-size:clamp(21px,2.8vw,30px);font-weight:600;color:#f5f5f7;margin-top:12px;letter-spacing:-.014em">Erinnerungen neu erleben.</p>
     <p style="margin-top:16px;font-size:17px;color:#a1a1a6">Ab <b style="color:#fff;font-weight:600">1.349&nbsp;€</b> &nbsp;·&nbsp; in Mitternacht und Weiß</p>
   </div>
-  <div class="buehne__bild b640">
+  <div class="buehne__bild bGross">
     <img src="../assets/img/icapsule/hero-dunkel.jpg" width="1200" height="1118"
          alt="iCapsule in Mitternacht">
   </div>
@@ -200,24 +196,30 @@
 </section>
 
 <!-- Assistent -->
-<section class="buehne mittig grau">
+<section class="buehne mittig">
   <div class="mitte auf">
     <p class="auge">Assistent</p>
     <h2>Mehr als nur ein Assistent.</h2>
     <p class="s">Er analysiert die eigenen Daten und lernt durch Interaktionen — und wird dadurch mit der Zeit persönlicher.</p>
   </div>
-  <div class="buehne__bild b460 auf">
+  <div class="buehne__bild bMittel auf">
     <picture><source srcset="../assets/img/icapsule/assistent.webp" type="image/webp"><img src="../assets/img/icapsule/assistent.jpg" width="920" height="848" loading="lazy" alt="Gerät mit einem Gesicht auf dem Bildschirm"></picture>
   </div>
 </section>
 
 <!-- Zu Hause -->
-<section class="band auf">
-  <picture><source srcset="../assets/img/icapsule/wohnzimmer.webp" type="image/webp"><img src="../assets/img/icapsule/wohnzimmer.jpg" width="1920" height="1080" loading="lazy" alt="Das Gerät im Wohnzimmer unter einem Fernseher"></picture>
-  <div class="band__txt">
-    <h2>Steht da, wo man<br>zusammenkommt.</h2>
-    <p class="s">Klein genug fürs Regal unter dem Fernseher. Groß genug, dass man hinschaut.</p>
+<section class="breit">
+  <div class="breit__kopf">
+    <div class="mitte mittig auf">
+      <p class="auge">Zu Hause</p>
+      <h2>Steht da, wo man<br>zusammenkommt.</h2>
+      <p class="s">Klein genug fürs Regal unter dem Fernseher. Groß genug, dass man hinschaut.</p>
+    </div>
   </div>
+  <div class="breit__bild auf">
+    <picture><source srcset="../assets/img/icapsule/wohnzimmer.webp" type="image/webp"><img src="../assets/img/icapsule/wohnzimmer.jpg" width="1920" height="1080" loading="lazy" alt="Das Gerät im Wohnzimmer unter einem Fernseher"></picture>
+  </div>
+  <div style="height:90px"></div>
 </section>
 
 <!-- Farben: volle Breite -->

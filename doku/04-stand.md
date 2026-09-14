@@ -5,6 +5,30 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Produktbilder groß, Abschnitte dunkel
+
+Drei Einwände von Max, alle behoben:
+
+1. **Produktbilder zu klein.** Der Zuschnitt stimmte, aber ich zeigte sie nur mit 640 px auf
+   1400 px Fenster (45 %). Apple zeigt Produktbilder mit 60–80 % der Breite.
+   → jetzt **980 px, 70 %**; am Handy 87 % statt 70 %.
+2. **Text lag über dem Produkt.** Das Wohnzimmerbild lief als Band mit Textüberlagerung —
+   und das Gerät steht im Bild genau dort, wo die Überschrift saß. Überlagerung entfernt,
+   Bild läuft jetzt normal über die volle Breite mit Text darüber. Ungenutztes CSS mit weg.
+3. **Assistenten-Abschnitt lag auf Hellgrau**, das Rendering ist aber ein schwarzes Quadrat —
+   ein schwarzer Klotz auf hellem Feld. → jetzt dunkel, Bild von 460 auf 680 px.
+
+Alle Produktabschnitte sind jetzt dunkel; hell bleibt nur der Preisabschnitt, wo das Rendering
+selbst hellen Hintergrund hat.
+
+Seite **9787 px**, kein Querscrollen am Rechner und am Handy, Einblenden 17 von 17.
+
+**Weiterhin der größte Hebel:** neue, eng gerahmte Renderings in hoher Auflösung für Auftakt,
+Chip und Röntgenansicht. Die Quellen sind nur 1920 × 1080, beim Auftakt davon 584 × 544 Produkt
+— auf großen Bildschirmen ist das die Grenze.
+
+---
+
 ## Stand vom 14.09.2026 — Renderings zugeschnitten
 
 Max schickte ein Bildschirmfoto: Produkt winzig, ringsum nur Schwarz. Sein Einwand war
