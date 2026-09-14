@@ -699,3 +699,49 @@ protokolliert wurden. Das prüft den echten Code, nicht eine Nachbildung:
 
 → **Offen bleibt allein, ob die Bilder tatsächlich laufen.** Das muss Max im richtigen Browser
 ansehen. Muster zum Protokollieren von Medienaufrufen steht in `05-fallen.md`.
+
+---
+
+## 15. Warum das Autoplay „gebugt" hat (14.09.2026)
+
+Max meldete, die Videos spielten nicht von selbst. Drei Ursachen, davon eine banal und zwei echt.
+
+**1. Der Code war gar nicht veröffentlicht.** Auf der Live-Seite kam `videoWahl` null mal vor
+und nur ein Video war stumm geschaltet — der Commit lag noch lokal. Wer die Live-Seite
+ansieht, sieht den alten Stand. *(Hieraus: bei „funktioniert nicht" immer zuerst prüfen,
+welchen Stand Max überhaupt vor sich hat.)*
+
+**2. Die `<video>`-Elemente hatten keine Maße.** Das war der eigentliche Fehler und er ist
+größer als das Autoplay. Ohne `width`/`height` fällt ein Video vor dem Laden auf Standardgröße
+zusammen — die Seite war **22225 px statt 27805 px**, also 5580 px zu kurz, und sprang beim
+Nachladen. Für eine Steuerung, die das „mittigste sichtbare Video" sucht, ist das fatal: Sie
+maß in ein zusammengefallenes Layout und wählte bei **jeder** Scrollposition dasselbe falsche
+Video. Genau das hatte ich beim ersten Bauen als „Auswahl funktioniert" verbucht — sie
+funktionierte nur, weil beim damaligen Test die Poster zufällig schon geladen waren.
+
+Behoben: echte Maße an allen zehn Videos, `height:auto` ins CSS. Dabei fielen **18 Bilder**
+in den Design-Kapiteln auf, die ebenfalls keine Maße hatten; eines war 19 px hoch statt voll.
+Auch die bekamen ihre Maße. Ergebnis: Die Seite steht sofort auf ihrer Endhöhe, Sprung 0.
+
+**3. `play()` ist asynchron.** Bei `preload="none"` lädt das Video erst nach dem Aufruf,
+`paused` bleibt solange `true` — mein Code feuerte deshalb bei jedem Scrollpixel ein neues
+`play()`, und ein dazwischenkommendes `pause()` brach die laufende Anfrage ab. Das ist das
+Ruckeln und Hängenbleiben.
+
+Behoben, indem jede Startanfrage verfolgt wird: Ein Haltewunsch während eines laufenden
+Starts wird vorgemerkt und erst danach ausgeführt. Messbar: 13 Scrollschritte über zehn
+Videos ergeben jetzt **9** `play()`-Aufrufe statt Dutzenden.
+
+### Nachgeprüft
+
+| Prüfung | Ergebnis |
+|---|---|
+| Seitenhöhe vor und nach dem Laden | 27805 / 27805, **Sprung 0** |
+| Bilder verzerrt? | keines |
+| 13 Scrollpositionen am Rechner | je das mittigste gewählt, 9 `play()` ohne Doppelung |
+| alle 10 Videos am Handy einzeln zentriert | jedes Mal das richtige gestartet |
+| schneller Wechsel während ein Start noch läuft | kein Abbruch; Halt wird danach nachgeholt |
+| eigenes Pausieren | kein Neustart, Merker verfällt beim Verlassen des Bildes |
+
+**Weiterhin nicht prüfbar:** ob die Bilder tatsächlich laufen — der Browser-Bereich setzt
+Wiedergabe aus. Das muss Max am Gerät sehen.

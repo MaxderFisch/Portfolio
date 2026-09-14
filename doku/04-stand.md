@@ -5,6 +5,34 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Autoplay repariert, Layout steht still
+
+Max meldete, die Videos spielten nicht von selbst. **Drei Ursachen**, alle behoben:
+
+1. **Der Code war nicht veröffentlicht.** Der Commit lag nur lokal; auf der Live-Seite gab es
+   `videoWahl` gar nicht. → Bei „funktioniert nicht" zuerst prüfen, welchen Stand Max sieht.
+2. **Die `<video>`-Elemente hatten keine Maße.** Der eigentliche Fehler, und er betrifft die
+   ganze Seite: Sie war vor dem Laden **22225 px statt 27805 px** und sprang um 5580 px. Die
+   Mittenerkennung maß in ein zusammengefallenes Layout und wählte immer dasselbe falsche
+   Video. Behoben mit echten Maßen plus `height:auto`. **Dabei fielen 18 Bilder** in den
+   Design-Kapiteln auf, die ebenfalls keine Maße hatten — eines war 19 px hoch. Auch behoben.
+3. **`play()` ist asynchron.** Jeder Scrollpixel feuerte ein neues `play()`, dazwischen
+   abgebrochen durch `pause()`. Jetzt wird jede Startanfrage verfolgt und ein Haltewunsch
+   erst danach ausgeführt.
+
+**Die Seite steht jetzt beim Laden still: Sprung 0.** Das ist unabhängig vom Autoplay eine
+spürbare Verbesserung — vorher rutschte beim Öffnen alles nach unten.
+
+Geprüft: 13 Scrollpositionen am Rechner und alle zehn Videos am Handy einzeln — jedes Mal das
+mittigste gewählt, 9 `play()`-Aufrufe statt Dutzenden, kein Abbruch beim schnellen Wechsel,
+eigenes Pausieren wird respektiert, kein Bild verzerrt, kein Querscrollen.
+
+→ **Was nur Max sehen kann: ob die Bilder wirklich laufen.** Der Browser-Bereich hier setzt
+Wiedergabe aus, auch bei `readyState=4` und ohne Fehler aus `play()`.
+→ **Und: das muss gepusht werden, sonst ändert sich für ihn nichts.**
+
+---
+
 ## Stand vom 13.09.2026 — Videos starten von allein
 
 Alle zehn Videos starten jetzt beim Scrollen von selbst. Es läuft **immer nur eines**: das,

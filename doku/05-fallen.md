@@ -296,3 +296,55 @@ Und: Wer automatisch startet, muss **eigenes Pausieren des Nutzers respektieren*
 startet die Steuerung beim nächsten Scrollpixel wieder. Dafür unterscheiden, ob ein
 `pause`-Ereignis vom eigenen Code kam oder vom Nutzer.
 
+
+### `<video>` ohne `width`/`height` lässt das Layout genauso zusammenfallen wie `<img>`
+**Am 14.09. aufgeflogen, und es war der eigentliche Grund für „das Autoplay bugt".**
+Die Falle war für Bilder längst dokumentiert — bei den Videos hatte ich sie übersehen.
+Ohne Maße hat ein `<video>` vor dem Laden von Poster und Metadaten nur die Standardgröße.
+Gemessen: Seite **22225 px statt 27805 px**, also **5580 px zu kurz**. Beim Nachladen springt
+alles nach unten.
+
+Für eine Steuerung, die nach dem „mittigsten sichtbaren Video" sucht, ist das tödlich: Sie
+misst in ein zusammengefallenes Layout und wählt durchgehend dasselbe falsche Video.
+
+→ **An jedes `<video>` die echten Maße** (aus `ffprobe`) **und ins CSS `height:auto`** —
+sonst wird verzerrt. Danach stand die Seite sofort auf 27805 px, mit null geladenen Dateien.
+
+Gleich mit geprüft: 18 Bilder in den Design-Kapiteln hatten ebenfalls keine Maße, eines war
+**19 px statt voller Höhe**. Bilder in Rahmen mit `aspect-ratio` (die Projektkarten) brauchen
+nichts, die reservieren den Platz selbst.
+
+Prüfung, ob die Seite beim Laden stillsteht:
+```js
+const sofort=document.body.scrollHeight;
+await new Promise(r=>setTimeout(r,2500));
+({sofort, nachher:document.body.scrollHeight, sprung:document.body.scrollHeight-sofort});
+```
+Sprung muss **0** sein.
+
+### `play()` ist asynchron — eine Startanfrage muss verfolgt werden
+Zweiter Fehler derselben Baustelle. `play()` liefert ein Versprechen, und bei `preload="none"`
+lädt das Video erst danach. Solange bleibt `paused` auf `true`.
+
+Naiver Code ruft deshalb bei **jedem Scrollpixel erneut** `play()` auf. Kommt dazwischen ein
+`pause()`, bricht der Browser die laufende Anfrage ab („The play() request was interrupted by
+a call to pause()") und das Video bleibt hängen.
+
+→ Muster: je Element merken, ob eine Startanfrage läuft. Ein Haltewunsch während einer
+laufenden Anfrage wird **vorgemerkt und danach ausgeführt**, nicht sofort.
+```js
+function starten(v){ if(v._anfrage||!v.paused) return; v._anfrage=true;
+  var p=v.play();
+  if(p&&p.then) p.then(function(){ v._anfrage=false;
+      if(v._sollHalten){ v._sollHalten=false; anhalten(v); } },
+    function(){ v._anfrage=false; v._sollHalten=false; });
+}
+function anhalten(v){ if(v._anfrage){ v._sollHalten=true; return; } if(v.paused) return;
+  eigenerHalt=true; v.pause(); eigenerHalt=false; }
+```
+Messbar: 13 Scrollschritte über 10 Videos ergaben **9** `play()`-Aufrufe statt Dutzenden.
+
+**Bekannter Restfall:** Löst ein `play()`-Versprechen nie aus (dauerhaft stehende Verbindung),
+bleibt `_anfrage` gesetzt und das Video lässt sich weder anhalten noch neu starten. Da es in
+dem Fall ohnehin nicht spielt, ist der Schaden gering — aber es steht hier, falls es auffällt.
+
