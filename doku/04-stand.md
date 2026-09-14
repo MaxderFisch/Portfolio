@@ -5,6 +5,44 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Partikelwolke im Auftakt
+
+Der Auftakt der Produktseite ist jetzt eine **Partikelanimation** auf einem Canvas, ohne
+Bibliothek: eine treibende Punktwolke, aus der rhythmisch Wellen nach außen laufen.
+Das Gerät ist dafür kleiner (600 px statt 980).
+
+Beim Scrollen weitet sich die Wolke (Außenkante 440 → 783 px), die Wellen werden schneller,
+Titel und Gerät wandern unterschiedlich schnell, das Gerät wächst auf 1,17.
+Der Abschnitt ist 158 svh hoch mit klebendem Rahmen.
+
+**Drei Fallen, die dabei zuschnappten** — alle in `05-fallen.md`:
+1. `position:sticky` brach an `overflow-x:hidden` am `body`. Entfernt, nachdem geprüft war,
+   dass kein Element über die Fensterbreite hinausragt. Kein Querscrollen.
+2. Das Canvas war **1 × 1**, weil beim Skriptstart noch kein Layout stand.
+3. Die Wolke war mit **0,4 % Deckung** praktisch unsichtbar — Punkte unter einem Pixel.
+   Jetzt 5,9 %.
+
+Dazu ein Denkfehler: Die erste Fassung blendete beim Scrollen alles aus, wodurch nach halber
+Strecke **900 px schwarze Fläche** folgten. Jetzt bleibt der Inhalt sichtbar und scrollt
+natürlich hinaus.
+
+Gemessen (die Animation selbst ist hier nicht sichtbar, `requestAnimationFrame` friert ein —
+geprüft wurde über Bildpunkte mit dem Haken `window.wolkeBild(p)`):
+
+| | |
+|---|---|
+| Flächendeckung | 5,9 %, hellster Punkt 255 |
+| Bewegung | 31,9 % der Bildpunkte in der Mitte ändern sich in 0,7 s |
+| Ausweitung beim Scrollen | 440 → 783 px |
+| Handy | 1600 statt 5250 Punkte, 6,9 % Deckung |
+| Querscrollen | keins |
+
+Seite **9897 px**. Beide Dateien strukturell sauber, alle Asset-Verweise vorhanden.
+
+→ **Ob es gut aussieht, kann nur Max beurteilen.**
+
+---
+
 ## Stand vom 14.09.2026 — Produktbilder groß, Abschnitte dunkel
 
 Drei Einwände von Max, alle behoben:

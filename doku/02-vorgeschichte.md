@@ -1133,3 +1133,66 @@ womit der Bildrand wieder unsichtbar ist, und von 460 auf 680 px vergrößert.
 
 Damit sind alle Produktabschnitte dunkel; hell bleibt nur der Preisabschnitt, wo das Rendering
 selbst einen hellen Hintergrund hat — dort passt es.
+
+---
+
+## 24. Partikelwolke im Auftakt (14.09.2026)
+
+Max' Wunsch: Auftaktbild etwas kleiner, dafür „voll die krasse Animation … so wie es Apple beim
+HomePod gemacht hat". Erst sagte er „Wolken", dann korrigierte er: **Partikel**.
+
+### Was gebaut wurde
+
+Ein Canvas hinter dem Gerät, ohne jede Bibliothek:
+- **Eine treibende Wolke** aus Punkten, gleichmäßig über eine Kreisfläche verteilt
+  (Wurzel des Zufallswerts, sonst klumpt alles in der Mitte). Jeder Punkt hat eigenes Tempo,
+  eigene Phase und einen Tiefenwert, der Größe und Helligkeit steuert.
+- **Wellen**, die rhythmisch vom Zentrum nach außen laufen. Punkte im Wellenkamm werden nach
+  außen geschoben und leuchten auf — das ist der „Schall, der sich ausbreitet".
+- Farbverlauf von Blau über Violett zu einem warmen Akzent, additiv überlagert
+  (`globalCompositeOperation='lighter'`).
+- Senkrecht auf 0,72 gestaucht, damit es räumlich statt flach wirkt.
+
+Beim Scrollen: die Wolke weitet sich (Außenkante **440 → 783 px**), die Wellen werden
+schneller, Titel und Gerät wandern unterschiedlich schnell, das Gerät wächst auf 1,17.
+
+### Drei Fallen, die dabei zuschnappten
+
+**1. `position:sticky` brach an `overflow-x:hidden`.** Der Auftakt braucht einen klebenden
+Rahmen. Auf der Seite stand `overflow-x:hidden` am `body` — genau die dokumentierte Falle.
+Entfernt, nachdem geprüft war, dass ohnehin **kein Element über die Fensterbreite hinausragt**.
+Danach: kein Querscrollen, und sticky funktioniert.
+
+**2. Das Canvas war 1 × 1.** `messen()` lief einmal beim Start, da stand das Layout noch nicht.
+→ Jetzt gibt `messen()` zurück, ob es klappte, wird bei `load`, per `ResizeObserver` und nach
+60/250/700/1500 ms nachgefasst, und das Zeichnen misst selbst nach, wenn noch nichts da ist.
+
+**3. Die Wolke war viel zu schwach.** Erste Fassung: **0,4 % Deckung**, mittlere Deckkraft 22 —
+praktisch unsichtbar. Ursache: Punkte unter einem Pixel groß und zu dunkel.
+→ Punktzahl von 700 auf 5250 (an die Fläche gekoppelt), Größe von 0,55–1,8 auf 1,25–3,95 px,
+Helligkeit fast verdoppelt. Jetzt **5,9 % Deckung**, mittlere Deckkraft 61.
+
+### Und ein Denkfehler im Ablauf
+
+Die erste Fassung blendete beim Scrollen alles auf Deckkraft 0 aus. Ergebnis: Die Animation war
+nach **halber Scrollstrecke fertig**, danach folgten 900 px schwarze Fläche, während der
+klebende Rahmen noch hinausscrollte.
+→ Abschnitt von 185 auf 158 svh verkürzt, und der Inhalt wird **nicht mehr ausgeblendet** —
+er beruhigt sich nur (Titel auf 0,55) und scrollt dann natürlich hinaus. Kein schwarzes Loch mehr.
+
+### Geprüft
+
+Die Animation selbst ist hier nicht zu sehen (der Browser-Bereich friert `requestAnimationFrame`
+ein). Deshalb über Bildpunkte gemessen, mit einem Haken `window.wolkeBild(p)`, der ein Bild
+bei beliebigem Fortschritt erzwingt:
+
+| Prüfung | Ergebnis |
+|---|---|
+| Wird überhaupt gezeichnet | 5,9 % der Fläche, hellster Punkt 255 |
+| Bewegt es sich | **31,9 %** der Bildpunkte in der Mitte ändern sich in 0,7 s |
+| Weitet es sich beim Scrollen | Außenkante **440 → 783 px** |
+| Klebt der Rahmen | ja, kein Vorfahre mit `overflow` |
+| Handy | Canvas 375 × 812, **1600** statt 5250 Punkte, 6,9 % Deckung |
+| Querscrollen | keins, auch ohne `overflow-x:hidden` |
+
+**Was nur Max beurteilen kann: ob es gut aussieht.**

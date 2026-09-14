@@ -546,3 +546,27 @@ ffmpeg … "$T/z.png" || { echo fehlgeschlagen; continue; }
 [ -s "$T/z.png" ] || { echo leer; continue; }
 ```
 
+
+### Canvas vor dem Layout messen ergibt 1 × 1
+`getBoundingClientRect()` liefert beim Skriptstart oft noch 0, besonders bei `svh`-Höhen und
+klebenden Rahmen. Ein Canvas, das daraufhin auf 1 × 1 gesetzt wird, bleibt für immer leer —
+ohne Fehlermeldung.
+→ `messen()` soll **zurückgeben, ob es geklappt hat**, und mehrfach nachgefasst werden:
+bei `load`, per `ResizeObserver`, nach 60/250/700/1500 ms — und die Zeichenfunktion misst
+selbst nach, wenn noch nichts da ist.
+
+### Partikel: unter einem Pixel ist unsichtbar
+Erste Fassung der Wolke: 700 Punkte mit 0,55–1,8 px und Deckkraft 0,10–0,26 →
+**0,4 % Flächendeckung**, praktisch nicht zu sehen. Auf dem Bildschirm wirkt das wie Staub.
+→ Faustwerte, die hier funktionieren: Punktzahl an die Fläche koppeln (`B*H/240`, gedeckelt),
+Größe **1,2–4 px**, Deckkraft **0,2–0,55**, additive Überlagerung. Ergebnis: 5,9 % Deckung.
+→ Und **nachmessen statt schätzen**: `getImageData` auslesen und den Anteil der Bildpunkte mit
+Alpha über einer Schwelle zählen. Das sagt in einer Zahl, ob man überhaupt etwas sieht.
+
+### Beim Ausblenden im klebenden Rahmen entsteht ein schwarzes Loch
+Ein klebender Auftakt von 185 svh hat nur (185−100)=85 svh Scrollstrecke, in der er klebt.
+Danach scrollt er noch 100 svh lang hinaus. Wer den Inhalt in dieser Strecke auf Deckkraft 0
+bringt, hinterlässt **eine Bildschirmhöhe leere Fläche**.
+→ Entweder den Inhalt sichtbar lassen und ihn natürlich hinausscrollen lassen, oder die
+Ausblendung erst im letzten Viertel der Gesamthöhe beginnen.
+

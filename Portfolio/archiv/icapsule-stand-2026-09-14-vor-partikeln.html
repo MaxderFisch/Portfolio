@@ -13,7 +13,7 @@
   }
   html{-webkit-text-size-adjust:100%}
   body{font-family:var(--sf);background:#000;color:#fff;line-height:1.4;
-       -webkit-font-smoothing:antialiased}
+       -webkit-font-smoothing:antialiased;overflow-x:hidden}
   img{width:100%;height:auto;display:block}
   a{color:inherit;text-decoration:none}
 
@@ -29,31 +29,6 @@
   @media(max-width:560px){ .bar__p{display:none} }
 
   .mitte{max-width:1200px;margin:0 auto;padding:0 24px}
-
-  /* ---------- Auftakt mit Partikelwolke ---------- */
-  .auftakt{position:relative;height:158svh}
-  .auftakt__klebe{position:sticky;top:0;height:100svh;overflow:hidden;
-                  display:flex;align-items:center;justify-content:center}
-  .auftakt__wolke{position:absolute;inset:0;width:100%;height:100%;display:block}
-  .auftakt__inhalt{position:relative;z-index:2;text-align:center;padding:0 24px;width:100%}
-  .auftakt__name{font-size:clamp(50px,8.4vw,100px);font-weight:700;letter-spacing:-.028em;line-height:1;
-                 will-change:transform,opacity}
-  .auftakt__unter{font-size:clamp(19px,2.6vw,27px);font-weight:600;color:#f5f5f7;
-                  margin-top:11px;letter-spacing:-.014em}
-  .auftakt__preis{margin-top:14px;font-size:16px;color:#a1a1a6}
-  .auftakt__preis b{color:#fff;font-weight:600}
-  .auftakt__geraet{margin:26px auto 0;max-width:min(600px,46vw);will-change:transform}
-  .auftakt__hinweis{position:absolute;left:0;right:0;bottom:26px;text-align:center;
-                    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#6e6e73;z-index:2}
-  @media(max-width:880px){
-    .auftakt{height:152svh}
-    .auftakt__geraet{max-width:74vw;margin-top:20px}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .auftakt{height:auto}
-    .auftakt__klebe{position:static;height:auto;padding:70px 0 90px}
-    .auftakt__hinweis{display:none}
-  }
   .auge{font-size:14px;font-weight:600;color:var(--blau);letter-spacing:.01em;margin-bottom:9px}
   h1{font-size:clamp(52px,9vw,104px);font-weight:700;letter-spacing:-.028em;line-height:1}
   h2{font-size:clamp(30px,4.6vw,56px);font-weight:700;letter-spacing:-.024em;line-height:1.06}
@@ -137,19 +112,16 @@
   </div>
 </header>
 
-<!-- Auftakt: Partikelwolke, aus der Wellen nach aussen laufen -->
-<section class="auftakt" id="auftakt">
-  <div class="auftakt__klebe">
-    <canvas class="auftakt__wolke" id="wolke" aria-hidden="true"></canvas>
-    <div class="auftakt__inhalt">
-      <h1 class="auftakt__name" id="aName">iCapsule</h1>
-      <p class="auftakt__unter" id="aUnter">Erinnerungen neu erleben.</p>
-      <p class="auftakt__preis" id="aPreis">Ab <b>1.349&nbsp;€</b> &nbsp;·&nbsp; in Mitternacht und Weiß</p>
-      <div class="auftakt__geraet" id="aGeraet">
-        <img src="../assets/img/icapsule/hero-dunkel.jpg" width="1200" height="1118" alt="iCapsule in Mitternacht">
-      </div>
-    </div>
-    <div class="auftakt__hinweis" id="aHinweis">Scrollen</div>
+<!-- Auftakt: Produkt frei auf Schwarz -->
+<section class="buehne mittig" style="padding-top:62px">
+  <div class="mitte">
+    <h1>iCapsule</h1>
+    <p style="font-size:clamp(21px,2.8vw,30px);font-weight:600;color:#f5f5f7;margin-top:12px;letter-spacing:-.014em">Erinnerungen neu erleben.</p>
+    <p style="margin-top:16px;font-size:17px;color:#a1a1a6">Ab <b style="color:#fff;font-weight:600">1.349&nbsp;€</b> &nbsp;·&nbsp; in Mitternacht und Weiß</p>
+  </div>
+  <div class="buehne__bild bGross">
+    <img src="../assets/img/icapsule/hero-dunkel.jpg" width="1200" height="1118"
+         alt="iCapsule in Mitternacht">
   </div>
 </section>
 
@@ -309,189 +281,6 @@
 </footer>
 
 <script>
-/* ================= Auftakt: Partikelwolke =================
-   Eine ruhig treibende Wolke aus Punkten, aus der rhythmisch Wellen nach
-   aussen laufen -- wie sich ausbreitender Schall. Alles auf einem Canvas,
-   ohne Bibliothek.
-   Beim Scrollen weitet sich die Wolke, die Wellen werden schneller, und
-   Titel und Geraet wandern unterschiedlich schnell mit. */
-(function(){
-  var flaeche=document.getElementById('wolke');
-  if(!flaeche || !flaeche.getContext) return;
-  var ruhe=window.matchMedia('(prefers-reduced-motion:reduce)');
-  var ctx=flaeche.getContext('2d',{alpha:true});
-  if(!ctx) return;
-
-  var abschnitt=document.getElementById('auftakt');
-  var elName=document.getElementById('aName'), elUnter=document.getElementById('aUnter'),
-      elPreis=document.getElementById('aPreis'), elGeraet=document.getElementById('aGeraet'),
-      elHinweis=document.getElementById('aHinweis');
-
-  var B=0,H=0,dpr=1;
-  /* Die Wolke wird mit halber Aufloesung gezeichnet und hochskaliert --
-     das kostet ein Viertel der Rechenzeit und sieht bei weichen Punkten
-     sogar besser aus. */
-  var TEILER=2;
-
-  var punkte=[], wellen=[], anzahl=0;
-
-  function messen(){
-    var r=flaeche.getBoundingClientRect();
-    if(r.width<2||r.height<2) return false;      /* Layout steht noch nicht */
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    var nb=Math.round(r.width*dpr/TEILER), nh=Math.round(r.height*dpr/TEILER);
-    if(nb===B && nh===H) return true;            /* unveraendert, Punkte behalten */
-    B=nb; H=nh; flaeche.width=B; flaeche.height=H;
-    aufbauen();
-    return true;
-  }
-
-  function aufbauen(){
-    /* Punktzahl an die Flaeche koppeln, damit kleine Geraete nicht leiden */
-    anzahl=Math.round(Math.min(6000,Math.max(1600,(B*H)/240)));
-    punkte=new Array(anzahl);
-    for(var i=0;i<anzahl;i++){
-      var w=Math.random()*Math.PI*2;
-      /* Wurzel sorgt fuer gleichmaessige Verteilung in der Flaeche statt Klumpen in der Mitte */
-      var r=Math.sqrt(Math.random());
-      punkte[i]={
-        w:w, r:r,
-        tempo:0.06+Math.random()*0.20,     /* eigene Drift */
-        phase:Math.random()*Math.PI*2,
-        flimmer:0.4+Math.random()*0.6,
-        tiefe:0.35+Math.random()*0.65      /* wirkt wie Abstand: Groesse und Helligkeit */
-      };
-    }
-    wellen.length=0;
-  }
-
-  function farbe(t,a){
-    /* kuehler Verlauf mit einem warmen Akzent, wie bei Schalldarstellungen */
-    var r,g,b;
-    if(t<0.34){ var k=t/0.34; r=41+k*80; g=151-k*40; b=255-k*20; }
-    else if(t<0.67){ var k2=(t-0.34)/0.33; r=121+k2*90; g=111-k2*40; b=235-k2*80; }
-    else { var k3=(t-0.67)/0.33; r=211+k3*44; g=71+k3*60; b=155-k3*80; }
-    return 'rgba('+(r|0)+','+(g|0)+','+(b|0)+','+a.toFixed(3)+')';
-  }
-
-  var start=performance.now(), letzteWelle=0, fortschritt=0;
-
-  function fortschrittMessen(){
-    if(!abschnitt) return 0;
-    var r=abschnitt.getBoundingClientRect();
-    var weg=r.height-window.innerHeight;
-    if(weg<=0) return 0;
-    return Math.min(1,Math.max(0,-r.top/weg));
-  }
-
-  function zeichnen(jetzt){
-    if(B<2||H<2){ if(!messen()) return; }        /* Layout kam erst spaeter */
-    var t=(jetzt-start)/1000;
-    var p=fortschritt;
-    ctx.clearRect(0,0,B,H);
-    ctx.globalCompositeOperation='lighter';
-
-    var mx=B/2, my=H/2;
-    var grund=Math.min(B,H)*0.46;
-    var weite=grund*(1+p*1.30);          /* Wolke geht beim Scrollen auf */
-    var sicht=1-p*0.55;                  /* zum Ende ruhiger, aber nicht weg */
-
-    /* neue Welle ausloesen */
-    var takt=1.9-p*1.0;
-    if(t-letzteWelle>takt){ letzteWelle=t; wellen.push({t0:t}); if(wellen.length>5) wellen.shift(); }
-
-    for(var i=0;i<anzahl;i++){
-      var q=punkte[i];
-      var atem=Math.sin(t*q.tempo*2.1+q.phase)*0.06;
-      var rad=(q.r+atem)*weite;
-
-      /* Wellen druecken die Punkte nach aussen */
-      var schub=0, leuchten=0;
-      for(var j=0;j<wellen.length;j++){
-        var alter=t-wellen[j].t0;
-        var front=alter*(0.30+p*0.35);                  /* in Einheiten von r */
-        var d=q.r-front;
-        if(d>-0.20 && d<0.20){
-          var n=1-Math.abs(d)/0.20;
-          n*=n;                                   /* schaerferer Wellenkamm */
-          var ab=Math.max(0,1-alter/3.4);
-          schub+=n*ab*weite*0.16;
-          leuchten+=n*ab;
-        }
-      }
-      rad+=schub;
-
-      var wk=q.w+t*q.tempo*0.06;
-      var x=mx+Math.cos(wk)*rad;
-      var y=my+Math.sin(wk)*rad*0.72;                   /* leicht gestaucht: wirkt raeumlich */
-
-      if(x<-8||x>B+8||y<-8||y>H+8) continue;
-
-      var gr=(1.25+q.tiefe*2.70)*(dpr/TEILER)*(1+leuchten*1.15);
-      var hell=(0.20+q.tiefe*0.34)*q.flimmer*sicht*(1+leuchten*3.0);
-      if(hell<=0.006) continue;
-
-      ctx.fillStyle=farbe((q.r*0.7+wk*0.05)%1,Math.min(0.85,hell));
-      ctx.fillRect(x-gr/2,y-gr/2,gr,gr);
-    }
-    ctx.globalCompositeOperation='source-over';
-  }
-
-  function lagen(){
-    var p=fortschritt;
-    if(elName){ elName.style.transform='translate3d(0,'+(-p*120).toFixed(1)+'px,0)';
-                elName.style.opacity=(1-p*0.45).toFixed(3); }
-    if(elUnter){ elUnter.style.transform='translate3d(0,'+(-p*96).toFixed(1)+'px,0)';
-                 elUnter.style.opacity=(1-p*0.60).toFixed(3); }
-    if(elPreis){ elPreis.style.transform='translate3d(0,'+(-p*78).toFixed(1)+'px,0)';
-                 elPreis.style.opacity=(1-p*0.75).toFixed(3); }
-    if(elGeraet) elGeraet.style.transform='translate3d(0,'+(-p*34).toFixed(1)+'px,0) scale('+(1+p*0.17).toFixed(3)+')';
-    if(elHinweis) elHinweis.style.opacity=String(Math.max(0,1-p*4));
-  }
-
-  var laeuft=false, sichtbar=true;
-  function schleife(jetzt){
-    if(!laeuft) return;
-    fortschritt=fortschrittMessen();
-    zeichnen(jetzt); lagen();
-    requestAnimationFrame(schleife);
-  }
-  function an(){ if(laeuft||ruhe.matches) return; laeuft=true; requestAnimationFrame(schleife); }
-  function aus(){ laeuft=false; }
-
-  function standbild(){
-    /* ohne Bewegung: ein ruhiges Bild zeichnen, damit die Flaeche nicht leer ist */
-    fortschritt=0; zeichnen(performance.now()); lagen();
-  }
-
-  messen();
-  window.addEventListener('load',function(){ if(messen() && !laeuft) standbild(); });
-  [60,250,700,1500].forEach(function(ms){ setTimeout(function(){ if(messen() && !laeuft) standbild(); },ms); });
-  window.addEventListener('resize',function(){ messen(); if(!laeuft) standbild(); });
-  if('ResizeObserver' in window){
-    new ResizeObserver(function(){ if(messen() && !laeuft) standbild(); }).observe(flaeche);
-  }
-
-  if(ruhe.matches){ standbild(); }
-  else {
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(es){
-        es.forEach(function(e){ sichtbar=e.isIntersecting; sichtbar?an():aus(); });
-      },{threshold:0}).observe(abschnitt||flaeche);
-    } else an();
-    document.addEventListener('visibilitychange',function(){ document.hidden?aus():(sichtbar&&an()); });
-    an();
-    /* Auffangnetz: friert der Beobachter ein, laeuft es trotzdem */
-    setTimeout(function(){ if(!laeuft && !document.hidden) an(); },600);
-  }
-  if(ruhe.addEventListener) ruhe.addEventListener('change',function(){ ruhe.matches?(aus(),standbild()):an(); });
-
-  /* fuer Pruefungen von aussen */
-  window.wolkeStand=function(){ return {punkte:anzahl, wellen:wellen.length, laeuft:laeuft,
-    fortschritt:+fortschritt.toFixed(3), breite:B, hoehe:H}; };
-  window.wolkeBild=function(fp){ fortschritt=(fp===undefined)?fortschrittMessen():fp; zeichnen(performance.now()); lagen(); return fortschritt; };
-})();
-
 (function(){
   var teile=[].slice.call(document.querySelectorAll('.auf'));
   if(!teile.length) return;
