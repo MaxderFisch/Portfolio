@@ -5,6 +5,29 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 — Spruch einzeilig
+
+Max wollte „Erinnerungen neu erleben." etwas kleiner, damit es **in eine Zeile** passt.
+
+Gemessen war das Problem nicht die Größe, sondern die `max-width:15ch` am Titel — bei 112 px
+brauchte der Spruch 1250 px, verfügbar waren 1352 px. Er hätte also gepasst und wurde nur durch
+die Begrenzung umgebrochen. Begrenzung weg, Größe an die Fensterbreite gekoppelt
+(`clamp(16px,7.0vw,94px)`) und `white-space:nowrap`, damit er nie umbricht.
+
+| | Titel | Spruch | Textbreite | Platz | Zeilen |
+|---|---|---|---|---|---|
+| 1440 px | 112 px | **94 px** | 1049 | 1392 | 1 |
+| 375 px | 46 px | **28 px** | 319 | 327 | 1 |
+
+Am Handy war es mit 97 % des Platzes zu knapp — auf 7,0vw gesenkt, damit Luft bleibt.
+Titelhöhe jetzt 116 px am Rechner, 48 px am Handy, für beide Schriftzüge gleich.
+
+**Nebenbei: 260 Dateien waren iCloud-ausgelagert** und wurden zurückgeholt. Eine
+(`film-imker.mp4`) brauchte einen zweiten Anlauf wegen Zeitüberschreitung — sie ist ohnehin
+von keiner Seite eingebunden.
+
+---
+
 ## Stand vom 14.09.2026 — weiche Wolkenkante, Schriftzug tauscht sich
 
 Zwei letzte Wünsche von Max zum Auftakt der Produktseite:

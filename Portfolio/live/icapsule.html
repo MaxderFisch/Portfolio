@@ -42,7 +42,9 @@
   .auftakt__titel>*{grid-area:1/1}
   .auftakt__name{font-size:clamp(46px,8.6vw,112px);font-weight:700;letter-spacing:-.03em;line-height:1.04;
                  will-change:transform,opacity;transform-origin:50% 50%;max-width:15ch}
-  .auftakt__spruch{opacity:0}
+  /* Der Spruch steht immer einzeilig: Groesse an die Fensterbreite gekoppelt,
+     damit das Verhaeltnis Textbreite zu Platz konstant bleibt. */
+  .auftakt__spruch{opacity:0;font-size:clamp(16px,7.0vw,94px);max-width:none;white-space:nowrap}
   .auftakt__titel{animation:aufgehen 1.1s cubic-bezier(.16,1,.3,1) both}
   @keyframes aufgehen{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:none}}
   @media(prefers-reduced-motion:reduce){ .auftakt__titel{animation:none} }
