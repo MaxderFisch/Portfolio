@@ -683,3 +683,45 @@ Nach einer CSS-Änderung zeigte die Messung im Browser weiter die alten 70 px, o
 auf der Platte richtig war. Erst ein hartes Neuladen brachte die erwarteten 423/247 px.
 → Wenn eine Messung einer gerade gemachten Änderung widerspricht: **zuerst hart neu laden**,
 bevor man anfängt, die Ursache im Code zu suchen.
+
+### Im zugeklappten Browser-Bereich landet `scrollTo` nie
+`html{scroll-behavior:smooth}` lässt einen programmatischen Sprung über
+`requestAnimationFrame` laufen — und rAF friert ein, sobald der Browser-Bereich zu ist. Folge:
+`window.scrollTo(0,y)` ändert gar nichts, `scrollY` bleibt 0, und jede Messung, die auf der
+Scrollposition beruht, liefert stillschweigend Unsinn. Hier sah es so aus, als würde die
+Video-Auswahl nicht mehr greifen — dabei war die Seite nur nie gescrollt.
+→ Vor solchen Messungen `document.documentElement.style.scrollBehavior='auto'` setzen und
+danach `Math.round(scrollY)` **gegenprüfen**, statt dem Sprung zu vertrauen.
+
+### Ein Fenster der Breite 0 liefert plausible, aber falsche Zahlen
+Nach einem Wechsel auf `preset:"desktop"` war der Bereich auf 0 px zusammengeklappt.
+Die Messung lief trotzdem durch und meldete Videos von 77 px Höhe und eine um 2000 px
+gewachsene Seite — alles Folgeerscheinungen von `innerWidth === 0`.
+→ Jede Messfunktion mit einem Riegel beginnen:
+`if(innerWidth!==1400) return {abbruch:'Fenster '+innerWidth+' px'};`
+Lieber ein Abbruch als eine Zahl, der man glaubt.
+
+### `getClientRects().length` zählt keine Textzeilen
+Bei einem Block-Element ist das Ergebnis immer 1, egal über wie viele Zeilen der Text läuft.
+Eine Prüfung „Titel passt in eine Zeile" war damit wertlos.
+→ Über die Höhe rechnen: `Math.round(höhe / parseFloat(lineHeight))`.
+
+### Nicht jedes Element ohne `grid-column-start:1` ist ein Fehler
+Die Handy-Prüfung „alle Rasterkinder beginnen in Spalte 1" schlug fehl — die Treffer waren
+aber durchweg `.pb__bg`, also absolut positionierte Hintergrundebenen, die gar nicht am Raster
+teilnehmen.
+→ Vor dem Vergleich `getComputedStyle(e).position!=='absolute'` filtern.
+
+### Hintergrundformen ohne prozentuale Verankerung wandern
+Die ersten Filmstreifen saßen mit festen Pixelabständen zur Mitte. Bei 1400 px stimmte es, ab
+etwa 1200 px lagen sie außerhalb des Fensters und waren unsichtbar.
+→ Die Deko-Ebene über `left/right` genauso breit machen wie die Inhaltsspalte
+(`.pb__bg` ragt 18 % über, also `13.24%` = 18/136) und alles daran ausrichten. Dann sitzt
+jede Form bei jeder Fensterbreite an derselben relativen Stelle.
+
+### Parallaxe braucht Überstand, sonst reißt die Kante auf
+Eine mitlaufende Hintergrundebene wird um `center × speed` verschoben. Ist sie nur so hoch wie
+ihr Block, wird am Rand eine Lücke sichtbar.
+→ Größten Versatz ausrechnen — `(Fensterhöhe/2 + Blockhöhe/2) × speed` — und die Ebene um mehr
+als diesen Wert über den Block hinausziehen. Hier: höchstens 163 px Versatz gegen 379 px
+Überstand.

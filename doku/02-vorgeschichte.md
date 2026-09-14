@@ -1382,3 +1382,58 @@ Bilder blieben am Handy schmal. Erst mit echten Klassen stimmte es. Beides steht
 
 Nebenbei vier veraltete Bildmaße korrigiert (innen, chip, farben, bildschirme) — sie stammten
 noch aus der Zeit vor dem Zuschnitt und hätten das Layout beim Laden springen lassen.
+
+---
+
+## 29. Kapitel 09 und 10 neu gestaltet — Filme und Drohne (14.09.2026)
+
+Max: *„Der Bereich Projekt 09 · Video & Drohne gefällt mir noch nicht so ganz."* Gewünscht war
+eine bessere Darstellung der Filme, ein passender Hintergrund je Kapitel, **kein zusätzlicher
+Text** und — ausdrücklich — **keine Änderung an der Abspiel- und Lademechanik**.
+
+### Erster Anlauf: Datenblock statt Bildunterschrift
+Vorher hing unter jedem Video eine einzige Zeile in Versalien, die Titel, Länge und Rolle
+aneinanderreihte. Das war schlecht lesbar und optisch tot. Daraus wurde ein Datenblock
+(`.vk__slate`): Nummer, Titel, Kontextzeile, Laufzeit und Rolle als Kürzel. **Kein neuer Text** —
+dieselben Angaben, nur zerlegt.
+
+Der Block steht **neben** dem Video statt darunter, abwechselnd links und rechts
+(`.vk--l` / `.vk--r`). Das füllt den Platz, der vorher leer war, und macht die Seite sogar
+kürzer statt länger. Der Aufmacher jedes Kapitels nutzt `.vk--u`: Datenblock quer unter dem
+Video, damit der Einleitungstext daneben stehen bleibt und keine eigene Rasterzeile kostet.
+
+Zahlen: die Seite ging von 27717 px auf 27619 px, also **98 px kürzer** trotz größerer Videos.
+
+### Zweiter Anlauf: viel abstrakter
+Max nach dem ersten Durchgang: *„mach es bitte noch viel abstrakter mit viel krasseren
+elementen und mir ist aufgefallen das es sich mit den wörtern im hintergrund überlagert mach
+die notfalls weg"*.
+
+Die dezenten Perforationsstreifen am Rand flogen raus, dafür große Formen:
+
+| Kapitel | Formen |
+|---|---|
+| Film | zwei **riesige Filmstreifen** quer über das Kapitel (1997 px breit, 300 bzw. 170 px hoch, um −11° und +7,5° gedreht), dazu eine **Blende** aus sechs Lamellen (860 px), die rechts aus dem Bild läuft |
+| Drohne | ein **Radar** mit Ringen, Fadenkreuz und Gradteilung (1220 px, rechts angeschnitten), eine zweite kleinere Scheibe links unten (880 px), und eine **gestrichelte Flugbahn**, die sich über die volle Kapitelhöhe durchschlängelt |
+
+Die Hintergrundwörter (`.bgl`) wurden in **diesen beiden Kapiteln entfernt** — sie haben sich
+mit den Videokarten überlagert, und Max hat das Entfernen freigegeben. In allen anderen
+Kapiteln bleiben sie. Das ist bewusst eine Ausnahme, kein Abschied von dem Element.
+
+Die Ziffern im Datenblock wurden von 26 px kursiv auf **92 px Outline** hochgezogen, in
+derselben Sprache wie die Hintergrundtypografie der Seite.
+
+### Warum die Formen als `.bgl`-Spans laufen
+Sie liegen in `.pb__bg` und tragen die Klasse `bgl` mit einem `data-speed`. Damit erfasst sie
+der **vorhandene** Parallaxe-Mechanismus, ohne dass eine Zeile JavaScript dazukam — wichtig,
+weil Max an der Mechanik nichts geändert haben wollte. Absolut positioniert stören sie die
+Wortzeilen nicht.
+
+`.deko` bekommt `left:13.24%;right:13.24%` (18/136, der Überstand von `.pb__bg`) und ist damit
+exakt so breit wie die Inhaltsspalte. Ohne das müsste man die Formen mit festen Pixelwerten
+platzieren, und sie wandern bei jeder anderen Fensterbreite.
+
+### Nachgewiesen, dass die Abspielmechanik unberührt ist
+`window.videoZustand()` liefert vor und nach dem Umbau **dieselben zehn Einträge** in derselben
+Reihenfolge mit denselben Marken. Alle neun Videos der zwei Kapitel wurden einzeln in die
+Fenstermitte gefahren: jedes Mal wird **genau eines** ausgewählt, und zwar das richtige.

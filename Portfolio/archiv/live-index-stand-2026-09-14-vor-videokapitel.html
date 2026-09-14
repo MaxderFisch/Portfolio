@@ -529,123 +529,12 @@
   .chapter--wasser{--ink:#b3c9d1;--ink-strong:#eaf4f8;--faint:rgba(206,232,240,.17);--rail:#74909b;
     background-color:#08171c;background-image:linear-gradient(to bottom,#141013 0,rgba(8,23,28,0) 460px)}
   .chapter--himmel{--ink:#b9c2d6;--ink-strong:#e8edf7;--faint:rgba(200,214,240,.16);--rail:#75809a;
-    --hud:rgba(200,214,240,.62);--zahl:rgba(200,214,240,.42);
     background-color:#101625;background-image:linear-gradient(to bottom,#121212 0,rgba(16,22,37,0) 460px)}
   .chapter--film{--ink:#c0c0c0;--ink-strong:#f0f0f0;--faint:rgba(235,235,235,.15);--rail:#848484;
-    --zahl:rgba(240,240,240,.4);
     background-color:#121212;background-image:linear-gradient(to bottom,#08171c 0,rgba(18,18,18,0) 460px)}
   .kapvideo{position:relative;z-index:1}
   .kapvideo video{width:100%;height:auto;display:block;border:1px solid var(--faint);background:#000}
   .kapvideo__bu{margin-top:9px;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--rail)}
-
-  /* ===== Videokarte: Bild und Datenblock nebeneinander (Kapitel Film + Drohne) =====
-     Die Abspiel- und Lademechanik fasst das nicht an -- das video-Element behaelt seine
-     Attribute und sein source-Kind, nur die Huelle drumherum ist neu. */
-  .vk{display:grid;gap:14px}
-  .vk__v{position:relative}
-  .vk__slate{border-top:1px solid var(--faint);padding-top:11px}
-  .sl__no{font-family:var(--display);font-weight:700;font-size:clamp(58px,6.6vw,104px);
-    line-height:.76;letter-spacing:-.045em;color:transparent;
-    -webkit-text-stroke:1.7px var(--zahl);margin-bottom:2px}
-  .sl__t{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.1;letter-spacing:-.015em;margin-top:10px}
-  .sl__s{font-size:12.5px;line-height:1.62;color:var(--rail);margin-top:7px}
-  .sl__m{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;align-items:center}
-  .sl__z{font-family:var(--display);font-weight:600;font-size:12.5px;letter-spacing:.04em;
-    font-variant-numeric:tabular-nums;color:var(--ink-strong)}
-  .sl__tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--rail);
-    border:1px solid var(--faint);border-radius:999px;padding:3px 8px}
-
-  /* Filmkapitel: Leinwandschein statt nacktem Rand */
-  .chapter--film .vk__v{padding-bottom:9px;border-bottom:2px solid rgba(237,237,237,.24)}
-  .chapter--film .vk__v video{border-color:rgba(237,237,237,.2);
-    box-shadow:0 34px 80px -44px rgba(255,255,255,.28),0 20px 54px -26px rgba(0,0,0,.9)}
-  /* Drohnenkapitel: Eckwinkel wie im Sucher der FPV-Brille, aus acht Verlaeufen */
-  .chapter--himmel .vk__v{padding:13px;
-    background:
-      linear-gradient(var(--hud),var(--hud)) 0 0/30px 2px no-repeat,
-      linear-gradient(var(--hud),var(--hud)) 0 0/2px 30px no-repeat,
-      linear-gradient(var(--hud),var(--hud)) 100% 0/30px 2px no-repeat,
-      linear-gradient(var(--hud),var(--hud)) 100% 0/2px 30px no-repeat,
-      linear-gradient(var(--hud),var(--hud)) 0 100%/30px 2px no-repeat,
-      linear-gradient(var(--hud),var(--hud)) 0 100%/2px 30px no-repeat,
-      linear-gradient(var(--hud),var(--hud)) 100% 100%/30px 2px no-repeat,
-      linear-gradient(var(--hud),var(--hud)) 100% 100%/2px 30px no-repeat}
-  .chapter--himmel .vk__v video{border-color:rgba(200,214,240,.12)}
-
-  /* ===== Kulisse: grosse abstrakte Formen =====
-     Sie ersetzen in diesen beiden Kapiteln die Hintergrundwoerter -- die haben
-     sich mit den Videokarten ueberlagert. Die Ebenen liegen in .pb__bg und laufen
-     ueber den vorhandenen data-speed-Mechanismus mit; kein neues JavaScript.
-     left/right = 13.24% (18/136) macht .deko genau so breit wie die Inhaltsspalte,
-     damit die Formen bei jeder Fensterbreite an derselben Stelle ansetzen. */
-  .deko{position:absolute;left:13.24%;right:13.24%;top:-15%;bottom:-15%;
-    pointer-events:none;-webkit-text-stroke:0;will-change:auto}
-
-  /* Filmkapitel: zwei riesige Filmstreifen ueber Kreuz, dahinter eine Blende */
-  .deko--streifen::before,.deko--streifen::after{content:"";position:absolute;left:-46%;right:-46%;
-    border-top:2px solid rgba(237,237,237,.2);border-bottom:2px solid rgba(237,237,237,.2);
-    background-repeat:repeat-x}
-  .deko--streifen::before{top:7%;height:300px;transform:rotate(-11deg);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='130' height='300'%3E%3Cg fill='none' stroke='%23ededed' stroke-opacity='.2' stroke-width='2'%3E%3Crect x='28' y='30' width='74' height='56' rx='16'/%3E%3Crect x='28' y='214' width='74' height='56' rx='16'/%3E%3C/g%3E%3C/svg%3E");background-size:130px 300px}
-  .deko--streifen::after{top:63%;height:170px;transform:rotate(7.5deg);opacity:.66;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='74' height='170'%3E%3Cg fill='none' stroke='%23ededed' stroke-opacity='.2' stroke-width='1.6'%3E%3Crect x='16' y='17' width='42' height='32' rx='9'/%3E%3Crect x='16' y='121' width='42' height='32' rx='9'/%3E%3C/g%3E%3C/svg%3E");background-size:74px 170px}
-  .deko--blende{background:url(../assets/img/deko/blende.svg) no-repeat;
-    background-size:860px 860px;background-position:calc(100% + 480px) 24%}
-
-  /* Drohnenkapitel: Radar rechts, eine zweite kleinere Scheibe links unten,
-     und quer durch das ganze Kapitel die gestrichelte Flugbahn */
-  .deko--radar{background:url(../assets/img/deko/radar.svg) no-repeat;
-    background-size:1220px 1220px;background-position:calc(100% + 430px) 4%}
-  .deko--radar::after{content:"";position:absolute;left:-52%;top:56%;width:880px;height:880px;
-    background:url(../assets/img/deko/radar.svg) no-repeat center/contain;opacity:.5}
-  .deko--bahn{background:url(../assets/img/deko/flugbahn.svg) no-repeat;
-    background-size:168% 100%;background-position:center}
-
-  /* Ab hier nur am Rechner. ACHTUNG: diese Regeln sind spezifischer als die
-     Handy-Regel weiter unten und muessen deshalb in der Abfrage stehen bleiben,
-     sonst gewinnen sie auf dem Handy und das Raster bricht (siehe 05-fallen.md). */
-  @media(min-width:901px){
-    .vk{align-items:center;column-gap:clamp(18px,2.6vw,34px)}
-    .vk--r{grid-template-columns:10fr minmax(186px,3fr)}
-    .vk--l{grid-template-columns:minmax(186px,3fr) 10fr}
-    .vk--l .vk__slate{order:-1;text-align:right;border-top:0;
-      border-right:1px solid var(--faint);padding:2px clamp(13px,1.5vw,20px) 2px 0}
-    .vk--r .vk__slate{border-top:0;border-left:1px solid var(--faint);
-      padding:2px 0 2px clamp(13px,1.5vw,20px)}
-    .vk--l .sl__m{justify-content:flex-end}
-
-    /* Datenblock quer unter dem Video -- nur fuer den Aufmacher, damit der
-       Einleitungstext daneben Platz behaelt und keine eigene Zeile braucht */
-    .vk--u{grid-template-columns:1fr}
-    .vk--u .vk__slate{border-top:1px solid var(--faint);padding:11px 0 0;
-      display:grid;grid-template-columns:auto 1fr auto;column-gap:clamp(14px,1.8vw,26px)}
-    .vk--u .sl__no{grid-column:1;grid-row:1/span 2;align-self:center;margin:0;
-      font-size:clamp(52px,5vw,78px)}
-    .vk--u .sl__t{grid-column:2;grid-row:1;margin:0}
-    .vk--u .sl__s{grid-column:2;grid-row:2;margin-top:5px}
-    .vk--u .sl__m{grid-column:3;grid-row:1/span 2;align-self:center;margin:0}
-
-    .chapter--film .tr__f1{grid-column:5/-1}
-    .chapter--film .tr__f2{grid-column:1/span 11}
-    .chapter--film .tr__f3{grid-column:2/-1}
-    .chapter--film .tr__f4{grid-column:1/span 11}
-    .chapter--himmel .tr__f1{grid-column:5/-1}
-    .chapter--himmel .tr__f2{grid-column:1/span 11}
-    .chapter--himmel .tr__f3{grid-column:2/-1}
-    .chapter--himmel .tr__zwi{grid-column:1/span 4}
-    .chapter--himmel .tr__m1{grid-column:5/-1}
-    .chapter--himmel .tr__m2{grid-column:1/span 8}
-  }
-  @media(max-width:900px){
-    .deko{left:6.9%;right:6.9%}
-    .deko--streifen::before{height:150px;background-size:65px 150px;top:5%}
-    .deko--streifen::after{height:92px;background-size:40px 92px}
-    .deko--blende{background-size:420px 420px;background-position:calc(100% + 170px) 20%}
-    .deko--radar{background-size:620px 620px;background-position:calc(100% + 230px) 3%}
-    .deko--radar::after{width:440px;height:440px;left:-58%}
-    .deko--bahn{background-size:200% 100%}
-  }
-
   .warten{position:relative;z-index:1;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
     border:1px dashed var(--faint);color:var(--rail);font-size:10px;letter-spacing:.18em;text-transform:uppercase;text-align:center;padding:12px}
   .sr figure,.tr figure{margin:0}
@@ -1412,67 +1301,42 @@
   <div class="wrap">
     <div class="tr">
       <div class="pb__bg" aria-hidden="true">
-        <span class="bgl deko deko--blende" data-speed="0.030"></span>
-        <span class="bgl deko deko--streifen" data-speed="0.070"></span>
+        <span class="bgl sm" data-speed="0.100">DOKU · PORTRÄT · SPOT</span>
+        <span class="bgl xl" data-speed="0.105">BEWEGUNG</span>
+        <span class="bgl md i1" data-speed="0.110">UNTER TAGE</span>
+        <span class="bgl lg i2" data-speed="0.115">KOMMT ZU MIR</span>
+        <span class="bgl sm i3" data-speed="0.120">FPV · NOCH OFFEN</span>
       </div>
       <div class="tr__txt">
         <p class="kicker">Projekt 09 · Video &amp; Drohne</p>
         <p>Vier Filme aus dem Studium, alle im Team entstanden — und in jedem hatte ich einen anderen Job: beim Bergwerk den Ton, beim Porträt die Produktion, beim Imagefilm das Szenenbild, und beim ersten Kurzfilm haben wir uns Regie und Schnitt zu viert geteilt.</p>
         <p>Die Drohnenaufnahmen stehen <a href="#p-drohne" style="color:inherit">im eigenen Kapitel darunter</a>.</p>
       </div>
-      <div class="tr__f1 kapvideo vk vk--u">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-bergmann-poster.jpg">
-            <source src="../assets/video/film-bergmann.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">01</div>
-          <div class="sl__t">Ein Tag als Bergmann</div>
-          <div class="sl__s">Graphitbergwerk Kropfmühl</div>
-          <div class="sl__m"><span class="sl__z">5:48</span><span class="sl__tag">Ton</span></div>
-        </div>
+      <div class="tr__f1 kapvideo">
+        <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-bergmann-poster.jpg">
+          <source src="../assets/video/film-bergmann.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Ein Tag als Bergmann — Graphitbergwerk Kropfmühl · 5 min 48 · mein Part: Ton</div>
       </div>
 
-      <div class="tr__f2 kapvideo vk vk--r">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-kommt-zu-mir-poster.jpg">
-            <source src="../assets/video/film-kommt-zu-mir.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">02</div>
-          <div class="sl__t">Kommt zu mir</div>
-          <div class="sl__s">Porträt über Felix Schandl, Jugendseelsorger an der THD</div>
-          <div class="sl__m"><span class="sl__z">5:17</span><span class="sl__tag">Produktion</span></div>
-        </div>
+      <div class="tr__f2 kapvideo">
+        <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-kommt-zu-mir-poster.jpg">
+          <source src="../assets/video/film-kommt-zu-mir.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Kommt zu mir — Porträt über Felix Schandl, Jugendseelsorger an der THD · 5 min 17 · mein Part: Produktion</div>
       </div>
-      <div class="tr__f3 kapvideo vk vk--l">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-hostage-holiday-poster.jpg">
-            <source src="../assets/video/film-hostage-holiday.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">03</div>
-          <div class="sl__t">Hostage Holiday</div>
-          <div class="sl__s">Erster Kurzfilm, erstes Semester — ohne Dialog</div>
-          <div class="sl__m"><span class="sl__z">2:18</span><span class="sl__tag">Regie &amp; Schnitt</span></div>
-        </div>
+      <div class="tr__f3 kapvideo">
+        <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-hostage-holiday-poster.jpg">
+          <source src="../assets/video/film-hostage-holiday.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Hostage Holiday — erster Kurzfilm, erstes Semester · ohne Dialog · 2 min 18 · mein Part: Regie und Schnitt, zu viert</div>
       </div>
 
-      <div class="tr__f4 kapvideo vk vk--r">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-electrify-poster.jpg">
-            <source src="../assets/video/film-electrify.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">04</div>
-          <div class="sl__t">Electrify Your Future</div>
-          <div class="sl__s">Imagefilm Elektrotechnik, gedreht auf der ARRI Alexa Mini</div>
-          <div class="sl__m"><span class="sl__z">3:01</span><span class="sl__tag">Szenenbild</span></div>
-        </div>
+      <div class="tr__f4 kapvideo">
+        <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-electrify-poster.jpg">
+          <source src="../assets/video/film-electrify.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Electrify Your Future — Imagefilm für den Studiengang Elektrotechnik, gedreht auf der ARRI Alexa Mini · 3 min 01 · mein Part: Szenenbild</div>
       </div>
     </div>
     <a class="pj-back" href="#oben" style="margin:44px 0 90px">↑ nach oben</a>
@@ -1484,8 +1348,12 @@
   <div class="wrap">
     <div class="tr">
       <div class="pb__bg" aria-hidden="true">
-        <span class="bgl deko deko--radar" data-speed="0.035"></span>
-        <span class="bgl deko deko--bahn" data-speed="0.090"></span>
+        <span class="bgl sm" data-speed="0.100">FPV · FREESTYLE · CHASE</span>
+        <span class="bgl xl" data-speed="0.105">FLIEGEN</span>
+        <span class="bgl md i1" data-speed="0.110">NAZGUL EVOQUE</span>
+        <span class="bgl lg i2" data-speed="0.115">ÜBER DEN BÄUMEN</span>
+        <span class="bgl sm i3" data-speed="0.120">PAVO20 PRO</span>
+        <span class="bgl md" data-speed="0.125">MINI 4 PRO</span>
       </div>
       <div class="tr__txt">
         <p class="kicker">Projekt 10 · Drohne &amp; FPV</p>
@@ -1495,46 +1363,25 @@
         <p>Für die ruhigen Sachen habe ich außerdem eine ganz normale Kameradrohne — die steht weiter unten.</p>
       </div>
 
-      <div class="tr__f1 kapvideo vk vk--u">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-papierflieger-poster.jpg">
-            <source src="../assets/video/fpv-papierflieger.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">01</div>
-          <div class="sl__t">Papierflieger</div>
-          <div class="sl__s">Durch den Wald — am Ende wird aus dem Hinweisblatt ein Flieger</div>
-          <div class="sl__m"><span class="sl__z">2:23</span><span class="sl__tag">FPV</span></div>
-        </div>
+      <div class="tr__f1 kapvideo">
+        <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-papierflieger-poster.jpg">
+          <source src="../assets/video/fpv-papierflieger.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Papierflieger — durch den Wald, und am Ende wird aus dem Hinweisblatt ein Flieger · 2 min 23</div>
       </div>
 
-      <div class="tr__f2 kapvideo vk vk--r">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-timeline-1-poster.jpg">
-            <source src="../assets/video/fpv-timeline-1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">02</div>
-          <div class="sl__t">Winter in den Bergen</div>
-          <div class="sl__s">Gipfelkreuz, Gegenlicht, viel Schnee</div>
-          <div class="sl__m"><span class="sl__z">0:33</span><span class="sl__tag">FPV</span></div>
-        </div>
+      <div class="tr__f2 kapvideo">
+        <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-timeline-1-poster.jpg">
+          <source src="../assets/video/fpv-timeline-1.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Winter in den Bergen — Gipfelkreuz, Gegenlicht, viel Schnee · 33 Sekunden</div>
       </div>
 
-      <div class="tr__f3 kapvideo vk vk--l">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-autos-kurz-poster.jpg">
-            <source src="../assets/video/fpv-autos-kurz.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">03</div>
-          <div class="sl__t">Autos über Feldwege</div>
-          <div class="sl__s">Tief, schnell, nah dran</div>
-          <div class="sl__m"><span class="sl__z">1:43</span><span class="sl__tag">FPV</span></div>
-        </div>
+      <div class="tr__f3 kapvideo">
+        <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-autos-kurz-poster.jpg">
+          <source src="../assets/video/fpv-autos-kurz.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Autos über Feldwege verfolgt — tief, schnell, nah dran · 1 min 43</div>
       </div>
 
       <figure class="tr__g1" data-pjlb="../assets/img/drohne/fpv-flotte.jpg" data-pjcap="Was sich über die Zeit angesammelt hat">
@@ -1553,32 +1400,18 @@
         <p>Beides zusammen deckt eigentlich alles ab: die eine für Tempo und Nähe, die andere für den ruhigen Blick von oben.</p>
       </div>
 
-      <div class="tr__m1 kapvideo vk vk--r">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1440" height="1080" poster="../assets/video/zeitraffer-poster.jpg">
-            <source src="../assets/video/zeitraffer.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">04</div>
-          <div class="sl__t">Zeitraffer aus der Luft</div>
-          <div class="sl__s">Ruhig von oben, im Zeitraffer zusammengezogen</div>
-          <div class="sl__m"><span class="sl__z">0:21</span><span class="sl__tag">Mini 4 Pro</span></div>
-        </div>
+      <div class="tr__m1 kapvideo">
+        <video controls muted playsinline preload="none" width="1440" height="1080" poster="../assets/video/zeitraffer-poster.jpg">
+          <source src="../assets/video/zeitraffer.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Zeitraffer aus der Luft · Mini 4 Pro · 21 Sekunden</div>
       </div>
 
-      <div class="tr__m2 kapvideo vk vk--l">
-        <div class="vk__v">
-          <video controls muted playsinline preload="none" width="1440" height="1080" poster="../assets/video/drone-clip-1-poster.jpg">
-            <source src="../assets/video/drone-clip-1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="vk__slate">
-          <div class="sl__no">05</div>
-          <div class="sl__t">Ruhiger Überflug</div>
-          <div class="sl__s">Geradeaus, ohne Hektik</div>
-          <div class="sl__m"><span class="sl__z">0:16</span><span class="sl__tag">Mini 4 Pro</span></div>
-        </div>
+      <div class="tr__m2 kapvideo">
+        <video controls muted playsinline preload="none" width="1440" height="1080" poster="../assets/video/drone-clip-1-poster.jpg">
+          <source src="../assets/video/drone-clip-1.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Ruhiger Überflug · Mini 4 Pro · 16 Sekunden</div>
       </div>
     </div>
     <a class="pj-back" href="#oben" style="margin:44px 0 90px">↑ nach oben</a>

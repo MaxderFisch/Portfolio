@@ -5,6 +5,46 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 14.09.2026 (abends) — Kapitel 09 und 10 neu gestaltet
+
+Max' Auftrag: Filme besser darstellen, passende Hintergründe zu Filmen und Drohnenaufnahmen,
+kein zusätzlicher Text, **und an der Abspiel- und Lademechanik nichts ändern**. Nach dem ersten
+Durchgang die Nachbesserung: *viel abstrakter, viel krassere Elemente*, und die
+Hintergrundwörter überlagerten sich — die durften weg.
+
+**Was jetzt steht:** Jedes Video hat einen Datenblock (Nummer, Titel, Kontext, Laufzeit, Rolle)
+**neben** sich statt einer Versalzeile darunter, abwechselnd links und rechts; der Aufmacher
+jedes Kapitels hat ihn quer darunter, damit der Einleitungstext daneben Platz behält. Die
+Ziffern sind 92-px-Outline. Im Filmkapitel liegen zwei riesige gedrehte Filmstreifen und eine
+Blende im Hintergrund, im Drohnenkapitel ein Radar mit Gradteilung, eine zweite Scheibe und
+eine gestrichelte Flugbahn über die volle Kapitelhöhe. Die `.bgl`-Wörter sind **nur in diesen
+zwei Kapiteln** entfernt.
+
+Die Formen laufen über den vorhandenen `data-speed`-Mechanismus mit — **kein neues JavaScript**.
+
+**Nachgemessen:**
+
+| | Ergebnis |
+|---|---|
+| Abspielmechanik | `videoZustand()` vor und nach dem Umbau identisch (10 Einträge, gleiche Reihenfolge, gleiche Marken) |
+| Auswahl | alle neun Videos einzeln in die Fenstermitte gefahren — jedes Mal genau eines aktiv, und das richtige |
+| Seitenhöhe | 27717 → 27698 px, also trotz größerer Videos **nicht** länger geworden |
+| Rechner 1400 px | Datenblöcke 186–212 px neben den Videos, keiner höher als sein Video, kein Zeilenumbruch in der Meta-Zeile |
+| Handy 375 px | alle neun Karten einspaltig 295 px, Datenblock unter dem Video, kein Überstand |
+| Struktur | CSS 476/476, div 368/368, video 10/10, beide Skripte fehlerfrei, 0 `style="grid-column"` |
+| Dateien | alle Verweise vorhanden (inkl. der drei neuen SVGs), 0 iCloud-ausgelagert |
+
+**Was ich nicht prüfen konnte:** Wie es *aussieht*. Der Browser-Bereich ist zugeklappt,
+Screenshots sind schwarz. Alles oben ist gemessen, nicht angeschaut — Max muss draufschauen.
+
+**Offen, unverändert:** iBee oder iCapsule? `Portfolio/index.html` auf `live/` umbiegen?
+`CLAUDE.md` ins Repo? Falscher Farbverlauf bei `p-flyer`, doppelte Nummer „Projekt 08",
+`loading="lazy"` fehlt stellenweise, hochauflösender Freisteller der iCapsule.
+
+Nicht gepusht — Max pusht selbst über GitHub Desktop.
+
+---
+
 ## Stand vom 14.09.2026 (später) — iCapsule im Projektabschnitt
 
 Geändert wurde **nur** `live/index.html`. `live/icapsule.html` ist unberührt
