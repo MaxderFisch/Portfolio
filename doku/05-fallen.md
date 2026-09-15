@@ -791,3 +791,32 @@ Werten für Rasterabstand, Streckung und Ausdünnschwelle blieben von einem Wald
 übrig, vom zweiten fünf.
 → Die Formel vorher isoliert durchrechnen und die Trefferzahl ausgeben lassen, bevor man sie
 in den Generator einbaut. Drei Parametersätze durchgespielt, dann stimmte es auf Anhieb.
+
+### Eine Farbe kann rechnerisch da sein und trotzdem unsichtbar
+Sechs Feldtöne mit Deckkraft .04 bis .13 auf dunklem Grund ergaben einen Farbabstand von
+20 bis 37 — für das Auge praktisch nichts. Sichtbar blieben nur die Striche darüber, und das
+Bild wirkte wie Gekritzel.
+→ Bei Flächen auf dunklem Grund den **Abstand zum Grund ausrechnen**, nicht die Deckkraft
+beurteilen: `grund + alpha*(farbe-grund)` und davon den Abstand zum Grund. Unter etwa 40 ist
+eine Fläche auf dunklem Grund nicht mehr als Fläche wahrnehmbar.
+→ Und prüfen, wie viel Prozent der Fläche überhaupt vom Grund abweicht. Ein Flächenbild liegt
+nahe 100 %, ein Strichbild bei wenigen Prozent — die Zahl sagt sofort, welches von beiden man
+gebaut hat.
+
+### Wer eine Linie nachträglich auftrennt, muss auch mitnehmen, was darauf saß
+Bäume wurden entlang des vollen Heckenverlaufs gesetzt, die Hecke danach an den Straßen
+aufgetrennt. Ergebnis: Bäume, die frei im Nichts stehen, weil ihre Hecke dort gar nicht mehr
+ist.
+→ Erst auftrennen, dann bestücken — die Punkte auf den **übrig gebliebenen** Stücken verteilen.
+
+### Eine Abstandsprüfung gilt nur dort, wo sie aufgerufen wird
+Nach einem Umbau prüfte nur noch die Heckenschleife auf Abstand zur Straße; die Waldschleife
+war eine eigene Funktion und hatte die Prüfung nicht. Vier Bäume standen auf der Fahrbahn,
+obwohl „die Prüfung" angeblich drin war.
+→ Nach jedem Umbau die Prüfung **aus der fertigen Datei heraus** wiederholen, nicht auf den
+Generator vertrauen. Genau das hat es hier gefunden.
+
+### Feste Koordinaten für Gebäude gehen irgendwann schief
+Die Höfe standen an eingetragenen Punkten. Sobald die Straßen sich änderten, standen sie darauf.
+→ Platz **suchen** statt eintragen: in Ringen nach außen gehen, bis alle Ecken frei sind, und
+die Verschiebung ausgeben, damit man sie sieht (hier 78 px).

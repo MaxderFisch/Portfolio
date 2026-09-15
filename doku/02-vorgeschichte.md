@@ -1611,3 +1611,43 @@ keine Kante.
 
 Der Generator liegt jetzt als Datei vor (`bau-karte.js` im Arbeitsordner), damit sich einzelne
 Werte nachregeln lassen, ohne alles neu zu schreiben.
+
+### Warum die Karte schlampig wirkte — und was daran wirklich falsch war (15.09.2026)
+
+Max schickte zwei Bildschirmfotos: *„da sind so viele unordentliche sachen und dinge
+übereinander das wirkt sehr schlampig"* und *„schau mal wie viele fehler da im hintergrund
+sind"*. Die Fotos haben mehr gezeigt als jede Messung davor — sie sind der Grund, warum der
+Fehler endlich auffindbar war.
+
+**Die eigentliche Ursache war nicht die Menge, sondern das Verhältnis.** Nachgemessen: Die
+Feldfarben hatten einen Farbabstand von nur **20 bis 37** zum Kapitelgrund — sie waren faktisch
+unsichtbar. Sichtbar blieben nur 133 einzelne Kreise und 32 Striche auf leerem Grund. Die Karte
+bestand also gar nicht aus Flächen, sondern aus Gekritzel. Kein Aufräumen an den Einzelteilen
+hätte das behoben.
+
+**Die Fehler im Einzelnen, die auf den Fotos zu sehen waren:**
+
+| Fehler | Ursache | Behebung |
+|---|---|---|
+| Fächer aus Linien quer über Feldgrenzen und Straßen | Ackerspuren wurden aus den geraden Eckpunkten gerechnet, die Felder haben aber geschwungene Kanten — und es gab keinen Zuschnitt | ganz entfernt |
+| Großer Klecks hinter dem Text | der Weiher | entfernt, auf Max' Wunsch das Wasser komplett |
+| Bäume mitten im Nichts | Bäume wurden auf dem **ganzen** Heckenverlauf gesetzt, die Hecke danach aber an Straßen aufgetrennt — die Bäume blieben stehen | Bäume nur noch auf den Stücken, die nach dem Auftrennen übrig sind |
+| Bäume auf der Fahrbahn | die Abstandsprüfung lief nur an den Heckenbäumen, nicht an den Waldbäumen | Prüfung auch im Wald, 4 Bäume sind dadurch weggefallen |
+| Gebäude auf der Straße | Höfe standen an fest eingetragenen Koordinaten | Platz wird gesucht: der Hof wandert in Ringen nach außen, bis alle Ecken frei sind (hier 78 px) |
+| Bunte Kreise ohne Zusammenhang | sechs stark unterschiedliche Baumtöne, dazu Überlappung durch zu große Radien | vier eng beieinanderliegende Töne, kleinere Radien |
+
+**Der Umbau:** Felder tragen jetzt das Bild. Farbabstand **38 bis 82** statt 20 bis 37, und
+**100 %** der Fläche sind eingefärbt — die Karte liest sich als Flächenbild, nicht als
+Strichgewirr. Die Wälder sind zusammenhängende Flächen mit unruhigem Rand (drei überlagerte
+Oberwellen) statt Kreishaufen; die Baumkreise liegen nur noch als Textur darin. Kreise gesamt
+von 133 auf 66.
+
+Dazu wird die Kachel größer dargestellt — 2000 statt 1700 px —, damit weniger gleichzeitig im
+Bild ist. Der Loopweg wurde mitgezogen, sonst springt es.
+
+**Gelernt:** Ich habe vier Runden lang an Einzelteilen geschraubt, obwohl das Verhältnis von
+Fläche zu Strich das Problem war. Ein Bildschirmfoto hat es in einem Zug gezeigt. Wenn eine
+Gestaltung wiederholt „nicht gefällt", ohne dass eine einzelne Ursache greifbar ist, ist die
+richtige Frage nicht „was stört?", sondern **„was trägt das Bild überhaupt?"**.
+
+Der Generator liegt jetzt neben der Grafik: `Portfolio/assets/img/deko/bau-karte.js`.

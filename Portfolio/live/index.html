@@ -604,9 +604,9 @@
      nur den sichtbaren Ausschnitt. Aus demselben Grund traegt sie keine
      bgl-Klasse mehr, bekommt also auch keinen Parallaxe-Versatz. */
   .deko--karte{left:0;right:0;
-    background:url(../assets/img/deko/karte.svg) repeat;background-size:1700px 1700px;
-    animation:kartenflug 82s linear infinite}
-  @keyframes kartenflug{from{background-position:0 0}to{background-position:1700px 1700px}}
+    background:url(../assets/img/deko/karte.svg) repeat;background-size:2000px 2000px;
+    animation:kartenflug 96s linear infinite}
+  @keyframes kartenflug{from{background-position:0 0}to{background-position:2000px 2000px}}
   @media(prefers-reduced-motion:reduce){.deko--karte{animation:none}}
 
   /* Ab hier nur am Rechner. ACHTUNG: diese Regeln sind spezifischer als die
@@ -651,8 +651,8 @@
     .deko--blende{background-size:420px 420px;background-position:calc(100% + 170px) 20%}
     /* kleinere Kachel am Handy -- der Weg pro Durchlauf muss genau der
        Kachelgroesse entsprechen, sonst springt der Loop */
-    .deko--karte{background-size:880px 880px;animation-name:kartenflugHandy;animation-duration:46s}
-    @keyframes kartenflugHandy{from{background-position:0 0}to{background-position:880px 880px}}
+    .deko--karte{background-size:1040px 1040px;animation-name:kartenflugHandy;animation-duration:52s}
+    @keyframes kartenflugHandy{from{background-position:0 0}to{background-position:1040px 1040px}}
   }
 
   .warten{position:relative;z-index:1;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
