@@ -1437,3 +1437,29 @@ platzieren, und sie wandern bei jeder anderen Fensterbreite.
 `window.videoZustand()` liefert vor und nach dem Umbau **dieselben zehn Einträge** in derselben
 Reihenfolge mit denselben Marken. Alle neun Videos der zwei Kapitel wurden einzeln in die
 Fenstermitte gefahren: jedes Mal wird **genau eines** ausgewählt, und zwar das richtige.
+
+### Radar raus, Karte rein (15.09.2026)
+
+Max zum Drohnen-Hintergrund: *„nimm diese fadenkreuz ähnlichen kriese raus und mach vieleicht
+noch so andeutungen von bäumen so weil du hast ja schon die strasen mach vieleicht noch so
+wirklich so schematisch so als wäre es ne karte von oben"*.
+
+Aufschlussreich: Er hat die **gestrichelte Flugbahn als Straße gelesen**. Damit war klar, wohin
+es geht — nicht Messgerät, sondern **Landkarte**. Das Radar mit Ringen und Gradteilung war zu
+technisch und passte nicht zu dem, was eine Drohne tatsächlich sieht.
+
+`radar.svg` ist gelöscht, dafür `karte.svg`: eine schematische Draufsicht, mit einem
+festen Startwert zufällig erzeugt, damit sie reproduzierbar bleibt.
+
+| Element | Umsetzung |
+|---|---|
+| Wege | echte **Doppellinien** — der Pfad wird über die Segmentnormale nach links und rechts versetzt. So unterscheiden sie sich klar von der gestrichelten Flugbahn darüber |
+| Waldstücke | neun Gruppen mit je 22–40 Kreisen in einer gestrichelten Umrandung, dazu 34 einzelne Bäume verstreut |
+| Felder | 21 unregelmäßige Parzellen, ein Drittel davon schraffiert (SVG-`pattern`, 38° gedreht) |
+| Höhenlinien | drei Kuppen aus je fünf verschobenen Ringen |
+| Sonstiges | ein Bach quer durch, 19 Gebäudegrundrisse |
+
+**Warum 1450 × 4200 px:** Die Ebene wird mit `background-size:cover` gefüllt, damit die Karte
+das Kapitel bei jeder Höhe abdeckt. Beim ersten Versuch war die Datei 3300 px hoch und wurde
+dadurch um den Faktor **1,206 hochskaliert**. Mit 4200 px liegt der Maßstab bei **0,948**, also
+leicht verkleinert statt vergrößert. Nachgemessen, nicht geschätzt.

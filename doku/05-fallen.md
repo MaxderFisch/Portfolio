@@ -725,3 +725,10 @@ ihr Block, wird am Rand eine Lücke sichtbar.
 → Größten Versatz ausrechnen — `(Fensterhöhe/2 + Blockhöhe/2) × speed` — und die Ebene um mehr
 als diesen Wert über den Block hinausziehen. Hier: höchstens 163 px Versatz gegen 379 px
 Überstand.
+
+### `background-size:cover` skaliert auch nach oben
+Eine Hintergrundgrafik füllte die Ebene zuverlässig — aber mit Faktor 1,206, also 20 % zu groß,
+weil das Kapitel höher war als beim Entwurf angenommen. Auffallen tut das nur beim Nachmessen:
+weiche Kanten und dickere Striche sehen nicht offensichtlich falsch aus.
+→ Nach dem Einbau `Math.max(ebeneBreite/dateiBreite, ebeneHöhe/dateiHöhe)` ausrechnen. Liegt der
+Wert über 1, ist die Grafik zu klein — dann die Datei größer erzeugen, nicht das CSS nachregeln.

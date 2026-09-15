@@ -592,12 +592,12 @@
   .deko--blende{background:url(../assets/img/deko/blende.svg) no-repeat;
     background-size:860px 860px;background-position:calc(100% + 480px) 24%}
 
-  /* Drohnenkapitel: Radar rechts, eine zweite kleinere Scheibe links unten,
-     und quer durch das ganze Kapitel die gestrichelte Flugbahn */
-  .deko--radar{background:url(../assets/img/deko/radar.svg) no-repeat;
-    background-size:1220px 1220px;background-position:calc(100% + 430px) 4%}
-  .deko--radar::after{content:"";position:absolute;left:-52%;top:56%;width:880px;height:880px;
-    background:url(../assets/img/deko/radar.svg) no-repeat center/contain;opacity:.5}
+  /* Drohnenkapitel: schematische Karte von oben -- Wege als Doppellinie, Felder,
+     Waldstuecke, Hoehenlinien, ein Bach -- und darueber die gestrichelte Flugbahn.
+     "cover" statt fester Groesse, damit die Karte das Kapitel immer ausfuellt,
+     egal wie hoch es gerade ist; die Verzerrung bleibt dabei bei null. */
+  .deko--karte{left:2%;right:2%;
+    background:url(../assets/img/deko/karte.svg) no-repeat center/cover}
   .deko--bahn{background:url(../assets/img/deko/flugbahn.svg) no-repeat;
     background-size:168% 100%;background-position:center}
 
@@ -641,8 +641,6 @@
     .deko--streifen::before{height:150px;background-size:65px 150px;top:5%}
     .deko--streifen::after{height:92px;background-size:40px 92px}
     .deko--blende{background-size:420px 420px;background-position:calc(100% + 170px) 20%}
-    .deko--radar{background-size:620px 620px;background-position:calc(100% + 230px) 3%}
-    .deko--radar::after{width:440px;height:440px;left:-58%}
     .deko--bahn{background-size:200% 100%}
   }
 
@@ -1484,7 +1482,7 @@
   <div class="wrap">
     <div class="tr">
       <div class="pb__bg" aria-hidden="true">
-        <span class="bgl deko deko--radar" data-speed="0.035"></span>
+        <span class="bgl deko deko--karte" data-speed="0.035"></span>
         <span class="bgl deko deko--bahn" data-speed="0.090"></span>
       </div>
       <div class="tr__txt">
