@@ -1463,3 +1463,33 @@ festen Startwert zufällig erzeugt, damit sie reproduzierbar bleibt.
 das Kapitel bei jeder Höhe abdeckt. Beim ersten Versuch war die Datei 3300 px hoch und wurde
 dadurch um den Faktor **1,206 hochskaliert**. Mit 4200 px liegt der Maßstab bei **0,948**, also
 leicht verkleinert statt vergrößert. Nachgemessen, nicht geschätzt.
+
+### Die Karte noch einmal, minimalistisch (15.09.2026)
+
+Max zur ersten Fassung: *„zu viele random linien, mach es minimalistischer mit weniger
+elementen aber dafür besser erkennbar das es eine karte ist"*.
+
+Der Fehler lag nicht in der Menge allein, sondern im **Zufall**. 21 zufällige Parzellen,
+34 verstreute Einzelbäume und 19 gedrehte Gebäude ergeben ein Rauschen, in dem nichts mehr
+als Karte lesbar ist. Eine Karte wird erkennbar durch **geordnete Geometrie**, nicht durch
+Fülle.
+
+Neu ist alles **von Hand gesetzt**, kein Zufallsgenerator mehr:
+
+| Element | Anzahl | Warum es als Karte gelesen wird |
+|---|---|---|
+| Straßen | 3 | echte Doppellinien, zwei davon treffen sich in richtigen **Kreuzungen**; die Hauptstraße hat eine gestrichelte Mittellinie |
+| Fluss | 1 | eine einzige ruhige Linie, dicker und ohne Strichelung — klarer Gegensatz zur Straße |
+| Waldstücke | 2 | Bäume in einem **gleichmäßigen Versatzraster**, nicht gestreut; das ist die Signatur, die man aus Karten kennt |
+| Felder | 1 Block | fünf **parallele** Streifen, an der Straße ausgerichtet |
+| Kuppe | 1 | drei konzentrische Höhenlinien |
+
+Von 500+ Formen auf 133, von 65 KB auf 20 KB. Entfernt: die Zufallsparzellen, die verstreuten
+Einzelbäume, alle Gebäudegrundrisse, zwei der drei Kuppen.
+
+Die Straßen entstehen aus wenigen Stützpunkten, die über quadratische Bezierkurven durch die
+Streckenmittelpunkte geglättet und dann abgetastet werden — die Abtastpunkte liefern zugleich
+die Versatzlinien für die Doppelspur. Ohne Glättung hätte man Knicke statt Kurven.
+
+**Gelernt:** Wenn etwas als Zeichen erkennbar sein soll, ist Ordnung wichtiger als Menge.
+Das steht als Eintrag in `05-fallen.md`.

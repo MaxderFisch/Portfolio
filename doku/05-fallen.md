@@ -732,3 +732,12 @@ weil das Kapitel höher war als beim Entwurf angenommen. Auffallen tut das nur b
 weiche Kanten und dickere Striche sehen nicht offensichtlich falsch aus.
 → Nach dem Einbau `Math.max(ebeneBreite/dateiBreite, ebeneHöhe/dateiHöhe)` ausrechnen. Liegt der
 Wert über 1, ist die Grafik zu klein — dann die Datei größer erzeugen, nicht das CSS nachregeln.
+
+### Zufall macht aus einem Zeichen ein Rauschen
+Eine schematische Karte wurde mit Zufallsgenerator gefüllt: zufällige Parzellen, verstreute
+Bäume, gedrehte Gebäude. Das Ergebnis war dicht und detailreich — und als Karte **nicht mehr
+erkennbar**. Max: „zu viele random linien".
+→ Was als Zeichen gelesen werden soll, braucht **Ordnung**, nicht Menge: parallele Feldstreifen
+statt schiefer Vierecke, Bäume im gleichmäßigen Versatzraster statt gestreut, Straßen mit
+echten Kreuzungen statt sich zufällig überschneidender Linien. Weniger Formen bei mehr Struktur
+liest sich sofort. Hier: von 500+ Formen auf 133 — und erst dadurch erkennbar.
