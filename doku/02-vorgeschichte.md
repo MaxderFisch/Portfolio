@@ -1727,3 +1727,48 @@ ergeben, dadurch war das Flurzeichen kaum zu sehen; jetzt sind es fünf Parzelle
 **Deckung gemessen statt behauptet:** Die Karte wird zweimal gerendert, einmal auf dem
 Kapitelgrund und einmal auf knallrot. Unterscheiden sich die Bilder irgendwo, ist sie an dieser
 Stelle durchsichtig. Ergebnis: **0 %** Abweichung — Pixel für Pixel identisch.
+
+### Wälder mit echten Bäumen, neue Farbwelt (15.09.2026)
+
+Max: *„mach jetzt die waldgebiete visuell ansprechender bitte mit verschiedenen bäumen"* und
+kurz darauf *„mir gefällt die farbpalette… mach bessere farben bitte, modernere"*.
+
+**Bäume statt Kreise.** Vorher lagen in den Waldparzellen nackte Kreisumrisse in einem Raster.
+Jetzt gibt es sechs Baumzeichen, einmal in `<defs>` definiert und über `<use>` gesetzt — das
+hält die Datei klein:
+
+- **vier Laubbäume**: die Krone ist ein geschlossener Pfad mit gelappter Kontur
+  (`R · (1 + 0,14 · sin(n·θ + φ))`, n = 5 bis 8), also keine Kreise. Dazu ein versetzter
+  Schatten und ein heller Fleck oben links als Lichtseite — das gibt Tiefe.
+- **zwei Nadelbäume** als Stern mit 8 bzw. 9 Zacken. So sieht eine Nadelbaumkrone von oben
+  tatsächlich aus.
+
+Mischung rund 70 % Laub, 30 % Nadel, Größen zwischen Faktor 1,3 und 2,25.
+
+**Die Dichte war der eigentliche Punkt.** Beim ersten Versuch deckten die Kronen nur **13 %**
+der Waldfläche — deshalb sah es nach Punktmuster aus und nicht nach Wald. Gerechnet statt
+geraten: Kronenfläche gegen Rasterzelle, `π·17,5² / (40·34)` ergibt rund zwei Drittel. Gemessen
+sind es jetzt **73,9 %**. Darunter wirkt es gepunktet, deutlich darüber verschwinden die
+einzelnen Bäume in einer grünen Masse.
+
+**Die Farbwelt.** Vorher eine zufällig gemischte Erdtonreihe. Jetzt drei Familien, die zum
+blauen Kapitelgrund passen: **Tanne und Petrol** für alles Grüne, **gedecktes Gold und Oliv**
+für Ackerland, **Schiefer** als Bindeglied zum Grund — dazu genau **ein** warmer Akzent, das
+Hofdach in Terrakotta.
+
+| | | L\* |
+|---|---|---|
+| Getreide | `#66593a` | 38 |
+| Weide | `#2d6157` | 38 |
+| Stoppel | `#484c39` | 31 |
+| Wiese | `#245043` | 31 |
+| Acker | `#443b3c` | 26 |
+| Brache | `#28313e` | 20 |
+| Wald | `#12302a` | 18 |
+
+**Die Anordnung wurde gesucht, nicht geraten.** Mit der alten Verteilung lagen vier Nachbarpaare
+unter ΔE 12 — zwei Parzellen, die man als eine liest. Aus 400 000 Mischungen mit den gewünschten
+Anzahlen wurde die mit dem größten kleinsten Nachbarabstand genommen: **ΔE 15,5**.
+
+Nachgemessen: Deckung weiterhin 0 % durchsichtig, 578 verschiedene Farbwerte im Bild (vorher
+eine Handvoll), Naht unauffällig, Abspielmechanik unverändert.

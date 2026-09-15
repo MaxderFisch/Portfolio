@@ -855,3 +855,18 @@ Ergebnis: eine einzige Getreideparzelle — und damit war das Flurzeichen, das g
 sollte, praktisch unsichtbar.
 → Wo eine bestimmte Mischung gebraucht wird, die Verteilung **von Hand legen** und die Regeln
 beim Bauen prüfen lassen (hier: Abbruch, wenn zwei Nachbarn gleich sind, Naht eingeschlossen).
+
+### Ein Wald braucht Kronendeckung, keine Baumzahl
+Ein Raster aus Baumzeichen sah nach Punktmuster aus, obwohl fast 200 Bäume darin standen. Die
+Zahl ist die falsche Größe — entscheidend ist, **wie viel Prozent der Fläche die Kronen
+bedecken**. Bei 13 % liest man Punkte, bei rund 70 % einen Wald, deutlich darüber eine
+strukturlose grüne Masse.
+→ Vorher ausrechnen: `Kronenfläche / Rasterzelle`, und danach am fertigen Bild nachmessen
+(Anteil Kronenfarben an Kronen plus Boden). Hier 73,9 %.
+
+### Farbabstände zwischen Nachbarn muss man rechnen, nicht schätzen
+Sieben Flächentöne wirkten für sich gut, aber vier Nachbarpaare lagen unter ΔE 12 und lasen
+sich als eine Fläche.
+→ Die Töne in L\*a\*b\* umrechnen und alle Nachbarpaare prüfen. Unter etwa ΔE 15 verschwimmen
+zwei Flächen ineinander. Und wenn die Anordnung frei ist: sie **suchen** statt legen — hier aus
+400 000 Mischungen die mit dem größten kleinsten Abstand, Ergebnis ΔE 15,5 statt 9,4.
