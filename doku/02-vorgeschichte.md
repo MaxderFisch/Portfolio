@@ -1493,3 +1493,39 @@ die Versatzlinien für die Doppelspur. Ohne Glättung hätte man Knicke statt Ku
 
 **Gelernt:** Wenn etwas als Zeichen erkennbar sein soll, ist Ordnung wichtiger als Menge.
 Das steht als Eintrag in `05-fallen.md`.
+
+### Dritter Anlauf: illustrierte Karte als endlose Kachel (15.09.2026)
+
+Max schickte ein Referenzbild — eine gezeichnete Landkarte von oben: gelbe Felder, von
+Hecken begrenzt, eine geschwungene Straße, ein Fluss, ein Waldstück, ein roter Hof, ein
+winziges Auto. Dazu: *„ein bischen in dem steal aber natürlich nicht so farbenfroh sondern
+viel blasser von den farben und natürlich ne viel größere karte und die karte zieht so von
+oben links nach unten rechts durch aber natürlich ohne ende das soll so ein unendlicher loop
+sein weil es soll so wirken als würde man über der karte fliegen"*.
+
+Damit war der Sprung klar: weg von der reinen Strichzeichnung, hin zu **Flächen mit Hecken
+dazwischen**, und das Ganze als **nahtlose Kachel**.
+
+**Wie die Nahtlosigkeit erzeugt wird.** Der ganze Inhalt liegt in einer Gruppe, die neunmal
+mit Versatz −T, 0, +T in beide Richtungen eingesetzt wird (`<use>`); die `viewBox` schneidet
+auf eine Kachel zu. Damit ist das Bild per Konstruktion periodisch: Was rechts hinausläuft,
+kommt links wieder herein, ohne dass man einzelne Formen von Hand anpassen müsste.
+
+**Wie die Felder zusammenpassen.** Ein 4×4-Gitter, dessen Eckpunkte um bis zu 92 px versetzt
+sind. Die Versatztabelle wird **über den Index umgelaufen** (`i mod 4`), also ist Punkt (4,j)
+exakt Punkt (0,j) eine Kachel weiter. Ohne diesen Umlauf würden die Hecken an der Naht
+gegeneinander springen.
+
+**Die Straße** läuft von Gitterpunkt (0,0) nach (4,4) — derselbe Punkt eine Kachel weiter
+diagonal. Dadurch entsteht über die unendliche Wiederholung eine durchgehende Diagonale von
+oben links nach unten rechts, genau wie gewünscht. Der Fluss läuft von (0,2) nach (4,2), also
+waagerecht durch.
+
+**Farben:** alles mit sehr niedriger Deckkraft auf dem dunklen Blau des Kapitels — Felder
+.020–.032, Hecken .26, Straßenband .085, Fluss .19. Der Hof hat einen blassen Rotton als
+einzige warme Stelle, als Nicken zum roten Stadel im Referenzbild.
+
+**Naht nachgemessen, nicht behauptet.** Zwei Kacheln nebeneinander in ein Canvas gezeichnet und
+den Farbunterschied zwischen benachbarten Spalten verglichen: an der Naht 0,95 gegen einen
+Mittelwert von 0,68 und einen normalen Höchstwert von 6,1 im Bild selbst. Waagerecht 1,58
+gegen 5,5. Die Naht liegt also **innerhalb** der normalen Schwankung und ist keine Kante.

@@ -596,8 +596,11 @@
      Waldstuecke, Hoehenlinien, ein Bach -- und darueber die gestrichelte Flugbahn.
      "cover" statt fester Groesse, damit die Karte das Kapitel immer ausfuellt,
      egal wie hoch es gerade ist; die Verzerrung bleibt dabei bei null. */
-  .deko--karte{left:2%;right:2%;
-    background:url(../assets/img/deko/karte.svg) no-repeat center/cover}
+  /* Endlose Kachel: die Karte wiederholt sich in beide Richtungen, jede Form
+     laeuft am Rand auf der Gegenseite weiter. Zusammen mit dem Mitlaufen beim
+     Scrollen wirkt es, als flaeche man ueber eine Landschaft ohne Ende. */
+  .deko--karte{left:0;right:0;
+    background:url(../assets/img/deko/karte.svg) repeat;background-size:1700px 1700px}
   .deko--bahn{background:url(../assets/img/deko/flugbahn.svg) no-repeat;
     background-size:168% 100%;background-position:center}
 
@@ -641,6 +644,7 @@
     .deko--streifen::before{height:150px;background-size:65px 150px;top:5%}
     .deko--streifen::after{height:92px;background-size:40px 92px}
     .deko--blende{background-size:420px 420px;background-position:calc(100% + 170px) 20%}
+    .deko--karte{background-size:880px 880px}
     .deko--bahn{background-size:200% 100%}
   }
 

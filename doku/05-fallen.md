@@ -741,3 +741,18 @@ erkennbar**. Max: „zu viele random linien".
 statt schiefer Vierecke, Bäume im gleichmäßigen Versatzraster statt gestreut, Straßen mit
 echten Kreuzungen statt sich zufällig überschneidender Linien. Weniger Formen bei mehr Struktur
 liest sich sofort. Hier: von 500+ Formen auf 133 — und erst dadurch erkennbar.
+
+### Eine nahtlose Kachel baut man nicht von Hand, sondern über 3×3-Versatz
+Formen so zu setzen, dass sie am Kachelrand zusammenpassen, ist Fummelei und geht bei jeder
+Änderung wieder kaputt.
+→ Den gesamten Inhalt in eine Gruppe legen und **neunmal** mit Versatz −T/0/+T in beide
+Richtungen einsetzen; die `viewBox` schneidet auf eine Kachel zu. Das Ergebnis ist per
+Konstruktion periodisch. Zusätzlich muss alles, was ein Gitter benutzt, seine Zufallswerte
+**über den Index umlaufen lassen** (`i mod n`) — sonst springen die Linien an der Naht, obwohl
+die Kachel selbst stimmt.
+
+### Nahtlosigkeit lässt sich messen
+Zwei Kacheln nebeneinander in ein Canvas zeichnen, für jede Spalte den mittleren Farbabstand
+zur Nachbarspalte ausrechnen und den Wert an der Naht gegen die Verteilung im übrigen Bild
+halten. Liegt er unter dem normalen Höchstwert, ist keine Kante zu sehen.
+→ Besser als Hinsehen, und im zugeklappten Browser-Bereich die einzige Möglichkeit.
