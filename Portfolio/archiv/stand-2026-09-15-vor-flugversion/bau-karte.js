@@ -4,9 +4,6 @@
    eine Flaeche durch die andere und es wirkt schmutzig.
    Aufruf: node bau-karte.js <zieldatei> */
 const fs=require('fs');
-/* Zweiter Aufrufparameter "bunt" erzeugt die Flugfassung: kraeftige Farben und
-   eine gerichtete Bewegungsunschaerfe laengs der Flugrichtung. */
-const BUNT = process.argv[3]==='bunt';
 const T=1700, n=4, Z=T/n, MUSTER=50;          /* 1700/50 = 34, Muster passt auf die Kachel */
 let seed=51907;
 const rnd=()=>{seed=(seed*1664525+1013904223)%4294967296;return seed/4294967296;};
@@ -71,27 +68,28 @@ const umriss=(i,j)=>KH(i,j).concat(KV(i+1,j),KH(i,j+1).slice().reverse(),KV(i,j)
 
 /* ---------- Nutzungsarten. Alle Farben DECKEND, also fertig ausgerechnet
      ueber dem Kapitelgrund rgb(16,22,37). Nichts scheint durch. ---------- */
-/* Palette von Max vorgegeben: #c9a26a, #8f6b3e, #6f7c4b und #2f3b2e. Die
-   beiden uebrigen Nutzungsarten sind daraus gemischt, damit alles aus einer
-   Familie kommt. Kein Blau -- die frueheren Brache-Parzellen sind jetzt Wiese. */
+/* Drei Farbfamilien: Tanne/Petrol fuer Gruenland, gedecktes Gold/Oliv fuer
+   Ackerland, Schiefer als Bindeglied zum blauen Kapitelgrund. Die Toene sind
+   so gespreizt, dass kein Nachbarpaar unter Delta-E 15 liegt -- darunter liest
+   man zwei Parzellen als eine. */
 const ART=[
-  {name:'Getreide', farbe:'#c9a26a', muster:'flurA'},   /* vorgegeben   L* 69 */
-  {name:'Stoppel',  farbe:'#a1915c', muster:'flurB'},   /* 55 % Getreide + 45 % Wiese, L* 60 */
-  {name:'Acker',    farbe:'#8f6b3e'},                   /* vorgegeben   L* 48 */
-  {name:'Wiese',    farbe:'#6f7c4b'},                   /* vorgegeben   L* 50 */
-  {name:'Weide',    farbe:'#55623f'},                   /* 60 % Wiese + 40 % Wald, L* 40 */
-  {name:'Wald',     farbe:'#2f3b2e', wald:true}         /* vorgegeben   L* 23 */
+  {name:'Getreide', farbe:'#66593a', muster:'flurA'},   /* gedecktes Gold   L* 38 */
+  {name:'Wiese',    farbe:'#245043'},                   /* Wiesengruen      L* 31 */
+  {name:'Acker',    farbe:'#443b3c'},                   /* Graubraun        L* 26 */
+  {name:'Stoppel',  farbe:'#484c39', muster:'flurB'},   /* Oliv             L* 31 */
+  {name:'Weide',    farbe:'#2d6157'},                   /* Petrol           L* 38 */
+  {name:'Brache',   farbe:'#28313e'},                   /* Schiefer         L* 20 */
+  {name:'Wald',     farbe:'#12302a', wald:true}         /* tiefes Tannengruen L* 18 */
 ];
 /* Verteilung von Hand gelegt statt gewuerfelt: so ist jede Nutzungsart
    vertreten, die Muster tauchen oft genug auf, und kein Nachbar gleicht dem
    anderen -- auch ueber die Kachelnaht hinweg. Zeilen sind j, Spalten i. */
-/* Anordnung gesucht, nicht geraten: aus 600 000 Mischungen die mit dem
-   groessten kleinsten Nachbarabstand -- hier Delta-E 16,6. Zeilen sind j.
-   0 Getreide · 1 Stoppel · 2 Acker · 3 Wiese · 4 Weide · 5 Wald */
-const PLAN=[[0,2,0,3],
-            [3,5,3,1],
-            [5,3,1,4],
-            [3,0,5,2]];
+/* Anordnung nicht geraten, sondern gesucht: aus 400 000 Mischungen die mit dem
+   groessten kleinsten Nachbarabstand -- hier Delta-E 15,5. Zeilen sind j. */
+const PLAN=[[0,1,3,6],
+            [4,0,1,5],
+            [2,1,2,0],
+            [6,3,6,5]];
 const wahl=[]; for(let i=0;i<n;i++){wahl[i]=[];for(let j=0;j<n;j++) wahl[i][j]=PLAN[j][i];}
 (function pruefe(){
   let gleich=0;
@@ -111,27 +109,25 @@ function nadelStern(R,zacken,phase){
   for(let k=0;k<zacken*2;k++){const t2=(k/(zacken*2))*Math.PI*2+phase, rr=k%2?R*0.46:R;
     p.push([Math.round(Math.cos(t2)*rr*10)/10, Math.round(Math.sin(t2)*rr*10)/10]);}
   return 'M'+p.map(q=>q[0]+' '+q[1]).join('L')+'Z';}
-/* Kronen als hellere Abstufungen zwischen Wiesen- und Waldton, damit der Wald
-   in derselben Familie bleibt */
 const BAUM=[
-  {id:'lb1', d:laubKrone(10,7,0.4),  ton:'#4a5a3a', licht:'#5e7048'},
-  {id:'lb2', d:laubKrone(10,6,2.1),  ton:'#435234', licht:'#556645'},
-  {id:'lb3', d:laubKrone(10,8,4.0),  ton:'#55663f', licht:'#6b7e50'},
-  {id:'lb4', d:laubKrone(10,5,1.2),  ton:'#3d4b30', licht:'#4e5e3d'},
-  {id:'nd1', d:nadelStern(10,9,0.2), ton:'#445435', licht:null},
-  {id:'nd2', d:nadelStern(10,8,0.9), ton:'#3b4a2e', licht:null}
+  {id:'lb1', d:laubKrone(10,7,0.4),  ton:'#2e6149', licht:'#3c7a5c'},
+  {id:'lb2', d:laubKrone(10,6,2.1),  ton:'#27563f', licht:'#347052'},
+  {id:'lb3', d:laubKrone(10,8,4.0),  ton:'#356b52', licht:'#458566'},
+  {id:'lb4', d:laubKrone(10,5,1.2),  ton:'#245139', licht:'#2f664a'},
+  {id:'nd1', d:nadelStern(10,9,0.2), ton:'#1d4a3c', licht:null},
+  {id:'nd2', d:nadelStern(10,8,0.9), ton:'#18412f', licht:null}
 ];
 const baumDef=BAUM.map(b=>
-  `<g id="${b.id}"><path d="${b.d}" fill="#212a1f" transform="translate(2.4 3)"/>`
+  `<g id="${b.id}"><path d="${b.d}" fill="#0f2822" transform="translate(2.4 3)"/>`
   +`<path d="${b.d}" fill="${b.ton}"/>`
   +(b.licht?`<circle cx="-2.7" cy="-2.9" r="3" fill="${b.licht}"/>`:'')
   +`</g>`).join('');
 const musterDef=
  `<pattern id="flurA" width="${MUSTER}" height="${MUSTER}" patternUnits="userSpaceOnUse">`
- +`<rect width="${MUSTER}" height="${MUSTER}" fill="#c9a26a"/><g fill="#dcb87e">`
+ +`<rect width="${MUSTER}" height="${MUSTER}" fill="#66593a"/><g fill="#7f7048">`
  +`<path d="M13 6.0L19 12.4L7 12.4Z"/><path d="M38 6.0L44 12.4L32 12.4Z"/><path d="M25.5 31L31.5 37.4L19.5 37.4Z"/></g></pattern>`
  +`<pattern id="flurB" width="${MUSTER}" height="${MUSTER}" patternUnits="userSpaceOnUse">`
- +`<rect width="${MUSTER}" height="${MUSTER}" fill="#a1915c"/><g fill="#b7a771">`
+ +`<rect width="${MUSTER}" height="${MUSTER}" fill="#484c39"/><g fill="#5e6249">`
  +`<path d="M13 6.0L19 12.4L7 12.4Z"/><path d="M38 6.0L44 12.4L32 12.4Z"/><path d="M25.5 31L31.5 37.4L19.5 37.4Z"/></g></pattern>`;
 
 let flaechen='', baeume='', anzWaldbaum=0; const artZaehl={};
@@ -162,7 +158,7 @@ const sperrStr=[{p:haupt.p,halb:17,luft:3},{p:neben.p,halb:11,luft:3}];
 let hecken='', teile=[];
 for(let i=0;i<n;i++) for(let j=0;j<n;j++)
   [kh[i][j],kv[i][j]].forEach(k=>schneide(k,sperrStr).forEach(t=>{ teile.push(t);
-    hecken+=`<path d="${D(t)}" fill="none" stroke="#8a9668" stroke-width="2.6" stroke-linecap="round"/>`;}));
+    hecken+=`<path d="${D(t)}" fill="none" stroke="#55876a" stroke-width="2.6" stroke-linecap="round"/>`;}));
 /* Baeume an den Hecken: nur Umriss, damit sie keine Flaeche ueberdecken */
 let hb=0;
 teile.forEach(t=>{ if(rnd()>=0.34) return;
@@ -181,40 +177,27 @@ for(let ring=0;ring<30&&!hp;ring++) for(let w=0;w<12&&!hp;w++){
   const t=w/12*Math.PI*2, hx=0.40*T+Math.cos(t)*ring*26, hy=0.47*T+Math.sin(t)*ring*26;
   if(hofFrei(hx,hy)) hp=[hx,hy,ring];}
 const hof = hp ? `<g transform="rotate(-9 ${P(hp[0])} ${P(hp[1])})">`
- +`<rect x="${P(hp[0])}" y="${P(hp[1])}" width="92" height="56" fill="#7a4a2a" stroke="#a06c3e" stroke-width="2"/>`
- +`<rect x="${P(hp[0]+110)}" y="${P(hp[1]+38)}" width="56" height="42" fill="#4e5140" stroke="#767a63" stroke-width="1.8"/></g>` : '';
+ +`<rect x="${P(hp[0])}" y="${P(hp[1])}" width="92" height="56" fill="#8a4f46" stroke="#a96b5f" stroke-width="2"/>`
+ +`<rect x="${P(hp[0]+110)}" y="${P(hp[1]+38)}" width="56" height="42" fill="#4e4f52" stroke="#6b6c6f" stroke-width="1.8"/></g>` : '';
 
 /* ---------- Strassen zuletzt, deckend ---------- */
-const belag=`<g fill="none" stroke="#b5ab92" stroke-linecap="round">`
+const belag=`<g fill="none" stroke="#55564f" stroke-linecap="round">`
  +`<path d="${D(haupt.p)}" stroke-width="${haupt.breite}"/>`
  +`<path d="${D(neben.p)}" stroke-width="${neben.breite}"/></g>`;
 const raender=(e,a,eb,ab)=>[versetzt(e,eb/2),versetzt(e,-eb/2)]
   .flatMap(v=>schneide(v,[{p:a,halb:ab/2,luft:5}]))
   .map(t=>`<path d="${D(t)}" stroke-width="2.2"/>`).join('');
-const strassenRand=`<g fill="none" stroke="#4e5934">`
+const strassenRand=`<g fill="none" stroke="#3d4a3f">`
  +raender(haupt.p,neben.p,haupt.breite,neben.breite)
  +raender(neben.p,haupt.p,neben.breite,haupt.breite)+`</g>`;
-const mitte=`<g fill="none" stroke="#d6ceb6" stroke-width="1.6" stroke-dasharray="28 24">`
+const mitte=`<g fill="none" stroke="#787369" stroke-width="1.6" stroke-dasharray="28 24">`
  +schneide(haupt.p,[{p:neben.p,halb:11,luft:7}]).map(t=>`<path d="${D(t)}"/>`).join('')+`</g>`;
 
-let inhalt=flaechen+hecken+baeume+hof+belag+strassenRand+mitte;
-let defs=musterDef+baumDef;
-/* Die Flugfassung nutzt dieselbe Palette; sie unterscheidet sich nur durch
-   die Bewegungsunschaerfe weiter unten. */
+const inhalt=flaechen+hecken+baeume+hof+belag+strassenRand+mitte;
 let uses=''; for(let a=-1;a<=1;a++) for(let b=-1;b<=1;b++) uses+=`<use href="#k" x="${a*T}" y="${b*T}"/>`;
-/* ---- Bewegungsunschaerfe laengs der Flugrichtung.
-   Der Trick mit der Drehung: ein SVG-Filter rechnet im Koordinatensystem des
-   Elements, an dem er haengt. Aussen um 45 Grad gedreht, innen wieder zurueck --
-   dadurch verwischt feGaussianBlur mit "13 1.6" laengs der Diagonale und nicht
-   waagerecht. Der Inhalt landet geometrisch genau dort, wo er vorher war, die
-   Kachelperiode bleibt also erhalten. ---- */
-if(BUNT){
-  defs+=`<filter id="mb" filterUnits="userSpaceOnUse" x="-800" y="-800" width="3300" height="3300" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="13 1.6"/></filter>`;
-  uses=`<g transform="rotate(45 ${T/2} ${T/2})"><g filter="url(#mb)"><g transform="rotate(-45 ${T/2} ${T/2})">${uses}</g></g></g>`;
-}
 fs.writeFileSync(process.argv[2],
  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${T} ${T}" width="${T}" height="${T}">`
- +`<defs>${defs}<g id="k">${inhalt}</g></defs>${uses}</svg>`);
+ +`<defs>${musterDef}${baumDef}<g id="k">${inhalt}</g></defs>${uses}</svg>`);
 const zaehlung={};
 wahl.flat().forEach(k=>zaehlung[ART[k].name]=(zaehlung[ART[k].name]||0)+1);
 console.log(`karte.svg ${(fs.statSync(process.argv[2]).size/1024).toFixed(1)} KB`);

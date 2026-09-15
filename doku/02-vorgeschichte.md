@@ -1772,3 +1772,52 @@ Anzahlen wurde die mit dem größten kleinsten Nachbarabstand genommen: **ΔE 15
 
 Nachgemessen: Deckung weiterhin 0 % durchsichtig, 578 verschiedene Farbwerte im Bild (vorher
 eine Handvoll), Naht unauffällig, Abspielmechanik unverändert.
+
+### Flugfassung: Max' Palette, Bewegungsunschärfe, schneller Flug (15.09.2026)
+
+Drei Wünsche nacheinander: *„viel kräftigere geilere farben… einfach eine blur schicht darüber…
+so starken motion blur… mach die animation viel schneller"* — dazu ausdrücklich *„mach davor
+ein kleines backup"*. Dann schickte Max eine **konkrete Palette** als Bild
+(`#C9A26A`, `#8F6B3E`, `#6F7C4B` und einen dunkelgrünen, dessen letzte Stellen das
+Größen-Schild verdeckte — gelesen als `#2F3B2E`) und danach: *„ändere das dunkel blau… zu dem
+#6F7C4B"*.
+
+**Backup** liegt unter `Portfolio/archiv/stand-2026-09-15-vor-flugversion/` mit `index.html`,
+`karte.svg`, `bau-karte.js` und einer Notiz, wie man zurückkommt.
+
+**Palette.** Max' vier Farben sind gesetzt, die beiden übrigen Nutzungsarten daraus gemischt,
+damit alles aus einer Familie kommt: Stoppel = 55 % Getreide + 45 % Wiese, Weide = 60 % Wiese
++ 40 % Wald. Blau ist ganz verschwunden — die früheren Brache-Parzellen sind jetzt Wiese, also
+fünf von sechzehn. Anordnung wieder gesucht statt gelegt: aus 600 000 Mischungen die mit dem
+größten kleinsten Nachbarabstand, **ΔE 16,6**.
+
+**Bewegungsunschärfe längs der Flugrichtung.** Ein SVG-Filter rechnet im Koordinatensystem des
+Elements, an dem er hängt. Also außen um 45° drehen, den Filter dort anhängen, innen wieder
+zurückdrehen — dadurch verwischt `feGaussianBlur stdDeviation="13 1.6"` längs der Diagonale
+statt waagerecht. Der Inhalt landet geometrisch genau dort, wo er vorher war, die Kachelperiode
+bleibt also erhalten. Nachgemessen: **0 %** leere Fläche an den Kachelrändern, die Unschärfe
+frisst die Ränder nicht an, und die Naht bleibt unauffällig.
+
+Tempo von 96 s auf **14 s** pro Kachel (am Handy 8 s).
+
+**Der Kontrast war das eigentliche Problem.** Max' Palette ist hell — Getreide liegt bei L\* 69.
+Bei Deckkraft 0,62 fiel der Kontrast des Fließtextes an der hellsten Stelle auf **2,45:1**, also
+weit unter die Schwelle von 4,5. Erster Versuch: ein weicher dunkler Grund hinter den
+Textblöcken. Max: *„mach die umrahmung um den text wieder weg"* — er hat ihn als Rahmen gesehen.
+
+Also wieder raus, und die Lesbarkeit kommt allein aus der Deckkraft. Durchgerechnet statt
+geraten:
+
+| Deckkraft | Kontrast schlechteste Stelle | im Mittel |
+|---|---|---|
+| 0,62 | 2,45 | 4,07 |
+| 0,45 | 3,66 | 5,40 |
+| 0,40 | 4,14 | 5,92 |
+| **0,36** | **4,57** | **6,31** |
+
+0,36 ist der höchste Wert, bei dem der Fließtext die Schwelle noch hält. Die Karte behält dabei
+19 % mittlere Buntheit, in der Spitze 33 %.
+
+**Beide Fassungen liegen nebeneinander:** `karte.svg` ruhig und scharf, `karte-flug.svg` mit
+Unschärfe. Der Generator erzeugt beide aus derselben Quelle, `bunt` als zweiter Parameter
+schaltet nur den Filter dazu — die Farben sind identisch.

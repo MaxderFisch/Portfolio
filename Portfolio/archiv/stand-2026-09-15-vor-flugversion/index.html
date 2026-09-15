@@ -603,15 +603,10 @@
      jedem Bild komplett neu gezeichnet werden muesste; so zeichnet der Browser
      nur den sichtbaren Ausschnitt. Aus demselben Grund traegt sie keine
      bgl-Klasse mehr, bekommt also auch keinen Parallaxe-Versatz. */
-  /* FLUGFASSUNG. Zurueck auf die ruhige Karte: karte-flug.svg -> karte.svg,
-     opacity-Zeile raus, 14s -> 96s, am Handy 8s -> 52s. Der Stand davor liegt
-     unter archiv/stand-2026-09-15-vor-flugversion/. */
-  .deko--karte{left:0;right:0;opacity:.36;
-    background:url(../assets/img/deko/karte-flug.svg) repeat;background-size:2000px 2000px;
-    animation:kartenflug 14s linear infinite}
+  .deko--karte{left:0;right:0;
+    background:url(../assets/img/deko/karte.svg) repeat;background-size:2000px 2000px;
+    animation:kartenflug 96s linear infinite}
   @keyframes kartenflug{from{background-position:0 0}to{background-position:2000px 2000px}}
-  /* Kein Grund hinter dem Text mehr -- der wirkte wie ein Rahmen. Die
-     Lesbarkeit kommt stattdessen aus der Deckkraft der Kartenebene. */
   @media(prefers-reduced-motion:reduce){.deko--karte{animation:none}}
 
   /* Ab hier nur am Rechner. ACHTUNG: diese Regeln sind spezifischer als die
@@ -656,7 +651,7 @@
     .deko--blende{background-size:420px 420px;background-position:calc(100% + 170px) 20%}
     /* kleinere Kachel am Handy -- der Weg pro Durchlauf muss genau der
        Kachelgroesse entsprechen, sonst springt der Loop */
-    .deko--karte{background-size:1040px 1040px;animation-name:kartenflugHandy;animation-duration:8s}
+    .deko--karte{background-size:1040px 1040px;animation-name:kartenflugHandy;animation-duration:52s}
     @keyframes kartenflugHandy{from{background-position:0 0}to{background-position:1040px 1040px}}
   }
 

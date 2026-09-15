@@ -1,0 +1,10 @@
+Stand vom 15.09.2026, kurz vor dem Versuch mit kräftigeren Farben,
+Bewegungsunschärfe und schnellerem Flug im Drohnenkapitel.
+
+Zurückholen, falls die Flugversion nicht gefällt:
+  cp index.html    ../../live/index.html
+  cp karte.svg     ../../assets/img/deko/karte.svg
+  cp bau-karte.js  ../../assets/img/deko/bau-karte.js
+
+Dieser Stand: ruhige Farbwelt (Tanne/Petrol, gedecktes Gold, Schiefer),
+scharfe Karte ohne Unschärfe, 96 s pro Kachel.

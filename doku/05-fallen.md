@@ -870,3 +870,24 @@ sich als eine Fläche.
 → Die Töne in L\*a\*b\* umrechnen und alle Nachbarpaare prüfen. Unter etwa ΔE 15 verschwimmen
 zwei Flächen ineinander. Und wenn die Anordnung frei ist: sie **suchen** statt legen — hier aus
 400 000 Mischungen die mit dem größten kleinsten Abstand, Ergebnis ΔE 15,5 statt 9,4.
+
+### Einen SVG-Filter dreht man über das Koordinatensystem, nicht über Parameter
+`feGaussianBlur` kennt nur x und y, eine schräge Richtung gibt es nicht. Ein Filter rechnet aber
+im Koordinatensystem des Elements, an dem er hängt.
+→ Außen drehen, Filter dort anhängen, innen zurückdrehen:
+```xml
+<g transform="rotate(45 cx cy)"><g filter="url(#mb)"><g transform="rotate(-45 cx cy)">…</g></g></g>
+```
+Der Inhalt landet geometrisch unverändert, nur die Filterachse ist gedreht. Bei einer kachelbaren
+Grafik bleibt dadurch auch die Periode erhalten.
+Danach prüfen, ob die Unschärfe die Kachelränder anfrisst: Anteil der Pixel am Rand, die noch
+die Grundfarbe zeigen. Hier 0 %.
+
+### Eine schöne Palette kann den Text unlesbar machen
+Eine vorgegebene, helle Farbreihe als Hintergrund ließ den Kontrast des Fließtextes auf 2,45:1
+fallen — die Schwelle liegt bei 4,5.
+→ Bei Flächen hinter Text nicht nach Gefühl abdunkeln, sondern die Deckkraft **durchrechnen**:
+das hellste Pixel der Grafik über dem Grund zusammensetzen und den WCAG-Kontrast gegen die
+Textfarbe bilden. Dann den höchsten Wert nehmen, der die Schwelle noch hält. Hier 0,36.
+→ Ein dunkler Grund hinter dem Text ist die naheliegende Lösung, wird aber leicht als Rahmen
+wahrgenommen, selbst mit weichem Verlauf. Zuerst die Deckkraft versuchen.
