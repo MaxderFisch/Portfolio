@@ -1651,3 +1651,42 @@ Gestaltung wiederholt „nicht gefällt", ohne dass eine einzelne Ursache greifb
 richtige Frage nicht „was stört?", sondern **„was trägt das Bild überhaupt?"**.
 
 Der Generator liegt jetzt neben der Grafik: `Portfolio/assets/img/deko/bau-karte.js`.
+
+### Flurzeichen und deckende Straßen (15.09.2026)
+
+Max: *„mach bitte das die felder so ein leichtes pattern bekommen wie auf so einer historischen
+karte wo eingezeichnet war beispielsweise das da felder sind… nur eher blass… und es soll nur
+alle bisschen gelben felder füllen. und mach das die strasen über allem im hintergrund liegen
+und man da nichts durch sieht… also nicht über dem video oder den texten"*.
+
+**Flurzeichen.** Auf historischen Messtischblättern steht für jede Nutzungsart ein eigenes
+Zeichen im Flächeninneren — Ackerland als Punkt- oder Strichraster, Wiese als Grasbüschel,
+Weinberg als Reihen. Das Prinzip: **sparsam gesetzte Symbole**, nicht flächige Schraffur; die
+Fläche bleibt lesbar, das Zeichen sagt nur, was dort wächst. Max' Vorschlag mit Dreiecken passt
+in diese Logik, also ein versetztes Raster aus drei kleinen Dreiecken je 50-px-Kachel.
+
+Nur die **gelben** Felder bekommen es, also Getreide und Stoppel — 4 von 16. Damit unterscheidet
+sich Ackerland von Wiese und Weide, wie in einer Kartenlegende.
+
+**Die Musterkachel muss die Bildkachel teilen.** 1700 / 50 = 34, geht glatt auf. Wäre das nicht
+so, sähe man in jedem Feld, das über den Kachelrand läuft, einen Sprung im Raster — das Muster
+wird über `patternUnits="userSpaceOnUse"` positioniert und verschiebt sich sonst mit jedem
+`<use>`-Versatz.
+
+Erste Fassung war mit zwei Dreiecken zu dünn: 4 % der gelben Fläche, als Textur nicht
+wahrnehmbar. Mit drei etwas größeren sind es **6,9 %** — sparsam wie auf der Vorlage, aber
+sichtbar.
+
+**Deckende Straßen.** Vorher lag der Belag als halbdurchsichtige Gruppe über den Feldern, man
+sah Felder und Hecken hindurchschimmern. Jetzt ist er ein voller Farbton (`#4a4842`) — genau
+der, den die durchscheinende Fassung über dem blanken Kapitelgrund ergab, nur eben überall
+gleich. Dasselbe für Randlinien und Mittelstreifen. Außerdem werden die Straßen **zuletzt**
+gezeichnet, liegen also über Feldern, Wald, Hecken und Hof.
+
+Nachgemessen: entlang beider Fahrbahnen, 6 px neben dem Rand abgetastet, Mittelwert
+`74,72,66` bei einer **Streuung von 0** — es scheint nichts durch. Beim ersten Versuch kam
+17,8 heraus; Ursache war meine eigene Messstelle, ich hatte genau auf dem gestrichelten
+Mittelstreifen abgetastet.
+
+Die Schichtung stimmt weiterhin: Karte `z-index:0` in `.pb__bg`, Video 1, Text 2. Die Straßen
+liegen also über allem **im Hintergrund**, aber unter Video und Text.

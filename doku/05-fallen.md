@@ -820,3 +820,17 @@ Generator vertrauen. Genau das hat es hier gefunden.
 Die Höfe standen an eingetragenen Punkten. Sobald die Straßen sich änderten, standen sie darauf.
 → Platz **suchen** statt eintragen: in Ringen nach außen gehen, bis alle Ecken frei sind, und
 die Verschiebung ausgeben, damit man sie sieht (hier 78 px).
+
+### Eine Musterkachel muss die Bildkachel ohne Rest teilen
+Ein `<pattern>` mit `patternUnits="userSpaceOnUse"` wird im Benutzerkoordinatensystem des
+Elements positioniert. Bei einer über `<use>` neunfach versetzten Kachel verschiebt sich das
+Muster mit jedem Versatz — teilt die Musterkachel die Bildkachel nicht glatt, sieht man in
+jeder Fläche, die über den Rand läuft, einen Sprung im Raster.
+→ Musterkachel als Teiler wählen und das im Code festhalten: 1700 / 50 = 34.
+
+### Beim Abtasten einer Fläche nicht ausgerechnet auf die Markierung zielen
+Die Prüfung „ist die Straße deckend?" tastete die Fahrbahn entlang der **Mittellinie** ab —
+also genau dort, wo der gestrichelte Mittelstreifen liegt. Ergebnis: Streuung 17,8 und das
+falsche Urteil „durchscheinend". Seitlich versetzt abgetastet: Streuung 0.
+→ Messpunkte bewusst dorthin legen, wo nur das liegt, was man prüfen will — und bei einem
+überraschenden Ergebnis zuerst die Messstelle verdächtigen, nicht die Sache.

@@ -74,10 +74,20 @@ for(let i=0;i<n;i++){wahl[i]=[];for(let j=0;j<n;j++){
                           i===n-1?wahl[0][j]:-1,j===n-1?wahl[i][0]:-1]);
   let k;do{k=Math.floor(rnd()*feldTon.length);}while(verboten.has(k));
   wahl[i][j]=k;}}
+/* Flurzeichen wie auf alten Messtischblaettern: ein versetztes Raster kleiner
+   Dreiecke. Nur die gelben Felder (Getreide und Stoppel) bekommen es -- so
+   unterscheidet sich Ackerland von Wiese und Weide, wie in der Kartenlegende. */
+const MUSTER=50;
+const dreieck=(x,y,gr)=>`<path d="M${x} ${y-gr*0.58}L${x+gr*0.5} ${y+gr*0.29}L${x-gr*0.5} ${y+gr*0.29}Z"/>`;
+const muster=`<pattern id="flur" width="${MUSTER}" height="${MUSTER}" patternUnits="userSpaceOnUse">`
+ +`<g fill="rgba(236,222,150,.17)">`
+ +dreieck(13,13,12)+dreieck(38,13,12)+dreieck(25.5,38,12)+`</g></pattern>`;
+const gelb=new Set([0,3]);
 let felder='';
 for(let i=0;i<n;i++) for(let j=0;j<n;j++){
   const rand=KH(i,j).concat(KV(i+1,j),KH(i,j+1).slice().reverse(),KV(i,j).slice().reverse());
-  felder+=`<path d="${Dz(rand)}" fill="${feldTon[wahl[i][j]]}"/>`;}
+  felder+=`<path d="${Dz(rand)}" fill="${feldTon[wahl[i][j]]}"/>`;
+  if(gelb.has(wahl[i][j])) felder+=`<path d="${Dz(rand)}" fill="url(#flur)"/>`;}
 
 /* ---------- 4. Waelder: FLAECHE mit unruhigem Rand, nicht gestreute Kreise ---------- */
 function wald(cx,cy,gr,a1,a2,a3){
@@ -119,16 +129,19 @@ heckenTeile.forEach(t=>{
 
 /* ---------- 7. Strassenbelag in EINER Gruppe: an Kreuzungen addiert sich
        dadurch nichts auf. Randlinien an der anderen Strasse unterbrochen. ---------- */
-const belag=`<g opacity=".24" fill="none" stroke="rgb(230,220,196)" stroke-linecap="round">`
+/* Deckend: der Belag verdeckt Felder, Wald und Hecken vollstaendig. Der Ton
+   entspricht dem, was die frueher durchscheinende Fassung ueber dem blanken
+   Kapitelgrund ergab -- nur eben ueberall gleich. */
+const belag=`<g fill="none" stroke="#4a4842" stroke-linecap="round">`
  +`<path d="${D(haupt.p)}" stroke-width="${haupt.breite}"/>`
  +`<path d="${D(neben.p)}" stroke-width="${neben.breite}"/></g>`;
 const raender=(e,a,eb,ab)=>[versetzt(e,eb/2),versetzt(e,-eb/2)]
   .flatMap(v=>schneide(v,[{p:a,halb:ab/2,luft:5}]))
   .map(t=>`<path d="${D(t)}" stroke-width="2.2"/>`).join('');
-const strassenRand=`<g opacity=".40" fill="none" stroke="rgb(140,186,148)">`
+const strassenRand=`<g fill="none" stroke="#5f7d64">`
  +raender(haupt.p,neben.p,haupt.breite,neben.breite)
  +raender(neben.p,haupt.p,neben.breite,haupt.breite)+`</g>`;
-const mitte=`<g opacity=".34" fill="none" stroke="rgb(230,220,196)" stroke-width="1.6" stroke-dasharray="28 24">`
+const mitte=`<g fill="none" stroke="#736f62" stroke-width="1.6" stroke-dasharray="28 24">`
  +schneide(haupt.p,[{p:neben.p,halb:11,luft:7}]).map(t=>`<path d="${D(t)}"/>`).join('')+`</g>`;
 
 /* ---------- 8. Ein Hof, Platz wird gesucht statt geraten ---------- */
@@ -144,7 +157,7 @@ const hof = hofPos ? `<g transform="rotate(-9 ${P(hofPos[0])} ${P(hofPos[1])})">
  +`<rect x="${P(hofPos[0])}" y="${P(hofPos[1])}" width="92" height="56" fill="rgba(198,120,104,.40)" stroke="rgba(216,150,134,.55)" stroke-width="2"/>`
  +`<rect x="${P(hofPos[0]+110)}" y="${P(hofPos[1]+38)}" width="56" height="42" fill="rgba(214,206,186,.22)" stroke="rgba(214,206,186,.42)" stroke-width="1.8"/></g>` : '';
 
-const inhalt=felder+w1.s+w2.s+hecken+belag+strassenRand+mitte+heckenbaeume+hof;
+const inhalt=muster+felder+w1.s+w2.s+hecken+heckenbaeume+hof+belag+strassenRand+mitte;
 let uses=''; for(let a=-1;a<=1;a++) for(let b=-1;b<=1;b++) uses+=`<use href="#k" x="${a*T}" y="${b*T}"/>`;
 fs.writeFileSync(process.argv[2],
  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${T} ${T}" width="${T}" height="${T}">`
@@ -154,3 +167,4 @@ console.log(`  Felder 16 (Flächen) · Wälder 2 als Fläche mit ${w1.z}+${w2.z}
 console.log(`  Heckenstücke ${heckenTeile.length} · Bäume an Hecken ${hb} · Höfe ${hofPos?1:0} (versetzt ${hofPos?hofPos[2]*26:'-'} px)`);
 console.log(`  Kreise gesamt ${(inhalt.match(/<circle/g)||[]).length} (vorher 133) · Wasser: keins · Ackerspuren: keine`);
 console.log(`  wegen Straße verworfen: ${verworfen}`);
+console.log(`  Musterfelder (gelb): ${wahl.flat().filter(k=>gelb.has(k)).length} von 16`);
