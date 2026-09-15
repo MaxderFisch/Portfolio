@@ -619,8 +619,37 @@
                linear-gradient(to top,#101625 0,rgba(16,22,37,0) 240px)}
   .deko--karte{left:0;right:0;opacity:.36;
     background:url(../assets/img/deko/karte-flug.svg) repeat;background-size:2000px 2000px;
-    animation:kartenflug 14s linear infinite}
-  @keyframes kartenflug{from{background-position:0 0}to{background-position:2000px 2000px}}
+    animation:kartenflug 26s linear infinite}
+  /* kartenflug: 26 s je Umlauf ueber zwei Kacheln.
+     Tempo schwankt um den Faktor 4.1, im Mittel 218 px/s, in der Spitze rund 350 px/s.
+     Richtung schwenkt zwischen 27 und 62 Grad um die Diagonale. */
+  @keyframes kartenflug{
+    0%{background-position:0px 0px}
+    4.2%{background-position:155px 286px}
+    8.3%{background-position:317px 572px}
+    12.5%{background-position:505px 838px}
+    16.7%{background-position:725px 1064px}
+    20.8%{background-position:962px 1242px}
+    25%{background-position:1196px 1382px}
+    29.2%{background-position:1418px 1508px}
+    33.3%{background-position:1631px 1637px}
+    37.5%{background-position:1841px 1779px}
+    41.7%{background-position:2056px 1928px}
+    45.8%{background-position:2275px 2070px}
+    50%{background-position:2485px 2188px}
+    54.2%{background-position:2664px 2278px}
+    58.3%{background-position:2795px 2346px}
+    62.5%{background-position:2883px 2402px}
+    66.7%{background-position:2944px 2457px}
+    70.8%{background-position:3002px 2529px}
+    75%{background-position:3073px 2639px}
+    79.2%{background-position:3169px 2796px}
+    83.3%{background-position:3301px 2995px}
+    87.5%{background-position:3466px 3222px}
+    91.7%{background-position:3651px 3465px}
+    95.8%{background-position:3833px 3725px}
+    100%{background-position:4000px 4000px}
+  }
   /* Kein Grund hinter dem Text mehr -- der wirkte wie ein Rahmen. Die
      Lesbarkeit kommt stattdessen aus der Deckkraft der Kartenebene. */
   @media(prefers-reduced-motion:reduce){.deko--karte{animation:none}}
@@ -667,8 +696,37 @@
     .deko--blende{background-size:420px 420px;background-position:calc(100% + 170px) 20%}
     /* kleinere Kachel am Handy -- der Weg pro Durchlauf muss genau der
        Kachelgroesse entsprechen, sonst springt der Loop */
-    .deko--karte{background-size:1040px 1040px;animation-name:kartenflugHandy;animation-duration:8s}
-    @keyframes kartenflugHandy{from{background-position:0 0}to{background-position:1040px 1040px}}
+    .deko--karte{background-size:1040px 1040px;animation-name:kartenflugHandy;animation-duration:15s}
+    /* kartenflugHandy: 15 s je Umlauf ueber zwei Kacheln.
+       Tempo schwankt um den Faktor 4.0, im Mittel 196 px/s, in der Spitze rund 314 px/s.
+       Richtung schwenkt zwischen 26 und 61 Grad um die Diagonale. */
+    @keyframes kartenflugHandy{
+      0%{background-position:0px 0px}
+      4.2%{background-position:81px 149px}
+      8.3%{background-position:165px 297px}
+      12.5%{background-position:263px 436px}
+      16.7%{background-position:377px 553px}
+      20.8%{background-position:500px 646px}
+      25%{background-position:622px 719px}
+      29.2%{background-position:737px 784px}
+      33.3%{background-position:848px 851px}
+      37.5%{background-position:957px 925px}
+      41.7%{background-position:1069px 1003px}
+      45.8%{background-position:1183px 1077px}
+      50%{background-position:1292px 1138px}
+      54.2%{background-position:1385px 1184px}
+      58.3%{background-position:1454px 1220px}
+      62.5%{background-position:1499px 1249px}
+      66.7%{background-position:1531px 1278px}
+      70.8%{background-position:1561px 1315px}
+      75%{background-position:1598px 1372px}
+      79.2%{background-position:1648px 1454px}
+      83.3%{background-position:1716px 1558px}
+      87.5%{background-position:1803px 1675px}
+      91.7%{background-position:1898px 1802px}
+      95.8%{background-position:1993px 1937px}
+      100%{background-position:2080px 2080px}
+    }
   }
 
   .warten{position:relative;z-index:1;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;

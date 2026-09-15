@@ -1891,3 +1891,54 @@ Argument. Der zweite Wert fiel auf den Standardwert zurück, und heraus kam
 `stdDeviation="13 1.6 1.6"` — drei Zahlen, was ungültig ist. Alle vier Probedateien waren
 wertlos. Aufgefallen ist es nur, weil ich die erzeugten Dateien danach auf ihren tatsächlichen
 Filterwert geprüft habe.
+
+### Der Flug bekommt Tempo- und Richtungswechsel (15.09.2026)
+
+Max: *„mach das die geschwindigkeit manchmal viel schneller wird und manchmal dann wieder
+langsamer und das die richtung manchmal ändert so wie wenn die drohne ne kurve fliegt"*.
+
+Vorher lief die Karte mit **einer** Geschwindigkeit geradeaus: zwei Stützstellen, `from` und
+`to`. Jetzt beschreiben **25 Stützstellen** eine geflogene Bahn.
+
+**Wie die Bahn entsteht.** Tempo und Winkel sind zwei Schwingungen über den Umlauf:
+
+```
+tempo(t)  = 1 + 0,40·sin(w+0,9) + 0,20·sin(2w+2,4) + 0,10·sin(3w+5,1)
+winkel(t) = 45° + 16°·sin(w+2,1) + 7°·sin(3w+0,4)         mit w = 2πt
+```
+
+Beide werden fein integriert und dann auf 25 Stützstellen abgegriffen. Entscheidend: **alle
+Frequenzen sind ganzzahlig.** Dadurch stimmen Anfang und Ende nicht nur im Wert, sondern auch
+in der Steigung überein — sonst würde der Loop an der Naht sichtbar rucken.
+
+Der Umlauf deckt **zwei** Kacheln ab statt einer, damit die Schwankung Platz hat. Am Ende wird
+die Bahn so skaliert, dass der Endpunkt exakt auf 2 × Kachelgröße liegt.
+
+**Die Amplituden wurden eingestellt, nicht geraten.** Der erste Versuch hatte einen
+Tempofaktor von **35** — das wäre Stehenbleiben und Losschießen. Fünf Amplitudensätze
+durchgerechnet, bis der Faktor bei 4 lag:
+
+| Amplituden | Tempofaktor |
+|---|---|
+| 0,86 / 0,42 / 0,22 | 35,7 |
+| 0,60 / 0,30 / 0,15 | 30,6 |
+| 0,48 / 0,26 / 0,12 | 7,5 |
+| **0,40 / 0,20 / 0,10** | **4,0** |
+
+**Der Richtungsschwenk ist bewusst begrenzt.** Die Bewegungsunschärfe ist mit 45° fest in die
+Grafik eingebacken; sie lässt sich nicht mitdrehen. Der Winkel schwenkt deshalb nur zwischen
+27° und 62°, also ±17° um die Unschärfeachse. Weiter aufgedreht würde der Streifen sichtbar
+quer zur Flugrichtung stehen.
+
+**Am laufenden Element nachgemessen:** 26 s je Umlauf, Endpunkt 4000/3999 px bei 2000er
+Kachel — der Loop schließt. Tempo zwischen **75 und 308 px/s**, Faktor 4,1; am langsamsten bei
+65 % des Umlaufs, am schnellsten bei 7 %. Richtung 27° bis 62°.
+
+**Nebenbei wieder ein Messfehler bei mir:** Der erste Durchlauf tastete bis `currentTime =
+Dauer` ab. Bei einer Endlosanimation ist das bereits der Anfang des nächsten Umlaufs, also
+sprang der letzte Messpunkt auf 0/0 zurück — heraus kamen ein Tempofaktor von 170 und ein
+Winkel von −135°. Abtasten bis knapp davor, dann stimmten die Zahlen.
+
+Die erzeugten Keyframes liegen zusätzlich als
+`Portfolio/assets/img/deko/flugbahn-keyframes.css`, damit man sie nachlesen kann, ohne im
+`index.html` zu suchen.

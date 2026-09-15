@@ -921,3 +921,23 @@ Standardwert zurück, und in der Datei stand `stdDeviation="13 1.6 1.6"` — dre
 Die Probedateien sahen trotzdem plausibel aus und hatten fast identische Größen.
 → Nach dem Erzeugen den entscheidenden Wert **aus der Datei zurücklesen** und anzeigen. Ein
 `grep -o 'stdDeviation="[^"]*"'` hätte den Fehler sofort gezeigt — und hat es dann auch.
+
+### Eine Endlosanimation bei `currentTime = Dauer` abzutasten misst den nächsten Umlauf
+Die Prüfung einer Flugbahn ergab einen Tempofaktor von 170 und eine Richtung von −135°. Beides
+kam von einem einzigen Messpunkt: Bei `currentTime = Dauer` steht eine `infinite`-Animation
+schon wieder am Anfang, der letzte Schritt sprang also über den ganzen Weg zurück.
+→ Bis knapp davor abtasten (`Dauer · 0,9999`) und den Endpunkt getrennt aus den Keyframes
+prüfen.
+
+### Schwankungen in einem Loop brauchen ganzzahlige Frequenzen
+Tempo und Richtung sollen sich über den Umlauf ändern, der Loop aber nahtlos bleiben. Mit
+beliebigen Frequenzen stimmen Anfang und Ende zwar im Wert überein (das erzwingt die
+Skalierung), nicht aber in der **Steigung** — und genau das sieht man als Ruckler an der Naht.
+→ Alle Schwingungen als ganzzahlige Vielfache der Umlauffrequenz ansetzen: `sin(2πt)`,
+`sin(4πt)`, `sin(6πt)`. Dann passt auch die erste Ableitung.
+
+### Amplituden für „mal schneller, mal langsamer" durchrechnen
+Der erste Versuch hatte einen Tempofaktor von 35 — praktisch Stehenbleiben und Losschießen.
+Ein Faktor um **4** fühlt sich nach Beschleunigen und Bremsen an, ohne zu stocken.
+→ Die Amplituden vorher isoliert durchrechnen und den Faktor ausgeben lassen, statt am
+fertigen Bild zu schätzen.
