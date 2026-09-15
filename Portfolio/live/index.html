@@ -606,6 +606,17 @@
   /* FLUGFASSUNG. Zurueck auf die ruhige Karte: karte-flug.svg -> karte.svg,
      opacity-Zeile raus, 14s -> 96s, am Handy 8s -> 52s. Der Stand davor liegt
      unter archiv/stand-2026-09-15-vor-flugversion/. */
+  /* Die Karte haengt direkt am Kapitel, nicht mehr im pb__bg-Kasten -- der war
+     nur 18 % breiter als die Inhaltsspalte und liess an breiten Fenstern links
+     und rechts Streifen stehen. inset:0 laesst sie bis an die Kanten laufen.
+     Spezifischer als die Handy-Regel fuer .deko, aber mit denselben Werten bei
+     jeder Breite -- deshalb unschaedlich (siehe 05-fallen.md). */
+  .chapter--himmel>.deko--karte{inset:0}
+  /* Uebergang vom vorigen Kapitel und Ausklang nach unten liegen ueber der
+     Karte: ::after wird als letztes Kind erzeugt und deckt sie damit ab. */
+  .chapter--himmel::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(to bottom,#121212 0,rgba(16,22,37,0) 460px),
+               linear-gradient(to top,#101625 0,rgba(16,22,37,0) 240px)}
   .deko--karte{left:0;right:0;opacity:.36;
     background:url(../assets/img/deko/karte-flug.svg) repeat;background-size:2000px 2000px;
     animation:kartenflug 14s linear infinite}
@@ -1494,12 +1505,10 @@
 </div>
 
 <div class="chapter chapter--himmel" id="p-drohne">
+  <span class="deko deko--karte" aria-hidden="true"></span>
   <div class="chapter__mark">Projekt 10 &nbsp;·&nbsp; Drohne &amp; FPV</div>
   <div class="wrap">
     <div class="tr">
-      <div class="pb__bg" aria-hidden="true">
-        <span class="deko deko--karte"></span>
-      </div>
       <div class="tr__txt">
         <p class="kicker">Projekt 10 · Drohne &amp; FPV</p>
         <p>FPV heißt: Ich sehe durch eine Brille genau das, was die Drohne sieht, und fliege von Hand. Kein Assistent, der abfängt — wenn ich einen Baum zu spät sehe, ist der Flug vorbei.</p>

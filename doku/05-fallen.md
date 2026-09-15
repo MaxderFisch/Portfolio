@@ -891,3 +891,17 @@ das hellste Pixel der Grafik über dem Grund zusammensetzen und den WCAG-Kontras
 Textfarbe bilden. Dann den höchsten Wert nehmen, der die Schwelle noch hält. Hier 0,36.
 → Ein dunkler Grund hinter dem Text ist die naheliegende Lösung, wird aber leicht als Rahmen
 wahrgenommen, selbst mit weichem Verlauf. Zuerst die Deckkraft versuchen.
+
+### `.pb__bg` ist kein Vollflächen-Hintergrund
+Der Kasten für die Hintergrundtypografie reicht nur 18 % über die Inhaltsspalte hinaus, also
+etwa 1414 px bei 1040 px Spalte. Für lange Umrisswörter genügt das, für einen flächigen
+Hintergrund nicht — an breiten Fenstern bleiben links und rechts Streifen stehen.
+→ Flächige Hintergründe direkt ans Kapitel hängen (`position:absolute; inset:0`), nicht in
+`.pb__bg`. Danach nachmessen: alle vier Ränder zwischen Ebene und Kapitel müssen 0 sein.
+
+### Wer das Kapitel überdeckt, überdeckt auch den Farbübergang
+Der weiche Übergang zum vorigen Kapitel steckt als `background-image` am Kapitel selbst. Eine
+flächige Ebene darüber löscht ihn, und die Kapitelgrenze wird hart.
+→ Den Übergang als `::after` mit `position:absolute; inset:0` wiederholen. Ein `::after` ist das
+letzte Kind und deckt damit vorher stehende positionierte Geschwister ab, während Inhalte mit
+`z-index:1` darüber bleiben.

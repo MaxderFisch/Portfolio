@@ -1821,3 +1821,28 @@ geraten:
 **Beide Fassungen liegen nebeneinander:** `karte.svg` ruhig und scharf, `karte-flug.svg` mit
 Unschärfe. Der Generator erzeugt beide aus derselben Quelle, `bunt` als zweiter Parameter
 schaltet nur den Filter dazu — die Farben sind identisch.
+
+### Die Karte läuft jetzt randlos (15.09.2026)
+
+Max' Bildschirmfoto zeigte links und rechts dunkle Streifen neben dem
+Kartenhintergrund: *„ich mag diesen komischen rand nicht… mach bitte das die animation im
+hintergrund bis ganz zum rand geht"*.
+
+**Ursache:** Die Karte hing wie alle Hintergrundebenen in `.pb__bg`. Dieser Kasten ist nur
+18 % breiter als die Inhaltsspalte — rund **1414 px** bei einer 1040er Spalte. An einem
+breiteren Fenster bleibt der Rest des Kapitels unbedeckt. Für Umrisswörter ist das genau
+richtig, für einen flächigen Hintergrund nicht.
+
+**Gelöst,** indem die Karte aus `.pb__bg` herausgenommen und **direkt an das Kapitel** gehängt
+wurde, mit `inset:0`. Damit deckt sie das Kapitel vollständig ab: gemessen 1400 × 2831 px gegen
+Kapitel 1400 × 2831, alle vier Ränder 0. Am Handy 375 × 3437 gegen 375 × 3437, ebenfalls 0.
+Der leere `.pb__bg` im Drohnenkapitel ist entfallen.
+
+**Der Farbübergang zum vorigen Kapitel musste mit.** Er steckt als `background-image` am
+Kapitel selbst und wäre von der Karte verdeckt worden. Jetzt liegt er als `::after` über der
+Karte — ein `::after` wird als letztes Kind erzeugt und deckt damit vorher stehende
+positionierte Geschwister ab. Dieselbe Ebene trägt auch einen Ausklang nach unten, damit die
+Karte am Kapitelende nicht hart abreißt.
+
+Stapelung nachgewiesen: Karte (`z-index:auto`, erstes Kind) → Farbübergang (`::after`,
+`z-index:0`, letztes Kind) → Kapitelmarke und Inhalt (`z-index:1`).
