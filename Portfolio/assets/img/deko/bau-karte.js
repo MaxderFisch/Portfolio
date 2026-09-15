@@ -1,8 +1,10 @@
 /* karte.svg -- kachelbare Landkarte fuer das Drohnenkapitel.
-   Grundsatz: FLAECHEN tragen das Bild, nicht Striche. Wenige Elementarten,
-   alles buendig aneinander, nichts frei schwebend. Fester Startwert. */
+   Grundsatz: eine echte Flaechenaufteilung. Jede Parzelle gehoert genau EINER
+   Nutzungsart, nichts ueberlappt, alle Flaechen sind DECKEND -- sonst scheint
+   eine Flaeche durch die andere und es wirkt schmutzig.
+   Aufruf: node bau-karte.js <zieldatei> */
 const fs=require('fs');
-const T=1700, n=4, Z=T/n;
+const T=1700, n=4, Z=T/n, MUSTER=50;          /* 1700/50 = 34, Muster passt auf die Kachel */
 let seed=51907;
 const rnd=()=>{seed=(seed*1664525+1013904223)%4294967296;return seed/4294967296;};
 const r=(a,b)=>a+rnd()*(b-a);
@@ -25,9 +27,9 @@ function aufPfad(p,abst,start){const out=[];let rest=start;
   for(let i=1;i<p.length;i++){const dx=p[i][0]-p[i-1][0],dy=p[i][1]-p[i-1][1],L=Math.hypot(dx,dy);
     let t=rest;while(t<L){out.push([p[i-1][0]+dx/L*t,p[i-1][1]+dy/L*t]);t+=abst;}rest=t-L;}
   return out;}
-function abstand(px,py,p){
-  let best=1e9;
-  for(let ax=-1;ax<=1;ax++) for(let ay=-1;ay<=1;ay++){
+function abstand(px,py,p,umlauf=true){
+  let best=1e9; const R=umlauf?1:0;
+  for(let ax=-R;ax<=R;ax++) for(let ay=-R;ay<=R;ay++){
     const ox=ax*T,oy=ay*T;
     for(let i=1;i<p.length;i++){
       const x1=p[i-1][0]+ox,y1=p[i-1][1]+oy,x2=p[i][0]+ox,y2=p[i][1]+oy;
@@ -35,21 +37,26 @@ function abstand(px,py,p){
       let t=L2?((px-x1)*dx+(py-y1)*dy)/L2:0;t=t<0?0:t>1?1:t;
       const d=Math.hypot(px-(x1+t*dx),py-(y1+t*dy)); if(d<best)best=d;}}
   return best;}
+function drin(px,py,poly){                       /* Strahlverfahren */
+  let c=false;
+  for(let i=0,j=poly.length-1;i<poly.length;j=i++){
+    const xi=poly[i][0],yi=poly[i][1],xj=poly[j][0],yj=poly[j][1];
+    if((yi>py)!==(yj>py) && px<(xj-xi)*(py-yi)/(yj-yi)+xi) c=!c;}
+  return c;}
 function schneide(p,sperren){
   const teile=[];let akt=[];
   p.forEach(q=>{ if(sperren.some(s=>abstand(q[0],q[1],s.p)<s.halb+s.luft)){if(akt.length>1)teile.push(akt);akt=[];}
                  else akt.push(q);});
   if(akt.length>1)teile.push(akt); return teile;}
 
-/* ---------- 1. Strassen ---------- */
+/* ---------- Strassen ---------- */
 const haupt={p:abtasten([V(0,0),V(1,1),V(2,2),V(3,3),V(4,4)],22), breite:34};
 const neben={p:abtasten([V(0,4),V(1,3),V(2,2),V(3,1),V(4,0)],22), breite:22};
 const sperren=[{p:haupt.p,halb:17},{p:neben.p,halb:11}];
 const frei=(x,y,rad,luft=8)=>sperren.every(s=>abstand(x,y,s.p)>s.halb+rad+luft);
 let verworfen=0;
 
-/* ---------- 2. Heckenverlaeufe: Felder und Hecken teilen sich denselben Pfad,
-       damit die Farbflaechen exakt an den Hecken enden ---------- */
+/* ---------- Heckenverlaeufe: Parzellenrand und Hecke sind derselbe Pfad ---------- */
 const kh=[],kv=[];
 for(let i=0;i<n;i++){kh[i]=[];kv[i]=[];for(let j=0;j<n;j++){
   const bogen=(a,b)=>abtasten([a,[(a[0]+b[0])/2+r(-30,30),(a[1]+b[1])/2+r(-30,30)],b],12);
@@ -57,81 +64,87 @@ for(let i=0;i<n;i++){kh[i]=[];kv[i]=[];for(let j=0;j<n;j++){
 const schieb=(p,dx,dy)=>p.map(q=>[q[0]+dx,q[1]+dy]);
 const KH=(i,j)=>schieb(kh[((i%n)+n)%n][((j%n)+n)%n],Math.floor(i/n)*T,Math.floor(j/n)*T);
 const KV=(i,j)=>schieb(kv[((i%n)+n)%n][((j%n)+n)%n],Math.floor(i/n)*T,Math.floor(j/n)*T);
+const umriss=(i,j)=>KH(i,j).concat(KV(i+1,j),KH(i,j+1).slice().reverse(),KV(i,j).slice().reverse());
 
-/* ---------- 3. Felder: kraeftig genug, um als Flaeche zu lesen.
-       Der Wert in Klammern ist der gemessene Abstand zum Kapitelgrund. ---------- */
-const feldTon=[
-  'rgba(214,192,118,.30)',  /* Getreide  ~68 */
-  'rgba(126,180,130,.26)',  /* Wiese     ~56 */
-  'rgba(176,124,88,.28)',   /* Acker     ~55 */
-  'rgba(200,200,142,.22)',  /* Stoppel   ~60 */
-  'rgba(104,156,142,.20)',  /* Weide     ~39 */
-  'rgba(196,176,136,.15)'   /* Brache    ~38 */
+/* ---------- Nutzungsarten. Alle Farben DECKEND, also fertig ausgerechnet
+     ueber dem Kapitelgrund rgb(16,22,37). Nichts scheint durch. ---------- */
+const ART=[
+  {name:'Getreide', farbe:'#4b493d', muster:'flurA'},
+  {name:'Wiese',    farbe:'#2d3f3d'},
+  {name:'Acker',    farbe:'#3d3333'},
+  {name:'Stoppel',  farbe:'#383d3c', muster:'flurB'},
+  {name:'Weide',    farbe:'#22313a'},
+  {name:'Brache',   farbe:'#2b2d34'},
+  {name:'Wald',     farbe:'#1f3a30', wald:true}      /* Wald ist eine Parzelle wie jede andere */
 ];
-const wahl=[];
-for(let i=0;i<n;i++){wahl[i]=[];for(let j=0;j<n;j++){
-  const verboten=new Set([i>0?wahl[i-1][j]:-1,j>0?wahl[i][j-1]:-1,
-                          i===n-1?wahl[0][j]:-1,j===n-1?wahl[i][0]:-1]);
-  let k;do{k=Math.floor(rnd()*feldTon.length);}while(verboten.has(k));
-  wahl[i][j]=k;}}
-/* Flurzeichen wie auf alten Messtischblaettern: ein versetztes Raster kleiner
-   Dreiecke. Nur die gelben Felder (Getreide und Stoppel) bekommen es -- so
-   unterscheidet sich Ackerland von Wiese und Weide, wie in der Kartenlegende. */
-const MUSTER=50;
-const dreieck=(x,y,gr)=>`<path d="M${x} ${y-gr*0.58}L${x+gr*0.5} ${y+gr*0.29}L${x-gr*0.5} ${y+gr*0.29}Z"/>`;
-const muster=`<pattern id="flur" width="${MUSTER}" height="${MUSTER}" patternUnits="userSpaceOnUse">`
- +`<g fill="rgba(236,222,150,.17)">`
- +dreieck(13,13,12)+dreieck(38,13,12)+dreieck(25.5,38,12)+`</g></pattern>`;
-const gelb=new Set([0,3]);
-let felder='';
+/* Verteilung von Hand gelegt statt gewuerfelt: so ist jede Nutzungsart
+   vertreten, die Muster tauchen oft genug auf, und kein Nachbar gleicht dem
+   anderen -- auch ueber die Kachelnaht hinweg. Zeilen sind j, Spalten i. */
+const PLAN=[[0,6,1,2],
+            [1,3,5,0],
+            [6,2,4,3],
+            [5,1,0,6]];
+const wahl=[]; for(let i=0;i<n;i++){wahl[i]=[];for(let j=0;j<n;j++) wahl[i][j]=PLAN[j][i];}
+(function pruefe(){
+  let gleich=0;
+  for(let i=0;i<n;i++)for(let j=0;j<n;j++){
+    if(wahl[i][j]===wahl[(i+1)%n][j])gleich++;
+    if(wahl[i][j]===wahl[i][(j+1)%n])gleich++;}
+  if(gleich) throw new Error('Plan hat '+gleich+' gleiche Nachbarn');
+})();
+
+const musterDef=
+ `<pattern id="flurA" width="${MUSTER}" height="${MUSTER}" patternUnits="userSpaceOnUse">`
+ +`<rect width="${MUSTER}" height="${MUSTER}" fill="#4b493d"/><g fill="#66624c">`
+ +`<path d="M13 6.0L19 12.4L7 12.4Z"/><path d="M38 6.0L44 12.4L32 12.4Z"/><path d="M25.5 31L31.5 37.4L19.5 37.4Z"/></g></pattern>`
+ +`<pattern id="flurB" width="${MUSTER}" height="${MUSTER}" patternUnits="userSpaceOnUse">`
+ +`<rect width="${MUSTER}" height="${MUSTER}" fill="#383d3c"/><g fill="#57584b">`
+ +`<path d="M13 6.0L19 12.4L7 12.4Z"/><path d="M38 6.0L44 12.4L32 12.4Z"/><path d="M25.5 31L31.5 37.4L19.5 37.4Z"/></g></pattern>`;
+
+let flaechen='', baeume='', anzWaldbaum=0;
 for(let i=0;i<n;i++) for(let j=0;j<n;j++){
-  const rand=KH(i,j).concat(KV(i+1,j),KH(i,j+1).slice().reverse(),KV(i,j).slice().reverse());
-  felder+=`<path d="${Dz(rand)}" fill="${feldTon[wahl[i][j]]}"/>`;
-  if(gelb.has(wahl[i][j])) felder+=`<path d="${Dz(rand)}" fill="url(#flur)"/>`;}
-
-/* ---------- 4. Waelder: FLAECHE mit unruhigem Rand, nicht gestreute Kreise ---------- */
-function wald(cx,cy,gr,a1,a2,a3){
-  const rand=w=>gr*(1+0.17*Math.sin(3*w+a1)+0.11*Math.sin(5*w+a2)+0.07*Math.sin(7*w+a3));
-  const umriss=[];
-  for(let g=0;g<360;g+=4){const w=g*Math.PI/180, rr=rand(w);
-    umriss.push([cx+Math.cos(w)*rr, cy+Math.sin(w)*rr*0.78]);}
-  let s=`<path d="${Dz(umriss)}" fill="rgba(86,140,104,.34)"/>`;
-  let z=0;
-  for(let zy=cy-gr*0.78,reihe=0; zy<cy+gr*0.78; zy+=54,reihe++)
-    for(let zx=cx-gr*1.3+(reihe%2?32:0); zx<cx+gr*1.3; zx+=64){
-      const dx=zx-cx, dy=(zy-cy)/0.78;
-      if(Math.hypot(dx,dy)/rand(Math.atan2(dy,dx))>0.82) continue;
+  const art=ART[wahl[i][j]], u=umriss(i,j);
+  flaechen+=`<path d="${Dz(u)}" fill="${art.muster?'url(#'+art.muster+')':art.farbe}"/>`;
+  if(!art.wald) continue;
+  /* Baeume nur innerhalb DIESER Parzelle, mit Abstand zur Hecke und zur Strasse */
+  const xs=u.map(q=>q[0]), ys=u.map(q=>q[1]);
+  const x0=Math.min(...xs), x1=Math.max(...xs), y0=Math.min(...ys), y1=Math.max(...ys);
+  for(let zy=y0, reihe=0; zy<y1; zy+=60, reihe++)
+    for(let zx=x0+(reihe%2?36:0); zx<x1; zx+=72){
+      if(!drin(zx,zy,u)) continue;
+      if(abstand(zx,zy,u,false)<26) continue;
       const rad=r(8,11);
-      /* auch die Waldbaeume weichen den Strassen aus -- sonst stehen sie auf der Fahrbahn */
       if(!frei(zx,zy,rad,4)){verworfen++;continue;}
-      s+=`<circle cx="${P(zx)}" cy="${P(zy)}" r="${P(rad)}" fill="none" stroke="rgba(164,206,166,.26)" stroke-width="1.6"/>`; z++;}
-  return {s,z,umriss};
+      baeume+=`<circle cx="${P(zx)}" cy="${P(zy)}" r="${P(rad)}" fill="none" stroke="#5e8a66" stroke-width="1.7"/>`;
+      anzWaldbaum++;}
 }
-const w1=wald(0.58*T,0.19*T,265,0.7,2.1,1.3), w2=wald(0.15*T,0.79*T,190,2.4,0.9,3.0);
-
-/* ---------- 5. Hecken, an den Strassen unterbrochen ---------- */
+/* ---------- Hecken, an den Strassen unterbrochen ---------- */
 const sperrStr=[{p:haupt.p,halb:17,luft:3},{p:neben.p,halb:11,luft:3}];
-let hecken='', heckenTeile=[];
+let hecken='', teile=[];
 for(let i=0;i<n;i++) for(let j=0;j<n;j++)
-  [kh[i][j],kv[i][j]].forEach(k=>{
-    schneide(k,sperrStr).forEach(t=>{ heckenTeile.push(t);
-      hecken+=`<path d="${D(t)}" fill="none" stroke="rgba(118,168,126,.38)" stroke-width="2.4" stroke-linecap="round"/>`;});});
-
-/* ---------- 6. Baeume an den Hecken: nur auf den Stuecken, die wirklich da
-       sind -- sonst schweben Kreise dort, wo die Hecke weggeschnitten wurde ---------- */
-let heckenbaeume='', hb=0;
-heckenTeile.forEach(t=>{
-  if(rnd()>=0.38) return;
-  aufPfad(t,r(190,280),r(50,140)).forEach(q=>{
+  [kh[i][j],kv[i][j]].forEach(k=>schneide(k,sperrStr).forEach(t=>{ teile.push(t);
+    hecken+=`<path d="${D(t)}" fill="none" stroke="#4f7a58" stroke-width="2.6" stroke-linecap="round"/>`;}));
+/* Baeume an den Hecken: nur Umriss, damit sie keine Flaeche ueberdecken */
+let hb=0;
+teile.forEach(t=>{ if(rnd()>=0.34) return;
+  aufPfad(t,r(200,300),r(50,150)).forEach(q=>{
     const rad=r(5.5,7.5);
     if(!frei(q[0],q[1],rad)){verworfen++;return;}
-    heckenbaeume+=`<circle cx="${P(q[0])}" cy="${P(q[1])}" r="${P(rad)}" fill="rgba(140,190,148,.14)" stroke="rgba(140,190,148,.34)" stroke-width="1.4"/>`; hb++;});});
+    baeume+=`<circle cx="${P(q[0])}" cy="${P(q[1])}" r="${P(rad)}" fill="none" stroke="#5e8a66" stroke-width="1.5"/>`; hb++;});});
 
-/* ---------- 7. Strassenbelag in EINER Gruppe: an Kreuzungen addiert sich
-       dadurch nichts auf. Randlinien an der anderen Strasse unterbrochen. ---------- */
-/* Deckend: der Belag verdeckt Felder, Wald und Hecken vollstaendig. Der Ton
-   entspricht dem, was die frueher durchscheinende Fassung ueber dem blanken
-   Kapitelgrund ergab -- nur eben ueberall gleich. */
+/* ---------- Hof, deckend, Platz wird gesucht ---------- */
+function hofFrei(hx,hy){
+  return [[0,0],[92,0],[92,56],[0,56],[110,38],[166,38],[166,80],[110,80]]
+    .every(e=>frei(hx+e[0],hy+e[1],0,26));}
+let hp=null;
+for(let ring=0;ring<30&&!hp;ring++) for(let w=0;w<12&&!hp;w++){
+  const t=w/12*Math.PI*2, hx=0.40*T+Math.cos(t)*ring*26, hy=0.47*T+Math.sin(t)*ring*26;
+  if(hofFrei(hx,hy)) hp=[hx,hy,ring];}
+const hof = hp ? `<g transform="rotate(-9 ${P(hp[0])} ${P(hp[1])})">`
+ +`<rect x="${P(hp[0])}" y="${P(hp[1])}" width="92" height="56" fill="#7a4a42" stroke="#93615a" stroke-width="2"/>`
+ +`<rect x="${P(hp[0]+110)}" y="${P(hp[1]+38)}" width="56" height="42" fill="#55544c" stroke="#6e6d64" stroke-width="1.8"/></g>` : '';
+
+/* ---------- Strassen zuletzt, deckend ---------- */
 const belag=`<g fill="none" stroke="#4a4842" stroke-linecap="round">`
  +`<path d="${D(haupt.p)}" stroke-width="${haupt.breite}"/>`
  +`<path d="${D(neben.p)}" stroke-width="${neben.breite}"/></g>`;
@@ -144,27 +157,14 @@ const strassenRand=`<g fill="none" stroke="#5f7d64">`
 const mitte=`<g fill="none" stroke="#736f62" stroke-width="1.6" stroke-dasharray="28 24">`
  +schneide(haupt.p,[{p:neben.p,halb:11,luft:7}]).map(t=>`<path d="${D(t)}"/>`).join('')+`</g>`;
 
-/* ---------- 8. Ein Hof, Platz wird gesucht statt geraten ---------- */
-function hofFrei(hx,hy){
-  return [[0,0],[92,0],[92,56],[0,56],[110,38],[166,38],[166,80],[110,80]]
-    .every(e=>frei(hx+e[0],hy+e[1],0,26));}
-let hofPos=null;
-for(let ring=0;ring<30 && !hofPos;ring++)
-  for(let w=0;w<12 && !hofPos;w++){
-    const t=w/12*Math.PI*2, hx=0.40*T+Math.cos(t)*ring*26, hy=0.47*T+Math.sin(t)*ring*26;
-    if(hofFrei(hx,hy)) hofPos=[hx,hy,ring];}
-const hof = hofPos ? `<g transform="rotate(-9 ${P(hofPos[0])} ${P(hofPos[1])})">`
- +`<rect x="${P(hofPos[0])}" y="${P(hofPos[1])}" width="92" height="56" fill="rgba(198,120,104,.40)" stroke="rgba(216,150,134,.55)" stroke-width="2"/>`
- +`<rect x="${P(hofPos[0]+110)}" y="${P(hofPos[1]+38)}" width="56" height="42" fill="rgba(214,206,186,.22)" stroke="rgba(214,206,186,.42)" stroke-width="1.8"/></g>` : '';
-
-const inhalt=muster+felder+w1.s+w2.s+hecken+heckenbaeume+hof+belag+strassenRand+mitte;
+const inhalt=flaechen+hecken+baeume+hof+belag+strassenRand+mitte;
 let uses=''; for(let a=-1;a<=1;a++) for(let b=-1;b<=1;b++) uses+=`<use href="#k" x="${a*T}" y="${b*T}"/>`;
 fs.writeFileSync(process.argv[2],
  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${T} ${T}" width="${T}" height="${T}">`
- +`<defs><g id="k">${inhalt}</g></defs>${uses}</svg>`);
+ +`<defs>${musterDef}<g id="k">${inhalt}</g></defs>${uses}</svg>`);
+const zaehlung={};
+wahl.flat().forEach(k=>zaehlung[ART[k].name]=(zaehlung[ART[k].name]||0)+1);
 console.log(`karte.svg ${(fs.statSync(process.argv[2]).size/1024).toFixed(1)} KB`);
-console.log(`  Felder 16 (Flächen) · Wälder 2 als Fläche mit ${w1.z}+${w2.z} Kreisen`);
-console.log(`  Heckenstücke ${heckenTeile.length} · Bäume an Hecken ${hb} · Höfe ${hofPos?1:0} (versetzt ${hofPos?hofPos[2]*26:'-'} px)`);
-console.log(`  Kreise gesamt ${(inhalt.match(/<circle/g)||[]).length} (vorher 133) · Wasser: keins · Ackerspuren: keine`);
-console.log(`  wegen Straße verworfen: ${verworfen}`);
-console.log(`  Musterfelder (gelb): ${wahl.flat().filter(k=>gelb.has(k)).length} von 16`);
+console.log('  Parzellen:', Object.entries(zaehlung).map(([k,v])=>k+' '+v).join(', '));
+console.log(`  Waldbäume ${anzWaldbaum} (nur in Waldparzellen) · Heckenbäume ${hb} · verworfen ${verworfen}`);
+console.log('  alle Flächenfarben deckend:', !/fill="rgba/.test(inhalt));

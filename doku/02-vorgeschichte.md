@@ -1690,3 +1690,40 @@ Mittelstreifen abgetastet.
 
 Die Schichtung stimmt weiterhin: Karte `z-index:0` in `.pb__bg`, Video 1, Text 2. Die Straßen
 liegen also über allem **im Hintergrund**, aber unter Video und Text.
+
+### Der Wald war ein Klecks über den Feldern (15.09.2026)
+
+Max' Bildschirmfoto zeigte es eindeutig: Der Wald lag als halbdurchsichtige Fläche **über**
+einem Getreidefeld — die Dreiecke des Flurzeichens schimmerten durch das Grün, und der
+Waldrand schnitt quer durch die Feldgrenze. Dazu: *„auch häuser sollen deckend sein… ich
+möchte keine so überlappenden bereiche"*.
+
+**Die Karte war nie eine richtige Aufteilung.** Felder, Wald und Gebäude lagen als eigene
+Ebenen übereinander, jede halbdurchsichtig. Solange das so ist, hilft kein Nachbessern an den
+Formen — überall dort, wo sich zwei Flächen treffen, mischen sich die Farben.
+
+**Umgestellt auf eine echte Flächenaufteilung.** Jede der 16 Parzellen gehört genau einer
+Nutzungsart, und **Wald ist eine Nutzungsart wie Getreide oder Wiese**. Drei Parzellen sind
+Wald; die Baumzeichen liegen nur innerhalb ihrer eigenen Parzelle und halten 26 px Abstand zur
+Hecke. Damit kann sich per Konstruktion nichts mehr überlappen.
+
+**Alle Farben sind jetzt deckend** — fertig ausgerechnet über dem Kapitelgrund statt als
+Alphawert. Auch die Gebäude. Die Bäume sind nur noch Umrisse ohne Füllung; so decken sie keine
+Fläche ab, sondern liegen als Zeichen darauf.
+
+**Die Verteilung ist von Hand gelegt**, nicht gewürfelt:
+
+```
+Getreide  Wald      Wiese     Acker
+Wiese     Stoppel   Brache    Getreide
+Wald      Acker     Weide     Stoppel
+Brache    Wiese     Getreide  Wald
+```
+
+Der Generator prüft beim Bauen, dass kein Nachbar dem anderen gleicht — auch über die
+Kachelnaht hinweg — und bricht sonst ab. Vorher hatte das Würfeln nur **eine** Getreideparzelle
+ergeben, dadurch war das Flurzeichen kaum zu sehen; jetzt sind es fünf Parzellen mit Muster.
+
+**Deckung gemessen statt behauptet:** Die Karte wird zweimal gerendert, einmal auf dem
+Kapitelgrund und einmal auf knallrot. Unterscheiden sich die Bilder irgendwo, ist sie an dieser
+Stelle durchsichtig. Ergebnis: **0 %** Abweichung — Pixel für Pixel identisch.

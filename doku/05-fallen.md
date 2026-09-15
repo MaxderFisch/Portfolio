@@ -834,3 +834,24 @@ also genau dort, wo der gestrichelte Mittelstreifen liegt. Ergebnis: Streuung 17
 falsche Urteil „durchscheinend". Seitlich versetzt abgetastet: Streuung 0.
 → Messpunkte bewusst dorthin legen, wo nur das liegt, was man prüfen will — und bei einem
 überraschenden Ergebnis zuerst die Messstelle verdächtigen, nicht die Sache.
+
+### Halbdurchsichtige Flächen ergeben nie eine saubere Karte
+Felder, Wald und Gebäude lagen als eigene Ebenen übereinander, jede mit Alphawert. An jeder
+Berührung mischten sich die Farben, und ein Wald über einem Feld sah aus wie ein Klecks — die
+Zeichen des Feldes schimmerten hindurch.
+→ Eine Karte ist eine **Aufteilung**: Jeder Punkt gehört genau einer Fläche. Wald ist keine
+Ebene über den Feldern, sondern eine Nutzungsart **neben** ihnen. Und alle Flächenfarben
+deckend setzen, also den Wert über dem Grund ausrechnen und als Vollton eintragen. Zeichen
+(Bäume, Symbole) dürfen Umrisse bleiben, Flächen nicht.
+
+### Deckung prüft man mit einem zweiten Hintergrund
+Ob eine Grafik wirklich deckend ist, sieht man auf dunklem Grund fast nie.
+→ Zweimal in ein Canvas zeichnen, einmal auf den echten Grund, einmal auf eine Signalfarbe.
+Jeder Pixel, der sich unterscheidet, ist durchsichtig. Hier: 0 % Abweichung.
+
+### Gewürfelte Verteilungen treffen Anforderungen nicht zuverlässig
+Die Nutzungsarten wurden zufällig verteilt, mit der einzigen Regel „kein gleicher Nachbar".
+Ergebnis: eine einzige Getreideparzelle — und damit war das Flurzeichen, das genau dort liegen
+sollte, praktisch unsichtbar.
+→ Wo eine bestimmte Mischung gebraucht wird, die Verteilung **von Hand legen** und die Regeln
+beim Bauen prüfen lassen (hier: Abbruch, wenn zwei Nachbarn gleich sind, Naht eingeschlossen).
