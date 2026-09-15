@@ -1985,3 +1985,29 @@ der schmale Text, dann das Video — landen beide in derselben Reihe, und die Se
 Am Handy einspaltig, 295 × 167 px, Reihenfolge Streifen → Text → Doku. Die Abspielsteuerung
 wählt auch mit elf Videos weiterhin genau eines aus, geprüft an Streifen, Doku und dem Film
 danach. Das Original bleibt privat, `Neu/` steht in der `.gitignore`.
+
+### „Am Limit" ersetzt das Standbild (15.09.2026)
+
+Max: *„bitte packe es direkt neben Am Arbeitsplatz anstatt von Standbild, also lösche
+Standbild, weil das brauchen wir nicht mehr auf der website"*.
+
+Das neue Bild zeigt Blender mit der Unterwasserszene auf dem Laptop — und darüber die
+macOS-Meldung, dass kein Programmspeicher mehr frei ist, mit der Liste der Speicherfresser.
+Ein ehrliches Werkstattbild, das gut zu Max' Ton passt (*„Fehler dürfen drinstehen"*).
+
+Bildunterschrift: **Am Limit · kein Speicher mehr**, Lightbox-Text *„Der Rechner steigt mitten
+in der Szene aus"*. Beides beschreibt nur, was zu sehen ist — nichts dazuerfunden.
+
+Das bisherige *Standbild* war ohnehin doppelt: Es zeigte das Posterbild des Animationsstreifens,
+der zwei Zeilen darüber in voller Breite läuft. Das Posterbild selbst bleibt liegen, es gehört
+weiter zum Video.
+
+**Nicht hochskaliert.** Das Original ist 1024 × 768; die Regel erlaubt bis 1400 Langkante, aber
+Vergrößern ist verboten. Also nur neu komprimiert: 233 KB → 140 KB als JPEG, 57 KB als WebP.
+
+Geprüft: beide Fassungen liefern denselben Inhalt — ins Canvas gezeichnet, dunkelster Wert 3,
+hellster 218 bzw. 219, Mittel 107 bzw. 108. Damit ist auch die `<picture>`-Falle ausgeschlossen,
+bei der eine kaputte WebP-Quelle ein leeres Bild zeigt, statt auf das JPEG zurückzufallen.
+
+Am Rechner stehen beide Bilder gleich groß nebeneinander (509 × 382), am Handy untereinander
+(293 × 220), kein Überstand.
