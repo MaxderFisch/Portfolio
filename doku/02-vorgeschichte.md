@@ -1529,3 +1529,41 @@ einzige warme Stelle, als Nicken zum roten Stadel im Referenzbild.
 den Farbunterschied zwischen benachbarten Spalten verglichen: an der Naht 0,95 gegen einen
 Mittelwert von 0,68 und einen normalen Höchstwert von 6,1 im Bild selbst. Waagerecht 1,58
 gegen 5,5. Die Naht liegt also **innerhalb** der normalen Schwankung und ist keine Kante.
+
+### Was beim dritten Anlauf noch fehlte — und mein Fehler dabei (15.09.2026)
+
+Max: *„kann es sein das du das neue über das alte gelegt hast weil da sind dinge die sich ganz
+komisch überschneiden also da sind noch die alten strassen und so drinnen… und es gibt keine
+loop animation also da bewegt sich nichts und ich habe das gefühl du hast einfach mittendrinn
+aufgehört"*.
+
+Beides stimmte, und beides war mein Fehler:
+
+**1. Zwei Ebenen übereinander.** Die alte gestrichelte Flugbahn (`deko--bahn`, eine 168 %
+breite Kurve über die volle Kapitelhöhe) lag noch über der neuen Karte. Ich hatte sie bewusst
+behalten und im Bericht sogar als offene Frage erwähnt — aber genau das war falsch: Auf einer
+gezeichneten Landkarte mit echten Straßen liest sich eine zweite, gestrichelte Riesenkurve als
+Fehler, nicht als Flugspur. `flugbahn.svg` ist gelöscht, die Ebene raus. Im Kapitel liegt jetzt
+**genau eine** Deko-Ebene.
+
+**2. Es gab nie eine Animation.** Ich hatte „unendlicher Loop" als *nahtlos kachelnd* gelesen
+und mich mit dem Beweis der Nahtlosigkeit zufriedengegeben. Max meinte aber **Bewegung** — das
+Bild sollte ziehen. Ohne die läuft nichts, egal wie sauber die Kachel ist. Die Karte zieht
+jetzt dauerhaft nach unten rechts, 82 s pro Kachel.
+
+**Warum `background-position` und nicht `transform`:** Die Ebene ist rund 1400 × 4000 px. Mit
+`transform` wäre sie eine Verbundebene, die bei jedem Bild vollständig neu gezeichnet werden
+müsste — rund 5,6 Mio. Pixel. Über `background-position` zeichnet der Browser nur den sichtbaren
+Ausschnitt. Aus demselben Grund trägt die Ebene keine `bgl`-Klasse mehr und bekommt damit auch
+keinen Parallaxe-Versatz: der würde ein `transform` setzen und genau die teure Verbundebene
+erzeugen. Die dauerhafte Bewegung ersetzt die Parallaxe ohnehin.
+
+Der Weg pro Durchlauf ist **exakt eine Kachelbreite** (1700 px, am Handy 880 px) — dadurch ist
+der Rücksprung am Ende unsichtbar. Am Handy braucht es deshalb eigene Keyframes; mit den
+1700-px-Keyframes und einer 880-px-Kachel würde es bei jedem Durchlauf springen.
+
+Dazu fertig gemacht, was den halbfertigen Eindruck ausmachte: eine **zweite Straße** quer von
+(0,4) nach (4,0), die sich mit der ersten in der Kachelmitte kreuzt, ein **Weiher**, ein
+**zweiter Hof**, und **Ackerspuren** in zwei Feldern.
+
+`prefers-reduced-motion` schaltet die Bewegung ab.

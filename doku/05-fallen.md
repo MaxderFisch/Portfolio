@@ -756,3 +756,23 @@ Zwei Kacheln nebeneinander in ein Canvas zeichnen, für jede Spalte den mittlere
 zur Nachbarspalte ausrechnen und den Wert an der Naht gegen die Verteilung im übrigen Bild
 halten. Liegt er unter dem normalen Höchstwert, ist keine Kante zu sehen.
 → Besser als Hinsehen, und im zugeklappten Browser-Bereich die einzige Möglichkeit.
+
+### „Unendlicher Loop" heißt Bewegung, nicht nur nahtlose Kachel
+Ich hatte den Wunsch nach einem endlosen Loop als *nahtlos kachelndes Bild* verstanden, die
+Nahtlosigkeit sauber nachgewiesen — und dabei übersehen, dass sich nichts bewegte. Gemeint war
+eine dauerhafte Bewegung.
+→ Wenn von „Loop", „endlos" oder „es soll wirken als würde man fliegen" die Rede ist: Es geht
+um **Bewegung über der Zeit**. Die nahtlose Kachel ist nur die Voraussetzung dafür.
+
+### Bei großen Flächen bewegt man `background-position`, nicht `transform`
+Eine 1400 × 4000 px große Ebene dauerhaft zu animieren: Mit `transform` wird sie zur
+Verbundebene und muss bei jedem Bild komplett neu gezeichnet werden (5,6 Mio. Pixel). Über
+`background-position` zeichnet der Browser nur den sichtbaren Ausschnitt.
+→ Und dann darauf achten, dass **kein anderes Skript** ein `transform` auf dasselbe Element
+setzt — hier hätte die vorhandene Parallaxe genau das getan. Element aus deren Auswahl
+herausgenommen (Klasse entfernt), Bewegung kommt jetzt allein aus der Animation.
+
+### Der Weg pro Durchlauf muss exakt der Kachelgröße entsprechen
+Sonst springt das Bild bei jeder Wiederholung. Wird die Kachel woanders anders skaliert — etwa
+kleiner am Handy —, braucht dieser Fall **eigene Keyframes** mit dem passenden Weg. Eine
+Animation von 1700 px auf einer 880-px-Kachel springt bei jedem Durchlauf sichtbar.
