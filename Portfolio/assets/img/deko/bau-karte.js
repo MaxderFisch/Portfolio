@@ -209,7 +209,7 @@ let uses=''; for(let a=-1;a<=1;a++) for(let b=-1;b<=1;b++) uses+=`<use href="#k"
    waagerecht. Der Inhalt landet geometrisch genau dort, wo er vorher war, die
    Kachelperiode bleibt also erhalten. ---- */
 if(BUNT){
-  defs+=`<filter id="mb" filterUnits="userSpaceOnUse" x="-800" y="-800" width="3300" height="3300" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="13 1.6"/></filter>`;
+  defs+=`<filter id="mb" filterUnits="userSpaceOnUse" x="-800" y="-800" width="3300" height="3300" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="${process.argv[4]||16} ${process.argv[5]||0.8}"/></filter>`;
   uses=`<g transform="rotate(45 ${T/2} ${T/2})"><g filter="url(#mb)"><g transform="rotate(-45 ${T/2} ${T/2})">${uses}</g></g></g>`;
 }
 fs.writeFileSync(process.argv[2],

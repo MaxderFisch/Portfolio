@@ -1846,3 +1846,48 @@ Karte am Kapitelende nicht hart abreißt.
 
 Stapelung nachgewiesen: Karte (`z-index:auto`, erstes Kind) → Farbübergang (`::after`,
 `z-index:0`, letztes Kind) → Kapitelmarke und Inhalt (`z-index:1`).
+
+### Unschärfe nachjustiert: mehr Richtung, weniger Weichzeichnung (15.09.2026)
+
+Max: *„probier mal ob du den blur minimal weniger machen könntest, aber halt vielleicht mehr
+motion blur aber weniger allgemeiner blur"*.
+
+Die beiden Anteile stecken in denselben zwei Zahlen: `stdDeviation="längs quer"`. Der zweite
+Wert ist die allgemeine Weichzeichnung, der erste der Streifen längs der Flugrichtung.
+
+**Messbar gemacht,** statt nach Gefühl zu drehen: Für jedes Pixel den Farbunterschied zum
+Nachbarn **längs** der Flugrichtung (unten rechts) gegen den **quer** dazu (unten links).
+Viel Bewegungsunschärfe heißt: längs weich, quer scharf. Als Bezugsgröße dient die scharfe
+Karte.
+
+| Einstellung | längs verwischt | Querdetail | Richtungswirkung |
+|---|---|---|---|
+| scharf | — | 100 % | 0,98 |
+| 13 / 1,6 *(vorher)* | 59 % | 66 % | 1,57 |
+| 14 / 0,8 | 59 % | 70 % | 1,66 |
+| **16 / 0,8** | **62 %** | **68 %** | **1,75** |
+| 18 / 0,8 | 64 % | 66 % | 1,80 |
+| 22 / 0,8 | 68 % | 62 % | 1,91 |
+| 26 / 0,8 | 71 % | 61 % | 2,02 |
+
+**Zwei Erkenntnisse aus den Messungen:**
+
+1. **Unter Querwert 0,8 ändert sich nichts mehr.** 0,8, 0,4 und 0,2 lieferten identische Werte
+   (Querdetail 70 %, Richtung 1,66). Dort greift die Rasterauflösung des Filters — ein Sigma
+   unter etwa einem Pixel wirkt beim Zeichnen nicht mehr. 0,8 ist also die praktische Untergrenze.
+2. **Ein höherer Längswert kostet Querdetail.** Was längs verschmiert wird, hat auch quer
+   weniger Struktur. Beides gleichzeitig zu maximieren geht nicht.
+
+Gewählt **16 / 0,8**: gegenüber vorher steigt das Querdetail von 66 auf 68 % *und* die
+Richtungswirkung von 1,57 auf 1,75 — also genau beides, worum Max gebeten hat. Wer mehr
+Streifen will, nimmt 18 / 0,8; darüber wird es sichtbar matschiger.
+
+Die Werte sind jetzt Aufrufparameter des Generators:
+`node bau-karte.js karte-flug.svg bunt 16 0.8`. Ränder geprüft: 0 % leere Fläche, die
+Unschärfe frisst die Kachelkanten nicht an.
+
+**Nebenbei ein Fehler im eigenen Prüfaufbau:** Der erste Testlauf übergab „13 1.6" als *ein*
+Argument. Der zweite Wert fiel auf den Standardwert zurück, und heraus kam
+`stdDeviation="13 1.6 1.6"` — drei Zahlen, was ungültig ist. Alle vier Probedateien waren
+wertlos. Aufgefallen ist es nur, weil ich die erzeugten Dateien danach auf ihren tatsächlichen
+Filterwert geprüft habe.

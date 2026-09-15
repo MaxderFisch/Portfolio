@@ -905,3 +905,19 @@ flächige Ebene darüber löscht ihn, und die Kapitelgrenze wird hart.
 → Den Übergang als `::after` mit `position:absolute; inset:0` wiederholen. Ein `::after` ist das
 letzte Kind und deckt damit vorher stehende positionierte Geschwister ab, während Inhalte mit
 `z-index:1` darüber bleiben.
+
+### Ein Gaußfilter unter Sigma 0,8 tut nichts mehr
+Beim Feinjustieren einer Bewegungsunschärfe lieferten die Querwerte 0,8, 0,4 und 0,2 exakt
+dieselben Messwerte. Unterhalb von etwa einem Pixel verschwindet der Effekt in der
+Rasterauflösung.
+→ Nicht weiter nach unten drehen und auf eine Wirkung hoffen — 0,8 ist die praktische
+Untergrenze. Und: gegenläufige Wünsche („mehr Richtung, weniger Weichzeichnung") lassen sich
+nur messen, nicht sehen. Farbunterschied zum Nachbarn längs gegen quer, beides gegen die
+scharfe Fassung als Bezug.
+
+### Erzeugte Dateien auf die Werte prüfen, die drinstehen sollten
+Ein Testlauf übergab zwei Zahlen als ein Argument. Der zweite Parameter fiel auf seinen
+Standardwert zurück, und in der Datei stand `stdDeviation="13 1.6 1.6"` — drei Werte, ungültig.
+Die Probedateien sahen trotzdem plausibel aus und hatten fast identische Größen.
+→ Nach dem Erzeugen den entscheidenden Wert **aus der Datei zurücklesen** und anzeigen. Ein
+`grep -o 'stdDeviation="[^"]*"'` hätte den Fehler sofort gezeigt — und hat es dann auch.
