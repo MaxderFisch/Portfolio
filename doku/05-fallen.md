@@ -776,3 +776,18 @@ herausgenommen (Klasse entfernt), Bewegung kommt jetzt allein aus der Animation.
 Sonst springt das Bild bei jeder Wiederholung. Wird die Kachel woanders anders skaliert — etwa
 kleiner am Handy —, braucht dieser Fall **eigene Keyframes** mit dem passenden Weg. Eine
 Animation von 1700 px auf einer 880-px-Kachel springt bei jedem Durchlauf sichtbar.
+
+### Ein Prüfmuster ohne Minuszeichen übersieht stillschweigend Treffer
+Die Kontrolle „steht ein Baum auf der Straße?" las die Kreise mit `cx="([\d.]+)"` aus der
+Datei. Acht Bäume hatten negative Koordinaten (sie ragen über den Kachelrand) und wurden
+dadurch **gar nicht geprüft** — das Ergebnis „0 Treffer" war zu diesem Zeitpunkt nichts wert.
+→ Bei solchen Prüfungen immer gegenrechnen, ob die Anzahl der geprüften Elemente mit der
+Gesamtzahl übereinstimmt. Hier: 133 geprüft gegen 141 vorhanden — die Lücke hat den Fehler
+verraten, nicht das Ergebnis.
+
+### Ausdünnen am Rand muss man durchrechnen, nicht schätzen
+Ein Waldstück sollte nach außen ausfransen statt als Kreis abzuschneiden. Mit geschätzten
+Werten für Rasterabstand, Streckung und Ausdünnschwelle blieben von einem Wald **17 Bäume**
+übrig, vom zweiten fünf.
+→ Die Formel vorher isoliert durchrechnen und die Trefferzahl ausgeben lassen, bevor man sie
+in den Generator einbaut. Drei Parametersätze durchgespielt, dann stimmte es auf Anhieb.

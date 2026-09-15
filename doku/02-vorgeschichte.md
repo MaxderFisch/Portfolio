@@ -1567,3 +1567,47 @@ Dazu fertig gemacht, was den halbfertigen Eindruck ausmachte: eine **zweite Stra
 **zweiter Hof**, und **Ackerspuren** in zwei Feldern.
 
 `prefers-reduced-motion` schaltet die Bewegung ab.
+
+### Farbe rein, Waldumrandung raus, Bäume von den Straßen weg (15.09.2026)
+
+Max nach dem vierten Anlauf: *„die Bewegung der Loop passt"* — aber drei Sachen an der Karte:
+die gestrichelte Umrandung um die Wälder weg (*„das wirkt unnatürlich, wenn da so ein großer
+Kreis um den Wald drumrum ist"*), keine Bäume auf den Straßen, und blasse Farbe — Bäume in
+verschiedenen Grün-Braun-Tönen, Felder als Getreide, Acker, Wiese, dabei **klar voneinander
+abgetrennt** und nicht als Farbverlauf.
+
+**Waldumrandung.** Die Ellipse ist weg. Damit die Bäume trotzdem nicht als Kreisscheibe
+dastehen, hat die Waldfläche jetzt einen unregelmäßigen Rand — der Radius schwankt über den
+Winkel (zwei überlagerte Sinusse) — und die Dichte **dünnt nach außen aus**: ab 78 % des
+Radius fällt ein wachsender Anteil der Bäume weg. Der Wald franst also aus, statt abzuschneiden.
+
+Dabei zuerst zu weit getrieben: die erste Fassung hatte nur noch 17 und 5 Bäume. Dichte
+durchgerechnet statt geraten (Rasterabstand gegen Trefferzahl), jetzt 63 und 26.
+
+**Keine Bäume auf den Straßen.** Straßen und Fluss werden vor den Bäumen erzeugt; jeder
+Baum wird gegen alle drei Bänder geprüft und verworfen, wenn er näher als
+`Bandbreite/2 + Baumradius + 7 px` liegt. Der Abstand wird über **alle neun Kachelversätze**
+gemessen — sonst stünde an der Naht ein Baum auf der Straße der Nachbarkachel. 14 Bäume sind
+deshalb weggefallen.
+
+**Farben**, alle mit niedriger Deckkraft auf dem dunklen Blau:
+
+| | Töne |
+|---|---|
+| Felder | Getreide (.062), Wiese (.052), Acker (.050), Stoppel (.046), Weide (.044), Brache (.040) |
+| Bäume | sechs Grün- bis Brauntöne, Kontur .27–.34, Füllung .06–.085 |
+
+Die Felder sind **Flächen mit fester Farbe**, keine Verläufe, und werden von den Hecken
+getrennt. Beim Verteilen wird geprüft, dass zwei benachbarte Felder nie denselben Ton bekommen
+— auch über den Kachelrand hinweg, sonst entstünden bei der Wiederholung große einfarbige
+Blöcke. Die Ackerspuren liegen nur noch in den braunen Feldern.
+
+**Nachgemessen, unabhängig aus der fertigen Datei:** 141 Bäume, davon 8 mit negativen
+Koordinaten (die hatte mein erster Prüflauf übersehen, weil das Muster kein Minus zuließ —
+nachgezogen). **Null** Bäume berühren eine Straße oder den Fluss, der knappste Abstand liegt
+bei 8,7 px. 16 Felder, 6 verschiedene Töne, **null** benachbarte Felder mit gleichem Ton.
+Naht senkrecht 1,89 und waagerecht 1,25 gegen normale Höchstwerte von 5,8 und 4,95 — weiterhin
+keine Kante.
+
+Der Generator liegt jetzt als Datei vor (`bau-karte.js` im Arbeitsordner), damit sich einzelne
+Werte nachregeln lassen, ohne alles neu zu schreiben.
