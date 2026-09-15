@@ -403,6 +403,9 @@
   /* Tiere: zwei sehr große Bilder tragen den Bereich */
   .tr{position:relative;display:grid;grid-template-columns:repeat(12,1fr);gap:18px;align-items:start}
   .tr__xl{grid-column:1/-1}
+  /* Doku-Aufnahme im Thermenkapitel: fuellt die bisher leere Haelfte neben dem
+     Einleitungstext, liegt dadurch direkt unter dem Animationsstreifen */
+  .tr__doku{grid-column:5/span 8}
   .tr__hoch{grid-column:3/span 8}
   .tr__txt{grid-column:1/span 4;align-self:center;position:relative;z-index:2}
   .tr__txt p{color:var(--ink);font-size:15px;line-height:1.85;margin-bottom:13px}
@@ -452,7 +455,7 @@
   @media(max-width:900px){
     .sr,.tr{grid-template-columns:1fr;gap:15px}
     .sr__lead,.sr__txt,.sr__a,.sr__b,.sr__c,.sr__d,.sr__e,.sr__f,
-    .tr__xl,.tr__hoch,.tr__txt,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3,.tr__f4,
+    .tr__xl,.tr__hoch,.tr__txt,.tr__doku,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3,.tr__f4,
     .tr__g1,.tr__g2,.tr__zwi,.tr__m1,.tr__m2,
     .tr__bts1,.tr__bts2,.tr__btstxt{grid-column:1/-1;grid-row:auto}
     .sr__txt,.tr__txt{padding:8px 0 12px}
@@ -1474,6 +1477,13 @@
         <p class="kicker">Projekt 08 · 3D &amp; Animation</p>
         <p>Für die Therme in Bad Füssing sollte eine Unterwasserwelt entstehen, die auf eine Beckenwand projiziert wird — also etwas, das man nebenbei anschaut, während man im Wasser liegt.</p>
         <p>Alles in Blender gebaut: Fische, Pflanzen, Korallen, das Licht, das von oben durchs Wasser fällt. Es darf nichts passieren, was aufschreckt — die Bewegung soll ruhig bleiben und nie enden.</p>
+      </div>
+
+      <div class="tr__doku kapvideo">
+        <video controls muted loop playsinline preload="none" width="1280" height="720" poster="../assets/video/therme-doku-poster.jpg">
+          <source src="../assets/video/therme-doku.mp4" type="video/mp4">
+        </video>
+        <div class="kapvideo__bu">Die Animation in der Therme, vor Ort gefilmt — 6 Sekunden</div>
       </div>
 
       <figure class="tr__c" data-pjlb="../assets/img/design3d/therme-arbeitsplatz.jpg" data-pjcap="Am Schnittplatz">

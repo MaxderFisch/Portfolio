@@ -941,3 +941,12 @@ Der erste Versuch hatte einen Tempofaktor von 35 — praktisch Stehenbleiben und
 Ein Faktor um **4** fühlt sich nach Beschleunigen und Bremsen an, ohne zu stocken.
 → Die Amplituden vorher isoliert durchrechnen und den Faktor ausgeben lassen, statt am
 fertigen Bild zu schätzen.
+
+### Automatische Rasterplatzierung wandert nur vorwärts
+Ein breites Element wurde vor einem schmalen in dieselbe Rasterreihe gesetzt. Weil das breite
+Element die Spalten 5–12 belegte, fand das schmale (Spalten 1–4) keinen Platz mehr links davon
+— der Cursor geht nicht zurück — und rutschte in eine eigene Reihe. Kostenpunkt: eine leere
+Hälfte und 426 px Seitenhöhe.
+→ Bei `grid-auto-flow: row` das Element mit der **kleineren Spaltennummer zuerst** in den
+Quelltext setzen. Danach nachmessen, ob beide wirklich dieselbe Reihe haben: die y-Werte
+vergleichen, nicht nur hinsehen.

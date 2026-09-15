@@ -1942,3 +1942,46 @@ Winkel von −135°. Abtasten bis knapp davor, dann stimmten die Zahlen.
 Die erzeugten Keyframes liegen zusätzlich als
 `Portfolio/assets/img/deko/flugbahn-keyframes.css`, damit man sie nachlesen kann, ohne im
 `index.html` zu suchen.
+
+### Doku-Aufnahme aus der Therme (15.09.2026)
+
+Max: *„ich hab dir ein neues video bereitgestellt namens Fisch animation doku das die fisch
+animation in action in der therme zeigt, baue das bitte direkt unter dem video der Fisch
+animation ein und natürlich komprimiere es zuvor"*.
+
+`Neu/Videos/Fisch ANimation Doku.mp4`, 1920 × 1080, 30 B/s, 5,6 Sekunden, **54 MB** — also rund
+74 Mbit/s, eine Bildschirmaufnahme in Rohqualität.
+
+**Ton bleibt drin.** Gemessen −19,0 dB im Mittel, −6,6 dB in der Spitze — es ist etwas zu hören.
+Ob Sprache oder nur Umgebungsgeräusch ließ sich nicht sicher sagen, und genau dafür steht die
+Regel in der `CLAUDE.md`: im Zweifel behalten. Bei 5,6 Sekunden kostet die Tonspur ohnehin nur
+rund 66 KB. (Zu hören ist er nur, wenn jemand selbst entstummt — die Steuerung setzt alle
+Videos auf stumm.)
+
+**Qualitätsstufe kalibriert statt geraten**, wie in der Regel vorgesehen:
+
+| CRF | Größe |
+|---|---|
+| 22 | 1,50 MB |
+| 24 | 1,11 MB |
+| 26 | 0,84 MB |
+| 28 | 0,65 MB |
+
+Bei einem so kurzen Clip ist selbst die beste Stufe winzig, also **CRF 22**. Von 54 MB auf
+1,5 MB, das ist ein Fünfunddreißigstel. Quadratische Pixel bestätigt (`sample_aspect_ratio=1:1`),
+also keine anamorphe Falle wie beim Streifen darüber.
+
+**Wo es liegt.** Im Thermenkapitel stand rechts neben dem Einleitungstext eine ganze leere
+Hälfte. Genau dort sitzt das Video jetzt — 687 × 388 px, **38 px unter dem Animationsstreifen**,
+der Text links daneben.
+
+**Eine Falle beim Einbauen:** Zuerst stand das Video im Quelltext *vor* dem Text. Die
+automatische Rasterplatzierung wandert aber nur vorwärts — nachdem das Video die Spalten 5–12
+belegt hatte, fand der Text keinen Platz mehr links davon und rutschte in eine eigene Reihe.
+Ergebnis: eine leere Hälfte und **426 px** mehr Seitenhöhe. Mit umgedrehter Reihenfolge — erst
+der schmale Text, dann das Video — landen beide in derselben Reihe, und die Seite wächst nur um
+**77 px**.
+
+Am Handy einspaltig, 295 × 167 px, Reihenfolge Streifen → Text → Doku. Die Abspielsteuerung
+wählt auch mit elf Videos weiterhin genau eines aus, geprüft an Streifen, Doku und dem Film
+danach. Das Original bleibt privat, `Neu/` steht in der `.gitignore`.
