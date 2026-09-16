@@ -2088,3 +2088,40 @@ Transparenz (gemessen 53,6 % Produkt, 44 % durchsichtig), steht also frei auf de
    ins Leere. Mit `picture{display:block;width:100%}` stimmt es.
 
 Die Apple-Seite `icapsule.html` ist unberührt, `git status` bestätigt das.
+
+### Nachbesserung: Aufmacher wieder groß, Knopf kleiner (16.09.2026)
+
+Max nach dem ersten Durchgang: *„die reihenfolge und anordnung der bilder gefällt mir nicht mehr
+so, mach das erste bild bitte wieder größer und den knopf für die apple seite kleiner und bitte
+bessere anordnung, auch der text sollte besser angeordnet werden dass er besser sitzt und
+aligned"*.
+
+Ich hatte den Aufmacher auf acht Spalten verkleinert, um die Seite kurz zu halten — das war die
+falsche Stelle zum Sparen. Er läuft jetzt wieder über die **volle Breite** (1038 × 584 px).
+
+**Der Knopf** ist von 1040 × 350 auf **511 × 228 px** geschrumpft: sechs Spalten statt zwölf,
+weniger Innenabstand, Titel von 29 auf 20 px, Produktbild von 290 auf 132 px. Der feste
+Zeilenumbruch im Titel ist raus, der Text bricht jetzt selbst um.
+
+**Alle Texte sitzen oben bündig** (`align-self:start`) statt mittig zu schweben — gemessen
+**0 px Versatz** zwischen Textoberkante und der Bildoberkante daneben.
+
+Die Anordnung jetzt, jede Reihe oben bündig:
+
+| Reihe | Inhalt | Höhenunterschied |
+|---|---|---|
+| 1 | Aufmacher 1040 × 586 | — |
+| 2 | Einleitungstext 335 + Zwei Farben 687 × 355 | — |
+| 3 | Schnitt 423 × 343 · Chip 335 × 329 · Innenleben 247 × 328 | **15 px** |
+| 4 | Bildschirm 687 × 239 + Im Aufbau 335 × 251 | **12 px** |
+| 5 | Tor 511 × 228 + Blender-Notiz 335 × 45 | — |
+
+Die Blender-Notiz stand vorher als Einzeiler neben dem Knopf, obwohl sie die Blender-Bilder
+erklärt. Sie sitzt jetzt **direkt darunter, in denselben Spalten** (9–12).
+
+Kapitelhöhe **2104 px** gegen 2123 vorher — trotz vollbreitem Aufmacher unverändert kurz.
+
+**Am Handy** musste der Knopf ans Ende: Am Rechner steht er links neben der Notiz und muss im
+Quelltext deshalb vorher kommen, einspaltig stand die Erklärung dadurch hinter dem Knopf. Gelöst
+mit `#p-ibee .tor{order:1}` **innerhalb** der Handy-Abfrage. Knopfbild dort von 240 auf 170 px,
+der Knopf von 473 auf 409 px Höhe.

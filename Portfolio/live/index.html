@@ -439,9 +439,9 @@
      und einem weichen Schein dahinter. Soll wie eine Tuer wirken, nicht wie
      ein Kasten mit Text. */
   .tor{grid-column:1/-1;margin-top:46px}
-  .tor a{position:relative;display:grid;grid-template-columns:1fr minmax(170px,290px);
-         gap:clamp(18px,3vw,46px);align-items:center;overflow:hidden;text-decoration:none;
-         padding:clamp(24px,3vw,42px);border:1px solid var(--faint);
+  .tor a{position:relative;display:grid;grid-template-columns:1fr minmax(96px,132px);
+         gap:clamp(14px,1.6vw,22px);align-items:center;overflow:hidden;text-decoration:none;
+         padding:clamp(18px,1.9vw,24px);border:1px solid var(--faint);
          background:linear-gradient(115deg,rgba(255,255,255,.05),rgba(255,255,255,.012) 58%);
          transition:border-color .45s,transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s}
   .tor a::before{content:"";position:absolute;right:4%;top:50%;width:42%;aspect-ratio:1;
@@ -460,19 +460,19 @@
          filter:drop-shadow(0 20px 32px rgba(0,0,0,.55));
          transition:transform .6s cubic-bezier(.16,1,.3,1)}
   .tor a:hover .tor__bild img{transform:translateY(-5px) scale(1.035)}
-  .tor__cta{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding-bottom:6px;
-         font-size:13px;font-weight:600;color:var(--ink-strong);
+  .tor__cta{display:inline-flex;align-items:center;gap:9px;margin-top:16px;padding-bottom:5px;
+         font-size:12px;font-weight:600;color:var(--ink-strong);
          border-bottom:1px solid var(--faint);transition:border-color .45s}
   .tor a:hover .tor__cta{border-bottom-color:rgba(255,255,255,.5)}
-  .tor__k{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--rail);margin-bottom:9px}
-  .tor__t{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.7vw,29px);
-          letter-spacing:-.01em;color:var(--ink-strong);line-height:1.15}
-  .tor__s{font-size:14px;color:var(--ink);margin-top:9px;line-height:1.6}
+  .tor__k{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--rail);margin-bottom:7px}
+  .tor__t{font-family:var(--display);font-weight:600;font-size:clamp(17px,1.7vw,20px);
+          letter-spacing:-.01em;color:var(--ink-strong);line-height:1.18}
+  .tor__s{font-size:12.5px;color:var(--ink);margin-top:8px;line-height:1.55}
   .tor__pfeil{font-size:17px;color:var(--ink-strong);opacity:.8;transition:opacity .45s,transform .45s cubic-bezier(.16,1,.3,1)}
   .tor a:hover .tor__pfeil{opacity:1;transform:translateX(5px)}
   @media(max-width:640px){
     .tor a{grid-template-columns:1fr;gap:18px;padding:24px 22px}
-    .tor__bild{justify-content:center;max-width:240px;margin:0 auto}
+    .tor__bild{justify-content:center;max-width:170px;margin:0 auto}
     .tor__pfeil{justify-self:start}
   }
 
@@ -482,6 +482,10 @@
     .tr__xl,.tr__hoch,.tr__txt,.tr__doku,.tr__a,.tr__b,.tr__c,.tr__d,.tr__f1,.tr__f2,.tr__f3,.tr__f4,
     .tr__g1,.tr__g2,.tr__zwi,.tr__m1,.tr__m2,
     .tr__bts1,.tr__bts2,.tr__btstxt{grid-column:1/-1;grid-row:auto}
+    /* Am Rechner steht der Knopf links neben der Notiz und muss deshalb im
+       Quelltext vorher kommen. Einspaltig gehoert er ans Ende, sonst steht die
+       Erklaerung zu den Blender-Bildern hinter dem Knopf. */
+    #p-ibee .tor{order:1}
     .sr__txt,.tr__txt{padding:8px 0 12px}
   }
 
@@ -710,15 +714,19 @@
        innerhalb dieser Abfrage, sonst schluege es die Handy-Regel.
        Die Breiten sind so gewaehlt, dass die Bilder einer Reihe etwa gleich
        hoch werden: Schnitt 1,23 · Chip 1,02 · Blender-Innen 0,75. */
-    #p-ibee .tr__xl{grid-column:1/span 8}         /* Aufmacher, Text rechts daneben */
-    #p-ibee .tr__txt{grid-column:9/span 4}
-    #p-ibee .tr__a{grid-column:1/span 5}          /* Schnitt     1,23 -> 337 px */
-    #p-ibee .tr__b{grid-column:6/span 4}          /* Chip        1,02 -> 321 px */
+    #p-ibee .tr__xl{grid-column:1/-1}             /* Aufmacher wieder in voller Breite */
+    /* Texte oben buendig mit dem Bild daneben, nicht mittig schwebend */
+    #p-ibee .tr__txt{grid-column:1/span 4;align-self:start}
+    #p-ibee .tr__c{grid-column:5/span 8}          /* Farben      1,94 -> 354 px */
+    #p-ibee .tr__a{grid-column:1/span 5}          /* Schnitt     1,23 -> 343 px */
+    #p-ibee .tr__b{grid-column:6/span 4}          /* Chip        1,02 -> 329 px */
     #p-ibee .tr__bts2{grid-column:10/span 3;margin-top:0;align-self:start}  /* 0,75 -> 328 px */
-    #p-ibee .tr__c{grid-column:1/span 7}          /* Farben      1,94 -> 308 px */
-    #p-ibee .tr__bts1{grid-column:8/span 5;margin-top:0}                    /* 1,33 -> 311 px */
     #p-ibee .tr__d{grid-column:1/span 8}          /* Bildschirm  2,89 -> 238 px */
-    #p-ibee .tr__btstxt{grid-column:9/span 4;margin-top:0;align-self:center}
+    #p-ibee .tr__bts1{grid-column:9/span 4;margin-top:0}                    /* 1,33 -> 251 px */
+    /* Notiz steht unter den Blender-Bildern, in denselben Spalten -- sie
+       erklaert genau die, nicht den Knopf daneben */
+    #p-ibee .tr__btstxt{grid-column:9/span 4;margin-top:0;align-self:start}
+    #p-ibee .tor{grid-column:1/span 6;margin-top:0;align-self:start}
     .chapter--film .tr__f1{grid-column:5/-1}
     .chapter--film .tr__f2{grid-column:1/span 11}
     .chapter--film .tr__f3{grid-column:2/-1}
@@ -1371,6 +1379,11 @@
         <p>Vom ersten Entwurf bis zum Rendering habe ich alles selbst gemacht — modelliert, texturiert, ausgeleuchtet und die Oberfläche gestaltet.</p>
       </div>
 
+      <figure class="tr__c" data-pjlb="../assets/img/icapsule/farben.jpg" data-pjcap="Mitternacht und Weiß">
+        <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1920" height="988" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
+        <figcaption class="kap__cap"><div class="n">Zwei Farben</div><div class="s">Gewebe als eigenes Material</div></figcaption>
+      </figure>
+
       <figure class="tr__a" data-pjlb="../assets/img/icapsule/innen.jpg" data-pjcap="Röntgenansicht — sieben Hochtöner im Ring">
         <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1400" height="1136" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
         <figcaption class="kap__cap"><div class="n">Der Schnitt</div><div class="s">Sieben Hochtöner im Ring</div></figcaption>
@@ -1386,9 +1399,9 @@
         <figcaption class="kap__cap"><div class="n">Das Innenleben</div><div class="s">Blender · eigene Datei</div></figcaption>
       </figure>
 
-      <figure class="tr__c" data-pjlb="../assets/img/icapsule/farben.jpg" data-pjcap="Mitternacht und Weiß">
-        <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1920" height="988" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
-        <figcaption class="kap__cap"><div class="n">Zwei Farben</div><div class="s">Gewebe als eigenes Material</div></figcaption>
+      <figure class="tr__d" data-pjlb="../assets/img/icapsule/bildschirme.jpg" data-pjcap="Drei Geräte, drei Bildschirminhalte">
+        <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1600" height="554" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
+        <figcaption class="kap__cap"><div class="n">Der Bildschirm</div><div class="s">6 Zoll OLED</div></figcaption>
       </figure>
 
       <figure class="tr__bts1" data-pjlb="../assets/img/design3d/ibee-blender.jpg" data-pjcap="Das Modell in Blender — Gehäuse, Gitter und Innenleben als eigene Objekte">
@@ -1396,20 +1409,11 @@
         <figcaption class="kap__cap"><div class="n">Im Aufbau</div><div class="s">Blender · das ganze Gerät</div></figcaption>
       </figure>
 
-      <figure class="tr__d" data-pjlb="../assets/img/icapsule/bildschirme.jpg" data-pjcap="Drei Geräte, drei Bildschirminhalte">
-        <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1600" height="554" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
-        <figcaption class="kap__cap"><div class="n">Der Bildschirm</div><div class="s">6 Zoll OLED</div></figcaption>
-      </figure>
-
-      <div class="tr__btstxt">
-        <p style="color:var(--rail);font-size:13px;max-width:62ch">Gebaut in Blender: Gehäuse, Gewebe und die sieben Treiber sind eigene Objekte, das Innenleben lag in einer separaten Datei.</p>
-      </div>
-
       <div class="tor">
         <a href="icapsule.html" id="zurProduktseite">
           <div class="tor__txt">
             <div class="tor__k">Die Aufgabe ging weiter</div>
-            <div class="tor__t">Und so würde es aussehen,<br>wenn der Hersteller es verkaufen würde.</div>
+            <div class="tor__t">So würde es aussehen, wenn der Hersteller es verkaufen würde.</div>
             <div class="tor__s">Die komplette Produktseite zur iCapsule — Speicher, Klang, Leistung, Farben und technische Daten.</div>
             <div class="tor__cta">Zur Produktseite <span class="tor__pfeil" aria-hidden="true">→</span></div>
           </div>
@@ -1417,6 +1421,10 @@
             <picture><source srcset="../assets/img/icapsule/hero-frei.webp" type="image/webp"><img src="../assets/img/icapsule/hero-frei.png" width="952" height="866" loading="lazy" alt=""></picture>
           </div>
         </a>
+      </div>
+
+      <div class="tr__btstxt">
+        <p style="color:var(--rail);font-size:13px;max-width:62ch">Gebaut in Blender: Gehäuse, Gewebe und die sieben Treiber sind eigene Objekte, das Innenleben lag in einer separaten Datei.</p>
       </div>
     </div>
     <a class="pj-back" href="#oben" style="margin:44px 0 80px">↑ nach oben</a>
