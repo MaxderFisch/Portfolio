@@ -2011,3 +2011,31 @@ bei der eine kaputte WebP-Quelle ein leeres Bild zeigt, statt auf das JPEG zurü
 
 Am Rechner stehen beide Bilder gleich groß nebeneinander (509 × 382), am Handy untereinander
 (293 × 220), kein Überstand.
+
+### Hervorheben beim Zeigen entfernt (16.09.2026)
+
+Max: *„bitte mach diese mechanik komplett weg… das abdunkeln soll weg und es sollen alle bilder
+zu jederzeit original gesättigt sein"*. Der Zoom darf bleiben, gern etwas stärker.
+
+Die Mechanik steckte in vier Stellen:
+
+```css
+.reihe:hover .proj{filter:brightness(.5)}     /* alle Karten abdunkeln … */
+.reihe .proj:hover{filter:none}               /* … außer der gezeigten    */
+.proj__cover img{filter:grayscale(.2) brightness(.9)}   /* Bilder entsättigt … */
+.proj:hover .proj__cover img{filter:none}               /* … bis man draufzeigt */
+```
+
+Alle vier sind raus. Übrig bleibt nur noch der Zoom, von `scale(1.05)` auf **`scale(1.07)`**
+angehoben. Aus der Übergangsliste der Karte ist `filter .35s` entfernt, es wird keiner mehr
+animiert.
+
+**Die Regeln standen doppelt im Stylesheet** — einmal im Block „Projekte — Übersicht (neu,
+additiv)" und einmal weiter unten bei den Kartenreihen. Der untere gewann, der obere war
+wirkungslos. Beide geändert, damit kein alter Rest in einem anderen Zusammenhang wieder
+auftaucht.
+
+**Nachgemessen mit der Maus, nicht nur im Stylesheet.** Zeiger auf Karte 3 gesetzt und alle
+fünf Karten ausgelesen: Kartenfilter `none`, Bildfilter `none` — bei allen. Nur Karte 3 hat
+`scale(1.07)`, die übrigen stehen auf 1. Über die ganze Seite geprüft: **14 Karten in 3 Reihen,
+ausnahmslos `filter: none`.**
