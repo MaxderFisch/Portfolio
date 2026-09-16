@@ -950,3 +950,25 @@ Hälfte und 426 px Seitenhöhe.
 → Bei `grid-auto-flow: row` das Element mit der **kleineren Spaltennummer zuerst** in den
 Quelltext setzen. Danach nachmessen, ob beide wirklich dieselbe Reihe haben: die y-Werte
 vergleichen, nicht nur hinsehen.
+
+### `<picture>` als Flexkind hat keine Breite
+Ein Bild mit `width:100%` in einem `<picture>` innerhalb eines Flexcontainers wurde 0 × 0 groß.
+`<picture>` ist von Haus aus `display:inline` und bekommt als Flexkind keine eigene Breite —
+das `width:100%` des Bildes bezieht sich damit auf nichts.
+→ `picture{display:block;width:100%}` setzen, sobald ein `<picture>` in einem Flex- oder
+Rasterfeld liegt. Und nach dem Einbau die **gerenderte Bildgröße** auslesen, nicht nur zusehen,
+ob das Feld da ist.
+
+### Rasterreihen lassen sich nicht über `gridRowStart` ablesen
+Solange keine Reihe ausdrücklich zugewiesen ist, liefert `getComputedStyle(e).gridRowStart`
+immer `auto` — eine Gruppierung danach wirft alles in einen Topf. Über den y-Wert allein geht es
+auch nicht, weil `align-self` Elemente innerhalb ihrer Reihe verschiebt.
+→ Nach **überlappenden Höhenbereichen** gruppieren: ein Element gehört zur laufenden Reihe,
+solange sein oberer Rand über der bisherigen Unterkante liegt.
+
+### Bilder einer Reihe gleich hoch bekommt man über die Breite, nicht über die Spaltenzahl
+Gleich breite Rasterplätze ergeben bei unterschiedlichen Seitenverhältnissen ungleiche Höhen —
+die Unterkanten franst es aus und es wirkt zufällig.
+→ Aus den Seitenverhältnissen zurückrechnen: für gleiche Höhe *h* braucht jedes Bild die Breite
+*Verhältnis × h*. Daraus die Spaltenzahl wählen. Hier aus 1,23 · 1,02 · 0,75 die Breiten
+423 · 335 · 247 — Höhenunterschied 15 px statt 57.

@@ -435,44 +435,20 @@
   .tr__m2{grid-column:4/span 6}
 
   /* grosser Knopf zur Produktseite */
-  /* Tor zur Produktseite: volle Breite, mit dem freigestellten Produkt rechts
-     und einem weichen Schein dahinter. Soll wie eine Tuer wirken, nicht wie
-     ein Kasten mit Text. */
-  .tor{grid-column:1/-1;margin-top:46px}
-  .tor a{position:relative;display:grid;grid-template-columns:1fr minmax(170px,290px);
-         gap:clamp(18px,3vw,46px);align-items:center;overflow:hidden;text-decoration:none;
-         padding:clamp(24px,3vw,42px);border:1px solid var(--faint);
-         background:linear-gradient(115deg,rgba(255,255,255,.05),rgba(255,255,255,.012) 58%);
-         transition:border-color .45s,transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s}
-  .tor a::before{content:"";position:absolute;right:4%;top:50%;width:42%;aspect-ratio:1;
-         transform:translateY(-50%);border-radius:50%;pointer-events:none;opacity:.7;
-         background:radial-gradient(circle,rgba(255,255,255,.14),rgba(255,255,255,0) 66%);
-         transition:opacity .45s}
-  .tor a:hover{border-color:rgba(255,255,255,.4);transform:translateY(-3px);
-         box-shadow:0 26px 60px -34px rgba(0,0,0,.9)}
-  .tor a:hover::before{opacity:1}
-  .tor__txt,.tor__bild{position:relative;z-index:1}
-  /* picture ist von Haus aus inline; als Flexkind bekommt es dann keine
-     Breite, und das width:100% des Bildes laeuft ins Leere -> 0x0 */
-  .tor__bild{display:flex;justify-content:flex-end}
-  .tor__bild picture{display:block;width:100%}
-  .tor__bild img{width:100%;height:auto;display:block;
-         filter:drop-shadow(0 20px 32px rgba(0,0,0,.55));
-         transition:transform .6s cubic-bezier(.16,1,.3,1)}
-  .tor a:hover .tor__bild img{transform:translateY(-5px) scale(1.035)}
-  .tor__cta{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding-bottom:6px;
-         font-size:13px;font-weight:600;color:var(--ink-strong);
-         border-bottom:1px solid var(--faint);transition:border-color .45s}
-  .tor a:hover .tor__cta{border-bottom-color:rgba(255,255,255,.5)}
+  .tor{grid-column:1/-1;margin-top:40px;display:flex;justify-content:center}
+  .tor a{display:block;max-width:760px;width:100%;text-decoration:none;
+         border:1px solid var(--faint);background:rgba(255,255,255,.02);
+         padding:30px 34px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;
+         transition:background .45s,border-color .45s,transform .45s cubic-bezier(.16,1,.3,1)}
+  .tor a:hover{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.34);transform:translateY(-2px)}
   .tor__k{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--rail);margin-bottom:9px}
   .tor__t{font-family:var(--display);font-weight:600;font-size:clamp(21px,2.7vw,29px);
           letter-spacing:-.01em;color:var(--ink-strong);line-height:1.15}
   .tor__s{font-size:14px;color:var(--ink);margin-top:9px;line-height:1.6}
-  .tor__pfeil{font-size:17px;color:var(--ink-strong);opacity:.8;transition:opacity .45s,transform .45s cubic-bezier(.16,1,.3,1)}
+  .tor__pfeil{font-size:26px;color:var(--ink-strong);opacity:.65;transition:opacity .45s,transform .45s cubic-bezier(.16,1,.3,1)}
   .tor a:hover .tor__pfeil{opacity:1;transform:translateX(5px)}
   @media(max-width:640px){
-    .tor a{grid-template-columns:1fr;gap:18px;padding:24px 22px}
-    .tor__bild{justify-content:center;max-width:240px;margin:0 auto}
+    .tor a{grid-template-columns:1fr;gap:16px;padding:24px 22px}
     .tor__pfeil{justify-self:start}
   }
 
@@ -705,20 +681,6 @@
     .vk--u .sl__s{grid-column:2;grid-row:2;margin-top:5px}
     .vk--u .sl__m{grid-column:3;grid-row:1/span 2;align-self:center;margin:0}
 
-    /* iCapsule: eigene Anordnung. tr__a bis tr__d teilt sich das Kapitel mit
-       anderen, deshalb ueber die Kapitel-ID zugewiesen -- und zwingend
-       innerhalb dieser Abfrage, sonst schluege es die Handy-Regel.
-       Die Breiten sind so gewaehlt, dass die Bilder einer Reihe etwa gleich
-       hoch werden: Schnitt 1,23 · Chip 1,02 · Blender-Innen 0,75. */
-    #p-ibee .tr__xl{grid-column:1/span 8}         /* Aufmacher, Text rechts daneben */
-    #p-ibee .tr__txt{grid-column:9/span 4}
-    #p-ibee .tr__a{grid-column:1/span 5}          /* Schnitt     1,23 -> 337 px */
-    #p-ibee .tr__b{grid-column:6/span 4}          /* Chip        1,02 -> 321 px */
-    #p-ibee .tr__bts2{grid-column:10/span 3;margin-top:0;align-self:start}  /* 0,75 -> 328 px */
-    #p-ibee .tr__c{grid-column:1/span 7}          /* Farben      1,94 -> 308 px */
-    #p-ibee .tr__bts1{grid-column:8/span 5;margin-top:0}                    /* 1,33 -> 311 px */
-    #p-ibee .tr__d{grid-column:1/span 8}          /* Bildschirm  2,89 -> 238 px */
-    #p-ibee .tr__btstxt{grid-column:9/span 4;margin-top:0;align-self:center}
     .chapter--film .tr__f1{grid-column:5/-1}
     .chapter--film .tr__f2{grid-column:1/span 11}
     .chapter--film .tr__f3{grid-column:2/-1}
@@ -1375,47 +1337,40 @@
         <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1400" height="1136" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
         <figcaption class="kap__cap"><div class="n">Der Schnitt</div><div class="s">Sieben Hochtöner im Ring</div></figcaption>
       </figure>
-
       <figure class="tr__b" data-pjlb="../assets/img/icapsule/chip.jpg" data-pjcap="Blick von oben auf den Chip">
         <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1300" height="1276" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
         <figcaption class="kap__cap"><div class="n">Das Innere</div><div class="s">Antrieb und Chip</div></figcaption>
-      </figure>
-
-      <figure class="tr__bts2" data-pjlb="../assets/img/design3d/ibee-innen.jpg" data-pjcap="Die Innenansicht der Lautsprecher lag in einer eigenen Datei">
-        <picture><source srcset="../assets/img/design3d/ibee-innen.webp" type="image/webp"><img src="../assets/img/design3d/ibee-innen.jpg" width="768" height="1024" loading="lazy" alt="Bildschirmfoto von Blender mit der Innenansicht der Lautsprecher"></picture>
-        <figcaption class="kap__cap"><div class="n">Das Innenleben</div><div class="s">Blender · eigene Datei</div></figcaption>
       </figure>
 
       <figure class="tr__c" data-pjlb="../assets/img/icapsule/farben.jpg" data-pjcap="Mitternacht und Weiß">
         <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1920" height="988" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
         <figcaption class="kap__cap"><div class="n">Zwei Farben</div><div class="s">Gewebe als eigenes Material</div></figcaption>
       </figure>
-
-      <figure class="tr__bts1" data-pjlb="../assets/img/design3d/ibee-blender.jpg" data-pjcap="Das Modell in Blender — Gehäuse, Gitter und Innenleben als eigene Objekte">
-        <picture><source srcset="../assets/img/design3d/ibee-blender.webp" type="image/webp"><img src="../assets/img/design3d/ibee-blender.jpg" width="1024" height="768" loading="lazy" alt="Bildschirmfoto von Blender mit dem Modell der iCapsule im Aufbau"></picture>
-        <figcaption class="kap__cap"><div class="n">Im Aufbau</div><div class="s">Blender · das ganze Gerät</div></figcaption>
-      </figure>
-
       <figure class="tr__d" data-pjlb="../assets/img/icapsule/bildschirme.jpg" data-pjcap="Drei Geräte, drei Bildschirminhalte">
         <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1600" height="554" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
         <figcaption class="kap__cap"><div class="n">Der Bildschirm</div><div class="s">6 Zoll OLED</div></figcaption>
       </figure>
 
+      <figure class="tr__bts1" data-pjlb="../assets/img/design3d/ibee-blender.jpg" data-pjcap="Das Modell in Blender — Gehäuse, Gitter und Innenleben als eigene Objekte">
+        <picture><source srcset="../assets/img/design3d/ibee-blender.webp" type="image/webp"><img src="../assets/img/design3d/ibee-blender.jpg" width="1024" height="768" loading="lazy" alt="Bildschirmfoto von Blender mit dem Modell der iCapsule im Aufbau"></picture>
+        <figcaption class="kap__cap"><div class="n">Im Aufbau</div><div class="s">Blender · das ganze Gerät</div></figcaption>
+      </figure>
+      <figure class="tr__bts2" data-pjlb="../assets/img/design3d/ibee-innen.jpg" data-pjcap="Die Innenansicht der Lautsprecher lag in einer eigenen Datei">
+        <picture><source srcset="../assets/img/design3d/ibee-innen.webp" type="image/webp"><img src="../assets/img/design3d/ibee-innen.jpg" width="768" height="1024" loading="lazy" alt="Bildschirmfoto von Blender mit der Innenansicht der Lautsprecher"></picture>
+        <figcaption class="kap__cap"><div class="n">Das Innenleben</div><div class="s">Blender · eigene Datei</div></figcaption>
+      </figure>
       <div class="tr__btstxt">
         <p style="color:var(--rail);font-size:13px;max-width:62ch">Gebaut in Blender: Gehäuse, Gewebe und die sieben Treiber sind eigene Objekte, das Innenleben lag in einer separaten Datei.</p>
       </div>
 
       <div class="tor">
         <a href="icapsule.html" id="zurProduktseite">
-          <div class="tor__txt">
+          <div>
             <div class="tor__k">Die Aufgabe ging weiter</div>
             <div class="tor__t">Und so würde es aussehen,<br>wenn der Hersteller es verkaufen würde.</div>
             <div class="tor__s">Die komplette Produktseite zur iCapsule — Speicher, Klang, Leistung, Farben und technische Daten.</div>
-            <div class="tor__cta">Zur Produktseite <span class="tor__pfeil" aria-hidden="true">→</span></div>
           </div>
-          <div class="tor__bild" aria-hidden="true">
-            <picture><source srcset="../assets/img/icapsule/hero-frei.webp" type="image/webp"><img src="../assets/img/icapsule/hero-frei.png" width="952" height="866" loading="lazy" alt=""></picture>
-          </div>
+          <div class="tor__pfeil" aria-hidden="true">→</div>
         </a>
       </div>
     </div>

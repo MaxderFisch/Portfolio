@@ -2039,3 +2039,52 @@ auftaucht.
 fünf Karten ausgelesen: Kartenfilter `none`, Bildfilter `none` — bei allen. Nur Karte 3 hat
 `scale(1.07)`, die übrigen stehen auf 1. Über die ganze Seite geprüft: **14 Karten in 3 Reihen,
 ausnahmslos `filter: none`.**
+
+### iCapsule auf der Portfolioseite neu angeordnet (16.09.2026)
+
+Max: *„bitte ordne die bilder vom apple produkt im portfolio besser an… nichts an der extra
+apple seite ändern… auch den knopf zur apple seite bitte besser machen"*.
+
+**Was vorher nicht stimmte.** Die Bilder standen nach Rasterplätzen sortiert, nicht nach Form.
+In jeder Reihe trafen dadurch sehr unterschiedliche Seitenverhältnisse aufeinander und die
+Unterkanten waren ausgefranst: 272 gegen 329 px in der einen Reihe, 264 gegen 178 in der
+nächsten. Dazu lag die Blender-Notiz als einzelne 30-px-Zeile über die volle Breite, und drei
+Bilder waren nur 335 px breit.
+
+**Die Anordnung folgt jetzt den Seitenverhältnissen.** Für jede Reihe habe ich die Breiten so
+gewählt, dass die Bilder rechnerisch gleich hoch werden:
+
+| Reihe | Inhalt | Höhen |
+|---|---|---|
+| 1 | Aufmacher 687 + Einleitungstext 335 | 387 / 249 |
+| 2 | Schnitt 423 · Chip 335 · Blender-Innenansicht 247 | 343 / 329 / 328 — **15 px Unterschied** |
+| 3 | Zwei Farben 599 · Im Aufbau 423 | 309 / 318 — **9 px** |
+| 4 | Bildschirm 687 + Blender-Notiz 335 | 239 / 45 |
+| 5 | Tor zur Produktseite | 350 |
+
+**Und es ist kürzer geworden.** Das Kapitel schrumpft von 2123 auf **2025 px**, obwohl fast jedes
+Bild größer ist als vorher: Farben 599 statt 511, Bildschirm 687 statt 511, Schnitt 423 statt
+335. Möglich wurde das, indem der Aufmacher sich die Reihe mit dem Einleitungstext teilt statt
+über die volle Breite zu laufen, und die Notiz neben dem Bildschirmbild sitzt statt in einer
+eigenen Zeile.
+
+Ein Zwischenstand mit vollbreitem Aufmacher war **528 px länger** — verworfen, weil Max lange
+Scrollwege wiederholt kritisiert hat.
+
+**Der Knopf** ist jetzt ein Tor über die volle Breite: links Text mit einer eigenen Zeile
+*„Zur Produktseite →"* als sichtbarer Aufruf, rechts das **freigestellte Produkt** auf einem
+weichen Schein. Beim Zeigen hebt sich das Feld leicht, der Schein wird heller und das Produkt
+schwebt an. Das Bild `hero-frei.png` lag schon für die Apple-Seite bereit — es hat echte
+Transparenz (gemessen 53,6 % Produkt, 44 % durchsichtig), steht also frei auf dem Feld.
+
+**Zwei Fehler unterwegs, beide von der Prüfung gefunden:**
+
+1. Beim Umsortieren suchte mein Skript die Blöcke `tr__a` bis `tr__d` im **ganzen Dokument**.
+   Diese Klassen gibt es aber auch in anderen Kapiteln, also traf es die falschen. Die
+   Gegenprobe „enthält der Block wirklich `innen.jpg`?" hat abgebrochen, bevor etwas geschrieben
+   wurde. Jetzt wird nur innerhalb des Kapitelausschnitts gesucht.
+2. Das Produktbild im Knopf war **0 × 0**. Ursache: `<picture>` ist von Haus aus ein
+   Inline-Element; als Flexkind bekommt es keine Breite, und das `width:100%` des Bildes läuft
+   ins Leere. Mit `picture{display:block;width:100%}` stimmt es.
+
+Die Apple-Seite `icapsule.html` ist unberührt, `git status` bestätigt das.
