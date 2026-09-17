@@ -2181,3 +2181,56 @@ des Repos.
 `werkzeug/serve.js`, sondern ein anderes Node-Skript aus dem Zwischenordner. Meine Änderung am
 Server blieb deshalb wirkungslos, und der POST kam mit „not found" zurück. Erst `lsof -ti
 tcp:8000` und ein Blick auf die Befehlszeile der Prozesse haben es gezeigt.
+
+### Warum die Seite wirklich lief wie Kaugummi (17.09.2026)
+
+Max nach dem Vorrastern: *„nö das laggt immer noch sehr, welche verschiedenen anderen ansätze
+hättest du noch für so einen background aber einen der nicht so laggt"*.
+
+Beim ersten Versuch hatte ich **eine** Ursache behoben und mich damit zufriedengegeben. Die
+Messung der ganzen Seite zeigte zwei größere, die nichts mit der Karte zu tun hatten:
+
+| Befund | Wert |
+|---|---|
+| Elemente mit dauerhaftem `will-change: transform` | **90** |
+| deren Gesamtfläche | **18,4 Mio. px** |
+| geschätzter Grafikspeicher bei 2×-Bildschirm | **rund 280 MB** |
+| endlos laufende Animationen | **10** |
+| davon im Bild | **0** |
+
+**`will-change` war als Dauerzustand gesetzt.** Es ist ein kurzer Hinweis vor einer Animation,
+kein Attribut. Auf 84 Hintergrundwörtern hält der Browser dadurch **84 eigene GPU-Ebenen** über
+die gesamte Lebensdauer der Seite — auch für Wörter, die man nie sieht. 280 MB sind mehr, als
+ein Browser bereitwillig hält; er fängt an, Ebenen zu verwerfen und neu zu rastern, und genau
+das fühlt sich an wie eine zähe Seite.
+
+Entfernt aus `.bgl`, `.wort` und `.track`. Geblieben ist es nur bei `.pb__fx .streak` — die
+Lichtspuren existieren nur für Sekundenbruchteile und animieren tatsächlich, dort gehört es hin.
+**Von 90 Elementen auf null.**
+
+**Zehn Endlos-Animationen liefen permanent weiter**, keine einzige davon sichtbar: sechs wiegende
+Banner, drei langsam aufgehende Bilder und der Kartenflug. Sie halten jetzt an, sobald sie aus
+dem Bild sind.
+
+Die Ziele werden nicht über Klassennamen gesucht, sondern über `getAnimations()` — alles mit
+`iterations === Infinity`. Dadurch erfasst es auch Animationen, die später dazukommen, ohne dass
+jemand daran denken muss. Entschieden wird über `getBoundingClientRect`, nicht allein über einen
+`IntersectionObserver`: Der ist im zugeklappten Browser-Bereich eingefroren, und der erste
+Versuch ließ sich deshalb **nicht nachmessen** — es sah aus, als griffe die Ruhestellung nicht.
+Der Beobachter bleibt als sparsamer Auslöser, die Entscheidung trifft die Funktion.
+
+Pausieren friert den Stand ein; beim Fortsetzen läuft es weiter, ohne Sprung.
+
+**Nachgemessen:** ganz oben **10 von 10 angehalten**, im Drohnenkapitel **9 angehalten, genau
+eine läuft**, wieder oben wieder alle zehn. Kein einziger Zustand passt nicht zur Sichtbarkeit.
+
+Zur Kontrolle: alle sieben Videos der beiden betroffenen Kapitel wählen weiterhin genau eines
+aus, die Karte läuft weiterhin randlos, Seitenhöhe unverändert.
+
+**Was noch als Hebel bliebe,** falls es weiter hakt: Die Karte bewegt sich über
+`background-position`, und das ist die einzige der beteiligten Eigenschaften, die der Browser
+**nicht** auf der Grafikkarte animieren kann — sie erzwingt bei jedem Bild ein Neuzeichnen.
+Umstellen ließe sich das auf `transform` einer Ebene, die nur so groß ist wie das Fenster
+(`position:sticky`). Dann bewegt die Grafikkarte eine fertige Ebene und es wird gar nichts mehr
+neu gezeichnet. Der Preis: Der Hintergrund würde dann im Fenster stehen bleiben, statt mit der
+Seite zu scrollen — sichtbar anders, nicht hässlicher. Bewusst nicht von mir allein entschieden.

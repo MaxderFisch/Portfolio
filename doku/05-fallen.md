@@ -1003,3 +1003,36 @@ Eine Änderung am Vorschau-Server blieb ohne jede Wirkung. Grund: Auf Port 8000 
 Node-Skript aus einem Zwischenordner, nicht `werkzeug/serve.js`.
 → Bei „meine Änderung kommt nicht an": `lsof -ti tcp:8000` und die Befehlszeile der Prozesse
 ansehen, bevor man am Code sucht.
+
+### `will-change` ist ein Hinweis, kein Attribut
+`will-change: transform` fest im Stylesheet auf einer ganzen Elementklasse zwingt den Browser,
+für **jedes** dieser Elemente dauerhaft eine eigene GPU-Ebene zu halten — auch für die, die man
+nie sieht. Hier: 84 Hintergrundwörter, zusammen 16,2 Mio. px, geschätzt 280 MB bei
+2×-Bildschirm. Der Browser verwirft dann Ebenen und rastert sie neu; die Seite wird zäh, ohne
+dass eine einzelne Stelle schuld wäre.
+→ Nur dort setzen, wo etwas **gerade** animiert wird, und danach wieder entfernen. Bei
+scrollgesteuerten Transformationen gar nicht nötig — der Browser befördert selbst.
+→ Nachmessen: Über alle Elemente laufen, `getComputedStyle(e).willChange !== 'auto'` zählen und
+die Flächen aufsummieren. Alles über ein paar Millionen Pixel ist ein Problem.
+
+### Endlos-Animationen laufen auch weit außerhalb des Bildes weiter
+Zehn `infinite`-Animationen liefen auf einer 27 000 px hohen Seite dauerhaft, keine davon
+sichtbar.
+→ Anhalten, sobald sie aus dem Bild sind: `style.animationPlayState = 'paused'`. Das friert den
+Stand ein, beim Fortsetzen gibt es keinen Sprung.
+→ Ziele über `document.getAnimations()` mit `getTiming().iterations === Infinity` sammeln, nicht
+über Klassennamen — dann erfasst es auch spätere Animationen von selbst.
+
+### Eine Ruhestellung, die nur am IntersectionObserver hängt, lässt sich hier nicht prüfen
+Der Beobachter ist im zugeklappten Browser-Bereich eingefroren; die erste Fassung sah deshalb
+aus, als griffe sie nicht — obwohl der Code stimmte.
+→ Die Entscheidung in eine aufrufbare Funktion legen, die über `getBoundingClientRect` selbst
+prüft, und den Beobachter nur als Auslöser verwenden. Dann lässt sich die Logik von Hand
+durchspielen, auch wenn der Browser-Bereich schläft.
+
+### Nach einer Leistungsmessung nicht bei der ersten Ursache aufhören
+Der erste Durchgang fand das teure SVG und behob es — das Problem blieb, weil zwei größere
+Ursachen danebenlagen. Eine Einzelmessung beantwortet „ist X teuer?", nicht „warum ist die Seite
+langsam?".
+→ Erst die ganze Seite aufnehmen (dauerhafte Ebenen, laufende Animationen, deren Flächen), dann
+die größten Posten nacheinander abarbeiten.

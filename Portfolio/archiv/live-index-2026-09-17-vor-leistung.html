@@ -175,7 +175,7 @@
   .pb__rail b{color:#fff;font-weight:500}
   /* Textfläche hinter den Bildern — Outline-Typo, Zeilen scrollen unterschiedlich schnell */
   .pb__bg{position:absolute;z-index:0;top:-10%;bottom:-10%;left:-18%;right:-18%;display:flex;flex-direction:column;justify-content:center;gap:clamp(10px,1.6vw,26px);overflow:hidden;pointer-events:none;user-select:none}
-  .pb__bg .bgl{display:block;font-family:var(--display);font-weight:700;line-height:1.02;letter-spacing:-.035em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px var(--faint)}
+  .pb__bg .bgl{display:block;font-family:var(--display);font-weight:700;line-height:1.02;letter-spacing:-.035em;white-space:nowrap;color:transparent;-webkit-text-stroke:1px var(--faint);will-change:transform}
   .pb__bg .bgl.red{-webkit-text-stroke-color:rgba(223,34,25,.62)}
   .pb__bg .xl{font-size:clamp(72px,15vw,215px)}
   .pb__bg .lg{font-size:clamp(50px,10vw,150px)}
@@ -516,7 +516,7 @@
   .wort{position:absolute;left:0;top:50%;z-index:0;font-family:var(--display);font-weight:700;
     font-size:clamp(66px,14vw,200px);line-height:.8;letter-spacing:-.04em;color:transparent;
     -webkit-text-stroke:1px var(--faint);white-space:nowrap;pointer-events:none;user-select:none;
-    transform:translateY(-50%)}
+    transform:translateY(-50%);will-change:transform}
   .zeile{position:relative;z-index:1;display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;padding-left:32px}
   .rail{writing-mode:vertical-rl;transform:rotate(180deg);font-size:10px;letter-spacing:.3em;
     text-transform:uppercase;color:var(--muted);white-space:nowrap;padding:8px 0;align-self:center}
@@ -527,7 +527,7 @@
   .reihe::-webkit-scrollbar{height:5px}
   .reihe::-webkit-scrollbar-track{background:transparent}
   .reihe::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:99px}
-  .track{display:flex;gap:14px;padding-right:40px}
+  .track{display:flex;gap:14px;padding-right:40px;will-change:transform}
   .track .proj{flex:0 0 300px}
   .track .proj:nth-child(even){margin-top:34px}
 
@@ -2146,68 +2146,6 @@
             netz:v.networkState, zeit:+v.currentTime.toFixed(2), paused:v.paused,
             vonHand:!!v.dataset.vonHand, anfrage:v._anfrage, wir:v._wir, fehl:v._fehl}; }); };
   waehlen();
-})();
-
-/* Endlos laufende Animationen anhalten, solange sie nicht sichtbar sind.
-   Gemessen liefen zehn davon dauerhaft weiter, keine einzige im Bild -- das
-   kostet bei jedem Einzelbild Arbeit, ohne dass man etwas davon sieht.
-
-   Die Ziele werden nicht ueber Klassennamen gesucht, sondern ueber
-   getAnimations(): alles mit iterations === Infinity. Dadurch erfasst es auch
-   spaeter dazukommende Animationen, ohne dass man daran denken muss.
-
-   Geprueft wird ueber getBoundingClientRect, nicht allein ueber einen
-   IntersectionObserver -- der ist im zugeklappten Browser-Bereich eingefroren
-   und haette sich dort nicht nachmessen lassen. Der Beobachter bleibt als
-   sparsamer Ausloeser, die Entscheidung trifft die Funktion.
-
-   Pausieren friert den Stand ein, beim Fortsetzen laeuft es weiter -- kein
-   Sprung. */
-(function(){
-  if(!document.getAnimations) return;
-  var ziele=[], RAND=250, tick=false;
-
-  function pruefen(){
-    var h=window.innerHeight||0;
-    for(var i=0;i<ziele.length;i++){
-      var r=ziele[i].getBoundingClientRect();
-      var sichtbar = r.height>0 && r.bottom>-RAND && r.top<h+RAND;
-      ziele[i].style.animationPlayState = sichtbar ? '' : 'paused';
-    }
-    return ziele.length;
-  }
-  function gedrosselt(){
-    if(tick) return; tick=true;
-    (window.requestAnimationFrame||setTimeout)(function(){ pruefen(); tick=false; },16);
-  }
-  function einrichten(){
-    document.getAnimations().forEach(function(a){
-      try{
-        var t=a.effect && a.effect.getTiming();
-        if(t && t.iterations===Infinity && a.effect.target
-           && ziele.indexOf(a.effect.target)<0) ziele.push(a.effect.target);
-      }catch(e){}
-    });
-    if(!ziele.length) return;
-    pruefen();
-    window.addEventListener('scroll',gedrosselt,{passive:true});
-    window.addEventListener('resize',gedrosselt);
-    if(window.IntersectionObserver){
-      var beob=new IntersectionObserver(gedrosselt,{rootMargin:RAND+'px 0px'});
-      ziele.forEach(function(z){ beob.observe(z); });
-    }
-    window.animationsPruefen=pruefen;
-    window.animationsRuhe=function(){
-      return ziele.map(function(z){
-        var r=z.getBoundingClientRect();
-        return {ziel:(z.className.toString().split(' ').slice(-1)[0]||z.tagName),
-          imBild:(r.bottom>-RAND&&r.top<(window.innerHeight||0)+RAND),
-          zustand:getComputedStyle(z).animationPlayState};
-      });
-    };
-  }
-  if(document.readyState==='complete') setTimeout(einrichten,80);
-  else window.addEventListener('load',function(){ setTimeout(einrichten,80); });
 })();
 </script>
 </body>
