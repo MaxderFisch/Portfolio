@@ -648,8 +648,15 @@
   .chapter--himmel::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
     background:linear-gradient(to bottom,#121212 0,rgba(16,22,37,0) 460px),
                linear-gradient(to top,#101625 0,rgba(16,22,37,0) 240px)}
-  .deko--karte{left:0;right:0;opacity:.36;
-    background:url(../assets/img/deko/karte-flug.svg) repeat;background-size:2000px 2000px;
+  /* Vorgerastert statt SVG. Das SVG hat 298 Baumsymbole und einen
+     Weichzeichnerfilter -- gemessen 16,9 ms je Zeichnung gegen 0,4 ms aus der
+     Bitmap, also 42-mal teurer. Bei einer laufenden Animation reicht das, um
+     die ganze Seite auszubremsen. Die 36 % Deckkraft sind in die Bitmap
+     eingerechnet (ueber #101625), dadurch braucht die Ebene auch keine eigene
+     Compositing-Schicht mehr. Das SVG bleibt als Quelle liegen; neu rastern
+     mit dem Ablauf in 05-fallen.md. */
+  .deko--karte{left:0;right:0;
+    background:url(../assets/img/deko/karte.webp) repeat;background-size:2000px 2000px;
     animation:kartenflug 26s linear infinite}
   /* kartenflug: 26 s je Umlauf ueber zwei Kacheln.
      Tempo schwankt um den Faktor 4.1, im Mittel 218 px/s, in der Spitze rund 350 px/s.

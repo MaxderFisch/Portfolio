@@ -2125,3 +2125,59 @@ Kapitelhöhe **2104 px** gegen 2123 vorher — trotz vollbreitem Aufmacher unver
 Quelltext deshalb vorher kommen, einspaltig stand die Erklärung dadurch hinter dem Knopf. Gelöst
 mit `#p-ibee .tor{order:1}` **innerhalb** der Handy-Abfrage. Knopfbild dort von 240 auf 170 px,
 der Knopf von 473 auf 409 px Höhe.
+
+### Die Karte hat die Seite ausgebremst (17.09.2026)
+
+Max: *„die animation im hintergrund der drohnen videos sieht sehr cool aus, aber sie bringt die
+seite zum laggen… wie könnte man das beheben ohne dass der hintergrund hässlicher wird?"*
+
+**Gemessen statt geraten.** Die Bildrate lässt sich im zugeklappten Browser-Bereich nicht
+messen — `requestAnimationFrame` ist dort gedrosselt. Messbar ist aber, was ein Bild kostet:
+dieselbe sichtbare Fläche (1400 × 900 px, gekachelt mit 2000er Kacheln) einmal aus dem SVG und
+einmal aus einer Bitmap zeichnen.
+
+| Quelle | je Bild |
+|---|---|
+| `karte-flug.svg` | **22,03 ms** |
+| Bitmap | **0,02 ms** |
+
+Bei 60 Bildern je Sekunde stehen 16,7 ms zur Verfügung. Das SVG lag **darüber** — die Karte
+konnte gar nicht flüssig laufen. Kein Wunder: Sie enthält **298 Baumsymbole, 78 Pfade und einen
+Weichzeichnerfilter**, und der Filter wird über einen Bereich von 3300 × 3300 Einheiten
+gerechnet. Das muss der Browser bei jeder Neurasterung durchrechnen.
+
+**Die Lösung ändert am Aussehen nichts:** Die Karte wird **einmal vorgerastert** und als Bitmap
+gekachelt. Es sind dieselben Pixel — nachgemessen eine mittlere Abweichung von **0,64
+Farbstufen** von 255, das ist unsichtbar.
+
+Dazu ist die **Deckkraft von 36 % gleich mit eingerechnet** (über `#101625` gezeichnet). Die
+Ebene braucht dadurch kein `opacity` mehr und damit auch keine eigene Compositing-Schicht von
+1400 × 2831 px, die bei jedem Bild neu gezeichnet werden musste.
+
+**Die Qualitätsstufe hat die Naht entschieden, nicht die Dateigröße.** Verlustbehaftete
+Kompression verändert die obere und die untere Bildkante unterschiedlich — dadurch entsteht an
+der Kachelnaht eine feine waagerechte Linie, die es im SVG nicht gab:
+
+| WebP-Qualität | Größe | Nahtsprung | stärkster normaler Übergang |
+|---|---|---|---|
+| 0,88 | 32 KB | 1,62 | 0,97 |
+| 0,94 | 60 KB | 1,17 | 1,11 |
+| **0,97** | **75 KB** | **0,89** | **0,92** |
+| verlustfrei | 736 KB | 0,34 | 0,46 |
+
+Gewählt **0,97**: die Naht springt nicht stärker als der stärkste normale Zeilenübergang im
+Bild, bei einem Zehntel der Größe der verlustfreien Fassung.
+
+**Wie die Bitmap entsteht.** Auf diesem Rechner gibt es weder `rsvg` noch `magick`. Der Weg
+führt über den Browser: Das SVG wird in ein Canvas gezeichnet, mit `toBlob` exportiert und über
+einen kleinen **POST-Endpunkt im Vorschau-Server** (`werkzeug/serve.js`, `POST /ablegen?datei=…`)
+zurück auf die Platte geschrieben. Der Endpunkt ist reines Werkstattwerkzeug und liegt außerhalb
+des Repos.
+
+`karte-flug.svg` bleibt als **Quelle** liegen — daraus wird neu gerastert, wenn sich die Karte
+ändert. Ausgeliefert wird nur noch `karte.webp`.
+
+**Nebenbei ein Fund, der mich zwanzig Minuten gekostet hätte:** Auf Port 8000 lief gar nicht
+`werkzeug/serve.js`, sondern ein anderes Node-Skript aus dem Zwischenordner. Meine Änderung am
+Server blieb deshalb wirkungslos, und der POST kam mit „not found" zurück. Erst `lsof -ti
+tcp:8000` und ein Blick auf die Befehlszeile der Prozesse haben es gezeigt.

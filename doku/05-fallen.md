@@ -972,3 +972,34 @@ die Unterkanten franst es aus und es wirkt zufällig.
 → Aus den Seitenverhältnissen zurückrechnen: für gleiche Höhe *h* braucht jedes Bild die Breite
 *Verhältnis × h*. Daraus die Spaltenzahl wählen. Hier aus 1,23 · 1,02 · 0,75 die Breiten
 423 · 335 · 247 — Höhenunterschied 15 px statt 57.
+
+### Ein SVG als animierter Hintergrund kann die ganze Seite ausbremsen
+Eine gekachelte Karte als SVG mit 298 Symbolen, 78 Pfaden und einem Weichzeichnerfilter kostete
+**22 ms je Bild** für die sichtbare Fläche — mehr als die 16,7 ms, die bei 60 Hz zur Verfügung
+stehen. Als vorgerasterte Bitmap sind es **0,02 ms**.
+→ Animierte Hintergründe nie als komplexes SVG ausliefern. Einmal rastern, als Bitmap kacheln.
+Das SVG bleibt die Quelle.
+→ Messen, ohne die Bildrate messen zu können: dieselbe sichtbare Fläche in ein Canvas zeichnen
+und die Zeit je Durchgang nehmen. Das geht auch im gedrosselten Browser-Bereich, wo `rAF`
+eingefroren ist.
+
+### Deckkraft besser in die Grafik einrechnen als per CSS setzen
+`opacity` auf einer 1400 × 2831 px großen Ebene erzwingt eine eigene Compositing-Schicht, die
+bei einer laufenden Animation immer wieder neu gezeichnet wird.
+→ Ist die Grafik ohnehin deckend und liegt sie auf einer bekannten Farbe, den Wert beim Rastern
+einrechnen (über dem Grund zeichnen, `globalAlpha` setzen) und im CSS auf `opacity:1` gehen.
+Das Ergebnis ist pixelgleich, die Ebene aber kostenlos.
+
+### Verlustbehaftete Kompression erzeugt Nähte in kachelbaren Bildern
+Obere und untere Bildkante werden unabhängig komprimiert — an der Kachelnaht entsteht dadurch
+eine feine Linie, die in der Vorlage nicht war. Hier: Nahtsprung 1,62 bei Qualität 0,88 gegen
+0,97 als stärksten normalen Übergang.
+→ Die Qualität nach der **Naht** wählen, nicht nach der Dateigröße: so weit hochgehen, bis der
+Nahtsprung unter dem stärksten normalen Zeilenübergang im Bild liegt. Hier 0,97 (75 KB) statt
+verlustfrei (736 KB).
+
+### Prüfen, welcher Server wirklich auf dem Port lauscht
+Eine Änderung am Vorschau-Server blieb ohne jede Wirkung. Grund: Auf Port 8000 lief ein anderes
+Node-Skript aus einem Zwischenordner, nicht `werkzeug/serve.js`.
+→ Bei „meine Änderung kommt nicht an": `lsof -ti tcp:8000` und die Befehlszeile der Prozesse
+ansehen, bevor man am Code sucht.
