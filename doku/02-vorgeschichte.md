@@ -2234,3 +2234,49 @@ Umstellen ließe sich das auf `transform` einer Ebene, die nur so groß ist wie 
 (`position:sticky`). Dann bewegt die Grafikkarte eine fertige Ebene und es wird gar nichts mehr
 neu gezeichnet. Der Preis: Der Hintergrund würde dann im Fenster stehen bleiben, statt mit der
 Seite zu scrollen — sichtbar anders, nicht hässlicher. Bewusst nicht von mir allein entschieden.
+
+### Die Karte bewegt sich jetzt über `transform` (17.09.2026)
+
+Max hat dem zugestimmt: *„ja mach 1 bitte"* — also die Umstellung von `background-position` auf
+`transform`, mit dem Hinweis, dass der Hintergrund dadurch im Fenster stehen bleibt statt
+mitzuscrollen.
+
+**Warum das der richtige Hebel war.** `background-position` gehört nicht zu den Eigenschaften,
+die der Browser auf der Grafikkarte animieren kann — nur `transform`, `opacity`, `filter` und
+`backdrop-filter` können das. Jede Änderung der Hintergrundposition erzwingt ein **Neuzeichnen
+der Fläche**, bei jedem einzelnen Bild. `transform` verschiebt dagegen eine fertige Ebene;
+gezeichnet wird gar nichts mehr.
+
+**Der Aufbau:**
+
+```
+.chapter--himmel > .kartenflug      sticky, top:0, height:100vh, overflow:hidden
+                                    margin-bottom:-100vh  → nimmt keine Höhe im Fluss
+  └ i                               left/top: -1 Kachel, right/bottom: 0
+                                    trägt die Kachel, wird per transform verschoben
+```
+
+Der äußere Kasten klebt fenstergroß im Kapitel und schneidet ab. Der negative Außenabstand ist
+nötig, sonst schöbe er den ganzen Kapitelinhalt um eine Fensterhöhe nach unten — nachgemessen:
+Die Kapitelmarke sitzt weiterhin bei **0 px** Abstand zur Kapiteloberkante.
+
+**Der Kniff mit dem Umschlagen.** Die Flugbahn läuft über zwei Kacheln, also 4000 px. Eine Ebene
+mit 4000 px Überhang wäre riesig. Da eine Verschiebung um **genau eine Kachel dasselbe Bild
+zeigt**, werden die Werte bei jeder Kachelbreite umgeschlagen — die Bahn bleibt unter 2000 px
+und die Ebene braucht nur eine Kachel Überhang. Damit dabei nichts rückwärts läuft, sitzen an
+den beiden Umschlagpunkten je zwei Stützstellen zur selben Zeit: erst auf die Kachelgrenze, dann
+im selben Augenblick auf null.
+
+Nachgemessen über den Umlauf: `0/0 → 1196/1382 → 485/188 → 1073/639 → 1996/1993`. Der Sprung
+zwischen 25 % und 50 % ist der Umschlag, das Ende bei 1996/1993 ist eine volle Kachel und damit
+optisch der Anfang.
+
+**Maße:** Rechner Kasten 1400 × 900, innere Ebene 3400 × 2900 bei 2000er Kachel. Handy Kasten
+375 × 812, innere Ebene 1415 × 1852 bei 1040er Kachel, volle Breite, kein Überstand.
+
+Zusammen mit der Ruhestellung bedeutet das: **Außerhalb des Kapitels läuft nichts, innerhalb
+zeichnet nichts.**
+
+**Was sich sichtbar ändert:** Der Hintergrund steht jetzt im Fenster, statt mit der Seite zu
+scrollen. Beim Scrollen durch das Kapitel zieht nur noch die Karte selbst — das entspricht dem
+Flug eher als vorher, ist aber eine echte Änderung und war deshalb abgesprochen.

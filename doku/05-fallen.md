@@ -1036,3 +1036,22 @@ Ursachen danebenlagen. Eine Einzelmessung beantwortet „ist X teuer?", nicht �
 langsam?".
 → Erst die ganze Seite aufnehmen (dauerhafte Ebenen, laufende Animationen, deren Flächen), dann
 die größten Posten nacheinander abarbeiten.
+
+### Nur vier Eigenschaften animiert der Browser auf der Grafikkarte
+`transform`, `opacity`, `filter`, `backdrop-filter`. Alles andere — auch `background-position`,
+`top`, `left`, `width` — erzwingt bei jedem Bild ein Neuzeichnen.
+→ Bei einer dauerhaft laufenden Animation immer auf `transform` gehen. Wenn eine Fläche
+gekachelt wandern soll: einen fenstergroßen Kasten mit `overflow:hidden` und darin eine Ebene,
+die eine Kachel übersteht, per `transform` verschieben.
+
+### Ein fenstergroßer Kasten im Fluss schiebt den Inhalt weg
+`position:sticky; height:100vh` als erstes Kind eines Kapitels drückt alles darunter um eine
+Fensterhöhe nach unten — anders als bei `position:absolute` nimmt ein klebender Kasten Platz ein.
+→ `margin-bottom:-100vh` hebt die Höhe im Fluss wieder auf. Danach nachmessen, dass das erste
+sichtbare Element noch an derselben Stelle sitzt.
+
+### Eine wandernde Kachel braucht keinen Überhang über die ganze Strecke
+Eine Bahn über zwei Kacheln hieße zwei Kacheln Überhang. Da eine Verschiebung um **genau eine
+Kachel dasselbe Bild zeigt**, lassen sich die Werte modulo Kachelbreite rechnen.
+→ An jedem Umschlagpunkt zwei Stützstellen zur selben Zeit setzen: erst auf die Kachelgrenze,
+dann auf null. Ohne das interpoliert CSS rückwärts und das Bild ruckt sichtbar zurück.

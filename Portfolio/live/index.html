@@ -623,74 +623,71 @@
   .deko--blende{background:url(../assets/img/deko/blende.svg) no-repeat;
     background-size:860px 860px;background-position:calc(100% + 480px) 24%}
 
-  /* Drohnenkapitel: gezeichnete Landkarte von oben, Felder mit Hecken dazwischen. */
-  /* Endlose Kachel: die Karte wiederholt sich in beide Richtungen, jede Form
-     laeuft am Rand auf der Gegenseite weiter. Die Ebene zieht von selbst
-     dauerhaft nach unten rechts -- genau eine Kachelbreite pro Durchlauf,
-     dadurch ist der Sprung am Ende unsichtbar und es wirkt wie ein Flug
-     ueber eine Landschaft ohne Ende.
-     Bewusst ueber background-position statt transform: die Ebene ist rund
-     1400x4000 px gross. Mit transform waere sie eine Verbundebene, die bei
-     jedem Bild komplett neu gezeichnet werden muesste; so zeichnet der Browser
-     nur den sichtbaren Ausschnitt. Aus demselben Grund traegt sie keine
-     bgl-Klasse mehr, bekommt also auch keinen Parallaxe-Versatz. */
-  /* FLUGFASSUNG. Zurueck auf die ruhige Karte: karte-flug.svg -> karte.svg,
-     opacity-Zeile raus, 14s -> 96s, am Handy 8s -> 52s. Der Stand davor liegt
-     unter archiv/stand-2026-09-15-vor-flugversion/. */
-  /* Die Karte haengt direkt am Kapitel, nicht mehr im pb__bg-Kasten -- der war
-     nur 18 % breiter als die Inhaltsspalte und liess an breiten Fenstern links
-     und rechts Streifen stehen. inset:0 laesst sie bis an die Kanten laufen.
-     Spezifischer als die Handy-Regel fuer .deko, aber mit denselben Werten bei
-     jeder Breite -- deshalb unschaedlich (siehe 05-fallen.md). */
-  .chapter--himmel>.deko--karte{inset:0}
+  /* Drohnenkapitel: gezeichnete Landkarte von oben, endlos gekachelt.
+
+     Die Bewegung laeuft ueber transform, nicht ueber background-position.
+     background-position kann der Browser nicht auf der Grafikkarte animieren --
+     es erzwingt bei jedem Bild ein Neuzeichnen der Flaeche. transform schiebt
+     dagegen eine fertige Ebene; gezeichnet wird gar nichts mehr.
+
+     Aussen ein fenstergrosser Kasten, der im Kapitel klebt und abschneidet.
+     Der negative Aussenabstand nimmt ihm die Hoehe im Fluss, sonst schoebe er
+     den Inhalt um eine Fensterhoehe nach unten.
+     Innen die Kachelflaeche, die eine Kachel nach oben und links hinausragt --
+     so entsteht beim Verschieben nirgends eine Luecke. Die Keyframes schlagen
+     bei jeder Kachelbreite um (eine Verschiebung um genau eine Kachel zeigt
+     dasselbe Bild), deshalb genuegt eine Kachel Ueberhang statt zwei.
+
+     Die Karte selbst ist vorgerastert: das SVG hat 298 Baumsymbole und einen
+     Weichzeichnerfilter und kostete gemessen 22 ms je Bild -- mehr als die
+     16,7 ms, die bei 60 Hz zur Verfuegung stehen. Die 36 % Deckkraft sind in
+     die Bitmap eingerechnet (ueber #101625). karte-flug.svg bleibt die Quelle. */
+  .chapter--himmel>.kartenflug{position:sticky;top:0;height:100vh;margin-bottom:-100vh;
+    overflow:hidden;z-index:0;pointer-events:none}
+  .chapter--himmel>.kartenflug>i{position:absolute;left:-2000px;top:-2000px;right:0;bottom:0;
+    background:url(../assets/img/deko/karte.webp) repeat;background-size:2000px 2000px;
+    animation:kartenflug 26s linear infinite}
   /* Uebergang vom vorigen Kapitel und Ausklang nach unten liegen ueber der
      Karte: ::after wird als letztes Kind erzeugt und deckt sie damit ab. */
   .chapter--himmel::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
     background:linear-gradient(to bottom,#121212 0,rgba(16,22,37,0) 460px),
                linear-gradient(to top,#101625 0,rgba(16,22,37,0) 240px)}
-  /* Vorgerastert statt SVG. Das SVG hat 298 Baumsymbole und einen
-     Weichzeichnerfilter -- gemessen 16,9 ms je Zeichnung gegen 0,4 ms aus der
-     Bitmap, also 42-mal teurer. Bei einer laufenden Animation reicht das, um
-     die ganze Seite auszubremsen. Die 36 % Deckkraft sind in die Bitmap
-     eingerechnet (ueber #101625), dadurch braucht die Ebene auch keine eigene
-     Compositing-Schicht mehr. Das SVG bleibt als Quelle liegen; neu rastern
-     mit dem Ablauf in 05-fallen.md. */
-  .deko--karte{left:0;right:0;
-    background:url(../assets/img/deko/karte.webp) repeat;background-size:2000px 2000px;
-    animation:kartenflug 26s linear infinite}
-  /* kartenflug: 26 s je Umlauf ueber zwei Kacheln.
-     Tempo schwankt um den Faktor 4.1, im Mittel 218 px/s, in der Spitze rund 350 px/s.
-     Richtung schwenkt zwischen 27 und 62 Grad um die Diagonale. */
+  /* kartenflug: 26 s, Umlauf ueber 2 Kacheln a 2000 px.
+     Werte bleiben unter einer Kachel, 2 unsichtbare Umschlaege. */
   @keyframes kartenflug{
-    0%{background-position:0px 0px}
-    4.2%{background-position:155px 286px}
-    8.3%{background-position:317px 572px}
-    12.5%{background-position:505px 838px}
-    16.7%{background-position:725px 1064px}
-    20.8%{background-position:962px 1242px}
-    25%{background-position:1196px 1382px}
-    29.2%{background-position:1418px 1508px}
-    33.3%{background-position:1631px 1637px}
-    37.5%{background-position:1841px 1779px}
-    41.7%{background-position:2056px 1928px}
-    45.8%{background-position:2275px 2070px}
-    50%{background-position:2485px 2188px}
-    54.2%{background-position:2664px 2278px}
-    58.3%{background-position:2795px 2346px}
-    62.5%{background-position:2883px 2402px}
-    66.7%{background-position:2944px 2457px}
-    70.8%{background-position:3002px 2529px}
-    75%{background-position:3073px 2639px}
-    79.2%{background-position:3169px 2796px}
-    83.3%{background-position:3301px 2995px}
-    87.5%{background-position:3466px 3222px}
-    91.7%{background-position:3651px 3465px}
-    95.8%{background-position:3833px 3725px}
-    100%{background-position:4000px 4000px}
+    0%{transform:translate3d(0px,0px,0)}
+    4.17%{transform:translate3d(155px,286px,0)}
+    8.33%{transform:translate3d(317px,572px,0)}
+    12.5%{transform:translate3d(505px,838px,0)}
+    16.67%{transform:translate3d(725px,1064px,0)}
+    20.83%{transform:translate3d(962px,1242px,0)}
+    25%{transform:translate3d(1196px,1382px,0)}
+    29.17%{transform:translate3d(1418px,1507px,0)}
+    33.33%{transform:translate3d(1631px,1637px,0)}
+    37.5%{transform:translate3d(1841px,1779px,0)}
+    40.6%{transform:translate3d(2000px,1890px,0)}
+    40.6%{transform:translate3d(0px,1890px,0)}
+    41.67%{transform:translate3d(56px,1928px,0)}
+    43.7%{transform:translate3d(163px,2000px,0)}
+    43.7%{transform:translate3d(163px,0px,0)}
+    45.83%{transform:translate3d(275px,70px,0)}
+    50%{transform:translate3d(485px,188px,0)}
+    54.17%{transform:translate3d(663px,278px,0)}
+    58.33%{transform:translate3d(796px,346px,0)}
+    62.5%{transform:translate3d(883px,402px,0)}
+    66.67%{transform:translate3d(944px,457px,0)}
+    70.83%{transform:translate3d(1002px,529px,0)}
+    75%{transform:translate3d(1073px,639px,0)}
+    79.17%{transform:translate3d(1169px,796px,0)}
+    83.33%{transform:translate3d(1301px,996px,0)}
+    87.5%{transform:translate3d(1466px,1222px,0)}
+    91.67%{transform:translate3d(1651px,1465px,0)}
+    95.83%{transform:translate3d(1833px,1725px,0)}
+    100%{transform:translate3d(2000px,2000px,0)}
   }
   /* Kein Grund hinter dem Text mehr -- der wirkte wie ein Rahmen. Die
      Lesbarkeit kommt stattdessen aus der Deckkraft der Kartenebene. */
-  @media(prefers-reduced-motion:reduce){.deko--karte{animation:none}}
+  @media(prefers-reduced-motion:reduce){.chapter--himmel>.kartenflug>i{animation:none}}
 
   /* Ab hier nur am Rechner. ACHTUNG: diese Regeln sind spezifischer als die
      Handy-Regel weiter unten und muessen deshalb in der Abfrage stehen bleiben,
@@ -752,36 +749,40 @@
     .deko--blende{background-size:420px 420px;background-position:calc(100% + 170px) 20%}
     /* kleinere Kachel am Handy -- der Weg pro Durchlauf muss genau der
        Kachelgroesse entsprechen, sonst springt der Loop */
-    .deko--karte{background-size:1040px 1040px;animation-name:kartenflugHandy;animation-duration:15s}
-    /* kartenflugHandy: 15 s je Umlauf ueber zwei Kacheln.
-       Tempo schwankt um den Faktor 4.0, im Mittel 196 px/s, in der Spitze rund 314 px/s.
-       Richtung schwenkt zwischen 26 und 61 Grad um die Diagonale. */
+    .chapter--himmel>.kartenflug>i{left:-1040px;top:-1040px;background-size:1040px 1040px;
+      animation-name:kartenflugHandy;animation-duration:15s}
+    /* kartenflugHandy: 15 s, Umlauf ueber 2 Kacheln a 1040 px.
+       Werte bleiben unter einer Kachel, 2 unsichtbare Umschlaege. */
     @keyframes kartenflugHandy{
-      0%{background-position:0px 0px}
-      4.2%{background-position:81px 149px}
-      8.3%{background-position:165px 297px}
-      12.5%{background-position:263px 436px}
-      16.7%{background-position:377px 553px}
-      20.8%{background-position:500px 646px}
-      25%{background-position:622px 719px}
-      29.2%{background-position:737px 784px}
-      33.3%{background-position:848px 851px}
-      37.5%{background-position:957px 925px}
-      41.7%{background-position:1069px 1003px}
-      45.8%{background-position:1183px 1077px}
-      50%{background-position:1292px 1138px}
-      54.2%{background-position:1385px 1184px}
-      58.3%{background-position:1454px 1220px}
-      62.5%{background-position:1499px 1249px}
-      66.7%{background-position:1531px 1278px}
-      70.8%{background-position:1561px 1315px}
-      75%{background-position:1598px 1372px}
-      79.2%{background-position:1648px 1454px}
-      83.3%{background-position:1716px 1558px}
-      87.5%{background-position:1803px 1675px}
-      91.7%{background-position:1898px 1802px}
-      95.8%{background-position:1993px 1937px}
-      100%{background-position:2080px 2080px}
+      0%{transform:translate3d(0px,0px,0)}
+      4.17%{transform:translate3d(81px,149px,0)}
+      8.33%{transform:translate3d(165px,297px,0)}
+      12.5%{transform:translate3d(263px,436px,0)}
+      16.67%{transform:translate3d(377px,553px,0)}
+      20.83%{transform:translate3d(500px,646px,0)}
+      25%{transform:translate3d(622px,719px,0)}
+      29.17%{transform:translate3d(737px,784px,0)}
+      33.33%{transform:translate3d(848px,851px,0)}
+      37.5%{transform:translate3d(957px,925px,0)}
+      40.6%{transform:translate3d(1040px,983px,0)}
+      40.6%{transform:translate3d(0px,983px,0)}
+      41.67%{transform:translate3d(29px,1003px,0)}
+      43.7%{transform:translate3d(85px,1040px,0)}
+      43.7%{transform:translate3d(85px,0px,0)}
+      45.83%{transform:translate3d(143px,37px,0)}
+      50%{transform:translate3d(252px,98px,0)}
+      54.17%{transform:translate3d(345px,144px,0)}
+      58.33%{transform:translate3d(414px,180px,0)}
+      62.5%{transform:translate3d(459px,209px,0)}
+      66.67%{transform:translate3d(491px,238px,0)}
+      70.83%{transform:translate3d(521px,275px,0)}
+      75%{transform:translate3d(558px,332px,0)}
+      79.17%{transform:translate3d(608px,414px,0)}
+      83.33%{transform:translate3d(676px,518px,0)}
+      87.5%{transform:translate3d(763px,635px,0)}
+      91.67%{transform:translate3d(858px,762px,0)}
+      95.83%{transform:translate3d(953px,897px,0)}
+      100%{transform:translate3d(1040px,1040px,0)}
     }
   }
 
@@ -1633,7 +1634,7 @@
 </div>
 
 <div class="chapter chapter--himmel" id="p-drohne">
-  <span class="deko deko--karte" aria-hidden="true"></span>
+  <div class="kartenflug" aria-hidden="true"><i></i></div>
   <div class="chapter__mark">Projekt 10 &nbsp;·&nbsp; Drohne &amp; FPV</div>
   <div class="wrap">
     <div class="tr">
