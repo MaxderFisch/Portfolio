@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Max Aulinger — Arbeiten</title>
+<meta name="description" content="Max Aulinger — Fotografie, Video &amp; Drohne, Design &amp; 3D.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   MINIMAL VERSION 1 — bewusster Gegenentwurf zur kreativen Fassung.
+   Die Regel ist Wiederholung: EINE Farbwelt, EINE Schriftfamilie,
+   FUENF Schriftgroessen, SECHS Abstaende, EINE Bewegungskurve,
+   EINE Art, ein Medium zu beschriften, DREI Rasterbreiten.
+   Wer hier etwas ergaenzt: erst pruefen, ob es mit dem Vorhandenen geht.
+   =================================================================== */
+:root{
+  /* Farben — mehr gibt es nicht */
+  --grund:#0b0b0c; --flaeche:#151517;
+  --text:#ededee; --leise:#8a8a8f; --linie:rgba(255,255,255,.12);
+  /* Schriftgroessen — fuenf Stufen */
+  --s1:11px; --s2:13.5px; --s3:16px; --s4:clamp(22px,2.4vw,30px); --s5:clamp(38px,7vw,82px);
+  /* Abstaende — sechs Stufen */
+  --a1:8px; --a2:16px; --a3:28px; --a4:56px; --a5:96px; --a6:clamp(96px,14vw,180px);
+  /* Bewegung — eine Dauer, eine Kurve */
+  --zeit:.42s; --kurve:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--grund);color:var(--text);
+  font:400 var(--s3)/1.65 Inter,-apple-system,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img,video{display:block;width:100%;height:auto}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+
+/* Kopfzeile */
+.top{position:sticky;top:0;z-index:20;background:rgba(11,11,12,.86);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--linie)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+.top b{font-weight:600;font-size:var(--s2);letter-spacing:.01em}
+.top nav{display:flex;gap:var(--a3);font-size:var(--s2);color:var(--leise)}
+.top nav a{transition:color var(--zeit) var(--kurve)}
+.top nav a:hover{color:var(--text)}
+
+/* Auftakt */
+.hero{padding:var(--a6) 0 var(--a5)}
+.hero h1{margin:0;font-size:var(--s5);line-height:1.02;letter-spacing:-.03em;font-weight:500}
+.hero p{margin:var(--a3) 0 0;max-width:46ch;color:var(--leise);font-size:var(--s3)}
+.meta{display:flex;flex-wrap:wrap;gap:var(--a3);margin-top:var(--a4);
+  font-size:var(--s1);letter-spacing:.14em;text-transform:uppercase;color:var(--leise)}
+
+/* Werkverzeichnis — Liste statt Kacheln, Bild folgt der Maus */
+.ix{border-top:1px solid var(--linie)}
+.ix ul{list-style:none;margin:0;padding:0}
+.ix a{position:relative;display:grid;grid-template-columns:52px 1fr auto;gap:var(--a3);
+  align-items:baseline;padding:var(--a3) 0;border-bottom:1px solid var(--linie);
+  transition:padding-left var(--zeit) var(--kurve),color var(--zeit) var(--kurve)}
+.ix a:hover{padding-left:var(--a2)}
+.ix__nr{font-size:var(--s1);color:var(--leise);letter-spacing:.1em}
+.ix__t{font-size:var(--s4);letter-spacing:-.02em;font-weight:500}
+.ix__b{font-size:var(--s1);letter-spacing:.14em;text-transform:uppercase;color:var(--leise)}
+.ix a img{position:fixed;top:0;left:0;width:230px;height:288px;object-fit:cover;
+  opacity:0;pointer-events:none;z-index:10;
+  transform:translate(-50%,-50%) scale(.94);
+  transition:opacity var(--zeit) var(--kurve),transform var(--zeit) var(--kurve)}
+.ix a.an img{opacity:1;transform:translate(-50%,-50%) scale(1)}
+@media(hover:none){.ix a img{display:none}}
+
+/* Abschnitte */
+.ab{padding:var(--a6) 0 0}
+.ab__kopf{max-width:60ch;margin-bottom:var(--a4)}
+.ab__nr{display:block;font-size:var(--s1);letter-spacing:.16em;color:var(--leise);margin-bottom:var(--a2)}
+.ab h2{margin:0;font-size:var(--s4);font-weight:500;letter-spacing:-.02em}
+.ab p{margin:var(--a2) 0 0;color:var(--leise);font-size:var(--s2);line-height:1.75}
+
+/* Raster — genau drei Breiten */
+.raster{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--a2)}
+.w12{grid-column:span 12}
+.w8{grid-column:span 8}
+.w4{grid-column:span 4}
+@media(max-width:820px){.w8,.w4{grid-column:span 12}}
+figure{margin:0}
+figure picture,figure video{overflow:hidden;background:var(--flaeche);display:block}
+figure img{transition:transform .9s var(--kurve)}
+figure:hover img{transform:scale(1.03)}
+/* EINE Art zu beschriften */
+figcaption{display:flex;justify-content:space-between;gap:var(--a2);
+  margin-top:var(--a1);font-size:var(--s1);letter-spacing:.06em;color:var(--leise)}
+figcaption .t{color:var(--text);letter-spacing:0;font-size:var(--s2)}
+
+.fuss{margin-top:var(--a6);padding:var(--a4) 0;border-top:1px solid var(--linie);
+  display:flex;justify-content:space-between;gap:var(--a3);flex-wrap:wrap;
+  font-size:var(--s2);color:var(--leise)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <b>Max Aulinger</b>
+  <nav><a href="#werk">Arbeiten</a><a href="index.html">Kreative Fassung</a></nav>
+</div></header>
+
+<main>
+  <div class="wrap">
+    <section class="hero">
+      <h1>Fotografie, Video&nbsp;&amp; Drohne,<br>Design&nbsp;&amp; 3D.</h1>
+      <p>Medientechnik an der TH Deggendorf. Auf der Suche nach einem Praxissemester,
+         in dem ich an echten Projekten mitarbeiten kann.</p>
+      <div class="meta"><span>11 Arbeiten</span><span>11 Filme</span><span>49 Bilder</span></div>
+    </section>
+
+    <section class="ix" id="werk">
+      <ul>
+        <li><a href="#p-nacht">
+          <span class="ix__nr">01.01</span>
+          <span class="ix__t">Seoul bei Nacht</span>
+          <span class="ix__b">Foto</span>
+          <img src="../assets/img/seoul/nacht-rauch.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-tag">
+          <span class="ix__nr">01.02</span>
+          <span class="ix__t">Seoul bei Tag</span>
+          <span class="ix__b">Foto</span>
+          <img src="../assets/img/seoul/tag-tempeldach.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#kap-portraits">
+          <span class="ix__nr">01.03</span>
+          <span class="ix__t">Menschen</span>
+          <span class="ix__b">Foto</span>
+          <img src="../assets/img/portraits/portraet-goldlicht.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#kap-sonnenaufgang">
+          <span class="ix__nr">01.04</span>
+          <span class="ix__t">Sonnenaufgänge</span>
+          <span class="ix__b">Foto</span>
+          <img src="../assets/img/sonnenaufgang/sa-donau-gold.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#kap-tiere">
+          <span class="ix__nr">01.05</span>
+          <span class="ix__t">Tiere</span>
+          <span class="ix__b">Foto</span>
+          <img src="../assets/img/tiere/tier-zunge.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-video">
+          <span class="ix__nr">02.01</span>
+          <span class="ix__t">Unter Tage</span>
+          <span class="ix__b">Video &amp; Drohne</span>
+          <img src="../assets/img/video/bergmann-cover.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-video">
+          <span class="ix__nr">02.02</span>
+          <span class="ix__t">Kommt zu mir</span>
+          <span class="ix__b">Video &amp; Drohne</span>
+          <img src="../assets/img/video/kommt-zu-mir-cover.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-video">
+          <span class="ix__nr">02.03</span>
+          <span class="ix__t">Electrify Your Future</span>
+          <span class="ix__b">Video &amp; Drohne</span>
+          <img src="../assets/img/video/electrify-cover.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-drohne">
+          <span class="ix__nr">02.04</span>
+          <span class="ix__t">Drohne &amp; FPV</span>
+          <span class="ix__b">Video &amp; Drohne</span>
+          <img src="../assets/img/drohne/fpv-cover.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-video">
+          <span class="ix__nr">02.05</span>
+          <span class="ix__t">Hostage Holiday</span>
+          <span class="ix__b">Video &amp; Drohne</span>
+          <img src="../assets/img/video/hostage-holiday-cover.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-ibee">
+          <span class="ix__nr">03.01</span>
+          <span class="ix__t">iCapsule</span>
+          <span class="ix__b">Design &amp; 3D</span>
+          <img src="../assets/img/design3d/ibee-hell.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-plakate">
+          <span class="ix__nr">03.02</span>
+          <span class="ix__t">Politische Plakate</span>
+          <span class="ix__b">Design &amp; 3D</span>
+          <img src="../assets/img/design3d/plakat-bubble.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-therme">
+          <span class="ix__nr">03.03</span>
+          <span class="ix__t">Therme Bad Füssing</span>
+          <span class="ix__b">Design &amp; 3D</span>
+          <img src="../assets/img/design3d/therme-cover.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+        <li><a href="#p-flyer">
+          <span class="ix__nr">03.04</span>
+          <span class="ix__t">Flyer</span>
+          <span class="ix__b">Design &amp; 3D</span>
+          <img src="../assets/img/design/flyer-cover.jpg" alt="" loading="lazy" aria-hidden="true">
+        </a></li>
+      </ul>
+    </section>
+
+    <section class="ab" id="p-nacht">
+      <header class="ab__kopf">
+        <span class="ab__nr">01</span>
+        <h2>Arbeit</h2>
+        <p>Eigentlich war in Seoul ein großes Feuerwerk geplant, mit über einer Million Besuchern. Da ich aber ungern in der Menschenmenge stehe, hatte ich vor, es aus der Ferne zu fotografieren.</p>
+        <p>Dann war ich allerdings doch zu weit entfernt und habe mich entschlossen, einfach nur die Stadt bei Nacht zu fotografieren.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8">
+          <picture><source srcset="../assets/img/seoul/nacht-linien.webp" type="image/webp"><img src="../assets/img/seoul/nacht-linien.jpg" width="933" height="1400" loading="lazy" alt="Skyline von Seoul, Lichter zu senkrechten Linien gezogen"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/seoul/nacht-rauch.webp" type="image/webp"><img src="../assets/img/seoul/nacht-rauch.jpg" width="933" height="1400" loading="lazy" alt="Skyline von Seoul, die Lichter zu Linien gezogen, darüber der Rauch des Feuerwerks"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/seoul/nacht-strasse.webp" type="image/webp"><img src="../assets/img/seoul/nacht-strasse.jpg" width="933" height="1400" loading="lazy" alt="Langzeitbelichtung einer Straße in Seoul mit roten und weißen Lichtspuren"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/seoul/nacht-bruecke.webp" type="image/webp"><img src="../assets/img/seoul/nacht-bruecke.jpg" width="933" height="1400" loading="lazy" alt="Fußgängerbrücke bei Nacht, Geländer mit Leuchtstoffröhren in der Fluchtlinie, dahinter die Hochhäuser"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="p-tag">
+      <header class="ab__kopf">
+        <span class="ab__nr">02</span>
+        <h2>· Seoul bei Tag</h2>
+        <p>Von oben sieht man erst, wie groß Seoul wirklich ist — es hört einfach nicht auf.</p>
+        <p>Zwischen den beiden Aufnahmen liegen keine zwei Minuten. Trotzdem dreht das Licht komplett: links warm und golden, rechts schon kühl und pastellig.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8">
+          <picture><source srcset="../assets/img/seoul/tag-stadt-gold.webp" type="image/webp"><img src="../assets/img/seoul/tag-stadt-gold.jpg" width="724" height="1086" loading="lazy" alt="Seoul von einem Berg aus im goldenen Abendlicht, Han-Fluss und Berge im Hintergrund"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/seoul/tag-stadt-pastell.webp" type="image/webp"><img src="../assets/img/seoul/tag-stadt-pastell.jpg" width="724" height="1086" loading="lazy" alt="Seoul von oben in pastelligem Licht, Hochhäuser und bewaldete Hügel"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/seoul/tag-tempeldach.webp" type="image/webp"><img src="../assets/img/seoul/tag-tempeldach.jpg" width="1100" height="1400" loading="lazy" alt="Tempeldach von unten, bemalte Dachsparren im Dancheong-Muster, Windglöckchen und Drachenfigur an der Spitze"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/seoul/tag-pavillon.webp" type="image/webp"><img src="../assets/img/seoul/tag-pavillon.jpg" width="724" height="1086" loading="lazy" alt="Koreanischer Holzpavillon auf einer Insel im Teich, davor Seerosen, dahinter Bäume"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/seoul/tag-flagge.webp" type="image/webp"><img src="../assets/img/seoul/tag-flagge.jpg" width="933" height="1400" loading="lazy" alt="Koreanische Flagge an einer Laterne, von Blättern gerahmt, Stadt unscharf dahinter"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/seoul/tag-regen.webp" type="image/webp"><img src="../assets/img/seoul/tag-regen.jpg" width="1285" height="1400" loading="lazy" alt="Zwei Menschen von hinten als Silhouette mit Regenschirmen, einer davon pink, dahinter ein Berg im Dunst"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="kap-portraits">
+      <header class="ab__kopf">
+        <span class="ab__nr">03</span>
+        <h2>· Porträts</h2>
+        
+      </header>
+      <div class="raster">
+        <figure class="w8">
+          <picture><source srcset="../assets/img/portraits/portraet-brille.webp" type="image/webp"><img src="../assets/img/portraits/portraet-brille.jpg" width="933" height="1400" loading="lazy" alt="Porträt von Timo mit Brille vor einer dunklen Holzwand, lachend"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/portraits/portraet-goldlicht.webp" type="image/webp"><img src="../assets/img/portraits/portraet-goldlicht.jpg" width="925" height="1400" loading="lazy" alt="Porträt von Ares im gemusterten Kleid im Gegenlicht, Park im Hintergrund"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/portraits/portraet-ares-quer.webp" type="image/webp"><img src="../assets/img/portraits/portraet-ares-quer.jpg" width="1400" height="933" loading="lazy" alt="Ares mit ausgebreiteten Armen im warmen Abendlicht, lachend"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/portraits/portraet-gruen.webp" type="image/webp"><img src="../assets/img/portraits/portraet-gruen.jpg" width="937" height="1400" loading="lazy" alt="Porträt von Gabriel an einem Baumstamm, unscharfe grüne Blätter im Vordergrund"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/portraits/portraet-feld.webp" type="image/webp"><img src="../assets/img/portraits/portraet-feld.jpg" width="1700" height="1109" loading="lazy" alt="Querformat-Porträt von Gabriel mit dunklen Locken vor hellem Himmel"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/portraits/portraet-himbeere.webp" type="image/webp"><img src="../assets/img/portraits/portraet-himbeere.jpg" width="933" height="1400" loading="lazy" alt="Paul steckt sich eine Himbeere in den Mund und zwinkert"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/portraits/portraet-cap.webp" type="image/webp"><img src="../assets/img/portraits/portraet-cap.jpg" width="935" height="1400" loading="lazy" alt="Robin mit roter Cap und Lederjacke neben einem Auto"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="kap-sonnenaufgang">
+      <header class="ab__kopf">
+        <span class="ab__nr">04</span>
+        <h2>· Sonnenaufgänge</h2>
+        <p>Ich bin für diese Bilder öfter früh aufgestanden, als man mir zutrauen würde. Runter an die Donau, bevor die Sonne über die Brücke kommt — weil dann der Nebel noch auf dem Wasser liegt.</p>
+        <p>Das Licht dreht da innerhalb von Minuten: erst ist alles blaugrau und vollkommen still, dann kippt es ins Goldene und der Nebel fängt an zu leuchten. Dafür lohnt sich das frühe Aufstehen jedes Mal.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-donau-blau.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-donau-blau.jpg" width="1700" height="1133" loading="lazy" alt="Die Donau im dichten Nebel, blaugrau, Bäume auf einer Landzunge spiegeln sich im stillen Wasser"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-bruecke-nebel.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-bruecke-nebel.jpg" width="1400" height="933" loading="lazy" alt="Eine Stahlbrücke, die nach wenigen Metern im Nebel verschwindet"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-donau-gold.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-donau-gold.jpg" width="1400" height="933" loading="lazy" alt="Die Donau im goldenen Morgennebel, Bäume und Hügel dahinter"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-donau-gaense.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-donau-gaense.jpg" width="933" height="1400" loading="lazy" alt="Hochformat der Donau im Morgennebel, eine Reihe Pappeln, Gänse auf dem Wasser"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-baum-bruecke.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-baum-bruecke.jpg" width="1400" height="933" loading="lazy" alt="Silhouette eines Baums vor der Eisenbahnbrücke im Sonnenaufgang"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-sonne-bruecke.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-sonne-bruecke.jpg" width="1400" height="933" loading="lazy" alt="Die Sonne steigt hinter der Brücke auf, warmer Dunst über den Feldern"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/sonnenaufgang/sa-badezimmer.webp" type="image/webp"><img src="../assets/img/sonnenaufgang/sa-badezimmer.jpg" width="1500" height="999" loading="lazy" alt="Wald und Büsche im Sonnenaufgang, Nebelschwaden zwischen den Baumreihen, Passau"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="kap-tiere">
+      <header class="ab__kopf">
+        <span class="ab__nr">05</span>
+        <h2>· Tiere</h2>
+        <p>Tiere sind das Gegenteil von Porträts: Man kann nichts absprechen und nichts nochmal machen. Entweder man ist im richtigen Moment da — oder eben nicht.</p>
+        <p>Meistens heißt das: lange auf dem Boden liegen, warten, und dann in einer halben Sekunde entscheiden.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8">
+          <picture><source srcset="../assets/img/tiere/tier-zunge.webp" type="image/webp"><img src="../assets/img/tiere/tier-zunge.jpg" width="1800" height="1199" loading="lazy" alt="Nahaufnahme einer dreifarbigen Katze im Gras, die Zunge herausgestreckt, dunkelgrüner Hintergrund"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/tiere/tier-gelb.webp" type="image/webp"><img src="../assets/img/tiere/tier-gelb.jpg" width="933" height="1400" loading="lazy" alt="Katze liegt auf dem Boden und schaut nach oben, leuchtend gelber Hintergrund"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/tiere/tier-gaehnen.webp" type="image/webp"><img src="../assets/img/tiere/tier-gaehnen.jpg" width="933" height="1400" loading="lazy" alt="Katze mit weit aufgerissenem Maul vor Himmel und Bergen"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/tiere/tier-dunkel.webp" type="image/webp"><img src="../assets/img/tiere/tier-dunkel.jpg" width="1155" height="1800" loading="lazy" alt="Katze läuft frontal auf die Kamera zu, dunkle Umgebung, direkter Blick"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/tiere/tier-hund.webp" type="image/webp"><img src="../assets/img/tiere/tier-hund.jpg" width="933" height="1400" loading="lazy" alt="Nahaufnahme eines braun-weißen Hundes, der direkt in die Kamera schaut"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/tiere/tier-hund-profil.webp" type="image/webp"><img src="../assets/img/tiere/tier-hund-profil.jpg" width="1400" height="933" loading="lazy" alt="Derselbe Hund im Profil vor unscharfem Hintergrund"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="p-ibee">
+      <header class="ab__kopf">
+        <span class="ab__nr">06</span>
+        <h2>· Design &amp; 3D</h2>
+        <p>Die Aufgabe war, ein Gerät zu entwerfen, das es bei Apple so noch nicht gibt. Herausgekommen ist die &lt;em>iCapsule&lt;/em>: ein Speicher für Erinnerungen, halb Lautsprecher, halb Bilderrahmen.</p>
+        <p>Vom ersten Entwurf bis zum Rendering habe ich alles selbst gemacht — modelliert, texturiert, ausgeleuchtet und die Oberfläche gestaltet.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8">
+          <picture><source srcset="../assets/img/icapsule/hero-weiss.webp" type="image/webp"><img src="../assets/img/icapsule/hero-weiss.jpg" width="1600" height="900" loading="lazy" alt="iCapsule in Weiß auf hellem Grund"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/icapsule/farben.webp" type="image/webp"><img src="../assets/img/icapsule/farben.jpg" width="1920" height="988" loading="lazy" alt="Zwei Geräte nebeneinander, eines in Mitternacht, eines in Weiß"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/icapsule/innen.webp" type="image/webp"><img src="../assets/img/icapsule/innen.jpg" width="1400" height="1136" loading="lazy" alt="Durchsichtige Darstellung des Innenlebens mit ringförmig angeordneten Lautsprechern"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/icapsule/chip.webp" type="image/webp"><img src="../assets/img/icapsule/chip.jpg" width="1300" height="1276" loading="lazy" alt="Blick von oben in das Gerät auf den Chip"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/design3d/ibee-innen.webp" type="image/webp"><img src="../assets/img/design3d/ibee-innen.jpg" width="768" height="1024" loading="lazy" alt="Bildschirmfoto von Blender mit der Innenansicht der Lautsprecher"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/icapsule/bildschirme.webp" type="image/webp"><img src="../assets/img/icapsule/bildschirme.jpg" width="1600" height="554" loading="lazy" alt="Drei Geräte nebeneinander mit unterschiedlichen Bildschirminhalten"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/design3d/ibee-blender.webp" type="image/webp"><img src="../assets/img/design3d/ibee-blender.jpg" width="1024" height="768" loading="lazy" alt="Bildschirmfoto von Blender mit dem Modell der iCapsule im Aufbau"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/icapsule/hero-frei.webp" type="image/webp"><img src="../assets/img/icapsule/hero-frei.png" width="952" height="866" loading="lazy" alt=""></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="p-plakate">
+      <header class="ab__kopf">
+        <span class="ab__nr">07</span>
+        <h2>· Design</h2>
+        <p>Eine Plakatserie zu politischer Haltung — entstanden im Studium, gedruckt und ausgestellt.</p>
+        <p>Jedes Plakat sucht eine andere Bildsprache für dieselbe Sache: einmal räumliche Buchstaben, die aus dem Boden wachsen, einmal eine Schrift, die sich verzerrt und kaum noch halten lässt, einmal klare Typografie über einer Seifenblase.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8">
+          <picture><source srcset="../assets/img/design3d/plakat-rechts.webp" type="image/webp"><img src="../assets/img/design3d/plakat-rechts.jpg" width="989" height="1400" loading="lazy" alt="Plakat mit räumlichen Buchstaben in einem Betonhof: Rechts ist nie ein Weg"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/design3d/plakat-nazis.webp" type="image/webp"><img src="../assets/img/design3d/plakat-nazis.jpg" width="989" height="1400" loading="lazy" alt="Plakat mit stark verzerrter, farbiger Schrift: Kein Platz für Nazis"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/design3d/plakat-bubble.webp" type="image/webp"><img src="../assets/img/design3d/plakat-bubble.jpg" width="989" height="1400" loading="lazy" alt="Plakat mit fetter Schrift über gelbgrünen Seifenblasen"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/design3d/plakat-bubble-3d.webp" type="image/webp"><img src="../assets/img/design3d/plakat-bubble-3d.jpg" width="675" height="1200" loading="lazy" alt="Bildschirmfoto der 3D-Software mit den modellierten Blasen für das Plakat"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/design3d/plakat-syntheca.webp" type="image/webp"><img src="../assets/img/design3d/plakat-syntheca.jpg" width="768" height="1024" loading="lazy" alt="Ein gedruckter Aufkleber mit einer antiken Büste und dem Schriftzug Syntheca"></picture>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/design3d/plakat-ausstellung.webp" type="image/webp"><img src="../assets/img/design3d/plakat-ausstellung.jpg" width="768" height="1024" loading="lazy" alt="Die gedruckten Plakate nebeneinander an einer Ausstellungswand"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="p-flyer">
+      <header class="ab__kopf">
+        <span class="ab__nr">08</span>
+        <h2>· Print</h2>
+        <p>Ein gestalteter Flyer als Beispielarbeit — Typografie, Layout und Bildauswahl komplett selbst gemacht.</p>
+        <p>&lt;a class="btnlink" href="../assets/img/design/flyer-fertig.pdf" target="_blank" rel="noopener">⤓ Flyer als PDF&lt;/a></p>
+      </header>
+      <div class="raster">
+        <figure class="w8">
+          <picture><source srcset="../assets/img/design/flyer-full.webp" type="image/webp"><img src="../assets/img/design/flyer-full.jpg" width="1800" height="1273" loading="lazy" alt="Der fertig gestaltete Flyer"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="p-therme">
+      <header class="ab__kopf">
+        <span class="ab__nr">09</span>
+        <h2>· 3D &amp; Animation</h2>
+        <p>Für die Therme in Bad Füssing sollte eine Unterwasserwelt entstehen, die auf eine Beckenwand projiziert wird — also etwas, das man nebenbei anschaut, während man im Wasser liegt.</p>
+        <p>Alles in Blender gebaut: Fische, Pflanzen, Korallen, das Licht, das von oben durchs Wasser fällt. Es darf nichts passieren, was aufschreckt — die Bewegung soll ruhig bleiben und nie enden.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8 vid">
+          <video controls muted playsinline preload="none" width="2756" height="384" poster="../assets/video/therme-fische-poster.jpg">
+            <source src="../assets/video/therme-fische.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Die Animation, wie sie in der Therme läuft </span><span class="m">Die Animation, wie sie in der Therme läuft — 2 min 45</span></figcaption>
+        </figure>
+        <figure class="w4 vid">
+          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/therme-doku-poster.jpg">
+            <source src="../assets/video/therme-doku.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Die Animation in der Therme, vor Ort gefilmt </span><span class="m">Die Animation in der Therme, vor Ort gefilmt — 6 Sekunden</span></figcaption>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/design3d/therme-arbeitsplatz.webp" type="image/webp"><img src="../assets/img/design3d/therme-arbeitsplatz.jpg" width="1024" height="768" loading="lazy" alt="Arbeitsplatz mit drei Bildschirmen, auf denen die Unterwasserszene bearbeitet wird"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/design3d/therme-rechner.webp" type="image/webp"><img src="../assets/img/design3d/therme-rechner.jpg" width="1024" height="768" loading="lazy" alt="Blender mit der Unterwasserszene auf einem Laptop, darüber die Meldung, dass kein Programmspeicher mehr frei ist"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="p-video">
+      <header class="ab__kopf">
+        <span class="ab__nr">10</span>
+        <h2>· Video &amp; Drohne</h2>
+        <p>Vier Filme aus dem Studium, alle im Team entstanden — und in jedem hatte ich einen anderen Job: beim Bergwerk den Ton, beim Porträt die Produktion, beim Imagefilm das Szenenbild, und beim ersten Kurzfilm haben wir uns Regie und Schnitt zu viert geteilt.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8 vid">
+          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-bergmann-poster.jpg">
+            <source src="../assets/video/film-bergmann.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Ein Tag als Bergmann</span><span class="m">5:48 · Ton</span></figcaption>
+        </figure>
+        <figure class="w4 vid">
+          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-kommt-zu-mir-poster.jpg">
+            <source src="../assets/video/film-kommt-zu-mir.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Kommt zu mir</span><span class="m">5:17 · Produktion</span></figcaption>
+        </figure>
+        <figure class="w4 vid">
+          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-hostage-holiday-poster.jpg">
+            <source src="../assets/video/film-hostage-holiday.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Hostage Holiday</span><span class="m">2:18 · Regie &amp; Schnitt</span></figcaption>
+        </figure>
+        <figure class="w8 vid">
+          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/film-electrify-poster.jpg">
+            <source src="../assets/video/film-electrify.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Electrify Your Future</span><span class="m">3:01 · Szenenbild</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="ab" id="p-drohne">
+      <header class="ab__kopf">
+        <span class="ab__nr">11</span>
+        <h2>· Drohne &amp; FPV</h2>
+        <p>FPV heißt: Ich sehe durch eine Brille genau das, was die Drohne sieht, und fliege von Hand. Kein Assistent, der abfängt — wenn ich einen Baum zu spät sehe, ist der Flug vorbei.</p>
+        <p>Ich fliege zwei: eine &lt;em>iFlight Nazgul Evoque F5&lt;/em> für schnelle Verfolgungen im Freien, und eine kleine &lt;em>BetaFPV Pavo20 Pro&lt;/em> für enge Stellen, an die man mit der großen nicht herankommt.</p>
+      </header>
+      <div class="raster">
+        <figure class="w8 vid">
+          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-papierflieger-poster.jpg">
+            <source src="../assets/video/fpv-papierflieger.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Papierflieger</span><span class="m">2:23 · FPV</span></figcaption>
+        </figure>
+        <figure class="w4 vid">
+          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-timeline-1-poster.jpg">
+            <source src="../assets/video/fpv-timeline-1.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Winter in den Bergen</span><span class="m">0:33 · FPV</span></figcaption>
+        </figure>
+        <figure class="w4 vid">
+          <video controls muted playsinline preload="none" width="1280" height="720" poster="../assets/video/fpv-autos-kurz-poster.jpg">
+            <source src="../assets/video/fpv-autos-kurz.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Autos über Feldwege</span><span class="m">1:43 · FPV</span></figcaption>
+        </figure>
+        <figure class="w8 vid">
+          <video controls muted playsinline preload="none" width="1440" height="1080" poster="../assets/video/zeitraffer-poster.jpg">
+            <source src="../assets/video/zeitraffer.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Zeitraffer aus der Luft</span><span class="m">0:21 · Mini 4 Pro</span></figcaption>
+        </figure>
+        <figure class="w4 vid">
+          <video controls muted playsinline preload="none" width="1440" height="1080" poster="../assets/video/drone-clip-1-poster.jpg">
+            <source src="../assets/video/drone-clip-1.mp4" type="video/mp4">
+          </video>
+          <figcaption><span class="t">Ruhiger Überflug</span><span class="m">0:16 · Mini 4 Pro</span></figcaption>
+        </figure>
+        <figure class="w4">
+          <picture><source srcset="../assets/img/drohne/fpv-flotte.webp" type="image/webp"><img src="../assets/img/drohne/fpv-flotte.jpg" width="1400" height="1050" loading="lazy" alt="Sieben FPV-Drohnen mit bunten Propellern auf einem runden Gartentisch"></picture>
+        </figure>
+        <figure class="w8">
+          <picture><source srcset="../assets/img/drohne/fpv-ausruestung.webp" type="image/webp"><img src="../assets/img/drohne/fpv-ausruestung.jpg" width="1400" height="1050" loading="lazy" alt="Fernsteuerung, FPV-Brille, Akkus und eine kleine Cinewhoop-Drohne auf einem Tisch"></picture>
+        </figure>
+      </div>
+    </section>
+
+    <footer class="fuss">
+      <span>Max Aulinger · Medientechnik TH Deggendorf</span>
+      <span><a href="index.html">Zur kreativen Fassung</a></span>
+    </footer>
+  </div>
+</main>
+
+<script>
+/* Bildvorschau folgt der Maus — nur auf Geraeten mit Zeiger. */
+(function(){
+  if(!window.matchMedia('(hover:hover)').matches) return;
+  var an=null, x=0, y=0, warte=false;
+  document.querySelectorAll('.ix a').forEach(function(a){
+    a.addEventListener('mouseenter',function(){ a.classList.add('an'); an=a; });
+    a.addEventListener('mouseleave',function(){ a.classList.remove('an'); if(an===a) an=null; });
+  });
+  document.addEventListener('mousemove',function(e){
+    x=e.clientX; y=e.clientY;
+    if(warte||!an) return; warte=true;
+    requestAnimationFrame(function(){
+      if(an){ var i=an.querySelector('img');
+        i.style.transform='translate('+x+'px,'+y+'px) translate(-50%,-50%) scale(1)'; }
+      warte=false;
+    });
+  },{passive:true});
+})();
+
+/* Videos: es laeuft und laedt immer nur das, was der Fenstermitte am
+   naechsten ist. Dieselbe Regel wie in der kreativen Fassung, knapper
+   geschrieben: Quelle entfernen und load() rufen bricht den Download ab,
+   pause() allein tut das nicht. */
+(function(){
+  var videos=[].slice.call(document.querySelectorAll('video'));
+  if(!videos.length) return;
+  /* Zu Beginn ALLE Quellen entfernen. Ohne das laedt der Browser beim
+     Seitenaufbau elf Videos gleichzeitig und belegt alle Verbindungen --
+     genau der Fehler, den die kreative Fassung schon einmal hatte. */
+  videos.forEach(function(v){
+    v.muted=true;
+    var q=v.querySelector('source');
+    v._q=q.getAttribute('src');
+    q.remove();
+    try{ v.load(); }catch(e){}
+  });
+  var aktiv=null, uhr=null;
+  function sichtbar(v){ var r=v.getBoundingClientRect();
+    return r.height>0 && r.bottom>0 && r.top<innerHeight; }
+  function abstand(v){ var r=v.getBoundingClientRect();
+    return Math.abs(r.top+r.height/2-innerHeight/2); }
+  function leeren(v){ var q=v.querySelector('source');
+    if(q){ q.remove(); try{ v.load(); }catch(e){} } }
+  function fuellen(v){ if(v.querySelector('source')) return;
+    var q=document.createElement('source'); q.src=v._q; q.type='video/mp4';
+    v.appendChild(q); try{ v.load(); }catch(e){} }
+  function waehlen(){
+    var best=null, d=1e9;
+    videos.forEach(function(v){ if(sichtbar(v)){ var a=abstand(v); if(a<d){d=a;best=v;} } });
+    if(best===aktiv) return;
+    if(aktiv){ try{aktiv.pause();}catch(e){} leeren(aktiv); }
+    aktiv=best;
+    clearTimeout(uhr);
+    if(aktiv) uhr=setTimeout(function(){
+      if(aktiv!==best) return;
+      fuellen(best);
+      var p=best.play(); if(p&&p.catch) p.catch(function(){});
+    },160);
+  }
+  var tick=false;
+  addEventListener('scroll',function(){ if(tick)return; tick=true;
+    requestAnimationFrame(function(){ waehlen(); tick=false; }); },{passive:true});
+  addEventListener('resize',waehlen);
+  addEventListener('load',waehlen);
+  waehlen();
+  window.videoWahl=waehlen;
+})();
+</script>
+</body>
+</html>

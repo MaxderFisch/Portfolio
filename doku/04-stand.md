@@ -5,6 +5,58 @@ Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.
 
 ---
 
+## Stand vom 19.09.2026 — zwei benannte Fassungen
+
+Max findet die Seite eines Freundes „cleaner" und „stimmiger" und will einen
+**minimalistischen Gegenentwurf** ausprobieren, ohne die bisherige Arbeit zu verlieren.
+Deshalb gibt es ab jetzt **benannte Versionen**. Die Liste steht in
+`Backups/VERSIONEN.md` (außerhalb des Repos), die Regel dazu in der `CLAUDE.md`.
+
+| Name | Wo | Charakter |
+|---|---|---|
+| **Kreative Version 1** | `Backups/Kreative-Version-1/` (331 MB, Commit `a69a221`) | die ausgearbeitete, künstlerische Fassung |
+| **Minimal Version 1** | `Portfolio/live/minimal.html` | der reduzierte Gegenentwurf, **neben** `index.html` |
+
+`index.html` ist unverändert. Nichts wurde überschrieben.
+
+### Warum überhaupt
+
+Gemessen an der kreativen Fassung: **9 Farbwelten, 6 Arten ein Medium zu beschriften,
+31 Rasterklassen, 51 Schriftgrößen, 17 Animationsdauern, 20 Inline-Styles.** Das Problem
+sind nicht zu wenige Ideen, sondern zu wenige Wiederholungen.
+
+### Was Minimal Version 1 anders macht
+
+Eine Farbwelt, eine Schriftfamilie, **fünf** Schriftgrößen, sechs Abstände, **eine**
+Bewegungskurve, **eine** Art zu beschriften, **drei** Rasterbreiten. Der Überblick ist
+ein typografisches Werkverzeichnis statt Kacheln — beim Zeigen folgt das Vorschaubild der
+Maus.
+
+| | kreativ | minimal |
+|---|---|---|
+| Schriftgrößen | 51 | **5** |
+| Beschleunigungskurven | 3 | **1** |
+| Elemente mit `will-change` | 90 | **9** |
+| Dateigröße | 136 KB | **38 KB** |
+
+Inhalt ist identisch: 14 Projekte, 11 Abschnitte, 49 Bilder, 11 Videos, alle 129
+Verweise geprüft.
+
+### Fehler dabei, gefunden und behoben
+
+Der Videoregler entfernte die Quellen **nicht zu Beginn** — beim Seitenaufbau luden alle
+elf Videos gleichzeitig. Genau der Fehler, den die kreative Fassung schon einmal hatte.
+Nachgemessen: jetzt **0 von 11** geladen beim Aufruf, und beim Scrollen immer genau eines,
+und zwar das richtige.
+
+### Offen
+
+Max schickt Vorlagen und Referenzen für die Gestaltung — die Minimalfassung ist ein
+Startpunkt zum Draufschauen, nicht das Ziel. Gesammelte Fremdvorlagen gehören nach
+`Portfolio/Vorlagen/` (außerhalb des Repos, siehe `SO-GEHT-DAS.md` dort).
+
+---
+
 ## Stand vom 14.09.2026 (abends) — Kapitel 09 und 10 neu gestaltet
 
 Max' Auftrag: Filme besser darstellen, passende Hintergründe zu Filmen und Drohnenaufnahmen,
