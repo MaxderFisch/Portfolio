@@ -2311,3 +2311,33 @@ Videos geladen.
 nach Seitenverhältnis. Dadurch landet ein Hochformat auch mal in einem 8-Spalten-Platz und wird
 713 × 1069 px groß. Die Breite sollte aus dem Seitenverhältnis kommen, so wie es im
 iCapsule-Kapitel der kreativen Fassung schon gemacht ist.
+
+### Material Version 1, zweiter Durchgang (19.09.2026)
+
+Max: *„mag das Design grundsätzlich, aber es wirkt noch ein bisschen sehr langweilig, und es
+ist zu viel weiße freie Fläche rechts und links… schau, dass du die Bilder auch ein bisschen 3D
+einbaust, dass sie rausstehen oder reinstehen… ein paar mehr Animationen… aber nicht wieder zu
+random oder überladen."*
+
+Recherchiert (Suche nach 3D-Kippeffekten und Tiefe im Apple-Stil): Die gängige Technik ist
+`perspective` plus `rotateX/rotateY` zur Maus, dazu ein mitwandernder **Lichtreflex** als
+radialer Verlauf. Beides passt zu den Materialien, die schon da waren.
+
+**Gegen die leeren Ränder:** Inhaltsbreite von 1180 auf 1460 px, und pro Abschnitt bricht das
+breiteste Stück über die **volle Fensterbreite** aus. Gemessen: Rand je Seite von 110 px auf
+**0**.
+
+**Gegen die Langeweile, ohne Überladung:** Jedes dritte Medium liegt **versenkt** statt erhaben
+— Tiefe durch Wechsel, nicht durch neue Effekte. Dazu Neigung zur Maus (maximal 5°),
+Lichtreflex, und ein Auftauchen beim Scrollen über `animation-timeline: view()` nativ, mit
+IntersectionObserver als Rückfall. Alles nur `transform` und `opacity`; nichts läuft dauerhaft.
+
+**Der Fehler dabei, von der Messung gefunden:** Beim Auffüllen einer Rasterreihe bekam schlicht
+das **letzte** Element die Restspalten — auch wenn es ein Hochformat war. Ein 4:5-Bild über die
+volle Breite wurde dadurch **1969 px hoch**, schlechter als die 1069 px, die ich eigentlich
+beheben wollte. Korrigiert: Die Obergrenze richtet sich nach dem Seitenverhältnis, Restspalten
+bekommt das **breiteste** Stück der Reihe, und über die volle Breite geht nur, was mindestens
+1,7 breit ist.
+
+Nachgemessen danach: höchstes Medium **768 px**, Höhenunterschied innerhalb einer Reihe
+**0 px** über 16 Reihen, kein Überstand, kein Querlauf, beim Aufruf 0 von 11 Videos geladen.
