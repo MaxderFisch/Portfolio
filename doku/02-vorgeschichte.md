@@ -2280,3 +2280,34 @@ zeichnet nichts.**
 **Was sich sichtbar ändert:** Der Hintergrund steht jetzt im Fenster, statt mit der Seite zu
 scrollen. Beim Scrollen durch das Kapitel zieht nur noch die Karte selbst — das entspricht dem
 Flug eher als vorher, ist aber eine echte Änderung und war deshalb abgesprochen.
+
+### Material Version 1 — hell, nach Max' Vorlagen (19.09.2026)
+
+Max schickte vier Codeschnipsel und dazu: *„es sollte so clean analog 3d wirken, so ein
+bisschen im Apple Stil von Apple Produkten"*. Später: *„ja dann mach sie auf hellem
+hintergrund"* und *„du kannst auch die komplette anordnung der dinge neu anordnen"*.
+
+**Was die vier Beispiele gemeinsam haben:** Es geht in allen um **Material und Licht**, nicht
+um Layout. Ein Schieberegler mit Rille und gedrehtem Metallknauf (`conic-gradient`), eine
+erhabene Karte, eine versenkte Karte, eine Glaskarte mit `backdrop-filter`. Eine Lichtquelle
+von oben links, Flächen die herausstehen, eingedrückt sind oder durchscheinen.
+
+**Der entscheidende Punkt, den ich Max gesagt habe:** Alle vier brauchen einen **hellen
+Mittelton** als Grund — `#e0e0e0`, `lightgrey`, `#d8d8d8`. Diese Bildsprache setzt einen
+helleren *und* einen dunkleren Schatten; auf Schwarz funktioniert sie nicht. Apples
+Produktseiten sind ebenfalls überwiegend hell. Max hat dem hellen Grund zugestimmt.
+
+Daraus entstand `Portfolio/live/material.html`: Grund `#ececee`, genau **drei Materialien**
+(erhaben, versenkt, Glas), als CSS-Variablen einmal definiert. Die Listenzeilen des
+Werkverzeichnisses werden beim Zeigen **eingedrückt** — das ist die Rille aus dem
+Schieberegler, auf eine Liste übertragen. Der Metallknauf sitzt als Marke in jeder Zeile und
+dreht sich beim Zeigen.
+
+Nachgemessen: 14 Projekte, 11 Abschnitte, 49 Bilder, 11 Videos, alle 121 Verweise vorhanden,
+kein Überstand, kein Querlauf, 4 Schriftgrößen, 1 Beschleunigungskurve, beim Aufruf 0 von 11
+Videos geladen.
+
+**Offen und als Erstes zu verbessern:** Die Rasterbreite wird nach Position vergeben, nicht
+nach Seitenverhältnis. Dadurch landet ein Hochformat auch mal in einem 8-Spalten-Platz und wird
+713 × 1069 px groß. Die Breite sollte aus dem Seitenverhältnis kommen, so wie es im
+iCapsule-Kapitel der kreativen Fassung schon gemacht ist.
