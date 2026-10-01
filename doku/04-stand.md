@@ -1,5 +1,21 @@
 # Stand
 
+## 01.10.2026 (spät) — Schnee-Clip auf der Drohnenseite lud nicht
+
+Max meldete: „das durch den Schnee Video lädt irgendwie nicht". Ursache doppelt:
+Claude Design hatte dem dritten Clip im Brillen-Player („Durch den Schnee · FPV im Winter")
+**nie eine Quelle gegeben** — schon im Export `src: undefined`, Standbild als Platzhalter,
+Dauer „—". Und ich hatte `drohne-schnee.mp4` beim Hochladen weggelassen, weil kein Pfad
+darauf zeigte. Die Prüfung „was wird verwendet" war technisch richtig, hat die leere Stelle
+aber nicht als Fehler erkannt. **Merke:** beim Übernehmen fremder Exporte auch nach
+`undefined`, leeren `src` und Platzhalter-Dauern („—") suchen.
+
+Behoben: Clip zeigt jetzt auf `../assets/video/drohne-schnee.mp4`, Dauer 1:04. Lokal geprüft:
+im letzten Drittel des Brillen-Abschnitts steht „Durch den Schnee", der Clip bekommt seine
+Quelle, die Datei lädt (63,9 s, 1280×720). Auch im Umbauskript ergänzt.
+
+---
+
 ## 01.10.2026 (abends) — Claude-Design-Fassung ist die Hauptseite
 
 Max hat entschieden: Über seinen Link soll die in Claude Design überarbeitete Seite
@@ -49,6 +65,14 @@ Hinscrollen. Am Handy (375 px) keine waagerechte Scrollbarkeit.
 **Nicht geprüft werden konnte**, ob ein Film ohne Unterbrechung durchläuft: Der
 Browserbereich war verborgen, dann hält Chrome stumme Videos selbst an. Gegenprobe: die
 kreative Fassung verhält sich dort genauso. Max soll es selbst im Browser ansehen.
+
+**Veröffentlicht:** Commit `a576c0b`, von Max beauftragt. Nur die 24 Dateien einzeln
+vorgemerkt (nicht `git add -A`), übertragen wurden 34 Objekte — bestehende Bilder und Videos
+nicht erneut. Live geprüft: `maxderfisch.github.io/Portfolio/` leitet auf die Hauptseite,
+84/84 Bilder, 11 Videos mit Bedienleiste, React von unpkg geladen; `drohne.html`,
+`kreativ.html`, `icapsule.html`, neue Bilder und Videos antworten mit 200.
+Nicht hochgeladen: Originale in `assets/` (Snow_around, WhatsApp-Video), `assets/3D/`,
+`drohne-schnee.mp4` (wird nicht verwendet), Astra-Versuche, `00-LIES-MICH-ZUERST.md`.
 
 **Abweichungen von den Hausregeln:** Bilder nur als WebP ohne JPEG-Rückfall (so hat Claude
 Design die Seite gebaut; heute von allen Browsern unterstützt). Die Seite braucht
