@@ -8,7 +8,14 @@ Stand: 13.09.2026
 
 **Max Aulinger**, Medientechnik-Student an der TH Deggendorf.
 Die Website soll sein Portfolio sein, Hauptzweck: Bewerbung um ein **verpflichtendes
-Praxissemester (24 Wochen)**. Kontakt-Mail im Markup: `maxau.aulo@gmail.com`.
+Praxissemester (24 Wochen)**. ~~Kontakt-Mail im Markup: `maxau.aulo@gmail.com`.~~
+**Überholt, korrigiert am 22.09.2026:** Die Mail steht nur in den eingefrorenen Fassungen
+`v1`–`v6` und `struktur-prototyp.html`. In `live/index.html`, `minimal.html` und
+`material.html` gibt es **keine** Mailadresse, kein `mailto` und keinen Kontaktbereich.
+`minimal.html` und `material.html` enden mit einer Namenszeile, `index.html` mit dem
+Drohnen-Kapitel. Ich hatte diese Zeile ungeprüft in eine Aufbaubeschreibung für eine
+Fremd-KI übernommen und daraus einen Kontaktbereich erfunden; Max hat das gemerkt.
+Ob ein Kontaktbereich dazukommt, ist offen und Max’ Entscheidung.
 
 Drei Bereiche, die er zeigen will:
 1. **Foto** — Menschen, Landschaft, Reise, Tiere

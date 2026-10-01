@@ -1,3 +1,213 @@
+# Stand
+
+## 01.10.2026 (abends) — Claude-Design-Fassung ist die Hauptseite
+
+Max hat entschieden: Über seinen Link soll die in Claude Design überarbeitete Seite
+erscheinen, mit eigener Drohnenseite, und der Papierflieger-Film soll dort laufen. Er hat
+bestätigt, dass die Texte der Drohnenseite stimmen (DJI Mini 2, Urlaub, Küste, Schule
+Bayerischer Wald, Papierflieger) und die fehlenden Bilder nachgeliefert
+(`~/Downloads/Portfolio-Website Überblick (1).zip`).
+
+**Neue Aufteilung in `live/`:**
+
+| Datei | Was |
+|---|---|
+| `index.html` | Claude-Design-Hauptseite (aus `Portfolio Entwurf v2.dc.html` umgebaut) |
+| `drohne.html` | eigene Drohnenseite (aus `Drohne v5.dc.html`) |
+| `kreativ.html` | die bisherige kreative Fassung, byte-identisch (`bd7113305f45697c…`) |
+| `support.js`, `flug-uebergang.js` | Laufzeit von Claude Design und Seitenübergang |
+
+Zusätzlich `archiv/index-kreativ-vor-claude-design-2026-10-01.html`. Die kurzen Adressen
+leiten jetzt weiter: Repo-Wurzel `index.html` (neu; vorher 404) und
+`Portfolio/index.html` (zeigte bisher auf `v1/`).
+
+**Umgebaut per Skript** (`scratchpad/bau/bau.js`, jede Ersetzung mit erwarteter Trefferzahl):
+- Pfade: Karte aller Dateinamen → echter Pfad, im Kopf als `window.ASSETS`; `assetPfad()`
+  und `videoPfad()` für die dynamisch gebauten Pfade. iCapsule-Bilder hießen im Export
+  `icap-*`.
+- **Videos wieder eingebaut**: Im Export waren alle 11 nur Standbilder. Jetzt echte
+  `<video data-vsrc>` mit der **Videosteuerung aus der kreativen Fassung** — Regeln
+  Zeile für Zeile gleich (verglichen per diff), nur `erfassen()` neu, weil die Seite ihre
+  Inhalte erst nach dem Laden aufbaut (MutationObserver).
+- Drohnenseite: Videos laden erst bei Annäherung (`data-lsrc`), weit weg wird die Quelle
+  abgebaut; vorher wurden alle 5 sofort angefordert. Papierflieger als echtes Video mit
+  Bedienleiste; Titel und Verlauf darüber blenden beim Abspielen aus.
+- Knopf „Zur Produktseite" zeigte auf `#p-ibee` → jetzt `icapsule.html`.
+- Schalterpult von Claude Design nur noch mit `?entwurf` in der Adresse.
+- Tote Links „V1–V4" auf der Drohnenseite entfernt.
+
+**Neue Bilder:** `img/drohne/dji-bucht|kapelle|kueste` (JPEG q62 + WebP q68, nicht
+hochskaliert, 1182 px), `img/drohne/gear/*.webp` (aus PNG, Transparenz erhalten, 24–58 KB
+statt 200–640 KB), `img/deko/streifen-gross|klein.svg`. Die Fotos haben keine
+Kameradaten; Max hat bestätigt, dass die Texte stimmen. Die Ausrüstungsbilder sind
+Herstellerfotos — Max darauf hingewiesen.
+
+**Gemessen im Browser:** Hauptseite 84/84 Bilder, 11 Videos alle mit Bedienleiste, beim
+Öffnen 0 Videos geladen, beim Scrollen immer genau eines mit Quelle. Drohnenseite 8/8
+Bilder, beim Öffnen nur `zeitraffer.mp4`, Papierflieger lädt und läuft beim
+Hinscrollen. Am Handy (375 px) keine waagerechte Scrollbarkeit.
+**Nicht geprüft werden konnte**, ob ein Film ohne Unterbrechung durchläuft: Der
+Browserbereich war verborgen, dann hält Chrome stumme Videos selbst an. Gegenprobe: die
+kreative Fassung verhält sich dort genauso. Max soll es selbst im Browser ansehen.
+
+**Abweichungen von den Hausregeln:** Bilder nur als WebP ohne JPEG-Rückfall (so hat Claude
+Design die Seite gebaut; heute von allen Browsern unterstützt). Die Seite braucht
+JavaScript und lädt React von unpkg.com — ohne JS oder ohne unpkg bleibt sie leer.
+
+---
+
+## 01.10.2026 (später) — Export aus Claude Design geprüft, nichts übernommen
+
+Max hat aus Claude Design `~/Downloads/Portfolio-Website Überblick.zip` exportiert: zwei
+Entwürfe (`Portfolio Entwurf v2.dc.html`, `Drohne v5.dc.html`), `flug-uebergang.js`,
+`support.js`. Entpackt und im Browser angesehen **nur im Arbeitsordner** (Bilder per
+Verknüpfung). Am Projekt ist nichts geändert.
+
+**Was es ist:** Hauptseite komplett neu gestaltet, gleiche 11 Kapitel, gleiche Texte und
+Farbwelten, dazu ein Schalterpult mit 12 umschaltbaren Effekten und ein neuer
+Kontaktbereich („Schreib mir." mit Mailadresse). Das Drohnenkapitel ist eine eigene Seite
+mit Start-/Landeübergang, bildfüllendem Zeitraffer und Höhenanzeige.
+
+**Gemessene Probleme:**
+- Hauptentwurf: **0 `<video>`** — alle Filme nur als Standbild. Videosteuerung fehlt ganz.
+- Drohnenseite: alle 5 Videos werden **beim Laden gleichzeitig angefordert**
+  (`src` + `autoplay`, kein `preload="none"`) — der Fehler, der schon zweimal behoben wurde.
+- Kein reines HTML: läuft nur mit `support.js` (Claude-Design-Laufzeit), die React von
+  unpkg.com nachlädt. Eigene Tags (`<x-dc>`, `<sc-for>`, `<sc-if>`).
+- Pfade flach (`assets/name.webp`), iCapsule-Bilder umbenannt (`icap-*`), nur WebP.
+- 8 Bilder verlinkt, die es nicht gibt und die nicht im ZIP sind (`dji-bucht/-kapelle/-kueste`,
+  `gear/dji-brille, dji-o4-pro, nazgul-evoque-f5, pavo20-pro, radiomaster-pocket`).
+- Drohnenseite enthält Inhalte, die nie auf der Seite standen (DJI Mini 2, „Im Urlaub",
+  „Küste", „Schule · Bayerischer Wald", Papierflieger „von einem Freund", „Projekt 11").
+  **Herkunft bei Max erfragt** — nicht als Tatsache übernehmen.
+
+Empfehlung an Max: als Vorlage nutzen und gewählte Effekte in reinem HTML in
+`index.html` nachbauen, Videosteuerung erhalten.
+
+---
+
+## 01.10.2026 — zwei neue Drohnenvideos komprimiert
+
+Max hat zwei Videos direkt nach `Portfolio/assets/` kopiert und wollte sie „genau so wie
+die anderen" komprimiert, **sonst nichts ändern** — also noch **nicht** in die Seite eingebaut.
+
+| neu | Quelle | Ergebnis |
+|---|---|---|
+| `video/drohne-nebel.mp4` | `WhatsApp Video 2025-11-15 at 21.59.53.mp4`, 1080p/25, 34 s, 135 MB | 720p/25, **CRF 22**, 8,6 MB |
+| `video/drohne-schnee.mp4` | `Snow_around 1.mov` (DaVinci-Export), 1080p/59,94, 64 s, 243 MB | 720p/59,94, **CRF 28**, 23,1 MB |
+
+Wie die FPV-Clips: H.264 High, 1280×720, Bildrate des Originals behalten, `faststart`.
+Ton bei beiden **entfernt** — beide Tonspuren sind digitale Stille (-91 dB). Bildanzahl
+identisch mit dem Original (842 / 3830). CRF an 22/24/26/28 gerechnet und an Ausschnitten
+verglichen: Nebel ist kurz, deshalb die beste Stufe; beim Schnee war zwischen 26 und 28 an
+Ästen und Hauswand kein Unterschied zu sehen, 28 hält die Datenrate bei 3 Mbit/s wie die
+anderen. Poster je JPEG (q62) + WebP (q68), 1280×720: Nebel bei 28 s (Morgenrot über dem
+Nebelmeer), Schnee bei 17 s (Baum unter blauem Himmel). Die Namen sind neutral
+(`drohne-`), weil nicht sicher ist, ob der Schneeflug FPV ist.
+
+**Offen und wichtig:** Die beiden Originale liegen noch in `Portfolio/assets/` und sind
+**nicht** von der `.gitignore` erfasst. Ein `git add -A` würde sie mitnehmen —
+`Snow_around 1.mov` liegt mit 243 MB über GitHubs Grenze von 100 MB, der Push würde
+scheitern, und Originale sollen ohnehin nicht auf GitHub. Vor dem nächsten Commit klären
+(Vorschlag: nach `Neu/Videos/Drohnen/` verschieben). Ebenfalls neu und unversioniert:
+`assets/3D/cqpsule.glb` (10 MB), von Max, Zweck noch nicht besprochen.
+
+---
+
+## 30.09.2026 (später) — Übergabe für Claude Design
+
+Max will die kreative Fassung mit **Claude Design** aufwerten und wollte eine Übergabe,
+mit der das Werkzeug alles über die Seite weiß — Aufbau, Zusammengehörigkeit, Inhalte,
+was geändert werden darf und was nicht. Ausdrücklich **keine** Gestaltungsvorgaben.
+
+**Neu: `Portfolio/00-LIES-MICH-ZUERST.md`** (21 KB). Alle Tabellen per Skript aus
+`live/index.html` erzeugt: 14 Übersichtskarten, 11 Kapitel mit Farbwelt, alle 49
+Kapitelbilder mit Maßen und Beschriftung, alle 11 Videos, die Mechanik (aus den
+Code-Kommentaren), Max' Verbote wörtlich, offene Punkte. Gegengeprüft: alle 68 von der
+Seite eingebundenen Medien sind erwähnt, alle erwähnten existieren. Beim Prüfen fiel ein
+Fehler auf — ich hatte geschrieben, nur die Übersichtskarten zoomen beim Zeigen; die
+Kapitelbilder zoomen auch (1.035–1.04). Korrigiert.
+
+**Max hat klargestellt: Die Texte und Bildunterschriften der Seite sind Platzhalter**, die
+ein früherer Claude geschrieben hat. Sie stimmen ungefähr, sind aber nicht seine Worte.
+Ich hatte das am 22.09. falsch als „von Max selbst verfasst" festgehalten.
+
+**Fallen im Ordner, die ein fremdes Werkzeug fehlleiten:** `Portfolio/index.html` leitet
+auf `v1/` weiter; `PROJEKT-UEBERGABE.md` nennt sich „vollständige Wissensübergabe für eine
+andere KI", ist aber aus der v1–v6-Zeit. Beides steht als Warnung in der neuen Datei.
+
+`AUFBAU.md` und `BILDINDEX.md` (mit Fehlern) nach `doku/alt-ki-uebergaben/` verschoben,
+nicht gelöscht. `live/index.html` unverändert.
+
+---
+
+## 30.09.2026 — zurück zur kreativen Fassung
+
+Max verwirft die Richtungen der letzten Tage (Präsentationsseite, Astra/Codex-Versuche,
+helle Materialfassung) und arbeitet ab jetzt **wieder an der kreativen Fassung weiter** —
+`live/index.html`, die dunkle Seite mit den Farbwelten pro Kapitel, den roten
+Lichtspuren in Seoul und dem Kartenflug im Drohnenkapitel. Seine Worte: „da wo alles
+fertig ist". Als Nächstes will er Texte austauschen (noch nicht beauftragt).
+
+**Nachgeprüft, nichts verändert:**
+
+- `live/index.html` ist **byte-identisch** mit `Backups/Kreative-Version-1/` und mit dem
+  Stand auf GitHub (SHA-256 `bd7113305f45697c…`). Letzter Commit, der sie berührt:
+  „Kartenbewegung auf transform umgestellt" vom 17.09. Seitdem unverändert — das Backup
+  ist also der letzte Stand, es muss nichts zurückgeholt werden.
+- `icapsule.html` ebenfalls identisch mit GitHub.
+- Abgleich des ganzen Ordners gegen das Backup: nur **hinzugekommene** Dateien
+  (minimal, material, astra, astra-2, AUFBAU.md, BILDINDEX.md, ein Archivstand) und
+  längere Doku. Keine Datei der kreativen Fassung fehlt oder hat sich in der Größe
+  geändert. Die Codex-Läufe haben nur ihre eigenen Dateien geschrieben.
+- Im Browser: 64 von 64 Inhaltsbildern laden (das 65. ist der leere Platzhalter der
+  Großansicht), 11 Videos, 4 Lichtspur-Ebenen, Kartenflug aktiv. 136 + 28 Verweise
+  in index.html/icapsule.html, keiner fehlt.
+
+**iCloud** hatte wieder fast alles ausgelagert — auch **984 Dateien in `.git/`**, deshalb
+hing jeder git-Befehl. Bilder und Videos sind zurückgeholt. **Vor dem nächsten Commit
+prüfen, ob `.git/` vollständig lokal ist**, sonst hängt git wieder.
+
+Die Nebenversuche bleiben unangetastet liegen; Max hat nicht gesagt, dass sie weg sollen.
+
+---
+
+## 22.09.2026 — Bildindex fuer eine Fremd-KI, Tonspuren nachgemessen
+
+Max testet einen Monat lang Codex mit GPT-6 Astra und wollte einen Prompt, der eine
+neue Seite bauen laesst. Bewusst **ohne** Designvorgaben: er will sehen, was das Modell
+aus sich heraus entwickelt. Nur die Inhalte und die Richtung sind vorgegeben.
+
+**Richtung, von Max korrigiert:** Die Seite soll nicht wie eine Apple-*Produktseite*
+aussehen, sondern wie ein Apple-*Produkt*. Also kein Marketing-Layout auf Weiss, sondern
+die Seite als Geraet — gefraestes Aluminium und Glas, echte Drehknoepfe, Regler,
+Kippschalter mit Rastpunkten. Linie Braun/Dieter Rams zu Apple. Ich hatte das zuerst
+als Stil gelesen statt als Gegenstand, Max hat korrigiert.
+
+**Neu: `Portfolio/BILDINDEX.md`** (11,7 KB). Damit eine fremde KI nicht 132 Bilder
+anschauen muss (~130.000 Tokens Bildverarbeitung), stehen dort je Datei die echten
+Pixelmaße und die Beschriftung aus `live/index.html` — 48 Bildunterschriften der
+Großansicht plus 53 alt-Texte, alle von Max selbst verfasst (**falsch**, siehe 30.09.: das sind KI-Platzhalter). 53 von 132 JPEGs haben
+einen echten Text, 79 nur den Dateinamen; die sind als `[—]` markiert mit dem
+ausdruecklichen Hinweis, nichts dazuzuerfinden. Erzeugt per Skript, nicht von Hand.
+
+**Zwei Befunde beim Nachmessen:**
+
+1. **Tonspuren:** `zeitraffer` und `drone-clip-1` haben eine Tonspur, die aber
+   digitale Stille enthaelt (-91 dB) — also echte Stummschleifen. `fpv-papierflieger`
+   dagegen hat **echten Ton** (-19,9 dB), den hatte ich im ersten Prompt faelschlich
+   zu den stummen Schleifen gezaehlt, weil ich nach dem Muster `fpv-*` gruppiert habe.
+   Merke: die Existenz einer Tonspur sagt nichts, nur `volumedetect` sagt etwas.
+2. **`film-animals.mp4` und `film-imker.mp4` haben kein Poster.** Bei `preload="none"`
+   bleibt dort eine schwarze Flaeche. Offen.
+
+`therme-doku.mp4` ist nur 5,6 s lang — geprueft, das Original ist genauso kurz, kein
+Fehler beim Komprimieren.
+
+**iCloud:** 265 von 304 Mediendateien waren ausgelagert und wurden zurueckgeholt.
+
+---
+
 # Stand — 13.09.2026
 
 Diese Datei ist das Erste, was man liest, wenn man weiterarbeitet.

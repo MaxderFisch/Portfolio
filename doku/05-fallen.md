@@ -1055,3 +1055,43 @@ Eine Bahn über zwei Kacheln hieße zwei Kacheln Überhang. Da eine Verschiebung
 Kachel dasselbe Bild zeigt**, lassen sich die Werte modulo Kachelbreite rechnen.
 → An jedem Umschlagpunkt zwei Stützstellen zur selben Zeit setzen: erst auf die Kachelgrenze,
 dann auf null. Ohne das interpoliert CSS rückwärts und das Bild ruckt sichtbar zurück.
+
+
+---
+
+## Videoqualität messen: Zeitstempel ausrichten (01.10.2026)
+
+Beim Vergleich mit dem `ssim`-Filter kam für ein WhatsApp-Video ein Wert von 0,88 heraus,
+der mit **stärkerer** Kompression sogar stieg — physikalisch unmöglich. Ursache: Das
+Original beginnt bei `start_time=0.2`, und der Filter paart Bilder über Zeitstempel. Jedes
+Bild wurde mit einem falschen Gegenstück verglichen. Eine verlustfreie Probe ergab ohne
+Ausrichtung 0,51, mit Ausrichtung exakt 1,0.
+
+**Immer so messen:**
+```bash
+ffmpeg -i neu.mp4 -i original.mp4 -lavfi \
+  "[0:v]setpts=PTS-STARTPTS[a];[1:v]scale=1280:720,setpts=PTS-STARTPTS[b];[a][b]ssim" -f null -
+```
+Und vor jeder Messung einmal gegenprüfen: verlustfreie Probe muss 1,0 ergeben.
+
+Dasselbe gilt für Vergleichsbilder: `-ss` vor mehreren Eingängen und Mehrfach-Eingänge in
+einem `hstack` paaren über Zeitstempel. Sicher ist: jedes Bild **einzeln** per
+`select=eq(n\,NR)` herausziehen und erst danach nebeneinanderlegen.
+
+
+---
+
+## Claude-Design-Laufzeit: leere Boolesche Attribute zählen als „aus" (01.10.2026)
+
+In den `.dc.html`-Vorlagen (React darunter) wird `controls=""` oder `muted=""` **nicht**
+gesetzt — ein leerer Wert gilt als falsch. Ergebnis: 0 von 11 Videos hatten eine
+Bedienleiste. Richtig ist `controls="true" muted="true" playsinline="true"`. Danach
+gemessen: 11 von 11.
+
+## Verborgener Browserbereich hält Videos an (01.10.2026)
+
+Ist der Browserbereich verborgen (`document.hidden === true`), pausiert Chrome stumme
+Videos selbst — ohne `pause()`-Aufruf im Skript. Sieht aus wie ein Fehler der eigenen
+Steuerung, ist es aber nicht. Erkennen: `HTMLMediaElement.prototype.pause` umleiten und
+mitschreiben; kommen keine Aufrufe, war es der Browser. Gegenprobe mit einer bekannt
+funktionierenden Seite machen. Durchlaufen eines Films lässt sich so nicht prüfen.
