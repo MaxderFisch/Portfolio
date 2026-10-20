@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div data-k="navi" style="position:fixed;top:0;left:0;right:0;z-index:90;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:{{ pad }};background:linear-gradient(to bottom,rgba(0,0,0,.62) 0%,rgba(0,0,0,.28) 60%,rgba(0,0,0,0) 100%);color:#fff;font-family:'General Sans',system-ui,sans-serif">
+  <a href="{{ home }}" style="display:{{ nameDisp }};flex:0 0 auto;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px;letter-spacing:.04em;color:#fff;text-decoration:none;transition:opacity .3s" style-hover="opacity:.6">Max Aulinger</a>
+  <nav style="display:flex;align-items:center;gap:clamp(16px,2vw,30px);min-width:0;overflow-x:auto;scrollbar-width:none;margin-left:auto">
+    <sc-for list="{{ links }}" as="l" hint-placeholder-count="8">
+      <a href="{{ l.href }}" style="flex:0 0 auto;padding:6px 0;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;text-decoration:none;color:{{ l.fg }};border-bottom:1px solid {{ l.line }};transition:color .3s,border-color .3s" style-hover="color:#fff;border-color:#fff">{{ l.t }}</a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1200px&quot;,&quot;height&quot;:&quot;80px&quot;},&quot;aktiv&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;Menschen&quot;,&quot;Fotos&quot;,&quot;Korea&quot;,&quot;Drohne&quot;,&quot;Video&quot;,&quot;3D &amp; Design&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;home&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Startseite.dc.html&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { vw: typeof window !== 'undefined' ? innerWidth : 1200 };
+  componentDidMount() { this.onR = () => this.setState({ vw: innerWidth }); addEventListener('resize', this.onR); this.onR(); this._raf = requestAnimationFrame(() => this.onR()); this._t = setTimeout(() => this.onR(), 400); }
+  componentWillUnmount() { removeEventListener('resize', this.onR); cancelAnimationFrame(this._raf); clearTimeout(this._t); }
+  renderVals() {
+    const a = this.props.aktiv ?? '', phone = this.state.vw < 760;
+    const L = [['Menschen', 'Menschen.dc.html'], ['Fotos', 'Fotos.dc.html'], ['Korea', 'Korea%20v3.dc.html'], ['Drohne', 'Drohne%20v5.dc.html'], ['Video', 'Video.dc.html'], ['3D & Design', '3D%20Design.dc.html'], ['Kontakt', 'mailto:maxau.aulo@gmail.com']];
+    return {
+      home: this.props.home ?? 'Startseite.dc.html',
+      nameDisp: phone ? 'none' : 'block',
+      pad: phone ? '14px 16px 22px' : '18px clamp(16px,3vw,40px) 26px',
+      links: L.map(([t, href]) => ({ t, href, fg: t === a ? '#fff' : 'rgba(255,255,255,.78)', line: t === a ? '#fff' : 'transparent' }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Portfolio — Max Aulinger</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin="">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&amp;f[]=general-sans@400,500,600&amp;display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lenis@1/dist/lenis.min.js"></script>
+<style>
+html,body{margin:0;background:#060607;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+::selection{background:#f2f2f2;color:#060607}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+</style>
+</helmet>
+
+<div data-k="korn" aria-hidden="true" style="position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05"></div>
+
+<div data-k="nav" style="position:fixed;top:0;left:0;right:0;z-index:80;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;padding:18px clamp(16px,3vw,40px);mix-blend-mode:difference;color:#fff;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;opacity:0;pointer-events:none">
+  <a href="#oben" data-k="navBrand" style="pointer-events:auto;justify-self:start;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px;letter-spacing:.04em;opacity:0;transition:opacity .4s">Max Aulinger</a>
+  <span data-k="navLab" style="display:{{ navLabDisp }}"></span>
+  <span style="justify-self:end;display:flex;gap:22px;pointer-events:auto"><a href="#arbeiten" style="transition:opacity .3s" style-hover="opacity:.55">Arbeiten</a><a href="#kontakt" style="transition:opacity .3s" style-hover="opacity:.55">Kontakt</a></span>
+</div>
+
+<section id="oben" data-mode="Portfolio" style="position:relative;height:100svh;min-height:560px;overflow:hidden;background:#050506;color:#fff">
+  <div data-k="wallIn" style="position:absolute;inset:0;perspective:1100px;perspective-origin:50% 38%;opacity:0">
+    <div data-k="wall" style="position:absolute;left:50%;top:calc(50% - 6vw);width:200vw;transform-style:preserve-3d;transform:translate(-50%,-50%) rotateX(24deg) rotateZ(-10deg);display:flex;flex-direction:column;gap:clamp(14px,1.6vw,24px)">
+      <sc-for list="{{ wallRows }}" as="row" hint-placeholder-count="0">
+        <div data-m-wrow="{{ row.dir }}" data-sp="{{ row.sp }}" style="display:flex;gap:clamp(14px,1.6vw,24px);width:max-content;transform-style:preserve-3d">
+          <sc-for list="{{ row.cards }}" as="c" hint-placeholder-count="0">
+            <a href="{{ c.href }}" data-m-wcard="" data-t="{{ c.lab }}" style="position:relative;flex:0 0 auto;display:block;width:{{ cardW }};aspect-ratio:16/10;border-radius:clamp(12px,1.2vw,20px);overflow:hidden;background:#111;backface-visibility:hidden">
+              <img data-m-wimg="" src="{{ c.src }}" alt="" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1)">
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,0) 55%),linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,0) 30%)"></div>
+              <div style="position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),inset 0 1px 0 rgba(255,255,255,.4)"></div>
+              <div style="position:absolute;left:14px;right:14px;bottom:12px">
+                <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.8">{{ c.no }} · {{ c.cat }}</div>
+                <div style="margin-top:5px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(17px,1.6vw,27px);line-height:1;letter-spacing:-.02em">{{ c.t }}</div>
+              </div>
+            </a>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div aria-hidden="true" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,rgba(5,5,6,0) 34%,rgba(5,5,6,.82) 100%),linear-gradient(to bottom,rgba(5,5,6,.55),rgba(5,5,6,0) 20%,rgba(5,5,6,0) 62%,#050506 100%)"></div>
+  <div data-k="heroTxt" style="position:absolute;left:0;right:0;bottom:0;z-index:3;padding:0 clamp(16px,3vw,40px) clamp(22px,3.4vw,40px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px 24px;pointer-events:none">
+    <div>
+      <div style="overflow:hidden;padding-bottom:.06em"><div data-m-hl="" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(40px,5.4vw,88px);line-height:.9;letter-spacing:-.03em;transform:translateY(105%)">Max Aulinger</div></div>
+      <div data-m-hin="" style="margin-top:12px;max-width:420px;font-size:15px;line-height:1.6;color:#d6d6d6;opacity:0">Fotos, Filme, Drohnenflüge und 3D-Design.</div>
+    </div>
+    <div data-m-hin="" style="text-align:right;opacity:0">
+      <div style="overflow:hidden;padding-bottom:.06em"><div data-k="wLab" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(18px,1.8vw,28px);letter-spacing:-.01em">Alle Projekte</div></div>
+      <div style="margin-top:8px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf">Karte anklicken · Scrollen ↓</div>
+    </div>
+  </div>
+</section>
+
+<section id="ich" data-mode="Über mich" style="position:relative;background:#050506;color:#f2f2f2;padding:clamp(70px,9vw,140px) clamp(16px,3vw,40px) clamp(60px,8vw,110px)">
+  <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"><span>Über mich</span><span>Medientechnik</span></div>
+  <p data-m-scrub="" data-c0="#2c2c31" data-c1="#f2f2f2" style="margin:clamp(28px,3.4vw,48px) 0 0;max-width:1180px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(40px,6.2vw,104px);line-height:1;letter-spacing:-.032em">
+    <sc-for list="{{ ichWords }}" as="w" hint-placeholder-count="0"><span data-m-sw="" style="color:#2c2c31">{{ w.t }}</span></sc-for>
+  </p>
+  <div style="display:grid;grid-template-columns:{{ g12 }};gap:{{ gGap }};margin-top:clamp(50px,6vw,96px);align-items:start">
+      <figure data-m-fade="" data-lb="ueber-mich/max-1.webp" data-cap="Abends, mit Drohne · Über mich" style="margin:0;grid-column:{{ ichA }};grid-row:{{ ichAr }};margin-top:{{ ichAmt }};opacity:0;cursor:zoom-in">
+        <div style="overflow:hidden;background:#111"><img data-m-par="0.05" src="ueber-mich/max-1.webp" width="1051" height="1400" alt="Max mit Drohne bei Sonnenuntergang" style="display:block;width:100%;height:auto;transform:scale(1.08)"></div>
+        <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Abends, mit Drohne</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#8d8d92">Über mich</span></figcaption>
+      </figure>
+    <div style="grid-column:{{ ichT }};grid-row:{{ ichTr }};align-self:end">
+      <p data-m-fade="" style="margin:0;max-width:520px;font-size:16px;line-height:1.75;color:#cfcfcf;opacity:0">Ich habe Medientechnik angefangen, weil ich die Dinge machen wollte, die ich cool finde. Daran hat sich nichts geändert: Ich sehe eine Drohnenaufnahme und will selbst fliegen. Für einen Sonnenaufgang stehe ich um vier Uhr auf.</p>
+      <div data-m-chips="" style="display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(24px,2.6vw,34px)">
+        <sc-for list="{{ ichChips }}" as="c" hint-placeholder-count="5">
+          <a href="{{ c.href }}" style="display:inline-flex;align-items:center;padding:9px 15px;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:13px;font-weight:500;opacity:0;transition:background .3s,color .3s,border-color .3s" style-hover="background:#f2f2f2;color:#050506;border-color:#f2f2f2">{{ c.t }}</a>
+        </sc-for>
+      </div>
+    </div>
+      <figure data-m-fade="" data-lb="ueber-mich/max-3.webp" data-cap="Nachts · Buntes Licht" style="margin:0;grid-column:{{ ichB }};grid-row:{{ ichBr }};margin-top:{{ ichBmt }};opacity:0;cursor:zoom-in">
+        <div style="overflow:hidden;background:#111"><img data-m-par="-0.04" src="ueber-mich/max-3.webp" width="933" height="1400" alt="Max lachend im bunten Licht" style="display:block;width:100%;height:auto;transform:scale(1.08)"></div>
+        <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Nachts</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#8d8d92">Buntes Licht</span></figcaption>
+      </figure>
+      <figure data-m-fade="" data-lb="ueber-mich/max-4.webp" data-cap="Abendrot · Profil" style="margin:0;grid-column:{{ ichC }};grid-row:{{ ichCr }};margin-top:{{ ichCmt }};opacity:0;cursor:zoom-in">
+        <div style="overflow:hidden;background:#111"><img data-m-par="0.07" src="ueber-mich/max-4.webp" width="1400" height="933" alt="Max im Profil vor rosa Himmel" style="display:block;width:100%;height:auto;transform:scale(1.08)"></div>
+        <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Abendrot</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#8d8d92">Profil</span></figcaption>
+      </figure>
+  </div>
+  <figure data-m-fade="" data-lb="ueber-mich/max-2.webp" data-cap="Mit Licht geschrieben · Langzeitbelichtung" style="margin:clamp(70px,9vw,140px) calc(-1 * clamp(16px,3vw,40px)) 0;opacity:0;cursor:zoom-in">
+    <div data-m-grow="" style="position:relative;height:min(66vw,92vh);overflow:hidden;clip-path:inset(10% 14% 10% 14%);background:#0b0b0c"><img src="ueber-mich/max-2.webp" alt="Max neben seinem Namen aus Licht" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.18)"></div>
+    <figcaption style="margin-top:10px;padding:0 clamp(16px,3vw,40px);display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Mit Licht geschrieben</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#8d8d92">Langzeitbelichtung</span></figcaption>
+  </figure>
+</section>
+
+<section id="arbeiten" data-mode="Arbeiten" style="background:#060607;color:#f2f2f2;padding:clamp(80px,10vw,140px) clamp(16px,3vw,40px)">
+  <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"><span>Arbeiten</span><span>Stand 10 / 2026</span></div>
+  <div style="margin-top:clamp(24px,3vw,40px);border-bottom:1px solid rgba(255,255,255,.18)">
+    <sc-for list="{{ rows }}" as="r" hint-placeholder-count="9">
+      <a href="{{ r.href }}" data-m-row="{{ r.img }}" data-m-fade="" data-delay="{{ r.d }}" style="display:grid;grid-template-columns:{{ rowCols }};gap:8px 20px;align-items:center;padding:clamp(12px,1.4vw,18px) 10px;border-top:1px solid rgba(255,255,255,.18);opacity:0;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#060607">
+        <span style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.12em">{{ r.no }}</span>
+        <span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(30px,5.2vw,84px);line-height:1;letter-spacing:-.03em">{{ r.t }}</span>
+        <span style="display:{{ catDisp }};font-size:10px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;opacity:.65">{{ r.cat }}</span>
+        <span style="justify-self:end;font-size:18px">↓</span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section id="p-seoul" data-mode="01 · Seoul bei Nacht" style="position:relative;background:#000;color:#f2f2f2">
+  <div data-m-pin="strip" style="position:relative;height:300vh">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden">
+      <div data-m-fx="" aria-hidden="true" style="position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none"></div>
+      <div data-m-track="" style="position:relative;z-index:1;height:100%;width:max-content;display:flex;align-items:center;gap:clamp(18px,2.2vw,34px);padding:0 clamp(16px,3vw,40px)">
+        <div style="flex:0 0 {{ stripIntroW }};padding-right:clamp(10px,2vw,40px)">
+          <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"><span><b style="color:#fff;font-weight:600">01</b> — Seoul</span><span>Fotografie · Südkorea</span></div>
+          <div style="margin-top:22px"><div style="overflow:hidden;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Seoul bei Nacht.</h2></div></div>
+          <p data-m-fade="" data-delay="150" style="margin:22px 0 0;max-width:420px;font-size:15px;line-height:1.75;color:#cfcfcf;opacity:0">Eigentlich wollte ich das große Feuerwerk fotografieren, stand aber zu weit weg. Also habe ich die Stadt fotografiert — die Linien entstehen, weil ich die Kamera während der Belichtung bewege.</p>
+          <div style="margin-top:26px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92">Weiterscrollen →</div>
+        </div>
+        <sc-for list="{{ nachtStrip }}" as="it" hint-placeholder-count="0">
+          <figure data-lb="{{ it.src }}" data-cap="{{ it.lbcap }}" style="margin:0;flex:0 0 auto;width:{{ it.fw }};cursor:zoom-in">
+            <div style="height:{{ stripFH }};overflow:hidden;background:#111"><img src="{{ it.src }}" alt="{{ it.cap }}" style="display:block;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.04)"></div>
+            <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">{{ it.cap }}</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#8d8d92">{{ it.sub }}</span></figcaption>
+          </figure>
+        </sc-for>
+        <figure data-lb="assets/nacht-bruecke.webp" data-cap="Die Brücke · 24 mm · f/3.5 · 1/80 s" style="margin:0;flex:0 0 auto;width:{{ bridgeW }};cursor:zoom-in">
+          <div style="background:#fff;padding:8px"><div style="position:relative;width:100%;aspect-ratio:3/2;overflow:hidden"><img src="assets/nacht-bruecke.webp" alt="Die Brücke" style="position:absolute;top:50%;left:50%;width:66.667%;height:150%;transform:translate(-50%,-50%) rotate(-90deg)"></div></div>
+          <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Die Brücke</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#8d8d92">24 mm · f/3.5 · 1/80 s</span></figcaption>
+        </figure>
+      </div>
+      <div style="position:absolute;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);bottom:28px;height:1px;background:rgba(255,255,255,.16);z-index:3"><div data-m-bar="" style="height:1px;background:#fff;transform:scaleX(0);transform-origin:left"></div></div>
+    </div>
+  </div>
+</section>
+
+<section data-mode="01 · Seoul bei Tag" style="position:relative;overflow:hidden;background:#e9e4da;color:#0c0c0c;padding:clamp(80px,10vw,150px) 0 clamp(70px,9vw,130px)">
+  <div aria-hidden="true" style="position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;user-select:none">
+    <div data-m-speed="0.12" style="position:absolute;right:-3%;top:4%;font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;font-weight:800;font-size:clamp(180px,32vw,540px);line-height:.9;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(12,12,12,.13)">서울</div>
+    <div data-m-speed="-0.08" style="position:absolute;left:-2%;bottom:4%;font-family:'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;font-weight:800;font-size:clamp(130px,22vw,380px);line-height:.9;white-space:nowrap;color:transparent;-webkit-text-stroke:1.5px rgba(12,12,12,.11)">낮</div>
+  </div>
+  <div style="position:relative;z-index:1">
+    <div style="padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"><span><b style="color:#0c0c0c;font-weight:600">01</b> — Seoul</span><span>Tempel · Berge · Regen</span></div>
+      <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:22px;align-items:end">
+        <div style="grid-column:{{ tCol }};overflow:hidden;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Seoul bei Tag.</h2></div>
+        <p data-m-fade="" data-delay="150" style="grid-column:{{ pCol }};margin:0;font-size:15px;line-height:1.75;color:#2b2a27;opacity:0">Tagsüber war Seoul ein komplett anderer Ort: Tempel, Berge, Regen — und dazwischen eine Stadt, die kein Ende nimmt.</p>
+      </div>
+    </div>
+    <div style="padding:0 clamp(16px,3vw,40px);display:grid;grid-template-columns:{{ g12 }};gap:{{ gGap }};margin-top:clamp(44px,5vw,80px);align-items:start">
+      <sc-for list="{{ gTag }}" as="it" hint-placeholder-count="0">
+        <figure data-m-fade="" data-lb="{{ it.src }}" data-cap="{{ it.lbcap }}" style="margin:0;grid-column:{{ it.col }};margin-top:{{ it.mt }};opacity:0;cursor:zoom-in">
+          <div style="overflow:hidden;background:#d8d2c6"><img data-m-par="{{ it.par }}" src="{{ it.src }}" width="{{ it.w }}" height="{{ it.h }}" alt="{{ it.cap }}" style="display:block;width:100%;height:auto;transform:scale(1.08)"></div>
+          <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">{{ it.cap }}</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#55544f">{{ it.sub }}</span></figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="p-menschen" data-mode="02 · Menschen" style="position:relative;background:#0d1012;color:#f2f2f2;padding:clamp(80px,10vw,150px) 0 clamp(70px,9vw,130px)">
+  <div style="padding:0 clamp(16px,3vw,40px)">
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"><span><b style="color:#fff;font-weight:600">02</b> — Menschen</span><span>Porträt · 85 mm · f/1.4</span></div>
+    <div style="overflow:hidden;margin-top:22px;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;transform:translateY(105%)">Menschen.</h2></div>
+  </div>
+  <div style="display:grid;grid-template-columns:{{ ptCols }};gap:{{ ptGap }};align-items:start;padding:0 clamp(16px,3vw,40px);margin-top:clamp(40px,5vw,72px)">
+    <div style="position:{{ stickyPos }};top:110px">
+      <div style="font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92">Person <span data-k="ptIdx" style="color:#fff">1</span> / 5</div>
+      <div style="overflow:hidden;margin:12px 0 16px;padding:.04em 0 .12em"><div data-k="ptName" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(40px,5vw,72px);line-height:1;letter-spacing:-.02em">Timo</div></div>
+      <p style="margin:0;max-width:300px;font-size:15px;line-height:1.75;color:#cfcfcf">Am liebsten mit offener Blende und ohne Blitz — nur mit dem Licht, das gerade da ist.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:{{ ptStream }};gap:20px;align-items:start">
+      <sc-for list="{{ shots }}" as="it" hint-placeholder-count="0">
+        <figure data-m-fade="" data-m-name="{{ it.name }}" data-lb="{{ it.src }}" data-cap="{{ it.lbcap }}" style="margin:0;grid-column:{{ it.col }};margin-top:{{ it.mt }};opacity:0;cursor:zoom-in">
+          <div style="overflow:hidden;background:#161a1d"><img src="{{ it.src }}" width="{{ it.w }}" height="{{ it.h }}" alt="{{ it.cap }}" style="display:block;width:100%;height:auto;transition:transform .9s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.035)"></div>
+          <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">{{ it.cap }}</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#8d8d92">{{ it.sub }}</span></figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="p-sonne" data-mode="03 · Sonnenaufgänge" style="position:relative;background:#ecebe6;color:#0c0c0c;padding:clamp(80px,10vw,150px) 0 clamp(70px,9vw,130px)">
+  <div style="padding:0 clamp(16px,3vw,40px)">
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"><span><b style="color:#0c0c0c;font-weight:600">03</b> — Sonnenaufgänge</span><span>Landschaft · Donau</span></div>
+    <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:22px;align-items:end">
+      <div style="grid-column:{{ tCol }}"><div style="overflow:hidden;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Früh raus.</h2></div></div>
+      <p data-m-fade="" data-delay="150" style="grid-column:{{ pCol }};margin:0;font-size:15px;line-height:1.75;color:#2b2a27;opacity:0">Runter an die Donau, bevor die Sonne über die Brücke kommt — solange der Nebel noch auf dem Wasser liegt.</p>
+    </div>
+  </div>
+  <div data-m-pin="seq" style="position:relative;height:{{ seqH }};margin-top:clamp(30px,4vw,60px)">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden">
+      <div data-m-sbox="" data-m-plb="" data-lb="assets/sa-donau-blau.webp" data-cap="Die Donau, kurz vor sechs" style="position:absolute;inset:0;clip-path:inset(26% 32% 26% 32%);background:#1a2430;cursor:zoom-in">
+        <sc-for list="{{ sonneSeq }}" as="s" hint-placeholder-count="0"><img data-m-si="{{ s.i }}" src="{{ s.src }}" alt="{{ s.cap }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ s.op }}"></sc-for>
+      </div>
+      <div data-m-zword="" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;mix-blend-mode:difference;color:#fff;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(90px,19vw,320px);line-height:1;letter-spacing:-.04em">Passau</div>
+      <div data-m-sui="" style="position:absolute;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);bottom:clamp(26px,3.4vw,44px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px 24px;color:#fff;opacity:0;pointer-events:none;text-shadow:0 1px 16px rgba(0,0,0,.35)">
+        <div><div style="overflow:hidden;padding-bottom:.08em"><div data-k="sLab" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(40px,6vw,96px);line-height:.92;letter-spacing:-.03em">Blaue Stunde</div></div><div data-k="sCap" style="margin-top:8px;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase">Die Donau, kurz vor sechs · 70 mm · f/9</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px"><div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:12px;letter-spacing:.12em"><span data-k="sIdx">01</span> / {{ sonneN }}</div><div style="width:min(220px,40vw);height:2px;background:rgba(255,255,255,.3)"><div data-m-sbar="" style="height:100%;background:#fff;transform:scaleX(0);transform-origin:left"></div></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 clamp(16px,3vw,40px);display:grid;grid-template-columns:{{ g12 }};gap:20px 28px;margin-top:clamp(50px,6vw,90px);align-items:end">
+    <figure data-m-fade="" data-lb="assets/sa-donau-gaense.webp" data-cap="Gänse im Gegenlicht · 180 mm · f/9" style="margin:0;grid-column:{{ gaCol }};opacity:0;cursor:zoom-in">
+      <div style="overflow:hidden;background:#dcdad3"><img data-m-par="0.05" src="assets/sa-donau-gaense.webp" width="933" height="1400" alt="Gänse im Gegenlicht" style="display:block;width:100%;height:auto;transform:scale(1.08)"></div>
+      <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Gänse im Gegenlicht</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#55544f">180 mm · f/9</span></figcaption>
+    </figure>
+    <p data-m-fade="" style="grid-column:{{ gaTxt }};margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(24px,2.6vw,38px);line-height:1.12;letter-spacing:-.015em;opacity:0">Das Licht dreht innerhalb von Minuten: erst blaugrau und still, dann golden.</p>
+  </div>
+</section>
+
+<section id="p-tiere" data-mode="04 · Tiere" style="position:relative;background:#0f1411;color:#eef3ef;padding:clamp(80px,10vw,150px) 0 clamp(70px,9vw,130px)">
+  <div style="padding:0 clamp(16px,3vw,40px)">
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#87958b"><span><b style="color:#fff;font-weight:600">04</b> — Tiere</span><span>Tierfotografie · Tele</span></div>
+    <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:22px;align-items:end">
+      <div style="grid-column:{{ tCol }}"><div style="overflow:hidden;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Tiere.</h2></div></div>
+      <p data-m-fade="" data-delay="150" style="grid-column:{{ pCol }};margin:0;font-size:15px;line-height:1.75;color:#c3cdc6;opacity:0">Bei Tieren kann man nichts absprechen und nichts wiederholen. Entweder man ist im richtigen Moment da — oder nicht.</p>
+    </div>
+  </div>
+  <div style="padding:0 clamp(16px,3vw,40px);display:grid;grid-template-columns:{{ g12 }};gap:{{ gGap }};margin-top:clamp(44px,5vw,80px);align-items:start">
+    <sc-for list="{{ gTiere }}" as="it" hint-placeholder-count="0">
+      <figure data-m-fade="" data-lb="{{ it.src }}" data-cap="{{ it.lbcap }}" style="margin:0;grid-column:{{ it.col }};margin-top:{{ it.mt }};opacity:0;cursor:zoom-in">
+        <div style="position:relative;overflow:hidden;background:#18201b"><img data-m-par="{{ it.par }}" src="{{ it.src }}" width="{{ it.w }}" height="{{ it.h }}" alt="{{ it.cap }}" style="display:block;width:100%;height:auto;transform:scale(1.08)"></div>
+        <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">{{ it.cap }}</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#87958b">{{ it.sub }}</span></figcaption>
+      </figure>
+    </sc-for>
+  </div>
+</section>
+
+<section id="p-plakate" data-mode="05 · Plakate &amp; Print" style="position:relative;background:#ecebe6;color:#0c0c0c;padding:clamp(80px,10vw,150px) 0 clamp(70px,9vw,130px)">
+  <div style="padding:0 clamp(16px,3vw,40px)">
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"><span><b style="color:#0c0c0c;font-weight:600">05</b> — Plakate &amp; Print</span><span>Grafikdesign</span></div>
+    <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:22px;align-items:end">
+      <div style="grid-column:{{ tCol }}"><div style="overflow:hidden;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Schrift ist Bild.</h2></div></div>
+      <p data-m-fade="" data-delay="150" style="grid-column:{{ pCol }};margin:0;font-size:15px;line-height:1.75;color:#2b2a27;opacity:0">Eine Plakatserie zu politischer Haltung, gedruckt und ausgestellt — jedes Plakat mit einer anderen Bildsprache. Dazu ein Flyer, Layout und Bild aus einer Hand.</p>
+    </div>
+  </div>
+  <div data-m-pin="fan" style="position:relative;height:{{ fanH }}">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden">
+      <sc-for list="{{ fan }}" as="it" hint-placeholder-count="0">
+        <figure data-m-fan="{{ it.k }}" data-lb="{{ it.src }}" data-cap="{{ it.lbcap }}" style="position:absolute;left:50%;top:50%;margin:0;width:{{ fanW }};transform:translate(-50%,-50%);cursor:zoom-in;will-change:transform;perspective:1100px">
+          <div data-m-hang="" style="position:relative;padding-top:clamp(34px,5vh,54px);transform-origin:50% 0;will-change:transform">
+            <div data-m-str="" aria-hidden="true" style="position:absolute;left:0;right:0;top:0;height:clamp(34px,5vh,54px);opacity:0;pointer-events:none">
+              <svg viewBox="0 0 100 40" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%;overflow:visible"><polyline points="3,40 50,0 97,40" fill="none" stroke="#0c0c0c" stroke-width="1.2" vector-effect="non-scaling-stroke"></polyline></svg>
+              <i style="position:absolute;left:50%;top:-5px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#0c0c0c"></i>
+            </div>
+            <div style="background:#dcdad3;box-shadow:0 40px 80px -40px rgba(0,0,0,.55)"><img src="{{ it.src }}" width="989" height="1400" alt="{{ it.cap }}" style="display:block;width:100%;height:auto"></div>
+          </div>
+          <figcaption style="margin-top:12px;opacity:0;display:flex;justify-content:space-between;gap:6px 12px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">{{ it.cap }}</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#55544f">{{ it.sub }}</span></figcaption>
+        </figure>
+      </sc-for>
+    </div>
+  </div>
+  <div style="padding:0 clamp(16px,3vw,40px);display:grid;grid-template-columns:{{ g12 }};gap:{{ gGap }};margin-top:clamp(44px,5vw,80px);align-items:start">
+    <sc-for list="{{ gPlakate }}" as="it" hint-placeholder-count="0">
+      <figure data-m-fade="" data-lb="{{ it.src }}" data-cap="{{ it.lbcap }}" style="margin:0;grid-column:{{ it.col }};margin-top:{{ it.mt }};opacity:0;cursor:zoom-in">
+        <div style="position:relative;overflow:hidden;background:#dcdad3"><img data-m-par="{{ it.par }}" src="{{ it.src }}" width="{{ it.w }}" height="{{ it.h }}" alt="{{ it.cap }}" style="display:block;width:100%;height:auto;transform:scale(1.08)"></div>
+        <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">{{ it.cap }}</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#55544f">{{ it.sub }}</span></figcaption>
+      </figure>
+    </sc-for>
+  </div>
+</section>
+
+<section id="p-icapsule" data-mode="06 · iCapsule" style="position:relative;background:#0b0c0e;color:#f2f4f7;padding:clamp(80px,10vw,150px) 0 clamp(40px,5vw,70px)">
+  <div style="padding:0 clamp(16px,3vw,40px)">
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#7f858e"><span><b style="color:#fff;font-weight:600">06</b> — iCapsule</span><span>Produktdesign · Blender</span></div>
+    <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:22px;align-items:end">
+      <div style="grid-column:{{ tCol }}"><div style="overflow:hidden;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">iCapsule.</h2></div></div>
+      
+    </div>
+  </div>
+  <div style="padding:0 clamp(16px,3vw,40px);margin-top:clamp(36px,4vw,64px)">
+    <p data-m-scrub="" data-c0="#3a3d42" data-c1="#f2f4f7" style="margin:0;max-width:1180px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(30px,4.6vw,72px);line-height:1.05;letter-spacing:-.03em">
+      <sc-for list="{{ icapWords }}" as="w" hint-placeholder-count="0"><span data-m-sw="" style="color:#3a3d42">{{ w.t }}</span></sc-for>
+    </p>
+  </div>
+  <div data-m-pin="prod" style="position:relative;height:{{ prodH }};margin-top:clamp(40px,5vw,80px)">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:grid;grid-template-columns:{{ prodCols }};align-items:center;align-content:center;gap:clamp(20px,3vw,48px);padding:clamp(60px,8vh,96px) clamp(16px,3vw,40px)">
+      <div data-m-plb="" data-lb="assets/icap-hero-weiss.webp" data-cap="iCapsule" style="position:relative;height:{{ prodImgH }};cursor:zoom-in">
+        <sc-for list="{{ prodImgs }}" as="it" hint-placeholder-count="0"><img data-m-pi="{{ it.i }}" src="{{ it.src }}" alt="{{ it.t }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:{{ it.op }};transition:opacity .7s ease,transform 1.2s cubic-bezier(.16,1,.3,1)"></sc-for>
+      </div>
+      <div>
+        <div style="font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:11px;letter-spacing:.12em;color:#7f858e"><span data-k="piIdx" style="color:#fff">01</span> / {{ prodN }}</div>
+        <div style="overflow:hidden;margin-top:16px;padding-bottom:.06em"><div data-k="piNum" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(76px,10vw,180px);line-height:.84;letter-spacing:-.045em">Blender</div></div>
+        <div data-k="piT" style="margin-top:16px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(22px,2.2vw,32px);letter-spacing:-.015em">Komplett selbst gebaut</div>
+        <div data-k="piS" style="margin-top:8px;max-width:340px;font-size:14.5px;line-height:1.65;color:#a9aeb6">Modelliert, texturiert und ausgeleuchtet.</div>
+        <div style="display:flex;gap:6px;margin-top:28px;max-width:320px"><sc-for list="{{ prodImgs }}" as="it" hint-placeholder-count="0"><div style="flex:1;height:2px;background:rgba(255,255,255,.16);overflow:hidden"><div data-m-seg="{{ it.i }}" style="height:100%;background:#fff;transform:scaleX(0);transform-origin:left"></div></div></sc-for></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="p-therme" data-mode="07 · Therme Bad Füssing" style="position:relative;background:#e4ebec;color:#0a1a1f;padding:clamp(80px,10vw,150px) 0 clamp(70px,9vw,130px)">
+  <div style="padding:0 clamp(16px,3vw,40px)">
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(10,26,31,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#4b6168"><span><b style="color:#0a1a1f;font-weight:600">07</b> — Therme Bad Füssing</span><span>3D-Animation · Blender</span></div>
+    <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:22px;align-items:end">
+      <div style="grid-column:{{ tCol }}"><div style="overflow:hidden;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Unter Wasser.</h2></div></div>
+      <p data-m-fade="" data-delay="150" style="grid-column:{{ pCol }};margin:0;font-size:15px;line-height:1.75;color:#24383e;opacity:0">Eine Unterwasserwelt für die Beckenwand der Therme — ruhig, endlos, komplett in Blender gebaut.</p>
+    </div>
+  </div>
+  <div data-m-pin="pan" style="position:relative;height:300vh;margin-top:clamp(20px,3vw,40px)">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center">
+      <div data-m-track="" style="display:flex;width:max-content;padding:0 clamp(16px,3vw,40px)">
+        <figure data-lb="assets/therme-fische-poster.webp" data-cap="Die Animation, wie sie auf der Beckenwand läuft · 2:45" style="margin:0;flex:none;position:relative;height:{{ panImgH }};aspect-ratio:2756/384;cursor:zoom-in;background:#0a1a1f">
+          <img src="assets/therme-fische-poster.webp" alt="Unterwasser-Animation" style="display:block;width:100%;height:100%;object-fit:cover">
+          <div style="position:absolute;left:14px;bottom:14px;font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.6);padding:5px 8px">▶ 2:45</div>
+        </figure>
+      </div>
+      <div style="position:absolute;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);bottom:46px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#4b6168"><span>Die Animation, wie sie auf der Beckenwand läuft</span><span>2 min 45 · Weiterscrollen →</span></div>
+      <div style="position:absolute;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);bottom:28px;height:1px;background:rgba(10,26,31,.25);z-index:3"><div data-m-bar="" style="height:1px;background:#0a1a1f;transform:scaleX(0);transform-origin:left"></div></div>
+    </div>
+  </div>
+  <div style="padding:0 clamp(16px,3vw,40px);display:grid;grid-template-columns:{{ g12 }};gap:{{ gGap }};margin-top:clamp(44px,5vw,80px);align-items:start">
+    <sc-for list="{{ gTherme }}" as="it" hint-placeholder-count="0">
+      <figure data-m-fade="" data-lb="{{ it.src }}" data-cap="{{ it.lbcap }}" style="margin:0;grid-column:{{ it.col }};margin-top:{{ it.mt }};opacity:0;cursor:zoom-in">
+        <div style="position:relative;overflow:hidden;background:#cdd8da"><img data-m-par="{{ it.par }}" src="{{ it.src }}" width="{{ it.w }}" height="{{ it.h }}" alt="{{ it.cap }}" style="display:block;width:100%;height:auto;transform:scale(1.08)"><sc-if value="{{ it.vid }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:12px;bottom:12px;font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.6);padding:5px 8px">▶ Film</div></sc-if></div>
+        <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:6px 14px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">{{ it.cap }}</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#4b6168">{{ it.sub }}</span></figcaption>
+      </figure>
+    </sc-for>
+  </div>
+</section>
+
+<section id="p-filme" data-mode="08 · Filme" style="position:relative;background:#060607;color:#f2f2f2;padding:clamp(80px,10vw,150px) 0 clamp(40px,5vw,70px)">
+  <div style="padding:0 clamp(16px,3vw,40px)">
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"><span><b style="color:#fff;font-weight:600">08</b> — Filme</span><span>Video · im Team</span></div>
+    <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:22px;align-items:end">
+      <div style="grid-column:{{ tCol }}"><div style="overflow:hidden;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Vier Filme.</h2></div></div>
+      <p data-m-fade="" data-delay="150" style="grid-column:{{ pCol }};margin:0;font-size:15px;line-height:1.75;color:#cfcfcf;opacity:0">Alle im Studium und im Team entstanden — und in jedem hatte ich einen anderen Job.</p>
+    </div>
+  </div>
+  <div data-m-pin="cine" style="position:relative;height:{{ cineH }};margin-top:clamp(30px,4vw,60px)">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden">
+      <div data-m-plb="" data-lb="assets/film-bergmann-poster.webp" data-cap="Ein Tag als Bergmann · Ton · 5:48" style="position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:{{ cineW }};aspect-ratio:2.39/1;overflow:hidden;background:#111;cursor:zoom-in">
+        <sc-for list="{{ films }}" as="it" hint-placeholder-count="0"><img data-m-pi="{{ it.i }}" src="{{ it.src }}" alt="{{ it.t }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{ it.op }};transition:opacity .7s ease,transform 1.6s cubic-bezier(.16,1,.3,1)"></sc-for>
+        <div data-k="cD2" style="position:absolute;left:12px;bottom:12px;font-size:9px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.6);padding:5px 8px">▶ 5:48</div>
+      </div>
+      <div style="position:absolute;left:clamp(16px,3vw,40px);top:clamp(64px,10vh,110px);z-index:2;pointer-events:none;mix-blend-mode:difference;color:#fff">
+        <div style="font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase">Mein Job</div>
+        <div style="overflow:hidden;margin-top:8px;padding-bottom:.06em"><div data-k="cRole" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(60px,11.5vw,200px);line-height:.84;letter-spacing:-.04em;white-space:nowrap">Ton</div></div>
+      </div>
+      <div style="position:absolute;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);bottom:clamp(24px,3.4vw,40px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px 24px">
+        <div><div data-k="cT" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(22px,2.4vw,34px);letter-spacing:-.015em">Ein Tag als Bergmann</div><div data-k="cS" style="margin-top:4px;font-size:13.5px;color:#a9a9ad">Doku im Graphitbergwerk Kropfmühl</div></div>
+        <div style="display:flex;gap:6px;width:min(260px,50vw)"><sc-for list="{{ films }}" as="it" hint-placeholder-count="0"><div style="flex:1;height:2px;background:rgba(255,255,255,.16);overflow:hidden"><div data-m-seg="{{ it.i }}" style="height:100%;background:#fff;transform:scaleX(0);transform-origin:left"></div></div></sc-for></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="p-drohne" data-mode="09 · Drohne &amp; FPV" style="position:relative;background:#ecebe6;color:#0c0c0c;padding:clamp(80px,10vw,150px) clamp(16px,3vw,40px) 0">
+  <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"><span><b style="color:#0c0c0c;font-weight:600">09</b> — Drohne &amp; FPV</span><span>Mini 2 · FPV · Mini 4 Pro</span></div>
+  <div style="overflow:hidden;margin-top:22px;padding:.03em 0 .08em"><h2 data-m-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,9.4vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Aus der Luft.</h2></div>
+</section>
+<dc-import name="DrohneKapitel" hint-size="100%,5200px"></dc-import>
+
+<section id="kontakt" data-mode="Kontakt" style="position:relative;background:#060607;color:#f2f2f2;padding:clamp(90px,11vw,160px) clamp(16px,3vw,40px) 28px">
+  <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"><span>Kontakt</span><span>Max Aulinger</span></div>
+  <a href="mailto:maxau.aulo@gmail.com" style="display:block;margin-top:24px;transition:opacity .3s" style-hover="opacity:.65">
+    <div style="overflow:hidden;padding-bottom:.08em"><div data-m-rise="" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(64px,13vw,220px);line-height:.86;letter-spacing:-.035em;word-spacing:.05em;transform:translateY(105%)">Schreib mir.</div></div>
+  </a>
+  <div data-m-fade="" style="margin-top:clamp(28px,3vw,44px);display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;opacity:0">
+    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px" style-hover="opacity:.65">maxau.aulo@gmail.com</a>
+  </div>
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(70px,9vw,140px);padding-top:14px;border-top:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">
+    <span>© 2026 Max Aulinger</span>
+    <span>Fotografie · Film · Drohne · Design</span>
+    <a href="#oben" style="color:#f2f2f2" style-hover="opacity:.6">Nach oben ↑</a>
+  </div>
+</section>
+
+<div data-k="pv" aria-hidden="true" style="position:fixed;left:0;top:0;z-index:70;width:clamp(220px,22vw,340px);aspect-ratio:3/2;overflow:hidden;pointer-events:none;opacity:0;transform:translate3d(-400px,-400px,0);transition:opacity .3s ease,transform .5s cubic-bezier(.16,1,.3,1)"><img src="assets/thumb/nacht-rauch.webp" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+
+<sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ lbClose }}" style="position:fixed;inset:0;z-index:150;background:rgba(6,6,7,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:6vh 5vw;cursor:zoom-out">
+    <img src="{{ lbSrc }}" alt="" style="max-width:100%;max-height:82vh;object-fit:contain;display:block">
+    <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8d8d92;text-align:center">{{ lbCap }}</div>
+    <span style="position:absolute;top:20px;right:24px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#f2f2f2">Schließen ✕</span>
+  </div>
+</sc-if>
+
+<div data-k="ov" onClick="{{ skip }}" style="position:fixed;inset:0;z-index:89;cursor:pointer;visibility:{{ ovVis }}">
+  <div data-k="bg" style="position:absolute;inset:0;background:#000"></div>
+  <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-47%);width:min(90vw,1160px);display:grid;grid-template-columns:repeat({{ cols }},minmax(0,1fr));gap:18px 12px">
+    <sc-for list="{{ cells }}" as="c" hint-placeholder-count="0">
+      <div data-m-cell="{{ c.i }}">
+        <div data-m-box="{{ c.i }}" style="position:relative;aspect-ratio:3/2;overflow:hidden;background:#111"><img data-m-img="" src="{{ c.src }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 0 100% 0)"></div>
+        <div data-m-lab="" style="margin-top:6px;display:flex;justify-content:space-between;gap:8px;font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#8d8d92;opacity:0"><span>{{ c.no }}</span><span>{{ c.cat }}</span></div>
+      </div>
+    </sc-for>
+  </div>
+  <div data-k="win" style="position:absolute;inset:0;overflow:hidden;clip-path:inset(50% 50% 50% 50%);z-index:4"><img src="assets/portraet-feld.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;z-index:5;color:#fff">
+    <div style="position:absolute;top:20px;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);display:flex;justify-content:space-between;gap:20px">
+      <div data-m-ui="" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase">Max Aulinger</div>
+      <div data-m-ui="" style="font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf">Portfolio 2026</div>
+    </div>
+    <div style="position:absolute;bottom:20px;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf">
+      <span data-m-ui="">Fotografie · Film · Drohne · Design</span>
+      <span data-m-ui="">Klicken zum Überspringen</span>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;intro&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Immer&quot;,&quot;Einmal pro Besuch&quot;,&quot;Aus&quot;],&quot;default&quot;:&quot;Immer&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Start&quot;},&quot;welle&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Start&quot;},&quot;weich&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Scrollen&quot;}}">
+class Component extends DCLogic {
+  state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, lb: null };
+  anims = []; timers = []; seen = new WeakSet(); hi = 0; ptCur = 'Timo'; SEL = 7;
+  $(s) { return document.querySelector(s); }
+  $$(s) { const now = performance.now(), q = this._qc || (this._qc = {}), c = q[s]; if (c && now - c.t < 700) return c.v; const v = Array.from(document.querySelectorAll(s)); q[s] = { t: now, v }; return v; }
+  clamp(x) { return Math.min(1, Math.max(0, x)); }
+  vis(el, m) { const r = el.getBoundingClientRect(); m = m || 0; return r.height > 0 && r.bottom > -m && r.top < innerHeight + m; }
+
+  componentDidMount() {
+    const k = this.$('[data-k="korn"]');
+    if (k) k.style.backgroundImage = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E\")";
+    this.rio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; this.rio.unobserve(e.target); this.reveal(e.target._rev || e.target); }), { threshold: 0.06, rootMargin: '0px 0px -6% 0px' });
+    this.cio = new IntersectionObserver(es => es.forEach(e => { const el = e.target._cnt; if (!el) return; if (e.isIntersecting && !el._in) { el._in = true; this.count(el); } else if (!e.isIntersecting) el._in = false; }), { threshold: 0.3 });
+    this.observe();
+    this.onScroll = () => { if (this.tick) return; this.tick = true; requestAnimationFrame(() => { this.frame(); this.tick = false; }); };
+    this.onResize = () => { this.$$('[data-m-wrow]').forEach(r => { r._half = 0; }); this.setState({ vw: innerWidth }); this.layoutPins(); this.frame(); };
+    this.onMove = e => {
+      this.move(e);
+      const h = e.target && e.target.closest ? e.target.closest('[data-m-wcard]') : null;
+      if (h !== this.wHover) { this.wHover = h; this.wLabel(h); }
+      this.hx = e.clientX / innerWidth - 0.5; this.hy = e.clientY / innerHeight - 0.5;
+      if (this._lmx != null) this.mAcc = (this.mAcc || 0) + (e.clientX - this._lmx);
+      this._lmx = e.clientX; this.mX = e.clientX; this.mY = e.clientY;
+    };
+    this.onLeave = () => { this.mX = null; this._lmx = null; if (this.wHover) { this.wHover = null; this.wLabel(null); } };
+    document.addEventListener('mouseleave', this.onLeave);
+    this.onClick = e => this.click(e);
+    this.onKey = e => { if (e.key === 'Escape' && this.state.lb) this.setState({ lb: null }); };
+    addEventListener('scroll', this.onScroll, { passive: true });
+    addEventListener('resize', this.onResize);
+    addEventListener('mousemove', this.onMove, { passive: true });
+    addEventListener('click', this.onClick);
+    addEventListener('keydown', this.onKey);
+    this.vidT = setInterval(() => this.videos(), 400);
+    this.fxT = setTimeout(() => this.feuern(), 900);
+    this.initLenis();
+    this.reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    this.play();
+    this.layoutPins(); setTimeout(() => { this.layoutPins(); this.frame(); }, 700);
+    const loop = t => { if (this.dead) return; this.wall(t); this.banners(t); this.wraf = requestAnimationFrame(loop); };
+    this.wraf = requestAnimationFrame(loop);
+    this.frame();
+  }
+  componentDidUpdate(pp, ps) {
+    this._qc = {}; this.observe(); this.layoutPins(); this.frame();
+    if ((pp.weich ?? true) !== (this.props.weich ?? true)) this.initLenis();
+    if ((pp.wechsel ?? true) !== (this.props.wechsel ?? true)) this.cycleStart();
+    if (!!ps.lb !== !!this.state.lb) { if (this.state.lb) this.lock(); else if (this.done) this.unlock(); }
+  }
+  componentWillUnmount() {
+    this.dead = true;
+    removeEventListener('scroll', this.onScroll); removeEventListener('resize', this.onResize); removeEventListener('mousemove', this.onMove);
+    removeEventListener('click', this.onClick); removeEventListener('keydown', this.onKey);
+    clearInterval(this.vidT); clearInterval(this.sT); (this._waves || []).forEach(a => a.cancel()); if (this.sio) this.sio.disconnect(); cancelAnimationFrame(this.wraf); document.removeEventListener('mouseleave', this.onLeave); clearInterval(this.cyc); clearTimeout(this.fxT); this.timers.forEach(clearTimeout);
+    [this.rio, this.cio].forEach(o => o && o.disconnect());
+    if (this.lenis) { this.lenis.destroy(); this.lenis = null; }
+    document.documentElement.style.overflow = '';
+  }
+
+  initLenis() {
+    if (this.lenis) { this.lenis.destroy(); this.lenis = null; cancelAnimationFrame(this.lraf); }
+    if ((this.props.weich ?? true) === false || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    const t0 = Date.now();
+    const go = () => {
+      if (this.dead || this.lenis || (this.props.weich ?? true) === false) return;
+      if (!window.Lenis) { if (Date.now() - t0 < 5000) setTimeout(go, 80); return; }
+      try { this.lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true }); } catch (e) { return; }
+      if (this.locked) this.lenis.stop();
+      const r = t => { if (!this.lenis) return; this.lenis.raf(t); this.lraf = requestAnimationFrame(r); };
+      this.lraf = requestAnimationFrame(r);
+    };
+    go();
+  }
+  lock() { this.locked = true; document.documentElement.style.overflow = 'hidden'; if (this.lenis) this.lenis.stop(); }
+  unlock() { this.locked = false; document.documentElement.style.overflow = ''; if (this.lenis) this.lenis.start(); }
+
+  click(e) {
+    const t = e.target; if (!t || !t.closest) return;
+    const a = t.closest('a[href^="#"]');
+    if (a) {
+      const id = a.getAttribute('href').slice(1), el = id ? document.getElementById(id) : null;
+      e.preventDefault();
+      if (this.lenis) this.lenis.scrollTo(el || 0, { duration: 1.4 });
+      else scrollTo({ top: el ? el.getBoundingClientRect().top + scrollY : 0, behavior: 'smooth' });
+      return;
+    }
+    const f = t.closest('[data-lb]');
+    if (f && !this.state.lb) this.setState({ lb: { src: f.getAttribute('data-lb'), cap: f.getAttribute('data-cap') || '' } });
+  }
+  move(e) {
+    const pv = this.$('[data-k="pv"]'); if (!pv) return;
+    if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    const row = e.target && e.target.closest ? e.target.closest('[data-m-row]') : null;
+    if (row) { const src = row.getAttribute('data-m-row'), im = pv.firstElementChild; if (im && im.getAttribute('src') !== src) im.setAttribute('src', src); }
+    const w = pv.offsetWidth, x = Math.min(innerWidth - w - 16, e.clientX + 28), y = e.clientY - pv.offsetHeight / 2;
+    pv.style.opacity = row ? 1 : 0;
+    pv.style.transform = 'translate3d(' + x.toFixed(0) + 'px,' + y.toFixed(0) + 'px,0) scale(' + (row ? 1 : 0.85) + ')';
+  }
+
+  videos() {
+    this.$$('video[data-m-auto]').forEach(v => {
+      if (!v._p) { v._p = 1; v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true; }
+      if (this.vis(v, 100)) { if (v.paused) { const p = v.play(); if (p) p.catch(() => {}); } } else if (!v.paused) v.pause();
+    });
+  }
+
+  observe() {
+    this.$$('[data-m-rise],[data-m-fade],[data-m-chips]').forEach(el => {
+      if (this.seen.has(el)) return; this.seen.add(el);
+      const t = el.hasAttribute('data-m-rise') && el.parentElement ? el.parentElement : el;
+      t._rev = el; this.rio.observe(t);
+    });
+    this.$$('[data-m-count]').forEach(el => {
+      if (this.seen.has(el)) return; this.seen.add(el);
+      const t = el.parentElement; t._cnt = el; this.cio.observe(t);
+    });
+  }
+  reveal(el) {
+    const E = 'cubic-bezier(.16,1,.3,1)', d = +(el.getAttribute('data-delay') || 0);
+    if (el.hasAttribute('data-m-rise')) el.animate([{ transform: 'translateY(105%)' }, { transform: 'translateY(0%)' }], { duration: 1150, delay: d, easing: E, fill: 'forwards' });
+    if (el.hasAttribute('data-m-chips')) Array.from(el.children).forEach((c, i) => c.animate([{ opacity: 0, transform: 'translateY(14px) scale(.85)' }, { opacity: 1, transform: 'translateY(0) scale(1)' }], { duration: 700, delay: 200 + i * 70, easing: 'cubic-bezier(.34,1.56,.64,1)', fill: 'forwards' }));
+    if (!el.hasAttribute('data-m-fade')) return;
+    if (el.tagName === 'FIGURE') el.animate([{ opacity: 1, clipPath: 'inset(100% 0 0 0)' }, { opacity: 1, clipPath: 'inset(0% 0 0 0)' }], { duration: 1150, delay: d, easing: 'cubic-bezier(.77,0,.18,1)', fill: 'forwards' });
+    else el.animate([{ opacity: 0, transform: 'translateY(24px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 950, delay: d, easing: E, fill: 'forwards' });
+  }
+  count(el) {
+    const n = +el.getAttribute('data-m-count'), d = +(el.getAttribute('data-delay') || 0), id = (el._cid = (el._cid || 0) + 1);
+    el.textContent = '00';
+    setTimeout(() => {
+      const t0 = performance.now();
+      const clock = el.getAttribute('data-m-fmt') === 'uhr';
+      const f = () => { if (el._cid !== id) return; const p = Math.min(1, (performance.now() - t0) / 1500), e = 1 - Math.pow(1 - p, 3), v = Math.round(e * n); el.textContent = clock ? String(Math.floor(v / 60)).padStart(2, '0') + ':' + String(v % 60).padStart(2, '0') : String(v).padStart(2, '0'); if (p < 1) requestAnimationFrame(f); };
+      requestAnimationFrame(f);
+    }, d + 150);
+  }
+
+  frame() { this.heroPar(); this.pins(); this.grow(); this.par(); this.speed(); this.scrub(); this.ptName(); this.nav(); }
+  heroPar() {
+    const y = scrollY, h = innerHeight; if (y > h * 1.3) return;
+    const w = this.$('[data-k="heroWrap"]'), t = this.$('[data-k="heroTxt"]');
+    if (w) w.style.transform = 'translate3d(0,' + (y * 0.3).toFixed(1) + 'px,0)';
+    if (t) { t.style.transform = 'translate3d(0,' + (-y * 0.2).toFixed(1) + 'px,0)'; t.style.opacity = Math.max(0, 1 - y / (h * 0.7)).toFixed(3); }
+  }
+  zoom() {
+    this.$$('[data-m-zoom]').forEach(z => {
+      const r = z.getBoundingClientRect(), vh = innerHeight; if (r.bottom < -50 || r.top > vh + 50) return;
+      const p = this.clamp((vh * 0.7 - r.top) / (r.height - vh * 0.3)), e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+      const iy = 26 * (1 - e), ix = (innerWidth < 700 ? 8 : 32) * (1 - e);
+      const box = z.querySelector('[data-m-zbox]'), img = z.querySelector('[data-m-zimg]'), wd = z.querySelector('[data-m-zword]'), cap = z.querySelector('[data-m-zcap]');
+      if (box) box.style.clipPath = 'inset(' + iy.toFixed(2) + '% ' + ix.toFixed(2) + '% ' + iy.toFixed(2) + '% ' + ix.toFixed(2) + '%)';
+      if (img) img.style.transform = 'scale(' + (1.4 - 0.4 * e).toFixed(4) + ')';
+      if (wd) { wd.style.opacity = Math.max(0, 1 - e * 1.8).toFixed(3); wd.style.transform = 'scale(' + (1 + e * 0.5).toFixed(3) + ')'; }
+      if (cap) cap.style.opacity = this.clamp((e - 0.8) * 5).toFixed(3);
+    });
+  }
+  par() {
+    if (innerWidth < 900) return;
+    const vh = innerHeight;
+    this.$$('[data-m-par]').forEach(el => {
+      const s = parseFloat(el.getAttribute('data-m-par')) || 0; if (!s) return;
+      const r = el.parentElement.getBoundingClientRect(); if (r.bottom < -200 || r.top > vh + 200) return;
+      const c = r.top + r.height / 2 - vh / 2, m = r.height * 0.04;
+      el.style.transform = 'translate3d(0,' + Math.max(-m, Math.min(m, c * s)).toFixed(1) + 'px,0) scale(1.08)';
+    });
+  }
+  speed() {
+    if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    const vh = innerHeight;
+    this.$$('[data-m-speed]').forEach(el => {
+      const sec = el.closest('section'); if (!sec) return;
+      const r = sec.getBoundingClientRect(); if (r.bottom < -200 || r.top > vh + 200) return;
+      const c = r.top + r.height / 2 - vh / 2, s = parseFloat(el.getAttribute('data-m-speed')) || 0;
+      el.style.transform = 'translate3d(0,' + (c * s).toFixed(1) + 'px,0)';
+    });
+  }
+  scrub() {
+    const vh = innerHeight;
+    this.$$('[data-m-scrub]').forEach(p => {
+      if (!this.vis(p, 50)) return;
+      const r = p.getBoundingClientRect(), k = this.clamp((vh * 0.85 - r.top) / (r.height + vh * 0.35));
+      const c0 = p.getAttribute('data-c0'), c1 = p.getAttribute('data-c1'), ws = p.querySelectorAll('[data-m-sw]'), lit = Math.round(k * ws.length);
+      ws.forEach((w, i) => { const c = i < lit ? c1 : c0; if (w._c !== c) { w._c = c; w.style.color = c; } });
+    });
+  }
+  ptName() {
+    const nm = this.$('[data-k="ptName"]'), sec = this.$('#p-menschen');
+    if (!nm || !sec || !this.vis(sec)) return;
+    const mid = innerHeight / 2; let best = null, bd = Infinity;
+    this.$$('[data-m-name]').forEach(f => { const r = f.getBoundingClientRect(); if (!r.height) return; const d = Math.abs((r.top + r.bottom) / 2 - mid); if (d < bd) { bd = d; best = f; } });
+    const name = best && best.getAttribute('data-m-name');
+    if (!name || name === this.ptCur) return;
+    this.ptCur = name;
+    const idx = this.$('[data-k="ptIdx"]');
+    if (idx) idx.textContent = ['Timo', 'Ares', 'Gabriel', 'Paul', 'Robin'].indexOf(name) + 1;
+    if (this.ptA) this.ptA.cancel();
+    const out = nm.animate([{ transform: 'translateY(0%)' }, { transform: 'translateY(-110%)' }], { duration: 220, easing: 'cubic-bezier(.7,0,.84,0)', fill: 'forwards' });
+    this.ptA = out;
+    out.onfinish = () => { nm.textContent = this.ptCur; this.ptA = nm.animate([{ transform: 'translateY(110%)' }, { transform: 'translateY(0%)' }], { duration: 560, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' }); out.cancel(); };
+  }
+  nav() {
+    const lab = this.$('[data-k="navLab"]'); if (!lab) return;
+    const mid = innerHeight * 0.45; let t = '';
+    this.$$('[data-mode]').forEach(s => { if (s.getBoundingClientRect().top <= mid) t = s.getAttribute('data-mode'); });
+    if (t === 'Portfolio') t = '';
+    const br = this.$('[data-k="navBrand"]'); if (br) { const o = scrollY > innerHeight * 0.7 ? '1' : '0'; if (br.style.opacity !== o) br.style.opacity = o; }
+    if (lab.textContent !== t) lab.textContent = t;
+  }
+
+  streak(layer) {
+    const w = layer.clientWidth, h = layer.clientHeight;
+    if (!w || !h || layer.childElementCount > 5) return;
+    const el = document.createElement('span'), tempo = Math.random();
+    const dauer = Math.max(150, 1500 - tempo * 1260 + (Math.random() * 240 - 120));
+    const d = Math.random(), dick = d < .3 ? 1 : d < .54 ? 2 : d < .72 ? 3 : d < .84 ? 4 : d < .93 ? 6 : 8;
+    const len = 70 + Math.random() * Math.min(520, w * .5), hell = .55 + Math.random() * .45, rtl = Math.random() < .35;
+    el.style.cssText = 'position:absolute;left:0;top:0;opacity:0;background:linear-gradient(90deg,rgba(247,7,2,0) 0%,rgba(223,34,25,.75) 38%,rgba(255,130,95,.95) 58%,rgba(247,7,2,.6) 74%,rgba(247,7,2,0) 100%)';
+    el.style.width = len + 'px'; el.style.height = dick + 'px'; el.style.borderRadius = dick + 'px';
+    el.style.top = (Math.random() * h) + 'px'; el.style.left = (rtl ? w : -len) + 'px';
+    el.style.boxShadow = '0 0 ' + (7 + dick * 4) + 'px rgba(247,7,2,' + Math.min(0.6, 0.26 + dick * 0.06).toFixed(2) + ')';
+    layer.appendChild(el);
+    const weg = (w + len) * (rtl ? -1 : 1), kurve = tempo > 0.6 ? 'cubic-bezier(.1,.75,.25,1)' : 'cubic-bezier(.4,.15,.5,.9)';
+    const a = el.animate([{ transform: 'translateX(0)', opacity: 0 }, { opacity: hell, offset: 0.18 }, { opacity: hell, offset: 0.7 }, { transform: 'translateX(' + weg + 'px)', opacity: 0 }], { duration: dauer, easing: kurve });
+    a.onfinish = () => el.remove();
+    setTimeout(() => { if (el.parentNode) el.remove(); }, dauer + 1600);
+  }
+  feuern() {
+    if (this.dead) return;
+    if (!document.hidden && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+      const da = this.$$('[data-m-fx]').filter(l => this.vis(l));
+      if (da.length) { this.streak(da[0]); if (Math.random() < 0.3) setTimeout(() => { if (da[0].isConnected) this.streak(da[0]); }, 90 + Math.random() * 170); }
+    }
+    this.fxT = setTimeout(() => this.feuern(), 520 + Math.random() * 1900);
+  }
+
+  wall(t) {
+    if (!this._W || !this._W.isConnected) { this._W = this.$('[data-k="wall"]'); this._rows = null; }
+    const W = this._W; if (!W || document.hidden) return;
+    const vh = innerHeight, y = scrollY; if (y > vh * 1.3) return;
+    if (!this._rows || !this._rows.length || !this._rows[0].isConnected) this._rows = Array.from(W.querySelectorAll('[data-m-wrow]'));
+    this.wave();
+    const p = this.clamp(y / vh), moving = !this.reduce && (this.props.welle ?? true), ts = moving ? t / 1000 : 0;
+    const fine = this._fine ?? (this._fine = matchMedia('(hover:hover) and (pointer:fine)').matches);
+    const has = fine && this.mX != null, tx = has ? this.hx : 0, ty = has ? this.hy : 0;
+    this.sx = (this.sx || 0) + (tx - (this.sx || 0)) * 0.05; this.sy = (this.sy || 0) + (ty - (this.sy || 0)) * 0.05;
+    W.style.transform = 'translate(-50%,-50%) rotateX(' + (22 + p * 18 - this.sy * 6).toFixed(2) + 'deg) rotateY(' + (this.sx * 8).toFixed(2) + 'deg) rotateZ(-9deg) scale(' + (1 + p * 0.22).toFixed(4) + ')';
+    this._rows.forEach(r => {
+      const dir = +r.getAttribute('data-m-wrow'), sp = +r.getAttribute('data-sp') || 20;
+      if (!r._half) r._half = r.scrollWidth / 2;
+      const half = r._half || 1, off = (((ts * sp + y * 0.35) % half) + half) % half;
+      r.style.transform = 'translate3d(' + (dir > 0 ? -off : off - half).toFixed(1) + 'px,0,0)';
+    });
+  }
+  wave() {
+    const want = !this.reduce && (this.props.welle ?? true);
+    const first = this._rows[0] && this._rows[0].firstElementChild;
+    if (this._waveOn === want && this._waveFirst === first) return;
+    (this._waves || []).forEach(a => a.cancel()); this._waves = [];
+    this._waveOn = want; this._waveFirst = first;
+    if (!want) return;
+    this._rows.forEach((r, j) => Array.from(r.children).forEach((c, i) => {
+      this._waves.push(c.animate([{ transform: 'translate3d(0,0,-24px) rotateY(6deg)' }, { transform: 'translate3d(0,0,30px) rotateY(-6deg)' }], { duration: 3400, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out', delay: -Math.round(((i * 0.42 + j * 0.85) % 6.8) * 1000) }));
+    }));
+  }
+  grow() {
+    const vh = innerHeight;
+    this.$$('[data-m-grow]').forEach(el => {
+      const r = el.getBoundingClientRect(); if (r.bottom < -50 || r.top > vh + 50) return;
+      const e = 1 - Math.pow(1 - this.clamp((vh - r.top) / (vh * 0.95)), 3), ix = (1 - e) * (innerWidth < 700 ? 4 : 14), iy = (1 - e) * 10;
+      el.style.clipPath = 'inset(' + iy.toFixed(2) + '% ' + ix.toFixed(2) + '% ' + iy.toFixed(2) + '% ' + ix.toFixed(2) + '%)';
+      const im = el.firstElementChild; if (im) im.style.transform = 'scale(' + (1.18 - 0.18 * e).toFixed(4) + ')';
+    });
+  }
+  wLabel(h) {
+    const el = this.$('[data-k="wLab"]'); if (!el) return;
+    const t = (h && h.getAttribute('data-t')) || 'Alle Projekte';
+    if (this._hImg) this._hImg.style.transform = '';
+    this._hImg = h ? h.querySelector('[data-m-wimg]') : null;
+    if (this._hImg) this._hImg.style.transform = 'scale(1.08)';
+    if (el.textContent === t) return;
+    el.textContent = t;
+    el.animate([{ transform: 'translateY(100%)' }, { transform: 'translateY(0%)' }], { duration: 500, easing: 'cubic-bezier(.16,1,.3,1)' });
+  }
+  banners(t) {
+    const pin = this.$('[data-m-pin="fan"]'); if (!pin) return;
+    const r = pin.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) { this.mAcc = 0; return; }
+    if (!this._hangs || !this._hangs.length || !this._hangs[0].isConnected) this._hangs = Array.from(pin.querySelectorAll('[data-m-hang]'));
+    const ready = (pin._e || 0) > 0.97, ts = t / 1000, acc = this.mAcc || 0; this.mAcc = 0;
+    const rects = this._hangs.map(h => h.getBoundingClientRect());
+    this._hangs.forEach((h, i) => {
+      const s = h._s || (h._s = { rz: 0, vz: 0, ry: 0, vy: 0, rx: 0, vx: 0 }), b = rects[i];
+      let ty = 0, tx = 0;
+      const tz = this.reduce || !ready ? 0 : Math.sin(ts * 0.7 + i * 1.7) * 0.15;
+      const inside = ready && this.mX != null && this.mX >= b.left && this.mX <= b.right && this.mY >= b.top && this.mY <= b.bottom;
+      if (inside) {
+        const nx = (this.mX - b.left) / b.width - 0.5, ny = (this.mY - b.top) / b.height;
+        ty = nx * 7; tx = (0.5 - ny) * 3;
+        s.vz += Math.max(-30, Math.min(30, acc)) * 0.004;
+      }
+      s.vz += (tz - s.rz) * 0.011 - s.vz * 0.035; s.rz = Math.max(-3, Math.min(3, s.rz + s.vz));
+      s.vy += (ty - s.ry) * 0.03 - s.vy * 0.28; s.ry += s.vy;
+      s.vx += (tx - s.rx) * 0.03 - s.vx * 0.28; s.rx += s.vx;
+      const tf = 'rotateX(' + s.rx.toFixed(2) + 'deg) rotateY(' + s.ry.toFixed(2) + 'deg) rotateZ(' + s.rz.toFixed(2) + 'deg)';
+      if (h._tf !== tf) { h._tf = tf; h.style.transform = tf; }
+    });
+  }
+  layoutPins() {
+    const vh = innerHeight, vw = innerWidth;
+    this.$$('[data-m-pin="strip"],[data-m-pin="pan"]').forEach(pin => {
+      const tr = pin.querySelector('[data-m-track]'); if (!tr) return;
+      const H = Math.max(vh * 1.5, tr.scrollWidth - vw + vh * 1.15);
+      if (Math.abs(pin.offsetHeight - H) > 2) pin.style.height = H + 'px';
+    });
+  }
+  pins() {
+    const vh = innerHeight, vw = innerWidth, E = x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    const rise = el => el.animate([{ transform: 'translateY(105%)' }, { transform: 'translateY(0%)' }], { duration: 750, easing: 'cubic-bezier(.16,1,.3,1)' });
+    this.$$('[data-m-pin]').forEach(pin => {
+      const r = pin.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return;
+      const type = pin.getAttribute('data-m-pin'), p = this.clamp(-r.top / Math.max(1, r.height - vh));
+      const bar = pin.querySelector('[data-m-bar]'); if (bar) bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+      if (type === 'strip' || type === 'pan') {
+        const tr = pin.querySelector('[data-m-track]'); if (!tr) return;
+        tr.style.transform = 'translate3d(' + (-p * Math.max(0, tr.scrollWidth - vw)).toFixed(1) + 'px,0,0)';
+      } else if (type === 'seq') {
+        const e = E(this.clamp((vh * 0.7 - r.top) / (vh * 0.9))), iy = 26 * (1 - e), ix = (vw < 700 ? 8 : 32) * (1 - e);
+        const box = pin.querySelector('[data-m-sbox]'), wd = pin.querySelector('[data-m-zword]'), ui = pin.querySelector('[data-m-sui]');
+        if (box) box.style.clipPath = 'inset(' + iy.toFixed(2) + '% ' + ix.toFixed(2) + '% ' + iy.toFixed(2) + '% ' + ix.toFixed(2) + '%)';
+        if (wd) { wd.style.opacity = Math.max(0, 1 - e * 1.8).toFixed(3); wd.style.transform = 'scale(' + (1 + e * 0.5).toFixed(3) + ')'; }
+        if (ui) ui.style.opacity = this.clamp((e - 0.85) * 7).toFixed(3);
+        const s = this.clamp((-r.top - vh * 0.2) / Math.max(1, r.height - vh * 1.2));
+        const sb = pin.querySelector('[data-m-sbar]'); if (sb) sb.style.transform = 'scaleX(' + s.toFixed(4) + ')';
+        const imgs = pin.querySelectorAll('[data-m-si]'), n = imgs.length, fz = s * (n - 1);
+        imgs.forEach((im, i) => { const o = i === 0 ? 1 : this.clamp(fz - (i - 1)); im.style.opacity = o.toFixed(3); im.style.transform = 'scale(' + (1 + 0.06 * (1 - o) + 0.08 * (1 - e)).toFixed(4) + ')'; });
+        const k = Math.min(n - 1, Math.round(fz));
+        if (k !== pin._k) {
+          const first = pin._k == null; pin._k = k; const d = this.sonneData()[k]; if (!d) return;
+          const lab = pin.querySelector('[data-k="sLab"]'), cap = pin.querySelector('[data-k="sCap"]'), idx = pin.querySelector('[data-k="sIdx"]');
+          if (cap) cap.textContent = d.cap; if (idx) idx.textContent = String(k + 1).padStart(2, '0');
+          if (box) { box.setAttribute('data-lb', 'assets/' + d.f + '.webp'); box.setAttribute('data-cap', d.cap); }
+          if (lab && lab.textContent !== d.lab) { lab.textContent = d.lab; if (!first) rise(lab); }
+        }
+      } else if (type === 'fan') {
+        const e = E(this.clamp(this.clamp((vh * 0.55 - r.top) / Math.max(1, r.height - vh * 0.45)) / 0.75));
+        const figs = pin.querySelectorAll('[data-m-fan]'); if (!figs.length) return;
+        pin._e = e; const de = e - (pin._pe == null ? e : pin._pe); pin._pe = e;
+        pin.querySelectorAll('[data-m-str]').forEach(sx => { sx.style.opacity = this.clamp((e - 0.9) * 10).toFixed(3); });
+        const w = figs[0].offsetWidth, gap = Math.min(40, vw * 0.03);
+        figs.forEach(fg => {
+          const k = +fg.getAttribute('data-m-fan') - 1, x = k * e * (w + gap), y = (1 - e) * Math.abs(k) * 22, rot = (1 - e) * k * 8;
+          fg.style.transform = 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + rot.toFixed(2) + 'deg)';
+          const cp = fg.querySelector('figcaption'); if (cp) cp.style.opacity = this.clamp((e - 0.85) * 7).toFixed(3);
+        });
+      } else if (type === 'prod' || type === 'cine') {
+        const D = type === 'prod' ? this.prodData() : this.filmData(), n = D.length, k = Math.min(n - 1, Math.floor(p * n));
+        pin.querySelectorAll('[data-m-seg]').forEach(sg => { const i = +sg.getAttribute('data-m-seg'); sg.style.transform = 'scaleX(' + this.clamp(p * n - i).toFixed(4) + ')'; });
+        if (k === pin._k) return;
+        const first = pin._k == null; pin._k = k; const d = D[k];
+        pin.querySelectorAll('[data-m-pi]').forEach(im => { const on = +im.getAttribute('data-m-pi') === k; im.style.opacity = on ? 1 : 0; im.style.transform = on ? 'scale(1)' : 'scale(1.04)'; });
+        const lb = pin.querySelector('[data-m-plb]'); if (lb) { lb.setAttribute('data-lb', d.src); lb.setAttribute('data-cap', d.lbcap); }
+        const set = (key, v, anim) => { const el = pin.querySelector('[data-k="' + key + '"]'); if (!el) return; el.textContent = v; if (anim && !first) rise(el); };
+        if (type === 'prod') { set('piIdx', String(k + 1).padStart(2, '0')); set('piNum', d.big, true); set('piT', d.t); set('piS', d.s); }
+        else { set('cRole', d.role, true); set('cT', d.t); set('cS', d.s); set('cD2', '▶ ' + d.dur); }
+      }
+    });
+  }
+  focus() {
+    if (this.reduce) return;
+    const vh = innerHeight;
+    this.$$('[data-m-focus]').forEach(im => {
+      const box = im.parentElement, r = box.getBoundingClientRect(); if (r.bottom < -100 || r.top > vh + 100) return;
+      const d = Math.abs(r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2), b = Math.max(0, d - 0.2) * 16;
+      const fl = b < 0.4 ? 'none' : 'blur(' + b.toFixed(1) + 'px)';
+      if (im._f !== fl) { im._f = fl; im.style.filter = fl; }
+      const br = box.querySelector('[data-m-fb]');
+      if (br) { const k = this.clamp(1 - d * 2.4); br.style.opacity = k.toFixed(3); br.style.inset = (6 + (1 - k) * 9).toFixed(1) + '%'; }
+    });
+  }
+  sonneData() {
+    return this._so || (this._so = [
+      { f: 'sa-donau-blau', lab: 'Blaue Stunde', cap: 'Die Donau, kurz vor sechs · 70 mm · f/9' },
+      { f: 'sa-bruecke-nebel', lab: 'Nebel', cap: 'Die Brücke verschwindet · 70 mm · f/2.8' },
+      { f: 'sa-baum-bruecke', lab: 'Nebel', cap: 'Der Baum und die Brücke · 70 mm · f/2.8' },
+      { f: 'sa-donau-gold', lab: 'Goldene Stunde', cap: 'Wenn es ins Goldene kippt · 70 mm · f/9' },
+      { f: 'sa-sonne-bruecke', lab: 'Sonnenaufgang', cap: 'Die Sonne kommt über · 70 mm · f/5' },
+      { f: 'sa-badezimmer', lab: 'Badezimmerfenster', cap: 'Lange mein Lieblingsbild · 55 mm · f/4.5' }
+    ]);
+  }
+  prodData() {
+    return this._pd || (this._pd = [
+      ['icap-hero-weiss', 'Blender', 'Komplett selbst gebaut', 'Modelliert, texturiert und ausgeleuchtet.'],
+      ['icap-innen', '7', 'Hochtöner im Ring', 'Die Röntgenansicht zeigt den Aufbau.'],
+      ['icap-chip', 'Chip', 'Antrieb und Chip', 'Der Blick von oben ins Innere.'],
+      ['icap-farben', '2', 'Farben', 'Mitternacht und Weiß, das Gewebe als eigenes Material.'],
+      ['icap-bildschirme', '6″', 'Zoll OLED', 'Drei Geräte, drei Bildschirminhalte.'],
+      ['ibee-innen', 'Innen', 'Das Innenleben', 'Lag in einer eigenen Datei.'],
+      ['ibee-blender', '3D', 'Im Aufbau', 'Gehäuse, Gitter und Innenleben als eigene Objekte.']
+    ].map(([f, big, t, s]) => ({ src: 'assets/' + f + '.webp', big, t, s, lbcap: 'iCapsule · ' + t })));
+  }
+  filmData() {
+    return this._fd || (this._fd = [
+      { role: 'Ton', t: 'Ein Tag als Bergmann', s: 'Doku im Graphitbergwerk Kropfmühl', dur: '5:48', f: 'film-bergmann-poster' },
+      { role: 'Produktion', t: 'Kommt zu mir', s: 'Porträt über einen Jugendseelsorger', dur: '5:17', f: 'film-kommt-zu-mir-poster' },
+      { role: 'Regie & Schnitt', t: 'Hostage Holiday', s: 'Kurzfilm ohne Dialog', dur: '2:18', f: 'film-hostage-holiday-poster' },
+      { role: 'Szenenbild', t: 'Electrify Your Future', s: 'Imagefilm, ARRI Alexa Mini', dur: '3:01', f: 'film-electrify-poster' }
+    ].map(x => Object.assign({}, x, { src: 'assets/' + x.f + '.webp', lbcap: x.t + ' · ' + x.role + ' · ' + x.dur })));
+  }
+
+  tl(el, total, stops) {
+    if (!el) return;
+    const kf = stops.map(([t, p, e]) => Object.assign({ offset: Math.min(1, Math.max(0, t / total)), easing: e || 'linear' }, p));
+    const a = el.animate(kf, { duration: total, fill: 'both' }); this.anims.push(a); return a;
+  }
+  an(el, from, to, delay, duration, easing) {
+    if (!el) return;
+    const a = el.animate([from, to], { delay, duration, easing, fill: 'both' }); this.anims.push(a); return a;
+  }
+  introMode() {
+    const m = this.props.intro ?? 'Immer';
+    let seen = false; try { seen = sessionStorage.getItem('mx-intro-v3') === '1'; } catch (e) {}
+    return m === 'Aus' || (m === 'Einmal pro Besuch' && seen && !this.started) ? 'aus' : 'an';
+  }
+  async play() {
+    const ov = this.$('[data-k="ov"]');
+    this.started = true;
+    if (!ov || this.introMode() === 'aus') {
+      if (ov) { ov.style.visibility = 'hidden'; ov.style.pointerEvents = 'none'; }
+      this.done = true; this.buildUp(80); return;
+    }
+    try { sessionStorage.setItem('mx-intro-v3', '1'); } catch (e) {}
+    this.done = false; this.lock();
+    const imgs = this.$$('[data-k="ov"] img');
+    await Promise.race([Promise.all(imgs.map(i => (i.decode ? i.decode().catch(() => {}) : null))), new Promise(r => setTimeout(r, 2500))]);
+    if (this.dead || this.done) return;
+    const vw = innerWidth, vh = innerHeight, E1 = 'cubic-bezier(.16,1,.3,1)', E2 = 'cubic-bezier(.76,0,.24,1)', END = 2850;
+    const ins = (t, r, b, l) => 'inset(' + t + 'px ' + r + 'px ' + b + 'px ' + l + 'px)';
+    const H = { opacity: 0, transform: 'translateY(14px)' }, S = { opacity: 1, transform: 'translateY(0px)' }, X = { opacity: 0, transform: 'translateY(-12px)' };
+    this.$$('[data-m-ui]').forEach((el, i) => this.tl(el, END, [[0, H], [80 + i * 50, H, E1], [680 + i * 50, S], [1850 + i * 25, S, E2], [2250 + i * 25, X], [END, X]]));
+    const cells = this.$$('[data-m-cell]'), order = cells.map((_, i) => i).sort(() => Math.random() - 0.5), sel = this.SEL;
+    cells.forEach((c, i) => {
+      const d = 150 + order[i] * 55, img = c.querySelector('[data-m-img]'), lab = c.querySelector('[data-m-lab]');
+      this.an(img, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }, d, 320, E1);
+      if (i !== sel) {
+        this.an(lab, { opacity: 0 }, { opacity: 1 }, d + 120, 300, 'ease');
+        this.an(c, { opacity: 1, transform: 'translateY(0px)' }, { opacity: 0, transform: 'translateY(8px)' }, 1600 + Math.random() * 240, 320, 'ease-in');
+      } else {
+        this.tl(lab, END, [[0, { opacity: 0 }], [d + 120, { opacity: 0 }], [d + 420, { opacity: 1 }], [1800, { opacity: 1 }], [1950, { opacity: 0 }], [END, { opacity: 0 }]]);
+        this.tl(c, END, [[0, { opacity: 1 }], [1950, { opacity: 1 }], [1960, { opacity: 0 }], [END, { opacity: 0 }]]);
+      }
+    });
+    const box = this.$('[data-m-box="' + sel + '"]'), win = this.$('[data-k="win"]');
+    if (box) {
+      const r = box.getBoundingClientRect(), sd = 150 + order[sel] * 55;
+      const closed = ins(r.top, vw - r.right, vh - r.top, r.left), cell = ins(r.top, vw - r.right, vh - r.bottom, r.left);
+      this.tl(win, END, [[0, { clipPath: closed }], [sd, { clipPath: closed }, E1], [sd + 320, { clipPath: cell }], [1900, { clipPath: cell }, E2], [END, { clipPath: ins(0, 0, 0, 0) }]]);
+    }
+    this.tl(this.$('[data-k="bg"]'), END + 500, [[0, { opacity: 1 }], [END, { opacity: 1 }, 'ease'], [END + 500, { opacity: 0 }]]);
+    this.tl(win, END + 20, [[0, { opacity: 1 }], [END, { opacity: 1 }], [END + 20, { opacity: 0 }]]);
+    this.timers.push(setTimeout(() => { ov.style.pointerEvents = 'none'; this.done = true; this.unlock(); }, END));
+    this.timers.push(setTimeout(() => { ov.style.visibility = 'hidden'; }, END + 520));
+    this.buildUp(END - 40);
+  }
+  buildUp(B) {
+    const E = 'cubic-bezier(.16,1,.3,1)';
+    this.$$('[data-m-hl]').forEach((el, i) => this.an(el, { transform: 'translateY(105%)' }, { transform: 'translateY(0%)' }, B + i * 110, 1100, E));
+    this.$$('[data-m-hin]').forEach((el, i) => this.an(el, { opacity: 0, transform: 'translateY(12px)' }, { opacity: 1, transform: 'translateY(0px)' }, B + 380 + i * 120, 850, E));
+    this.an(this.$('[data-k="nav"]'), { opacity: 0 }, { opacity: 1 }, B + 600, 700, 'ease');
+    this.an(this.$('[data-k="wallIn"]'), { opacity: 0, transform: 'scale(1.18)' }, { opacity: 1, transform: 'scale(1)' }, Math.max(0, B - 250), 1700, E);
+    this.timers.push(setTimeout(() => { this.kenBurns(); this.cycleStart(); }, B));
+  }
+  skip() {
+    if (this.done) return;
+    this.done = true;
+    this.anims.forEach(a => { try { a.finish(); } catch (e) {} });
+    const ov = this.$('[data-k="ov"]'); if (ov) { ov.style.pointerEvents = 'none'; ov.style.visibility = 'hidden'; }
+    this.timers.forEach(clearTimeout); this.timers = [];
+    this.unlock(); this.kenBurns(); this.cycleStart();
+  }
+  kenBurns() {
+    if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    this.$$('[data-m-kb]').forEach(el => { if (el._kb) return; el._kb = el.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.09)' }], { duration: 16000, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' }); });
+  }
+  cycleStart() {
+    clearInterval(this.cyc);
+    if ((this.props.wechsel ?? true) === false) return;
+    
+  }
+  nextSlide() {
+    if (document.hidden || scrollY > innerHeight * 0.8) return;
+    const S = this.slideData();
+    this.hi = (this.hi + 1) % S.length;
+    this.$$('[data-m-hs]').forEach(el => { el.style.opacity = +el.getAttribute('data-m-hs') === this.hi ? 1 : 0; });
+    const cap = this.$('[data-k="hCap"]'); if (cap) cap.textContent = S[this.hi].cap;
+    const w = this.$('[data-k="hWord"]'); if (!w) return;
+    const out = w.animate([{ transform: 'translateY(0%)' }, { transform: 'translateY(-110%)' }], { duration: 260, easing: 'cubic-bezier(.7,0,.84,0)', fill: 'forwards' });
+    out.onfinish = () => { w.textContent = S[this.hi].w; w.animate([{ transform: 'translateY(110%)' }, { transform: 'translateY(0%)' }], { duration: 640, easing: 'cubic-bezier(.16,1,.3,1)' }); out.cancel(); };
+  }
+  slideData() {
+    return this._sl || (this._sl = [
+      { src: 'assets/portraet-feld.webp', w: 'fotografiere.', cap: 'Gabriel — Gegen den Himmel' },
+      { src: 'assets/film-bergmann-poster.webp', w: 'filme.', cap: 'Ein Tag als Bergmann' },
+      { src: 'assets/zeitraffer-poster.webp', vid: 'assets/video/zeitraffer.mp4', w: 'fliege Drohne.', cap: 'Zeitraffer · DJI Mini 4 Pro' },
+      { src: 'assets/icap-hero-weiss.webp', w: 'gestalte.', cap: 'iCapsule · Blender' }
+    ]);
+  }
+
+  renderVals() {
+    const vw = this.state.vw, phone = vw < 700, mob = vw < 900, s = this.state;
+    const A = f => 'assets/' + (f.indexOf('.') > -1 ? f : f + '.webp');
+    const PAR = ['0.06', '-0.045', '0.08', '-0.03'];
+    const I = (f, w, h, col, mt, cap, sub, x) => Object.assign({ f, w, h, col, mt, cap, sub: sub || '' }, x || {});
+    const G = (list, k) => list.map((x, i) => ({
+      src: A(x.f), w: x.w, h: x.h, cap: x.cap, sub: x.sub, lbcap: x.cap + (x.sub ? ' · ' + x.sub : ''),
+      col: mob ? '1 / -1' : x.col, mt: mob ? '0px' : (x.mt || 0) + 'px', par: mob ? '0' : PAR[(i + (k || 0)) % 4], vid: !!x.vid
+    }));
+    const shots = [
+      I('portraet-brille', 933, 1400, '1', 0, 'Timo — Im Türrahmen', '1/4000 s', { name: 'Timo' }),
+      I('portraet-goldlicht', 925, 1400, '2', 90, 'Ares — Letztes Licht', '1/640 s', { name: 'Ares' }),
+      I('portraet-ares-quer', 1400, 933, '1 / -1', 0, 'Ares — Weite Arme', '1/200 s', { name: 'Ares' }),
+      I('portraet-feld', 1700, 1109, '1 / -1', 0, 'Gabriel — Gegen den Himmel', '1/2000 s', { name: 'Gabriel' }),
+      I('portraet-gruen', 937, 1400, '1', 0, 'Gabriel — Durchs Blattwerk', '1/1600 s', { name: 'Gabriel' }),
+      I('portraet-himbeere', 933, 1400, '2', 90, 'Paul — Himbeere', '1/1000 s', { name: 'Paul' }),
+      I('portraet-cap', 935, 1400, '1', 0, 'Robin — Am Straßenrand', '1/2000 s', { name: 'Robin' })
+    ].map(x => ({ src: A(x.f), w: x.w, h: x.h, cap: x.cap, sub: '85 mm · f/1.4 · ' + x.sub, lbcap: x.cap + ' · 85 mm · f/1.4 · ' + x.sub, name: x.name, col: phone ? '1 / -1' : x.col, mt: phone ? '0px' : x.mt + 'px' }));
+    const films = [
+      { role: 'Ton', t: 'Ein Tag als Bergmann', s: 'Doku im Graphitbergwerk Kropfmühl', dur: '5:48', f: 'film-bergmann-poster' },
+      { role: 'Produktion', t: 'Kommt zu mir', s: 'Porträt über einen Jugendseelsorger', dur: '5:17', f: 'film-kommt-zu-mir-poster' },
+      { role: 'Regie & Schnitt', t: 'Hostage Holiday', s: 'Kurzfilm ohne Dialog', dur: '2:18', f: 'film-hostage-holiday-poster' },
+      { role: 'Szenenbild', t: 'Electrify Your Future', s: 'Imagefilm, ARRI Alexa Mini', dur: '3:01', f: 'film-electrify-poster' }
+    ].map((x, i) => Object.assign({}, x, { src: A(x.f), lbcap: x.t + ' · ' + x.role + ' · ' + x.dur, mt: mob ? '0px' : (i % 2 ? '140px' : '0px') }));
+    const rows = [
+      ['01', 'Seoul', 'Fotografie', 'nacht-rauch', '#p-seoul'], ['02', 'Menschen', 'Porträt', 'portraet-goldlicht', '#p-menschen'],
+      ['03', 'Sonnenaufgänge', 'Landschaft', 'sa-donau-gold', '#p-sonne'], ['04', 'Tiere', 'Tierfotografie', 'tier-zunge', '#p-tiere'],
+      ['05', 'Plakate & Print', 'Grafikdesign', 'plakat-bubble', '#p-plakate'], ['06', 'iCapsule', 'Produktdesign · 3D', 'ibee-hell', '#p-icapsule'],
+      ['07', 'Therme Bad Füssing', '3D-Animation', 'therme-cover', '#p-therme'], ['08', 'Filme', 'Video', 'bergmann-cover', '#p-filme'],
+      ['09', 'Drohne & FPV', 'Luftaufnahmen', 'fpv-cover', '#p-drohne']
+    ].map(([no, t, cat, img, href], i) => ({ no, t, cat, img: 'assets/thumb/' + img + '.webp', href, d: i * 50 }));
+    const cellSrc = [['nacht-rauch', 'Seoul'], ['tag-tempeldach', 'Seoul'], ['portraet-goldlicht', 'Porträt'], ['sa-donau-gold', 'Landschaft'], ['tier-zunge', 'Tiere'], ['bergmann-cover', 'Film'], ['kommt-zu-mir-cover', 'Film'], ['portraet-feld', 'Porträt'], ['fpv-cover', 'FPV'], ['ibee-hell', '3D'], ['plakat-bubble', 'Plakat'], ['therme-cover', 'Animation']];
+    const lb = s.lb;
+    return {
+      slides: this.slideData().map((x, i) => ({ i, src: x.src, vid: x.vid || '', isImg: !x.vid, isVid: !!x.vid, op: i === 0 ? 1 : 0 })),
+      stats: [[9, 'Projekte'], [49, 'Bilder'], [11, 'Filme']].map(([n, label], i) => ({ n, label, d: i * 140, bl: i ? '1px solid rgba(255,255,255,.16)' : '0', pl: i ? 'clamp(12px,2vw,28px)' : '0px' })),
+      rows, rowCols: phone ? '30px minmax(0,1fr) 20px' : '60px minmax(0,1fr) auto 32px', catDisp: phone ? 'none' : 'block',
+      gNacht: G([
+        I('nacht-linien', 933, 1400, '1 / span 4', 0, 'Nur die Linien', '85 mm · f/5 · 1/2 s'),
+        I('nacht-rauch', 933, 1400, '5 / span 3', 140, 'Mit dem Rauch', '85 mm · f/5 · 1/2 s'),
+        I('nacht-strasse', 933, 1400, '9 / span 4', 40, 'Der Aussichtspunkt', '85 mm · f/16 · 4 s')]),
+      brCol: mob ? '1 / -1' : '3 / span 8', brMt: mob ? '0px' : '40px',
+      gTag: G([
+        I('tag-stadt-gold', 724, 1086, '1 / span 4', 0, 'Goldenes Licht', 'f/9 · 1/100 s'),
+        I('tag-stadt-pastell', 724, 1086, '5 / span 3', 120, 'Zwei Minuten später', 'f/8 · 1/100 s'),
+        I('tag-tempeldach', 1100, 1400, '8 / span 5', 40, 'Dancheong', 'f/1.4 · 1/6400 s'),
+        I('tag-pavillon', 724, 1086, '2 / span 3', 20, 'Der Pavillon', 'f/1.4 · 1/2000 s'),
+        I('tag-flagge', 933, 1400, '5 / span 3', 150, 'Taeguk im Laub', 'f/1.4 · 1/5000 s'),
+        I('tag-regen', 1285, 1400, '8 / span 5', 60, 'Der pinke Schirm', 'f/1.4 · 1/800 s')], 1),
+      ptCols: mob ? '1fr' : 'minmax(0,300px) minmax(0,1fr)', ptGap: mob ? '28px' : '56px', ptStream: phone ? '1fr' : '1fr 1fr', stickyPos: mob ? 'relative' : 'sticky', shots,
+      gSonne: G([
+        I('sa-bruecke-nebel', 1400, 933, '1 / span 5', 0, 'Die Brücke verschwindet', '70 mm · f/2.8'),
+        I('sa-donau-gold', 1400, 933, '7 / span 6', 100, 'Wenn es ins Goldene kippt', '70 mm · f/9'),
+        I('sa-donau-gaense', 933, 1400, '2 / span 3', 0, 'Gänse im Gegenlicht', '180 mm · f/9'),
+        I('sa-baum-bruecke', 1400, 933, '6 / span 5', 120, 'Der Baum und die Brücke', '70 mm · f/2.8'),
+        I('sa-sonne-bruecke', 1400, 933, '1 / span 6', 40, 'Die Sonne kommt über', '70 mm · f/5'),
+        I('sa-badezimmer', 1500, 999, '7 / span 6', 140, 'Aus dem Badezimmerfenster', '55 mm · f/4.5')], 2),
+      gTiere: G([
+        I('tier-zunge', 1800, 1199, '1 / -1', 0, 'Zunge raus', '332 mm · f/6.3'),
+        I('tier-gelb', 933, 1400, '1 / span 4', 0, 'Gegen das gelbe Feld', '350 mm · f/6.3'),
+        I('tier-gaehnen', 933, 1400, '5 / span 4', 110, 'Mitten im Gähnen', '350 mm · f/6.3'),
+        I('tier-hund', 933, 1400, '9 / span 4', 40, 'Augen', '180 mm · f/4.5'),
+        I('tier-dunkel', 1155, 1800, '2 / span 5', 0, 'Kommt direkt auf dich zu', '100 mm · f/5'),
+        I('tier-hund-profil', 1400, 933, '7 / span 6', 200, 'Im Profil', '180 mm · f/4.5')], 3),
+      gPlakate: G([
+        I('plakat-rechts', 989, 1400, '1 / span 4', 0, 'Rechts ist nie ein Weg', '3D-Typografie'),
+        I('plakat-nazis', 989, 1400, '5 / span 4', 70, 'Kein Platz für Nazis', 'Verzerrte Schrift'),
+        I('plakat-bubble', 989, 1400, '9 / span 4', 140, 'Where your bubble ends', 'Typografie'),
+        I('plakat-bubble-3d', 675, 1200, '2 / span 3', 30, 'Die Blasen in 3D', 'Blender'),
+        I('plakat-syntheca', 768, 1024, '5 / span 3', 110, 'Syntheca', 'Druckversuch'),
+        I('plakat-ausstellung', 768, 1024, '8 / span 4', 40, 'In der Ausstellung', 'Gedruckt'),
+        I('flyer-full.jpg', 1800, 1273, '1 / -1', 60, 'Flyer', 'Layout · Typografie · Bild')]),
+      icapWords: 'Ein Gerät, das es bei Apple so noch nicht gibt: halb Lautsprecher, halb Bilderrahmen. Entworfen, modelliert und gerendert in Blender.'.split(' ').map(t => ({ t })),
+      gIcap: G([
+        I('icap-innen', 1400, 1136, '1 / span 5', 0, 'Der Schnitt', 'Sieben Hochtöner'),
+        I('icap-chip', 1300, 1276, '6 / span 3', 90, 'Das Innere', 'Antrieb und Chip'),
+        I('ibee-innen', 768, 1024, '9 / span 4', 30, 'Das Innenleben', 'Blender'),
+        I('icap-farben', 1920, 988, '1 / span 8', 0, 'Zwei Farben', 'Mitternacht · Weiß'),
+        I('ibee-blender', 1024, 768, '9 / span 4', 120, 'Im Aufbau', 'Blender'),
+        I('icap-bildschirme', 1600, 554, '2 / span 10', 30, 'Der Bildschirm', '6 Zoll OLED')], 1),
+      gTherme: G([
+        I('therme-doku-poster', 1280, 720, '1 / span 7', 0, 'Vor Ort gefilmt', 'In der Therme', { vid: true }),
+        I('therme-arbeitsplatz', 1024, 768, '8 / span 5', 90, 'Am Arbeitsplatz', 'Drei Bildschirme'),
+        I('therme-rechner', 1024, 768, '3 / span 5', 20, 'Am Limit', 'Kein Speicher mehr')], 2),
+      films, filmCols: mob ? '1fr' : '1fr 1fr',
+      wallRows: (() => {
+        const wc = [['#p-seoul', 'nacht-rauch', '01', 'Seoul', 'Nacht'], ['#p-menschen', 'portraet-goldlicht', '02', 'Menschen', 'Porträt'], ['#p-sonne', 'sa-donau-gold', '03', 'Sonnenaufgänge', 'Landschaft'], ['#p-tiere', 'tier-zunge', '04', 'Tiere', 'Tele'], ['#p-plakate', 'plakat-bubble', '05', 'Plakate & Print', 'Design'], ['#p-icapsule', 'icap-hero-weiss', '06', 'iCapsule', '3D'], ['#p-therme', 'therme-cover', '07', 'Therme', 'Animation'], ['#p-filme', 'bergmann-cover', '08', 'Filme', 'Video'], ['#p-drohne', 'fpv-cover', '09', 'Drohne & FPV', 'Luft'], ['#p-seoul', 'tag-tempeldach', '01', 'Seoul', 'Tag'], ['#p-menschen', 'portraet-feld', '02', 'Menschen', 'Porträt'], ['#p-sonne', 'sa-donau-blau', '03', 'Sonnenaufgänge', 'Landschaft'], ['#p-filme', 'electrify-cover', '08', 'Filme', 'Video'], ['#p-drohne', 'zeitraffer-poster', '09', 'Drohne & FPV', 'Luft']];
+        return [0, 1, 2, 3, 4].map(j => { const cards = []; for (let i = 0; i < 8; i++) { const c = wc[(i + j * 4) % wc.length]; cards.push({ href: c[0], src: 'assets/thumb/' + c[1] + '.webp', no: c[2], t: c[3], cat: c[4], lab: c[2] + ' — ' + c[3] }); } return { dir: j % 2 ? '-1' : '1', sp: String(16 + j * 7), cards: cards.concat(cards) }; });
+      })(),
+      cardW: phone ? 'clamp(150px,44vw,210px)' : 'clamp(220px,19vw,340px)',
+      nachtStrip: [['nacht-linien', 'Nur die Linien', '85 mm · f/5 · 1/2 s'], ['nacht-rauch', 'Mit dem Rauch', '85 mm · f/5 · 1/2 s'], ['nacht-strasse', 'Der Aussichtspunkt', '85 mm · f/16 · 4 s']].map(([fi, cap, sub]) => ({ src: A(fi), cap, sub, lbcap: cap + ' · ' + sub, fw: 'calc(' + (phone ? '58vh' : '68vh') + ' * 0.6664)' })),
+      stripFH: phone ? '58vh' : '68vh', bridgeW: 'calc(' + (phone ? '58vh' : '68vh') + ' * 1.5)', stripIntroW: phone ? '84vw' : 'min(520px,40vw)',
+      sonneSeq: this.sonneData().map((x, i) => ({ i, src: A(x.f), cap: x.cap, op: i === 0 ? 1 : 0 })), sonneN: String(this.sonneData().length).padStart(2, '0'),
+      seqH: phone ? '480vh' : '620vh', gaCol: mob ? '1 / -1' : '3 / span 4', gaTxt: mob ? '1 / -1' : '8 / span 4',
+      fan: [['plakat-rechts', 0, 'Rechts ist nie ein Weg', '3D-Typografie'], ['plakat-bubble', 2, 'Where your bubble ends', 'Typografie'], ['plakat-nazis', 1, 'Kein Platz für Nazis', 'Verzerrte Schrift']].map(([fi, k, cap, sub]) => ({ k, src: A(fi), cap, sub, lbcap: cap + ' · ' + sub })),
+      fanW: phone ? '28vw' : 'min(24vw,330px)', fanH: phone ? '200vh' : '240vh',
+      gPlakate: G([
+        I('plakat-bubble-3d', 675, 1200, '2 / span 3', 0, 'Die Blasen in 3D', 'Blender'),
+        I('plakat-syntheca', 768, 1024, '5 / span 3', 90, 'Syntheca', 'Druckversuch'),
+        I('plakat-ausstellung', 768, 1024, '8 / span 4', 30, 'In der Ausstellung', 'Gedruckt'),
+        I('flyer-full.jpg', 1800, 1273, '1 / -1', 60, 'Flyer', 'Layout · Typografie · Bild')]),
+      prodImgs: this.prodData().map((x, i) => ({ i, src: x.src, t: x.t, op: i === 0 ? 1 : 0 })), prodN: String(this.prodData().length).padStart(2, '0'),
+      prodH: phone ? '480vh' : '560vh', prodCols: mob ? '1fr' : 'minmax(0,1.5fr) minmax(0,1fr)', prodImgH: mob ? '40vh' : '72vh',
+      panImgH: phone ? '42vh' : '60vh',
+      films: this.filmData().map((x, i) => ({ i, src: x.src, t: x.t, op: i === 0 ? 1 : 0 })),
+      cineH: phone ? '380vh' : '440vh', cineW: phone ? '92vw' : 'min(78vw,1180px)',
+      ichFotos: [['Mit der Mini 2', 'Max mit Drohne bei Sonnenuntergang', true, '50% 30%'], ['Lichtmalerei', 'Max neben seinem Namen aus Licht', false, '50% 50%'], ['Nachts', 'Max lachend im bunten Licht', true, '50% 40%'], ['Abendrot', 'Max im Profil vor rosa Himmel', false, '50% 40%']].map(([cap, alt, hoch, pos], i) => ({ i, n: i + 1, no: '0' + (i + 1) + ' / 04', src: 'ueber-mich/max-' + (i + 1) + '.webp', cap, alt, pos, w: hoch ? '100%' : '112%', h: hoch ? '100%' : '64%', l: hoch ? '0%' : '-6%', t: hoch ? '0%' : '18%' })),
+      ichA: mob ? '1 / -1' : '1 / span 5', ichAr: mob ? 'auto' : '1 / span 2', ichAmt: '0px',
+      ichT: mob ? '1 / -1' : '7 / span 6', ichTr: mob ? 'auto' : '1',
+      ichB: mob ? '1 / -1' : '7 / span 3', ichBr: mob ? 'auto' : '2', ichBmt: mob ? '0px' : '40px',
+      ichC: mob ? '1 / -1' : '10 / span 3', ichCr: mob ? 'auto' : '2', ichCmt: mob ? '0px' : '150px',
+      ichStackCol: mob ? '1 / -1' : '1 / span 5', ichTxtCol: mob ? '1 / -1' : '7 / span 6', ichStackW: phone ? 'min(74vw,320px)' : 'min(100%,400px)',
+      ichWords: 'Ich weiß nicht alles — aber ich weiß mir zu helfen.'.split(' ').map(t => ({ t })),
+      ichFacts: [[240, 'uhr', '', 'Wecker für einen Sonnenaufgang'], [190, '', 'km/h', 'Spitze meiner schnellsten Drohne'], [85, '', 'mm', 'Mein Objektiv für Porträts']].map(([n, fmt, unit, label], i) => ({ n, fmt, unit, label, d: i * 140, bl: i ? '1px solid rgba(255,255,255,.2)' : '0', pl: i ? 'clamp(10px,1.6vw,22px)' : '0px' })),
+      ichChips: [['Fotografie', '#p-seoul'], ['Film', '#p-filme'], ['Drohne & FPV', '#p-drohne'], ['3D & Blender', '#p-icapsule'], ['Design', '#p-plakate']].map(([t, href]) => ({ t, href })),
+      g12: mob ? '1fr' : 'repeat(12,minmax(0,1fr))', gGap: mob ? '36px' : '20px',
+      tCol: mob ? '1 / -1' : '1 / span 8', pCol: mob ? '1 / -1' : '9 / span 4',
+      navLabDisp: phone ? 'none' : 'block',
+      cells: cellSrc.map(([f, cat], i) => ({ i, cat, no: String(i + 1).padStart(2, '0'), src: 'assets/thumb/' + f + '.webp' })),
+      cols: phone ? 3 : 6, ovVis: this._ov0 || (this._ov0 = this.introMode() === 'aus' ? 'hidden' : 'visible'),
+      lbOpen: !!lb, lbSrc: lb ? lb.src : '', lbCap: lb ? lb.cap : '', lbClose: () => this.setState({ lb: null }),
+      skip: () => this.skip()
+    };
+  }
+}
+</script>
+</body>
+</html>

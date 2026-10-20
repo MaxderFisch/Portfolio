@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Video — Max Aulinger</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./seitenwechsel.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin="">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&amp;f[]=general-sans@400,500,600&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+html,body{margin:0;background:#0c0c0c;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font-family:inherit}
+::selection{background:#f2f2f2;color:#0c0c0c}
+</style>
+</helmet>
+
+<sc-if value="{{ introMount }}" hint-placeholder-val="{{ true }}">
+<div data-k="intro" data-mx-own-intro="" style="position:fixed;inset:0;z-index:95;background:#000">
+  <video data-k="iv" src="assets/video/intro-logo.mp4" preload="auto" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{ introFit }};opacity:0"></video>
+  <button data-k="skip" onClick="{{ skipIntro }}" style="position:absolute;right:4vw;bottom:clamp(20px,5vh,48px);display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(255,255,255,.4);border-radius:4px;background:rgba(0,0,0,.35);color:#fff;font-size:13px;font-weight:500;letter-spacing:.06em;cursor:pointer;opacity:0" style-hover="background:rgba(0,0,0,.6)">{{ L.skip }} ›</button>
+</div>
+</sc-if>
+<img data-k="fly" src="assets/logo-max.png" alt="" style="position:fixed;left:0;top:0;z-index:97;display:none;transform-origin:0 0;pointer-events:none">
+
+<header data-k="nav" style="position:fixed;top:0;left:0;right:0;z-index:60;height:68px;display:flex;align-items:center;gap:clamp(18px,2.6vw,44px);padding:0 4vw;background-color:rgba(12,12,12,0);background-image:linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,0) 100%);transition:background-color .4s">
+  <a href="Startseite%20Stream.dc.html" data-k="navlogo" style="flex:0 0 auto;display:block;opacity:{{ navLogoOp }}"><img src="assets/logo-max.png" alt="Max Aulinger" style="display:block;height:clamp(18px,1.9vw,26px);width:auto"></a>
+  <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+    <nav style="display:flex;align-items:center;gap:clamp(14px,1.7vw,26px)">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="7">
+        <a href="{{ l.href }}" style="font-size:14px;font-weight:{{ l.fw }};color:{{ l.fg }};white-space:nowrap;transition:color .3s" style-hover="color:#b3b3b3">{{ l.t }}</a>
+      </sc-for>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+    <div data-menu="" style="position:relative">
+      <button onClick="{{ toggleNav }}" style="display:flex;align-items:center;gap:6px;padding:8px 0;border:0;background:none;color:#f2f2f2;font-size:14px;font-weight:500;cursor:pointer">{{ L.browse }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button>
+      <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:-12px;top:44px;min-width:220px;padding:8px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-top:2px solid #f2f2f2;border-radius:2px">
+          <sc-for list="{{ links }}" as="l" hint-placeholder-count="0">
+            <a href="{{ l.href }}" style="display:block;padding:11px 18px;font-size:14px;color:{{ l.fg }};font-weight:{{ l.fw }}" style-hover="background:rgba(255,255,255,.06)">{{ l.t }}</a>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:clamp(14px,1.6vw,24px)">
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><a href="#kontakt" style="font-size:14px;color:#e5e5e5;transition:color .3s" style-hover="color:#b3b3b3">{{ L.contact }}</a></sc-if>
+    <div data-menu="" style="position:relative">
+      <button onClick="{{ toggleProf }}" aria-label="{{ L.lang }}" style="display:flex;align-items:center;gap:8px;padding:0;border:0;background:none;color:#f2f2f2;cursor:pointer">
+        <img src="assets/profil-icon.png" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="transform:rotate({{ caretRot }});transition:transform .25s"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+      <sc-if value="{{ profOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;right:0;top:48px;min-width:230px;padding:10px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-radius:2px">
+          <sc-for list="{{ profs }}" as="p" hint-placeholder-count="0">
+            <button onClick="{{ p.pick }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:8px 16px;border:0;background:none;color:#f2f2f2;font-size:14px;cursor:pointer;text-align:left" style-hover="background:rgba(255,255,255,.06)">
+              <img src="assets/profil-icon.png" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
+              <span>{{ p.t }}</span>
+              <span style="margin-left:auto;font-size:12px;color:#8d8d92">{{ p.mark }}</span>
+            </button>
+          </sc-for>
+          <div style="height:1px;margin:8px 0;background:rgba(255,255,255,.14)"></div>
+          <a href="mailto:maxau.aulo@gmail.com" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2" style-hover="background:rgba(255,255,255,.06)">{{ L.contact }}</a>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</header>
+
+<section id="top" data-k="hero" data-screen-label="Showreel Filme" style="position:relative;height:max(560px,min(100svh,56.25vw));overflow:hidden;background:#000">
+  <div style="position:absolute;inset:0">
+    <sc-for list="{{ clips }}" as="c" hint-placeholder-count="0">
+      <div data-k="layer" style="position:absolute;inset:0;opacity:0;overflow:hidden">
+        <video data-src="{{ c.src }}" data-poster="{{ c.poster }}" muted="" playsinline="" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+      </div>
+    </sc-for>
+  </div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(77deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.34) 40%,rgba(0,0,0,0) 66%)"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:42%;pointer-events:none;background:linear-gradient(to top,#0c0c0c 0%,rgba(12,12,12,.55) 42%,rgba(12,12,12,0) 100%)"></div>
+  <div data-k="htext" style="position:absolute;z-index:2;left:4vw;bottom:clamp(150px,17vw,300px);width:min(600px,88vw)">
+    <div style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#f2f2f2"><span style="display:block;width:20px;height:3px;background:#dc0304"></span>{{ L.kicker }}</div>
+    <div data-k="hswap">
+      <h1 style="margin:16px 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(44px,6.4vw,112px);line-height:.92;letter-spacing:-.03em;text-wrap:balance;text-shadow:0 2px 24px rgba(0,0,0,.25)">{{ hero.t }}</h1>
+      <div style="margin-top:16px;font-size:14px;font-weight:500;color:#d9d9dc">{{ hero.meta }}</div>
+      <sc-if value="{{ hero.hasTxt }}" hint-placeholder-val="{{ false }}"><p style="margin:10px 0 0;max-width:46ch;font-size:clamp(15px,1.2vw,19px);line-height:1.5;color:#ececee;text-wrap:pretty;text-shadow:0 1px 10px rgba(0,0,0,.45)">{{ hero.txt }}</p></sc-if>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px">
+      <button onClick="{{ heroPlay }}" style="display:flex;align-items:center;gap:10px;height:46px;padding:0 26px 0 20px;border:0;border-radius:4px;background:#f2f2f2;color:#0c0c0c;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s" style-hover="background:rgba(242,242,242,.75)"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg>{{ L.play }}</button>
+      <button onClick="{{ heroInfo }}" style="display:flex;align-items:center;gap:10px;height:46px;padding:0 24px 0 18px;border:0;border-radius:4px;background:rgba(109,109,110,.7);color:#f2f2f2;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s" style-hover="background:rgba(109,109,110,.45)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"></circle><path d="M12 11v6M12 7v1"></path></svg>{{ L.more }}</button>
+    </div>
+  </div>
+  <div style="position:absolute;z-index:2;right:4vw;bottom:calc(clamp(70px,9vw,170px) + 18px);display:flex;align-items:center;gap:18px">
+    <div style="display:flex;gap:5px">
+      <sc-for list="{{ clips }}" as="c" hint-placeholder-count="0">
+        <button onClick="{{ c.go }}" aria-label="{{ c.label }}" style="display:flex;align-items:center;width:clamp(16px,2vw,34px);height:16px;padding:0;border:0;background:none;cursor:pointer"><span style="position:relative;display:block;width:100%;height:3px;background:rgba(255,255,255,.28);overflow:hidden"><span data-k="segf" style="position:absolute;inset:0;background:#f2f2f2;transform-origin:0 50%;transform:scaleX(0)"></span></span></button>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<main style="position:relative;z-index:3;margin-top:calc(-1 * clamp(70px,9vw,170px));padding-bottom:20px">
+  <sc-for list="{{ rows }}" as="r" hint-placeholder-count="2">
+    <section id="{{ r.id }}" data-row="" data-screen-label="{{ r.t }}" style="position:relative;margin-bottom:clamp(26px,3vw,48px)">
+      <div style="display:flex;align-items:baseline;gap:14px;padding:0 4vw;margin-bottom:10px">
+        <h2 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(18px,1.6vw,26px);letter-spacing:-.005em">{{ r.t }}</h2>
+      </div>
+      <div style="position:relative">
+        <div data-scroll="" style="display:flex;gap:clamp(6px,.6vw,10px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0 4vw;padding:4px 4vw 8px;scrollbar-width:none">
+          <sc-for list="{{ r.items }}" as="it" hint-placeholder-count="5">
+            <a href="{{ it.href }}" onClick="{{ it.click }}" data-card="{{ it.id }}" style="position:relative;display:block;flex:0 0 auto;width:{{ r.w }};aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#1a1a1c;scroll-snap-align:start">
+              <img src="{{ it.src }}" alt="{{ it.t }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover">
+              <div style="position:absolute;left:0;right:0;bottom:0;padding:34px 12px 10px;background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,0));font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:{{ r.fs }};line-height:1.02;letter-spacing:-.01em">{{ it.t }}</div>
+              <sc-if value="{{ it.hasBadge }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:10px;left:10px;padding:4px 8px;border-radius:2px;background:rgba(12,12,12,.78);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#f2f2f2">{{ it.badge }}</span></sc-if>
+            </a>
+          </sc-for>
+        </div>
+        <button data-arr="l" aria-label="Zurück" style="position:absolute;left:0;top:4px;bottom:8px;width:4vw;min-width:34px;display:flex;align-items:center;justify-content:center;padding:0;border:0;background:rgba(12,12,12,.6);color:#f2f2f2;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"></path></svg></button>
+        <button data-arr="r" aria-label="Weiter" style="position:absolute;right:0;top:4px;bottom:8px;width:4vw;min-width:34px;display:flex;align-items:center;justify-content:center;padding:0;border:0;background:rgba(12,12,12,.6);color:#f2f2f2;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 5l7 7-7 7"></path></svg></button>
+      </div>
+    </section>
+  </sc-for>
+</main>
+
+<footer id="kontakt" data-screen-label="Kontakt" style="padding:clamp(70px,9vw,140px) 4vw 32px">
+  <div style="font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:#8d8d92">{{ L.contact }}</div>
+  <a href="mailto:maxau.aulo@gmail.com" style="display:inline-block;margin-top:18px;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(48px,8vw,140px);line-height:.9;letter-spacing:-.035em;transition:opacity .3s" style-hover="opacity:.6">{{ L.write }}</a>
+  <div style="margin-top:22px"><a href="mailto:maxau.aulo@gmail.com" style="font-size:clamp(16px,1.4vw,22px);color:#c9c9ce;transition:color .2s" style-hover="color:#f2f2f2">maxau.aulo@gmail.com</a></div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;margin-top:clamp(60px,7vw,110px);padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:#8d8d92">
+    <span>© 2026 Max Aulinger</span>
+    <div style="display:flex;gap:18px">
+      <button onClick="{{ toDe }}" style="padding:0;border:0;background:none;font-size:13px;color:{{ deFg }};cursor:pointer" style-hover="color:#f2f2f2">Deutsch</button>
+      <button onClick="{{ toEn }}" style="padding:0;border:0;background:none;font-size:13px;color:{{ enFg }};cursor:pointer" style-hover="color:#f2f2f2">English</button>
+    </div>
+    <a href="#top" style="color:#8d8d92;transition:color .2s" style-hover="color:#f2f2f2">{{ L.top }} ↑</a>
+  </div>
+</footer>
+
+<div data-k="pop" onMouseLeave="{{ popLeave }}" style="position:fixed;left:0;top:0;width:320px;z-index:70;display:none;border-radius:6px;overflow:hidden;background:#181819;box-shadow:0 14px 44px rgba(0,0,0,.65)">
+  <a href="{{ pop.href }}" onClick="{{ pop.play }}" style="position:relative;display:block;aspect-ratio:16/9;background:#111">
+    <img src="{{ pop.src }}" alt="" style="display:block;width:100%;height:100%;object-fit:cover">
+    <video data-k="popv" muted="" playsinline="" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s"></video>
+  </a>
+  <div data-k="popi" style="padding:14px 16px 18px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="{{ pop.href }}" onClick="{{ pop.play }}" aria-label="{{ pop.btn }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:#f2f2f2;color:#0c0c0c;transition:background .2s" style-hover="background:#cfcfd2;color:#0c0c0c"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg></a>
+      <span style="font-size:13px;font-weight:500;color:#d9d9dc">{{ pop.btn }}</span>
+      <button onClick="{{ popInfo }}" aria-label="{{ L.more }}" style="margin-left:auto;display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.45);background:rgba(36,36,38,.6);color:#f2f2f2;cursor:pointer;transition:border-color .2s" style-hover="border-color:#f2f2f2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"></path></svg></button>
+    </div>
+    <div style="margin-top:12px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:18px;line-height:1.1">{{ pop.t }}</div>
+    <div style="margin-top:6px;font-size:12px;color:#a3a3a8">{{ pop.meta }}</div>
+    <sc-if value="{{ pop.hasTxt }}" hint-placeholder-val="{{ false }}"><p style="margin:8px 0 0;font-size:13px;line-height:1.5;color:#d0d0d4;text-wrap:pretty">{{ pop.txt }}</p></sc-if>
+  </div>
+</div>
+
+<sc-if value="{{ modalOn }}" hint-placeholder-val="{{ false }}">
+<div data-k="modal" onClick="{{ modalBg }}" style="position:fixed;inset:0;z-index:80;overflow-y:auto;padding:clamp(16px,4vh,48px) 12px;background:rgba(0,0,0,.74)">
+  <div data-k="mpanel" style="position:relative;max-width:900px;margin:0 auto;border-radius:8px;overflow:hidden;background:#161617;box-shadow:0 24px 80px rgba(0,0,0,.7)">
+    <div style="position:relative;aspect-ratio:16/9;background:#000">
+      <img src="{{ m.src }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      <sc-if value="{{ m.hasVid }}" hint-placeholder-val="{{ false }}"><video data-k="mvid" src="{{ m.vid }}" muted="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></sc-if>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,#161617 0%,rgba(22,22,23,.4) 34%,rgba(22,22,23,0) 60%)"></div>
+      <button onClick="{{ closeModal }}" aria-label="Schließen" style="position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:#161617;color:#f2f2f2;cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <div style="position:absolute;left:clamp(20px,4vw,48px);right:clamp(20px,4vw,48px);bottom:clamp(16px,2.6vw,32px)">
+        <h2 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(30px,4.4vw,60px);line-height:.95;letter-spacing:-.025em">{{ m.t }}</h2>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px">
+          <sc-if value="{{ m.canPlay }}" hint-placeholder-val="{{ false }}"><button onClick="{{ m.play }}" style="display:flex;align-items:center;gap:10px;height:42px;padding:0 22px 0 18px;border:0;border-radius:4px;background:#f2f2f2;color:#0c0c0c;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s" style-hover="background:rgba(242,242,242,.75)"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg>{{ L.play }}</button></sc-if>
+          <sc-if value="{{ m.soon }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;height:42px;padding:0 18px;border:1px solid rgba(255,255,255,.4);border-radius:4px;font-size:15px;font-weight:500;color:#d9d9dc">{{ L.soonLong }}</span></sc-if>
+          <sc-if value="{{ m.isExtra }}" hint-placeholder-val="{{ false }}"><a href="{{ m.href }}" style="display:flex;align-items:center;gap:10px;height:42px;padding:0 22px 0 18px;border-radius:4px;background:#f2f2f2;color:#0c0c0c;font-size:15px;font-weight:600;transition:background .2s" style-hover="background:rgba(242,242,242,.75);color:#0c0c0c"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg>{{ L.toPage }}</a></sc-if>
+        </div>
+      </div>
+    </div>
+    <div style="padding:12px clamp(20px,4vw,48px) clamp(28px,4vw,48px)">
+      <div style="font-size:14px;color:#a3a3a8">{{ m.meta }}</div>
+      <sc-if value="{{ m.hasTxt }}" hint-placeholder-val="{{ false }}"><p style="margin:12px 0 0;max-width:58ch;font-size:16px;line-height:1.6;color:#e6e6e8;text-wrap:pretty">{{ m.txt }}</p></sc-if>
+      <sc-if value="{{ m.isSeries }}" hint-placeholder-val="{{ false }}">
+        <h3 style="margin:36px 0 14px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:20px">{{ L.seasons }}</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+          <sc-for list="{{ m.seasons }}" as="s" hint-placeholder-count="0">
+            <button onClick="{{ s.pick }}" style="display:block;padding:0;border:0;background:none;color:#f2f2f2;text-align:left;cursor:pointer;opacity:{{ s.op }};transition:opacity .25s" style-hover="opacity:1">
+              <span style="display:block;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#222;box-shadow:0 0 0 2px {{ s.ring }};transition:box-shadow .25s"><img src="{{ s.art }}" alt="{{ s.t }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover"></span>
+              <span style="display:block;margin-top:10px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#a3a3a8">{{ s.label }}</span>
+              <span style="display:block;margin-top:3px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:17px;line-height:1.15">{{ s.t }}</span>
+              <span style="display:block;margin-top:3px;font-size:12px;color:#8d8d92">{{ s.meta }}</span>
+            </button>
+          </sc-for>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 20px;margin-top:34px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.14)">
+          <div>
+            <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:20px">{{ m.st.label }}</div>
+            <div style="margin-top:2px;font-size:13px;color:#a3a3a8">{{ m.st.t }}</div>
+          </div>
+          <button onClick="{{ m.st.play }}" style="display:flex;align-items:center;gap:9px;height:38px;padding:0 18px 0 14px;border:0;border-radius:4px;background:#f2f2f2;color:#0c0c0c;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s" style-hover="background:rgba(242,242,242,.75)"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg>{{ L.fullShow }}</button>
+        </div>
+        <div>
+          <sc-for list="{{ m.eps }}" as="e" hint-placeholder-count="0">
+            <button onClick="{{ e.play }}" style="display:grid;grid-template-columns:clamp(20px,3vw,40px) clamp(118px,22vw,190px) minmax(0,1fr);align-items:center;gap:clamp(12px,2vw,22px);width:100%;padding:16px clamp(4px,1vw,12px);border:0;border-bottom:1px solid rgba(255,255,255,.1);background:none;color:#f2f2f2;text-align:left;cursor:pointer;transition:background .2s" style-hover="background:rgba(255,255,255,.05)">
+              <span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:500;font-size:clamp(18px,2vw,26px);color:#8d8d92;text-align:center">{{ e.n }}</span>
+              <span style="position:relative;display:block;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#222">
+                <img src="{{ e.src }}" alt="" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover">
+                <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.22)"><span style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;border:1.5px solid #f2f2f2;background:rgba(0,0,0,.45)"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="#f2f2f2"></path></svg></span></span>
+              </span>
+              <span style="display:block;min-width:0">
+                <span style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-size:16px;font-weight:600">{{ e.t }}</span><span style="font-size:13px;color:#a3a3a8;white-space:nowrap">{{ e.dur }}</span></span>
+                <sc-if value="{{ e.hasNote }}" hint-placeholder-val="{{ false }}"><span style="display:block;margin-top:4px;font-size:13px;color:#8d8d92">{{ e.note }}</span></sc-if>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <h3 style="margin:36px 0 14px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:20px">{{ m.moreT }}</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px 10px">
+        <sc-for list="{{ m.more }}" as="x" hint-placeholder-count="0">
+          <button onClick="{{ x.open }}" style="display:block;padding:0;border:0;background:none;color:#f2f2f2;text-align:left;cursor:pointer">
+            <span style="display:block;aspect-ratio:16/9;border-radius:4px;overflow:hidden;background:#222"><img src="{{ x.src }}" alt="" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease" style-hover="transform:scale(1.04)"></span>
+            <span style="display:block;margin-top:8px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:15px;line-height:1.15">{{ x.t }}</span>
+            <span style="display:block;margin-top:3px;font-size:12px;color:#8d8d92">{{ x.meta }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ playerOn }}" hint-placeholder-val="{{ false }}">
+<div data-k="player" style="position:fixed;inset:0;z-index:85;background:#000">
+  <sc-if value="{{ pl.isEmbed }}" hint-placeholder-val="{{ false }}"><div data-k="ytbox" style="position:absolute;inset:0"></div></sc-if>
+  <sc-if value="{{ pl.isClip }}" hint-placeholder-val="{{ false }}"><video data-k="pv" src="{{ pl.clip }}" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000"></video></sc-if>
+  <div style="position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:16px;padding:18px 4vw 40px;background:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,0));pointer-events:none">
+    <button onClick="{{ closePlayer }}" aria-label="{{ L.back }}" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:none;color:#f2f2f2;cursor:pointer;pointer-events:auto"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 12H5M11 5l-7 7 7 7"></path></svg></button>
+    <div>
+      <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(18px,1.6vw,24px)">{{ pl.t }}</div>
+      <sc-if value="{{ pl.hasSub }}" hint-placeholder-val="{{ false }}"><div style="margin-top:2px;font-size:13px;color:#b3b3b8">{{ pl.sub }}</div></sc-if>
+    </div>
+    <sc-if value="{{ pl.hasWatch }}" hint-placeholder-val="{{ false }}"><a href="{{ pl.watch }}" target="_blank" rel="noopener" style="margin-left:auto;display:flex;align-items:center;gap:8px;height:38px;padding:0 16px;border:1px solid rgba(255,255,255,.4);border-radius:4px;background:rgba(0,0,0,.35);font-size:13px;font-weight:500;color:#f2f2f2;pointer-events:auto;white-space:nowrap;transition:background .2s" style-hover="background:rgba(255,255,255,.12)">{{ L.ytOpen }} ↗</a></sc-if>
+  </div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;intro&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Seite&quot;},&quot;sprache&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Deutsch&quot;,&quot;English&quot;],&quot;default&quot;:&quot;Deutsch&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Seite&quot;}}">
+class Component extends DCLogic {
+  state = this.boot();
+
+  boot() {
+    const P = this.props || {}, W = typeof window !== 'undefined';
+    let lang = null; try { lang = localStorage.getItem('mx-lang'); } catch (e) {}
+    const reduce = W && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hash = W && location.hash && location.hash.length > 1;
+    const intro = (P.intro ?? true) && !reduce && !hash;
+    if (!lang) lang = (P.sprache ?? 'Deutsch') === 'English' ? 'en' : 'de';
+    return { stage: intro ? 'intro' : 'browse', lang: lang === 'en' ? 'en' : 'de', cur: 0, pop: null, modal: null, season: 0, player: null, menu: null, muted: true, navLogo: intro ? 0 : 1, vw: W ? innerWidth : 1280, vh: W ? innerHeight : 800 };
+  }
+
+  data() {
+    if (this._D) return this._D;
+    const A = 'assets/', V = A + 'video/', E = A + 'einspieler/';
+    // embed: später YouTube-/Vimeo-Link eintragen (z. B. https://player.vimeo.com/video/123?autoplay=1), dann spielt „Abspielen“ den ganzen Film
+    // clip: 10-s-Ausschnitt fürs Showreel oben; ohne clip erscheint der Film nur in den Reihen
+    const films = [
+      { id: 'electrify', t: ['Imagefilm', 'Image film'], clip: V + 'showreel-1-electrify.mp4', src: A + 'film-electrify-poster.webp', embed: '',
+        meta: ['Imagefilm · Szenenbild · 3:01', 'Image film · Set design · 3:01'],
+        txt: ['Imagefilm für den Studiengang Elektrotechnik unserer Hochschule, gedreht mit der ARRI Alexa Mini, in einem Team mit Studierenden aus höheren Semestern.', 'Image film for our university’s electrical engineering programme, shot on an ARRI Alexa Mini with students from higher semesters.'] },
+      { id: 'einspieler', series: true, t: ['Doschauher'], reelT: ['Einspieler', 'Segments'], clip: V + 'showreel-2-einspieler.mp4', src: A + 'film-einspieler-poster.webp', embed: '',
+        meta: ['Live-Show · Einspieler-Team · 2 Staffeln', 'Live show · Segment team · 2 seasons'],
+        txt: ['Eine Live-Show an unserer Hochschule. Ich war im Einspieler-Team und habe die Einspieler gedreht, die zwischendrin gelaufen sind.', 'A live show at our university. I was on the segment team and shot the pre-recorded clips that ran in between.'],
+        // yt = YouTube-ID der ganzen Sendung; Folgen ohne vid spielen die ganze Sendung
+        seasons: [
+          { id: 'st-mord', t: ['Doschauher, ein Mord!'], yt: 'fIBu0U2q_l8', art: E + 'staffel-mord.jpg', meta: ['Live an der THD · 2. Juli 2026 · 3 Einspieler', 'Live at THD · 2 July 2026 · 3 segments'], eps: [
+            { id: 'ep-ueberwachung', t: ['Überwachungskamera', 'Surveillance camera'], src: E + 'ueberwachungskamera.webp', vid: V + 'einspieler/ueberwachungskamera.mp4', dur: '0:51' },
+            { id: 'ep-reportage', t: ['Reportage', 'News report'], src: E + 'reportage.webp', vid: V + 'einspieler/reportage.mp4', dur: '1:12' },
+            { id: 'ep-handy', t: ['Handyaufnahme', 'Phone recording'], src: E + 'handyaufnahme.webp', vid: V + 'einspieler/handyaufnahme.mp4', dur: '0:50' }
+          ] },
+          { id: 'st-brain', t: ['The Big Brain Battle'], yt: 'I8-OiaFmSqw', art: E + 'staffel-brain.jpg', meta: ['Live an der THD · 5 Einspieler', 'Live at THD · 5 segments'], eps: [
+            { id: 'ep-auto', t: ['Auto', 'Car'], src: E + 'auto.webp', vid: V + 'einspieler/auto.mp4', dur: '0:28' },
+            { id: 'ep-maskiert', t: ['Maskiert', 'Masked'], src: E + 'maskiert.webp', vid: V + 'einspieler/maskiert.mp4', dur: '0:22' },
+            { id: 'ep-theke', t: ['Theke', 'Counter'], src: E + 'theke.webp', vid: V + 'einspieler/theke.mp4', dur: '0:33' },
+            { id: 'ep-schutzbrille', t: ['Schutzbrille', 'Safety goggles'], src: E + 'schutzbrille.webp', vid: V + 'einspieler/schutzbrille.mp4', dur: '0:37' },
+            { id: 'ep-regal', t: ['Regal', 'Shelf'], src: E + 'regal.webp', vid: V + 'einspieler/regal.mp4', dur: '0:44' }
+          ] }
+        ] },
+      { id: 'bienen', t: ['Bienen', 'Bees'], clip: V + 'showreel-3-bienen.mp4', src: A + 'film-bienen-poster.webp', embed: '',
+        meta: ['Doku · im Team · Studium', 'Documentary · team project · university'], txt: ['', ''] },
+      { id: 'hostage', t: ['Hostage Holiday'], clip: V + 'showreel-4-erstes-semester.mp4', src: A + 'film-hostage-holiday-poster.webp', embed: '',
+        meta: ['Kurzfilm · Regie & Schnitt · 2:18', 'Short film · Directing & editing · 2:18'],
+        txt: ['Mein erster Kurzfilm im ersten Semester, ohne Dialog.', 'My first short film, in my first semester, without dialogue.'] },
+      { id: 'bergmann', t: ['Ein Tag als Bergmann'], clip: V + 'showreel-5-bergmann.mp4', src: A + 'film-bergmann-poster.webp', embed: '',
+        meta: ['Doku · Ton · 5:48', 'Documentary · Sound · 5:48'],
+        txt: ['Eine Doku, gedreht unten im Graphitbergwerk Kropfmühl.', 'A documentary shot deep inside the Kropfmühl graphite mine.'] },
+      { id: 'kommt', t: ['Kommt zu mir'], clip: '', src: A + 'film-kommt-zu-mir-poster.webp', embed: '',
+        meta: ['Porträt · Produktion · 5:17', 'Portrait · Production · 5:17'],
+        txt: ['Porträt über einen Jugendseelsorger.', 'A portrait of a youth pastor.'] }
+    ];
+    films.forEach(f => { f.film = true; });
+    const extra = [
+      { id: 'x-nebel', t: ['Drohne im Nebel', 'Drone in the fog'], src: A + 'drohne-nebel-poster.webp', vid: V + 'drohne-nebel.mp4', href: 'Drohne%20v5.dc.html',
+        meta: ['Drohne · DJI Mini 4 Pro', 'Drone · DJI Mini 4 Pro'], txt: ['Aus der Luft sieht man, was man sonst nie sieht.', 'From the air you see what you never get to see otherwise.'] },
+      { id: 'x-fpv', t: ['FPV-Flug', 'FPV flight'], src: A + 'fpv-timeline-1-poster.webp', vid: V + 'fpv-timeline-1.mp4', href: 'Drohne%20v5.dc.html',
+        meta: ['FPV', 'FPV'], txt: ['Vor meinem ersten echten FPV-Flug saß ich 100 Stunden im Simulator.', 'Before my first real FPV flight I spent 100 hours in the simulator.'] },
+      { id: 'x-therme', t: ['Therme Bad Füssing'], src: A + 'thumb/therme-cover.webp', vid: V + 'therme-doku.mp4', href: '3D%20Design.dc.html#therme',
+        meta: ['Animation · Blender · Auftrag', 'Animation · Blender · Commission'], txt: ['Mein erster bezahlter Job: eine Unterwasser-Animation für die Wand der Therme.', 'My first paid job: an underwater animation for the wall of the thermal spa.'] },
+      { id: 'x-schaedel', t: ['Vorstellungskraft', 'Imagination'], src: A + 'blender/schaedel-moos-1600.webp', vid: V + 'vorstellungskraft-schaedel.mp4', href: '3D%20Design.dc.html',
+        meta: ['3D · Blender', '3D · Blender'], txt: ['Denn hier ist die einzige Grenze meine Vorstellungskraft.', 'Because here the only limit is my imagination.'] },
+      { id: 'x-kugeln', t: ['Kugeln im Park', 'Spheres in the park'], src: A + 'blender/park-kugeln-poster.webp', vid: V + 'park-kugeln.mp4', href: '3D%20Design.dc.html#blender',
+        meta: ['3D · Blender', '3D · Blender'], txt: ['Blender ist mein absolutes Lieblingsprogramm.', 'Blender is my absolute favourite program.'] }
+    ];
+    const byId = {}; films.concat(extra).forEach(x => { byId[x.id] = x; });
+    const eps = [];
+    films.forEach(f => (f.seasons || []).forEach((st, si) => { st.si = si; st.parent = f.id; byId[st.id] = st; st.eps.forEach((e, ei) => { Object.assign(e, { ep: true, si, n: ei + 1, parent: f.id, yt: st.yt }); byId[e.id] = e; eps.push(e); }); }));
+    const clips = ['hostage', 'bergmann', 'electrify', 'einspieler', 'bienen'].map(id => byId[id]).filter(f => f && f.clip);
+    const S = {
+      de: { kicker: 'Filme', play: 'Abspielen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreFilms: 'Weitere Filme', moreVids: 'Weitere Videos', skip: 'Überspringen', contact: 'Kontakt', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', lang: 'Sprache', active: 'aktiv', soon: 'Ausschnitt folgt', soonLong: 'Film folgt', excerpt: 'Ausschnitt · ganzer Film folgt', back: 'Zurück', mute: 'Ton an', unmute: 'Ton aus', rowFilms: 'Filme aus dem Studium', rowMore: 'Weitere Videos', seasons: 'Staffeln', season: 'Staffel', episode: 'Folge', fullShow: 'Ganze Sendung ansehen', wholeShow: 'Ganze Sendung', inShow: 'In der ganzen Sendung ansehen', nSeasons: '2 Staffeln', excerptShort: 'Ausschnitt', rowEps: 'Doschauher · Einspieler', ytOpen: 'Auf YouTube ansehen' },
+      en: { kicker: 'Films', play: 'Play', more: 'More info', toPage: 'Open project', moreFilms: 'More films', moreVids: 'More videos', skip: 'Skip', contact: 'Contact', write: 'Write to me.', top: 'Back to top', browse: 'Browse', lang: 'Language', active: 'active', soon: 'Excerpt soon', soonLong: 'Film coming soon', excerpt: 'Excerpt · full film coming soon', back: 'Back', mute: 'Sound on', unmute: 'Sound off', rowFilms: 'Films from university', rowMore: 'More videos', seasons: 'Seasons', season: 'Season', episode: 'Episode', fullShow: 'Watch full show', wholeShow: 'Full show', inShow: 'Watch in the full show', nSeasons: '2 seasons', excerptShort: 'Excerpt', rowEps: 'Doschauher · Segments', ytOpen: 'Watch on YouTube' }
+    };
+    const links = [[['Start', 'Home'], 'Startseite%20Stream.dc.html'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Video', 'Film'], '#top', true], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
+    return this._D = { films, extra, byId, clips, eps, S, links };
+  }
+
+  $(k) { return document.querySelector('[data-k="' + k + '"]'); }
+
+  componentDidMount() {
+    this.reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.paused = new Set();
+    document.documentElement.lang = this.state.lang;
+    if (this.state.stage === 'intro') { this.paused.add('intro'); document.documentElement.style.overflow = 'hidden'; }
+    this.onR = () => this.setState({ vw: innerWidth, vh: innerHeight });
+    addEventListener('resize', this.onR); this.onR();
+    this.onS = () => { const n = this.$('nav'); if (n) n.style.backgroundColor = scrollY > 30 ? 'rgba(12,12,12,.97)' : 'rgba(12,12,12,0)'; this.popClose(true); };
+    addEventListener('scroll', this.onS, { passive: true }); this.onS();
+    this.onK = e => {
+      if (e.key !== 'Escape') return;
+      if (this.state.player) this.closePlayer(); else if (this.state.modal) this.closeModal(); else if (this.state.menu) this.setState({ menu: null });
+    };
+    addEventListener('keydown', this.onK);
+    this.onDoc = e => { if (this.state.menu && !(e.target.closest && e.target.closest('[data-menu]'))) this.setState({ menu: null }); };
+    document.addEventListener('click', this.onDoc);
+    this.onVis = () => this.setPause('tab', document.hidden);
+    document.addEventListener('visibilitychange', this.onVis);
+    this.hoverInit();
+    this.tick = () => { this.step(); this.raf = requestAnimationFrame(this.tick); };
+    this.raf = requestAnimationFrame(this.tick);
+    this._t1 = setTimeout(() => {
+      this.reelInit(); this.rowsInit(); this.heroIO();
+      if (this.state.stage === 'browse') this.startBrowse();
+      else this.afterCover(() => this.playIntro());
+    }, 60);
+  }
+
+  componentWillUnmount() {
+    this.dead = true;
+    removeEventListener('resize', this.onR); removeEventListener('scroll', this.onS); removeEventListener('keydown', this.onK);
+    document.removeEventListener('click', this.onDoc); document.removeEventListener('visibilitychange', this.onVis);
+    document.removeEventListener('pointerover', this.onOver); document.removeEventListener('pointerout', this.onOut);
+    cancelAnimationFrame(this.raf); clearTimeout(this._t1); clearTimeout(this._safe); clearTimeout(this.hovT);
+    if (this.io) this.io.disconnect();
+    document.documentElement.style.overflow = '';
+  }
+
+  componentDidUpdate(pp) {
+    if (pp.intro !== this.props.intro && this.props.intro === false && this.state.stage === 'intro') this.endIntro(true);
+    if (pp.sprache !== this.props.sprache && this.props.sprache) this.setLang(this.props.sprache === 'English' ? 'en' : 'de');
+  }
+
+  setLang(l) {
+    try { localStorage.setItem('mx-lang', l); sessionStorage.setItem('mx-profil', l); } catch (e) {}
+    document.documentElement.lang = l;
+    this.setState({ lang: l, menu: null });
+  }
+
+  afterCover(fn) {
+    const C = window.__mxCover; let arr = !!(C && C.pending);
+    if (!arr && !C) { try { const v = JSON.parse(sessionStorage.getItem('mx-go') || 'null'); arr = !!(v && Date.now() - v.t < 6000); } catch (e) {} }
+    if (!arr) { fn(); return; }
+    let d = false; const go = () => { if (d) return; d = true; fn(); };
+    addEventListener('mx-reveal', go, { once: true }); setTimeout(go, 6000);
+  }
+
+  /* ---------- Logo-Intro ---------- */
+  playIntro() {
+    if (this.dead || this.introDone) return;
+    const iv = this.$('iv');
+    if (!iv) { this.finishNow(); return; }
+    iv.style.transition = 'none'; iv.style.opacity = '0';
+    try { iv.currentTime = 0; } catch (e) {}
+    iv.muted = false;
+    const go = () => { iv.style.transition = 'opacity .5s ease'; iv.style.opacity = '1'; };
+    const pr = iv.play();
+    if (pr) pr.then(go).catch(() => { iv.muted = true; iv.play().then(go).catch(() => this.endIntro(true)); }); else go();
+    iv.onended = () => this.endIntro(false);
+    clearTimeout(this._safe); this._safe = setTimeout(() => this.endIntro(false), 9000);
+    const sk = this.$('skip');
+    if (sk) setTimeout(() => { sk.style.transition = 'opacity .4s'; sk.style.opacity = '1'; }, 1000);
+  }
+
+  finishNow() {
+    this.introDone = true; clearTimeout(this._safe);
+    this.setState({ stage: 'browse', navLogo: 1 });
+    this.startBrowse();
+  }
+
+  endIntro(skip) {
+    if (this.introDone) return; this.introDone = true; clearTimeout(this._safe);
+    const ov = this.$('intro'), iv = this.$('iv'), fly = this.$('fly'), nl = this.$('navlogo');
+    scrollTo(0, 0);
+    const done = () => { if (fly) { fly.getAnimations().forEach(a => a.cancel()); fly.style.display = 'none'; } this.setState({ stage: 'browse', navLogo: 1 }); };
+    if (!ov || !iv || !fly || !nl || this.reduce) {
+      if (ov) ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, fill: 'forwards' }).onfinish = done; else done();
+      this.startBrowse(); return;
+    }
+    iv.onended = null;
+    const vw = innerWidth, vh = innerHeight, fit = getComputedStyle(iv).objectFit;
+    const sc = fit === 'contain' ? Math.min(vw / 1920, vh / 1080) : Math.max(vw / 1920, vh / 1080);
+    const x = (vw - 1920 * sc) / 2 + 489 * sc, y = (vh - 1080 * sc) / 2 + 480 * sc, w = 937 * sc, h = 179 * sc;
+    Object.assign(fly.style, { display: 'block', left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px', opacity: skip ? '0' : '1', transform: 'none' });
+    if (skip) fly.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' });
+    iv.pause(); iv.style.transition = 'opacity .55s ease'; iv.style.opacity = '0';
+    const sk = this.$('skip'); if (sk) sk.style.opacity = '0';
+    setTimeout(() => {
+      const T = nl.querySelector('img').getBoundingClientRect(), s = T.width / w;
+      fly.animate([{ transform: 'translate(0px,0px) scale(1)' }, { transform: 'translate(' + (T.left - x) + 'px,' + (T.top - y) + 'px) scale(' + s + ')' }], { duration: 1100, easing: 'cubic-bezier(.75,0,.2,1)', fill: 'forwards' })
+        .onfinish = () => this.setState({ navLogo: 1 }, () => requestAnimationFrame(done));
+      ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 300, easing: 'ease', fill: 'forwards' });
+      this.startBrowse();
+    }, skip ? 380 : 650);
+  }
+
+  startBrowse() {
+    document.documentElement.style.overflow = '';
+    if (!this.layers) this.reelInit();
+    if (!this.reelOn) { this.reelOn = true; this.reelGo(0); }
+    this.setPause('intro', false);
+    const h = this.$('htext');
+    if (h && !this.reduce) h.animate([{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { duration: 900, delay: 350, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
+  }
+
+  /* ---------- Showreel ---------- */
+  reelInit() {
+    this.layers = [...document.querySelectorAll('[data-k="layer"]')];
+    this.segs = [...document.querySelectorAll('[data-k="segf"]')];
+    this.layers.forEach(l => { const v = l.querySelector('video'); if (v) { v.muted = true; v.playsInline = true; } });
+    this.prep(0); this.prep(1);
+  }
+
+  prep(i) {
+    const l = this.layers && this.layers[i]; if (!l || l._prep) return; l._prep = true;
+    const v = l.querySelector('video');
+    if (v) { if (v.dataset.poster) v.poster = v.dataset.poster; v.preload = 'auto'; if (v.dataset.src) v.src = v.dataset.src; }
+  }
+
+  reelGo(i) {
+    const n = this.data().clips.length; if (!n || !this.layers || !this.layers.length) return;
+    i = ((i % n) + n) % n;
+    const prev = this.ri; this.ri = i;
+    this.prep(i); this.prep((i + 1) % n);
+    this.layers.forEach((l, k) => { if (k !== i && k !== prev) { l.style.transition = 'none'; l.style.opacity = '0'; l.style.zIndex = '0'; const v = l.querySelector('video'); if (v) v.pause(); } });
+    const L = this.layers[i], v = L.querySelector('video');
+    L.style.zIndex = '2'; L.style.transition = 'opacity .9s ease'; L.style.opacity = '1';
+    if (v) {
+      v.muted = true;
+      v.onended = () => { if (this.ri === i) this.reelGo(i + 1); };
+      v.onerror = () => setTimeout(() => { if (this.ri === i) this.reelGo(i + 1); }, 1500);
+      try { v.currentTime = 0; } catch (e) {}
+      if (!this.paused.size) this.playV(v);
+    }
+    if (prev != null && prev !== i) {
+      const Pl = this.layers[prev]; Pl.style.zIndex = '1';
+      setTimeout(() => { if (this.ri !== prev) { Pl.style.transition = 'none'; Pl.style.opacity = '0'; Pl.style.zIndex = '0'; const pv = Pl.querySelector('video'); if (pv) pv.pause(); } }, 950);
+    }
+    this.segs.forEach((s, k) => { s.style.transform = k < i ? 'scaleX(1)' : 'scaleX(0)'; });
+    this.heroSwap(i);
+  }
+
+  playV(v) {
+    const p = v.play();
+    if (p) p.catch(() => { if (!v.muted) { v.muted = true; this.setState({ muted: true }); v.play().catch(() => {}); } });
+  }
+
+  heroSwap(i) {
+    const el = this.$('hswap');
+    if (!el || this.reduce || this.state.cur === i) { this.setState({ cur: i }); return; }
+    el.getAnimations().forEach(a => a.cancel());
+    el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 260, easing: 'ease-in', fill: 'forwards' }).onfinish = () => {
+      this.setState({ cur: i }, () => {
+        el.getAnimations().forEach(a => a.cancel());
+        el.animate([{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'none' }], { duration: 560, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      });
+    };
+  }
+
+  step() {
+    if (!this.reelOn || this.paused.size || !this.layers) return;
+    const L = this.layers[this.ri], v = L && L.querySelector('video'), s = this.segs[this.ri];
+    if (v && s && v.duration) s.style.transform = 'scaleX(' + Math.min(1, v.currentTime / v.duration).toFixed(4) + ')';
+  }
+
+  setPause(k, on) {
+    const was = this.paused.size > 0;
+    if (on) this.paused.add(k); else this.paused.delete(k);
+    const is = this.paused.size > 0;
+    if (!this.reelOn || was === is) return;
+    const L = this.layers[this.ri], v = L && L.querySelector('video'); if (!v) return;
+    if (is) v.pause(); else this.playV(v);
+  }
+
+  toggleMute() {
+    const m = !this.state.muted; this.setState({ muted: m });
+    const L = this.layers && this.layers[this.ri], v = L && L.querySelector('video');
+    if (v) { v.muted = m; if (!this.paused.size) this.playV(v); }
+  }
+
+  heroIO() {
+    const h = this.$('hero'); if (!h || !window.IntersectionObserver) return;
+    this.io = new IntersectionObserver(es => es.forEach(e => this.setPause('off', e.intersectionRatio < 0.2)), { threshold: [0, 0.2, 0.5] });
+    this.io.observe(h);
+  }
+
+  jump(i) { if (this.reelOn) this.reelGo(i); }
+
+  /* ---------- Reihen + Hover ---------- */
+  rowsInit() {
+    document.querySelectorAll('[data-row]').forEach(row => {
+      if (row._init) return; row._init = true;
+      const sc = row.querySelector('[data-scroll]'), l = row.querySelector('[data-arr="l"]'), r = row.querySelector('[data-arr="r"]');
+      if (!sc || !l || !r) return;
+      const upd = () => {
+        const on = row._hov, a = on && sc.scrollLeft > 8, b = on && sc.scrollLeft + sc.clientWidth < sc.scrollWidth - 8;
+        l.style.opacity = a ? '1' : '0'; l.style.pointerEvents = a ? 'auto' : 'none';
+        r.style.opacity = b ? '1' : '0'; r.style.pointerEvents = b ? 'auto' : 'none';
+      };
+      row.addEventListener('mouseenter', () => { row._hov = matchMedia('(hover:hover)').matches; upd(); });
+      row.addEventListener('mouseleave', () => { row._hov = false; upd(); });
+      sc.addEventListener('scroll', () => { upd(); this.popClose(true); }, { passive: true });
+      l.addEventListener('click', () => sc.scrollBy({ left: -sc.clientWidth * 0.85, behavior: 'smooth' }));
+      r.addEventListener('click', () => sc.scrollBy({ left: sc.clientWidth * 0.85, behavior: 'smooth' }));
+    });
+  }
+
+  hoverInit() {
+    this.onOver = e => {
+      if (innerWidth < 900 || this.state.modal || this.state.player || this.state.stage !== 'browse' || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+      const card = e.target.closest && e.target.closest('[data-card]'); if (!card || this.hovCard === card) return;
+      this.hovCard = card; clearTimeout(this.hovT);
+      this.hovT = setTimeout(() => this.popOpen(card), 480);
+    };
+    this.onOut = e => {
+      const card = e.target.closest && e.target.closest('[data-card]'); if (!card) return;
+      if (e.relatedTarget && card.contains(e.relatedTarget)) return;
+      if (this.hovCard === card) { this.hovCard = null; clearTimeout(this.hovT); }
+    };
+    document.addEventListener('pointerover', this.onOver);
+    document.addEventListener('pointerout', this.onOut);
+  }
+
+  popOpen(card) {
+    const id = card.getAttribute('data-card'), it = this.data().byId[id]; if (!it) return;
+    const r = card.getBoundingClientRect(); if (r.right < 0 || r.left > innerWidth) return;
+    this.setState({ pop: id }, () => {
+      const pop = this.$('pop'), info = this.$('popi'), v = this.$('popv'); if (!pop) return;
+      pop.getAnimations().forEach(a => a.cancel());
+      const W = Math.max(r.width * 1.15, Math.min(r.width * 1.45, 560), 300), ih = W * 9 / 16;
+      pop.style.width = W + 'px'; pop.style.display = 'block'; pop.style.visibility = 'hidden';
+      const H = pop.offsetHeight;
+      const left = Math.max(12, Math.min(innerWidth - W - 12, r.left + r.width / 2 - W / 2));
+      const top = Math.max(76, Math.min(innerHeight - H - 12, r.top + r.height / 2 - ih / 2));
+      pop.style.left = left + 'px'; pop.style.top = top + 'px'; pop.style.visibility = 'visible';
+      const s = r.width / W, tx = r.left + r.width / 2 - (left + W / 2), ty = r.top + r.height / 2 - (top + ih / 2);
+      pop.style.transformOrigin = (W / 2) + 'px ' + (ih / 2) + 'px';
+      this.popFrom = { tx, ty, s };
+      pop.animate([{ transform: 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')' }, { transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      if (info) info.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, delay: 120, fill: 'backwards' });
+      if (v) {
+        v.pause(); v.style.opacity = '0'; v.muted = true; v.loop = true; v.oncanplay = null;
+        const src = it.clip || it.vid;
+        if (src) { v.src = src; v.oncanplay = () => { v.style.opacity = '1'; }; v.play().catch(() => {}); }
+        else if (v.getAttribute('src')) { v.removeAttribute('src'); v.load(); }
+      }
+    });
+  }
+
+  popClose(now) {
+    clearTimeout(this.hovT); this.hovCard = null;
+    const pop = this.$('pop'); if (!pop || pop.style.display === 'none' || !pop.style.display) return;
+    const v = this.$('popv'); if (v) v.pause();
+    const f = this.popFrom; this.popFrom = null;
+    if (now || !f) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; return; }
+    pop.animate([{ transform: 'none', opacity: 1 }, { transform: 'translate(' + f.tx + 'px,' + f.ty + 'px) scale(' + f.s + ')', opacity: 0 }], { duration: 220, easing: 'ease-in', fill: 'forwards' })
+      .onfinish = () => { if (!this.popFrom) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; } };
+  }
+
+  /* ---------- Mehr Infos + Player ---------- */
+  openModal(id, si) {
+    const was = !!this.state.modal;
+    this.popClose(true); this.setPause('modal', true);
+    document.documentElement.style.overflow = 'hidden';
+    this.setState({ modal: id, season: si || 0, menu: null }, () => {
+      const p = this.$('mpanel'); if (p && !this.reduce && !was) p.animate([{ opacity: 0, transform: 'translateY(26px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      const mv = this.$('mvid'); if (mv) { mv.muted = true; mv.loop = true; mv.playsInline = true; mv.play().catch(() => {}); }
+      const m = this.$('modal'); if (m) m.scrollTop = 0;
+    });
+  }
+
+  closeModal() {
+    const p = this.$('mpanel'), fin = () => { this.setState({ modal: null }); if (!this.state.player) document.documentElement.style.overflow = ''; this.setPause('modal', false); };
+    if (p && !this.reduce) p.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(18px) scale(.98)' }], { duration: 200, easing: 'ease-in', fill: 'forwards' }).onfinish = fin; else fin();
+  }
+
+  yt(id) {
+    const o = location.origin && location.origin !== 'null' ? '&origin=' + encodeURIComponent(location.origin) : '';
+    return 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1' + o;
+  }
+
+  playOf(f) {
+    if (f.ep) return f.vid ? { clip: f.vid, sound: true } : { embed: this.yt(f.yt), whole: true, watch: 'https://www.youtube.com/watch?v=' + f.yt };
+    if (f.yt && !f.film) return { embed: this.yt(f.yt), whole: true, watch: 'https://www.youtube.com/watch?v=' + f.yt };
+    if (f.embed) return { embed: f.embed };
+    if (f.clip) return { clip: f.clip, sound: false, excerpt: true };
+    return null;
+  }
+
+  openPlayer(id) {
+    const f = this.data().byId[id]; if (!f) return;
+    if (!f.film && !f.ep && !f.yt) { location.href = f.href; return; }
+    const P = this.playOf(f);
+    if (!P) { this.openModal(id); return; }
+    this.popClose(true); this.setPause('player', true);
+    const mv = this.$('mvid'); if (mv) mv.pause();
+    document.documentElement.style.overflow = 'hidden';
+    this.setState({ player: id, menu: null }, () => {
+      const pv = this.$('pv');
+      if (pv) { pv.controls = true; pv.muted = !P.sound; try { pv.currentTime = 0; } catch (e) {} pv.play().catch(() => { pv.muted = true; pv.play().catch(() => {}); }); }
+      const box = this.$('ytbox');
+      if (box && P.embed) {
+        box.innerHTML = '';
+        const fr = document.createElement('iframe');
+        fr.referrerPolicy = 'strict-origin-when-cross-origin';
+        fr.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        fr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        fr.allowFullscreen = true; fr.title = f.t ? f.t[0] : 'Video';
+        fr.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
+        fr.src = P.embed; box.appendChild(fr);
+      }
+      const pl = this.$('player'); if (pl && !this.reduce) pl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, easing: 'ease' });
+    });
+  }
+
+  closePlayer() {
+    const pv = this.$('pv'); if (pv) pv.pause();
+    this.setState({ player: null });
+    if (this.state.modal) { const mv = this.$('mvid'); if (mv) mv.play().catch(() => {}); }
+    else document.documentElement.style.overflow = '';
+    this.setPause('player', false);
+  }
+
+  renderVals() {
+    const D = this.data(), lg = this.state.lang, li = lg === 'en' ? 1 : 0, L = D.S[lg];
+    const tr = a => a ? (a[li] ?? a[0]) : '';
+    const vw = this.state.vw, vh = this.state.vh, wide = vw >= 900, st = this.state.stage;
+    const hf = D.clips[this.state.cur] || D.clips[0];
+    const epMeta = x => L.season + ' ' + (x.si + 1) + ' · ' + L.episode + ' ' + x.n + (x.dur ? ' · ' + x.dur : '');
+    const card = x => {
+      const soon = x.film && !x.series && !x.clip && !x.embed;
+      const badge = x.series ? L.nSeasons : x.ep ? L.season + ' ' + (x.si + 1) : soon ? L.soon : '';
+      return {
+        id: x.id, src: x.src, t: tr(x.t), badge, hasBadge: !!badge,
+        href: x.film || x.ep ? '#' + (x.parent || x.id) : x.href,
+        click: x.film ? (e => { e.preventDefault(); this.openModal(x.id); }) : x.ep ? (e => { e.preventDefault(); this.openModal(x.parent, x.si); }) : undefined
+      };
+    };
+
+    const pi = this.state.pop && D.byId[this.state.pop];
+    const pop = pi ? {
+      href: pi.film || pi.ep ? '#' + (pi.parent || pi.id) : pi.href, src: pi.src, t: tr(pi.t), meta: pi.ep ? epMeta(pi) : tr(pi.meta), txt: tr(pi.txt), hasTxt: !!tr(pi.txt),
+      btn: pi.film || pi.ep ? L.play : L.toPage,
+      play: pi.film || pi.ep ? (e => { e.preventDefault(); this.openPlayer(pi.id); }) : undefined
+    } : { href: '#top', src: 'assets/logo-max.png', t: '', meta: '', txt: '', hasTxt: false, btn: '' };
+
+    const mi = this.state.modal && D.byId[this.state.modal];
+    let m = { t: '', meta: '', txt: '', hasTxt: false, src: 'assets/logo-max.png', vid: '', hasVid: false, canPlay: false, soon: false, isExtra: false, href: '#top', moreT: '', more: [], isSeries: false, seasons: [], st: { label: '', t: '' }, eps: [] };
+    if (mi) {
+      const pool = mi.film ? D.films : D.extra;
+      m = {
+        t: tr(mi.t), meta: tr(mi.meta), txt: tr(mi.txt), hasTxt: !!tr(mi.txt), src: mi.src, vid: mi.clip || mi.vid || '',
+        canPlay: !!(mi.film && (mi.clip || mi.embed)), soon: !!(mi.film && !mi.clip && !mi.embed), isExtra: !mi.film, href: mi.href || '#top',
+        play: () => this.openPlayer(mi.id),
+        moreT: mi.film ? L.moreFilms : L.moreVids,
+        more: pool.filter(x => x.id !== mi.id).map(x => ({ src: x.src, t: tr(x.t), meta: tr(x.meta), open: () => this.openModal(x.id) }))
+      };
+      m.hasVid = !!m.vid;
+      if (mi.series) {
+        const si = Math.min(this.state.season || 0, mi.seasons.length - 1), S0 = mi.seasons[si];
+        m.isSeries = true;
+        m.seasons = mi.seasons.map((x, k) => ({ label: L.season + ' ' + (k + 1), t: tr(x.t), meta: tr(x.meta), art: x.art, op: k === si ? '1' : '.55', ring: k === si ? '#f2f2f2' : 'rgba(255,255,255,0)', pick: () => this.setState({ season: k }) }));
+        m.st = { label: L.season + ' ' + (si + 1), t: tr(S0.t), play: () => this.openPlayer(S0.id) };
+        m.eps = S0.eps.map(e => ({ n: e.n, t: tr(e.t), src: e.src, dur: e.dur || '', note: L.inShow, hasNote: !e.vid, play: () => this.openPlayer(e.id) }));
+      }
+    }
+
+    const pf = this.state.player && D.byId[this.state.player], pq = pf && this.playOf(pf);
+    let pl = { t: '', embed: '', isEmbed: false, clip: '', isClip: false, sub: '', hasSub: false, watch: '', hasWatch: false };
+    if (pq) {
+      const sub = pf.ep ? epMeta(pf) + (pq.whole ? ' · ' + L.wholeShow : '') : pq.whole ? L.wholeShow : pq.excerpt ? (pf.series ? L.excerptShort : L.excerpt) : '';
+      pl = { t: tr(pf.t), embed: pq.embed || '', isEmbed: !!pq.embed, clip: pq.clip || '', isClip: !!pq.clip, sub, hasSub: !!sub, watch: pq.watch || '', hasWatch: !!pq.watch };
+    }
+
+    return {
+      L,
+      introMount: st === 'intro', introFit: vw / vh < 1.3 ? 'contain' : 'cover', skipIntro: () => this.endIntro(true),
+      navLogoOp: this.state.navLogo, wide, narrow: !wide,
+      links: D.links.map(([t, href, on]) => ({ t: tr(t), href, fw: on ? 600 : 400, fg: on ? '#f2f2f2' : '#e5e5e5' })),
+      navOpen: this.state.menu === 'nav', profOpen: this.state.menu === 'prof', caretRot: this.state.menu === 'prof' ? '180deg' : '0deg',
+      toggleNav: () => this.setState(s => ({ menu: s.menu === 'nav' ? null : 'nav' })),
+      toggleProf: () => this.setState(s => ({ menu: s.menu === 'prof' ? null : 'prof' })),
+      profs: [['de', 'Deutsch'], ['en', 'English']].map(([k, t]) => ({ t, mark: k === lg ? L.active : '', pick: () => this.setLang(k) })),
+      clips: D.clips.map((c, i) => ({ src: c.clip, poster: c.src, label: tr(c.t), go: () => this.jump(i) })),
+      hero: { t: tr(hf.reelT || hf.t), meta: tr(hf.meta), txt: tr(hf.txt), hasTxt: !!tr(hf.txt) },
+      heroPlay: () => this.openPlayer(hf.id), heroInfo: () => this.openModal(hf.id),
+      rows: [
+        { id: 'filme', t: L.rowFilms, w: 'clamp(260px,28vw,540px)', fs: 'clamp(20px,1.7vw,28px)', items: D.films.map(card) },
+        { id: 'einspieler-folgen', t: L.rowEps, w: 'clamp(210px,19vw,350px)', fs: '15px', items: D.eps.map(card) },
+        { id: 'mehr', t: L.rowMore, w: 'clamp(210px,19vw,350px)', fs: '15px', items: D.extra.map(card) }
+      ],
+      pop, popLeave: () => this.popClose(false), popInfo: () => { if (pi) { if (pi.ep) this.openModal(pi.parent, pi.si); else this.openModal(pi.id); } },
+      modalOn: !!mi, m, closeModal: () => this.closeModal(), modalBg: e => { if (e.target === e.currentTarget) this.closeModal(); },
+      playerOn: !!pf, pl, closePlayer: () => this.closePlayer(),
+      toDe: () => this.setLang('de'), toEn: () => this.setLang('en'),
+      deFg: lg === 'de' ? '#f2f2f2' : '#8d8d92', enFg: lg === 'en' ? '#f2f2f2' : '#8d8d92'
+    };
+  }
+}
+</script>
+</body>
+</html>

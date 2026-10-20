@@ -1,5 +1,469 @@
 # Stand
 
+## 21.10.2026 — Claude Design Version 2 online (site/)
+
+Max hat einen neuen Export geliefert (`Portfolio-Website Überblick (2).zip`, 618 Dateien, 453 MB)
+und wollte ihn hochgeladen, **fehlende Videos ergänzt**. Einstieg nach Rückfrage:
+**„Startseite Stream"**. „Kommt zu mir" bleibt vorerst ohne Ausschnitt (Max' Wahl).
+
+Die Export-Notizen nannten drei verschiedene „Hauptseiten" (Portfolio v4, Startseite, Startseite
+Stream) — deshalb gefragt. Von beiden Startseiten sind dieselben 11 Seiten erreichbar.
+
+**Aufbau:** eigener Ordner `site/` im Repo (keine Kollision mit `Portfolio/assets/`): 11 Seiten,
+`support.js`, `seitenwechsel.js`, `flug-uebergang.js`, `live/icapsule.html`, `assets/` (ohne
+`3d/`, ungenutzt, 31 MB), `ueber-mich/max-1…4.webp` (lag im Export außerhalb von assets →
+erst übersehen, beim Test als 404 gefunden). Weiterleitungen: Repo-Wurzel, `Portfolio/index.html`,
+`Portfolio/live/index.html` → `site/Startseite%20Stream.dc.html`. Alte Hauptseite gesichert als
+`Portfolio/live/claude-design-1.html` (byte-gleich).
+
+**Ergänzt:** Einspieler Reportage/Theke/Schutzbrille/Regal (gekürzte Fassungen aus `neu_web`) mit
+`vid` + `dur` in `Video.dc.html`. **Drohnenseite** war wieder Claude Designs Fassung ohne meine
+Korrekturen (5 Videos sofort geladen, Papierflieger nur Standbild) → erneut: verzögertes Laden
+(`data-lsrc`), Papierflieger als Video mit Bedienleiste + Steuerung aus `live/drohne.html`.
+Seitentitel ergänzt (keine Seite hatte einen).
+
+**Geprüft im Browser:** alle 9 Seiten + iCapsule ohne fehlende Dateien und ohne kaputte Bilder
+(Anfragen nach `{{ … }}` sind Platzhalter der Laufzeit, harmlos). Videos beim Öffnen: Stream nur
+Logo-Intro, Drohne nur Zeitraffer, 3D & Design 3 kurze Showreel-Clips (~7 MB), Video 2.
+**Offen:** Navi und iCapsule verlinken „Startseite" auf `Startseite.dc.html` (Kartenwand), nicht
+auf die gewählte Stream-Seite — Max fragen. Seiten brauchen JS + unpkg (React, Lenis).
+Upload: 242 MB neu (Claude Design hat alle Bilder als eigene Fassungen abgelegt), 64 MB
+inhaltsgleich schon vorhanden.
+
+---
+
+## 20.10.2026 (abends) — Einspieler gekürzt und stärker komprimiert
+
+Max: Einspieler **stärker komprimieren** und **schwarze Bilder am Anfang und Ende wegkürzen**.
+Name der Show bestätigt: **„Dochschauher TV"** (so von Max bestätigt).
+
+**Befund:** bei allen acht genau 10 s Schwarz am Anfang (Überwachungskamera 10,08 s) und
+8–14 s am Ende — ein Drittel jedes Clips. **Im Schwarz läuft teils Ton weiter** (ausklingende
+Musik/Atmo: maskiert 11 s, Regal 6 s, Auto 6 s und Vorlauf 1,7 s vor dem ersten Bild, Schutzbrille
+1,7 s, Theke 1,2 s). Entscheidung: auf Max' Wunsch **genau am ersten/letzten echten Bild**
+geschnitten (`trim`/`atrim`, bildgenau), Ton an den Schnittstellen weich geblendet (Ende 0,6 s,
+Anfang 0,25 s), nur wo dort Ton lag. Damit fehlen die ausklingenden Tonschwänze — Max darauf
+hingewiesen, falls er sie zurück will.
+
+Neu: Bild **CRF 23** (statt 20/21), Ton **AAC 160k** (statt Kopie 320k). Zusammen **240 → 132 MB**.
+
+| neu_web | Länge | Größe | Mbit/s |
+|---|---|---|---|
+| `einspieler-handyaufnahme` | 49,7 s | 6,2 MB | 1,0 |
+| `einspieler-reportage` | 72,1 s | 20,1 MB | 2,3 |
+| `einspieler-ueberwachungskamera` | 50,8 s | 9,9 MB | 1,6 |
+| `einspieler-maskiert` | 22,3 s | 15,1 MB | 5,7 |
+| `einspieler-theke` | 32,8 s | 16,5 MB | 4,2 |
+| `einspieler-regal` | 44,5 s | 24,6 MB | 4,6 |
+| `einspieler-auto` | 28,2 s | 16,0 MB | 4,7 |
+| `einspieler-schutzbrille` | 36,7 s | 24,4 MB | 5,6 |
+
+Geprüft: Bildanzahl exakt = Schnittlänge × fps bei allen; Bild- und Tonlänge identisch
+(synchron); kein Schwarz mehr an Anfang/Ende (blackdetect + Helligkeit der ersten Bilder);
+faststart; Poster neu (Mittelbild hatte sich verschoben). Die Datenrate je Sekunde ist bei
+maskiert/Schutzbrille gestiegen, weil das „billige" Schwarz fehlt — die Dateien sind trotzdem
+kleiner. **Qualität:** schwächstes Bild doppelt vergrößert — das **künstliche VHS-Rauschen ist
+sichtbar ruhiger** (Retro-Look etwas sauberer), nicht verpixelt. Option für Max: VHS-Clips mit
+CRF 21.
+
+**Drei eigene Fehler, alle vor dem Ersetzen gefunden:** (1) zsh las `$AF[a]` als
+Listenelement → „Filter not found", keine Datei erzeugt; (2) `$a:end` als Modifikator `:e` →
+überall `${…}`; (3) Qualitätsvergleich zuerst gegen das nur vorne beschnittene Original →
+verglich mit dem schwarzen Nachlauf (Werte 0,62–0,67). **Merke:** beim Vergleich gekürzter
+Videos das Original auf **denselben Ausschnitt** (`trim=start:end`) begrenzen.
+
+---
+
+## 20.10.2026 (später) — acht TV-Einspieler webtauglich, nicht eingebaut
+
+Max: die acht Einspieler in `video/neu/` (für die TV-Show des Studiengangs) ebenso aufbereiten
+— Name der Show bitte bei Max erfragen, nicht raten (diktiert als „Dochschauher TV").
+Quellen: alle 1920×1080, 24/25 fps, 46–92 s, 3,8–10,7 Mbit/s, **echter Ton** (AAC 320k, Sprache,
+Spitzen bis 0 dB). Fünf hatten Hash-Dateinamen.
+
+**Regel wie bei den Showreels** (Full HD, so wenig Kompression wie möglich bei ~5 Mbit/s), dazu:
+**Ton unverändert kopiert** (`-c:a copy`, schon browsertauglich; per MD5 geprüft: bitgleich),
+und jede Datei **unter 50 MB** (GitHub-Warnschwelle).
+
+| neu_web | Quelle | Verfahren | Mbit/s | Größe |
+|---|---|---|---|---|
+| `einspieler-handyaufnahme` | Einspieler_Handyaufnahme_v12.mp4 | **umverpackt** (Original schon 3,8 Mbit/s) | 3,8 | 31,3 MB |
+| `einspieler-reportage` | Einspieler_Reportage_v12.mp4 | CRF 20 | 3,2 | 35,7 MB |
+| `einspieler-ueberwachungskamera` | Einspieler_ueberwachungskamera_v12.mp4 | CRF 20 | 2,4 | 20,5 MB |
+| `einspieler-maskiert` | c1457eed….mp4 | CRF 20 | 4,4 | 24,6 MB |
+| `einspieler-theke` | 723ce04f….mp4 | CRF 20 | 4,6 | 28,8 MB |
+| `einspieler-regal` | e560c962….mp4 | CRF 21 | 4,7 | 35,3 MB |
+| `einspieler-auto` | 73bcbeac….mp4 | CRF 20 | 4,9 | 28,3 MB |
+| `einspieler-schutzbrille` | 6904264e….mp4 | CRF 21 | 5,3 | 35,9 MB |
+
+Namen der fünf Hash-Clips nach dem Sichtbaren gewählt (Supermarkt-Geschichte; Sturmhaube,
+Theke, Regal, Auto, Schutzbrille/Tresor) — Reihenfolge der Geschichte unbekannt.
+Schwächstes Einzelbild je kritischem Clip doppelt vergrößert geprüft: Reportage und Regal ohne
+Unterschied (auch die kleine Schrift „Mövenpick", Preis); **Schutzbrille: künstliches VHS-Rauschen
+minimal ruhiger** — nur vergrößert sichtbar, nicht verpixelt. Klötzchen-Störungen im
+Überwachungskamera-Clip sind **im Original** (vermutlich gewollter Effekt).
+Handyaufnahme bei CRF 20 wäre nur 10,5 MB bei SSIM 0,998 — Max als Option genannt.
+
+`Netflix Intro_g30003-0100.mp4` nicht angefasst (nicht beauftragt).
+
+---
+
+## 20.10.2026 — fünf Showreels webtauglich, nicht eingebaut
+
+Max: die 5 Showreels in `video/neu/` (`*_showreal_1…5.mov`) so wenig wie nötig komprimieren —
+**nicht verpixelt, aber ohne Ruckeln**. Quellen: alle 1920×1080, 24 fps, H.264, 8,5–11,7 s,
+**10–14 Mbit/s** (zu viel für schwache Leitungen). Tonspuren PCM 24 Bit; vier still (-91 dB),
+**Electrify mit echtem Ton** (-25,8 dB, nur Sek. 7–9).
+
+**Regel:** Full HD behalten, **so wenig Kompression wie möglich, solange die Datenrate bei
+~5 Mbit/s bleibt**; CRF 22 als Grenze nach oben. Je Showreel CRF 18/20/22 gerechnet
+(`-preset slow -tune film`). Geprüft am **jeweils schwächsten Einzelbild** bei CRF 22 (per
+SSIM-Statistik je Bild gesucht), doppelt vergrößert gegen das Original: Bienen (Rost, Rauch),
+Einspieler (Überwachungskamera-Zeilen), Bergmann (dunkler Stollen) — kein sichtbarer Unterschied.
+
+| neu_web | Quelle | CRF | Mbit/s | Größe | Ton |
+|---|---|---|---|---|---|
+| `showreel-1-electrify` | Electrify_showreal_1.mov | 18 | 3,8 | 4,6 MB | AAC (Pegel identisch) |
+| `showreel-2-einspieler` | Einspieler_showreal_2.mov | 22 | 5,6 | 7,3 MB | — |
+| `showreel-3-bienen` | Bienen_showreal_3.mov | 22 | 5,9 | 8,2 MB | — |
+| `showreel-4-erstes-semester` | 1.Semester_showreal_4.mov | 20 | 4,7 | 5,3 MB | — |
+| `showreel-5-bergmann` | Bergmann_showreal_5.mov | 22 | 4,2 | 4,2 MB | — |
+
+Alle Bildanzahlen = Original, faststart, Poster (Mittelbild). PCM-Ton in MP4 spielt kein
+Browser → AAC. Electrify meldet nur 34 kbit/s Ton, weil 8 von 10 s still sind — geprüft.
+
+**Nicht angefasst**, liegen seit 19.10. ebenfalls in `video/neu/`: drei `Einspieler_*_v12.mp4`
+(31–117 MB), fünf Dateien mit Hash-Namen (37–71 MB), `Netflix Intro_g30003-0100.mp4` — nicht
+beauftragt. Originale in `video/neu/` zusammen inzwischen weit über 1 GB — **vor jedem Upload
+klären**.
+
+---
+
+## 17.10.2026 (abends) — „Vorstellungskraft"-Video: umverpackt statt komprimiert
+
+Max: neues Video `video/neu/0001-0133.mp4` webtauglich, aber **„sehr gut erhalten"**. Inhalt:
+Satz „Denn hier ist die einzige Grenze meine Vorstellungskraft.", dann fällt ein Schädel auf ein
+Treibholz mit Moos und Blüten, hellgrauer Grund. 1920×1080, 24 fps, 133 Bilder, 5,5 s, 4,8 MB
+(~7 Mbit/s), stille Tonspur (-91 dB), kein faststart.
+
+Verglichen: neu berechnet in Full HD mit CRF 16 (7,9 MB, SSIM 0,9976) und CRF 18 (6,7 MB, 0,9968)
+gegen bloßes Umverpacken (`-c copy`, 4,8 MB, 1,0). **Neu berechnen wurde größer UND schlechter**
+— das Original ist schon effizient kodiert. Deshalb umverpackt: `-c copy -an -movflags +faststart`.
+**Merke:** Wenn eine Quelle schon web-taugliches H.264 in vernünftiger Datenrate ist, erst
+Umverpacken prüfen, bevor man neu rechnet.
+
+Ergebnis `video/neu_web/vorstellungskraft-schaedel.mp4`: alle 133 Bilder per Prüfsumme
+(`framemd5`) **bitgleich** mit dem Original, startet sofort, ohne Tonspur. Bewusst nicht auf
+1280 verkleinert (Schrift und Moos). Poster `vorstellungskraft-schaedel-poster.jpg/.webp`
+(Bild 110, Schädel auf dem Holz).
+
+---
+
+## 17.10.2026 — zehn Render-Videos aus video/neu webtauglich, nicht eingebaut
+
+Max: alle noch nicht komprimierten Videos in `assets/video/neu/` webtauglich nach
+`video/neu_web/`. Zehn Blender-Ausgaben (alle ohne echten Ton, SDR, 24/30 fps), dazu das schon
+fertige Park-Video. Jeweils H.264 High, yuv420p, ohne Ton, faststart, Poster (JPEG + WebP),
+Bildanzahl = Original (bei allen nachgeprüft).
+
+| neu_web | Original | Maße | CRF | Größe |
+|---|---|---|---|---|
+| `plakat-bubble-animation` | 0000-0120.mkv (3072×1024) | 1920×640 | 22 | 521 KB |
+| `roboter-haengend-1` | 0000-0180.mov (1024×3072, **4:4:4**) | 640×1920 | 22 | 1,3 MB |
+| `roboter-haengend-2` | 0000-0300.mkv (1098×2304) | 640×1342 | 22 | 2,8 MB |
+| `partikel-lila` | 0001-0049.mp4 | 1280×720 | **30** | 2,5 MB |
+| `partikel-schwarm` | 0001-0120.mp4 (stille Tonspur) | 1280×720 | 22 | 1,7 MB |
+| `schaedel-schimmernd` | 0001-0160.mkv (4K) | 1280×720 | 22 | 3,0 MB |
+| `muster-rot` | 0001-0250.mkv | 1280×720 | 22 | 2,3 MB |
+| `tunnel-rot` | 0001-0300.mp4 | 1280×720 | **26** | 6,7 MB |
+| `figur-fackel` | 0100-0200.mkv (1126×1080) | 1126×1080 | **26** | 2,1 MB |
+| `schaedel-schimmernd-ausschnitt` | 0150-0160.mkv | 1280×720 | 22 | 60 KB |
+
+**Größenregel für Nicht-16:9** (Hausregel „1280 breit" passt nur auf 16:9, Hochformate wären
+hochskaliert worden): ähnlich viele Pixel wie 1280×720, nie hochskalieren — Panorama 1920 breit,
+Hochformate 640 breit, fast quadratisch in Originalgröße.
+`0000-0180.mov` war **4:4:4** (spielt kein Browser) → nach 4:2:0.
+`partikel-lila`: bei CRF 22 7 MB für 2 s (~28 Mbit/s, ruckelt bei schwacher Leitung); gegen
+verlustfreie Fassung verglichen, CRF 30 sieht im chaotischen Partikelfeld gleich aus.
+`figur-fackel`: niedrige Messwerte vom Render-Rauschen, 22/26 sichtbar gleich.
+`tunnel-rot`: 26 statt 22, sonst 10 MB/12 s.
+`0150-0160` ist **ein Ausschnitt** aus `0001-0160` (Bild 0 = dortiges Bild 150, SSIM 0,998) —
+mit abgelegt, Max darauf hingewiesen.
+
+**Fallen in meinem Skript (nicht in den Videos):** zsh liest `$var:…` als Modifikator →
+`${var}` schreiben; `ffmpeg` in einer `while read`-Schleife frisst die Standardeingabe
+(„oboter" statt „roboter") → **immer `-nostdin`**; eine Probe-Fassung ohne `+faststart`
+landete im Ordner → per `-c copy -movflags +faststart` nachgerüstet.
+
+Originale liegen weiter in `video/neu/` (zusammen ~410 MB, darunter 0000-0180.mov mit 274 MB) —
+**würden beim Hochladen GitHubs Grenzen sprengen**. Max fragen.
+
+---
+
+## 16.10.2026 — Renderings und Park-Video webtauglich, in `neu_web`, nicht eingebaut
+
+Max hat Ordner `neu` angelegt: `assets/img/design3d/neu/` (7 Renderings, 2048 px, sRGB) und
+`assets/video/neu/Ohne Titel.mp4` (4K, 24 fps, 6 s, kein Ton, SDR). Auftrag: alles webtauglich,
+**„das Skull-Bild nicht zu klein"**, Ergebnisse **„daneben jeweils in einen Ordner `neu_web`"**.
+
+**`img/design3d/neu_web/`** (JPEG + WebP):
+
+| neu | Original | Maße | Qualität |
+|---|---|---|---|
+| `metall-skulptur` | Cool metall Art.jpg | 1400×787 | q62/68 |
+| `metall-skulptur-hell` | Cool metall Art_hell.jpg | 1400×787 | q62/68 |
+| `max-schaedel` | MAX SKULLS 03.jpg | **2048×1152** | **q82/85** |
+| `toms-buero` | Toms_Büro Fertig.jpg | 1400×1400 | q62/68 |
+| `erdbeere-drahtgitter` | leuchtende Erdbeere3.jpg | 1400×787 | q62/68 |
+| `ringtunnel` | rings-2.jpg | 1400×787 | q62/68 |
+| `schaedel-moos` | skull in plants-3.jpg | **2048×1152** | **q82/85** |
+
+Zwei Schädel-Bilder, beide in **voller Originalauflösung** (nicht verkleinert) und höherer
+Qualität — „MAX" besteht aus vielen winzigen Schädeln, die bei weniger Pixeln verschwimmen.
+Vergrößert gegen das Original verglichen: Augenhöhlen und Zähne gleich scharf. Beim Moos-Schädel
+meldete der Vergleich nur 0,92 (feines Blattrauschen), vergrößert kein sichtbarer Unterschied;
+q92 brachte nichts.
+
+**`video/neu_web/park-kugeln.mp4`** — Park-Weg mit Bank, Feuerkorb und bunten Kugeln. 1280×720,
+24 fps, 143 Bilder (Original dekodiert ebenfalls 143; die „147" im Dateikopf sind falsch),
+**CRF 23**, 3,5 MB, faststart. Poster `park-kugeln-poster.jpg/.webp` (Bild 36).
+**Falle bei mir:** Mein erster Vergleich zeigte das Gras nach der Kompression viel weicher —
+auch „-tune grain" half nicht. Gegenprobe mit verlustfreier Fassung (Ähnlichkeit exakt 1,0):
+genauso weich. Mein Vergleichsbild aus dem Original war ein anderer Moment mit weniger
+Bewegungsunschärfe. **Merke:** Bei bewegter Kamera nie gegen ein einzeln gezogenes
+Originalbild vergleichen, sondern gegen eine verlustfreie Fassung desselben Durchlaufs.
+
+Lose in `design3d/` und **nicht** bearbeitet: drei `.acr`-Dateien (Adobe-Camera-Raw-
+Einstellungen, keine Bilder) und `Untitled.png` (1920×1080, Wald mit Teich, mit Alphakanal) —
+lagen nicht in `neu`. Die Originale in den `neu`-Ordnern liegen in `assets/` und gingen beim
+Hochladen mit (Video 37 MB) — Max fragen.
+
+---
+
+## 15.10.2026 (spät) — Originale nach Neu/ verschoben
+
+Auf Max' „ja": alle Originale raus aus dem veröffentlichten Bereich, nach `Neu/` (per
+`.gitignore` ausgeschlossen). Mit `mv -n` (kein Überschreiben), vorher/nachher gezählt:
+52 Dateien, 540 166 483 Bytes — identisch.
+
+| von | nach |
+|---|---|
+| `assets/video/IMG_3196 2.MOV` (130 MB), `assets/video/0001-0100.mp4` | `Neu/Videos/Blender/` |
+| `assets/Snow_around 1.mov`, `assets/WhatsApp Video 2025-11-15 at 21.59.53.mp4` | `Neu/Videos/Drohnen/` |
+| `Neue Bilder/Korea`, `Neue Bilder/Bilder von Mir` | `Neu/Bilder/Korea`, `Neu/Bilder/Bilder von Mir` |
+| `Neue Bilder/Portraits` | `Neu/Bilder/Portraits 2026-10` (`Portraits` gab es schon) |
+
+Der leere Ordner `Neue Bilder/` ist entfernt. In `assets/` liegen jetzt keine Originale mehr —
+damit ist der offene Punkt „Originale würden mit hochgeladen" erledigt. Nicht angefasst:
+`assets/3D/cqpsule.glb` (nicht besprochen).
+
+---
+
+## 15.10.2026 (spät) — iPhone-Making-of webtauglich gemacht, nicht eingebaut
+
+Max hat `assets/video/IMG_3196 2.MOV` abgelegt: iPhone 12 Pro Max filmt den Bildschirm mit der
+Blender-Szene („Bubble Burst"), dann Rückzoom in den dunklen Raum. 12,9 s, **4K HEVC 10 Bit,
+HDR (HLG, BT.2020)**, variable Bildrate (Ø 54 fps, 701 Bilder), echter Ton (Ø -42 dB, Spitzen
+-10 dB), 130 MB.
+
+**Falle HDR:** ohne Umrechnung wird es grau und blaustichig. Verglichen ohne / `hable` /
+`mobius`: `hable` sieht natürlich aus (Blender-Orange stimmt, Schrift lesbar), `mobius`
+brennt im Hellen aus. Kette:
+`zscale=t=linear:npl=100,format=gbrpf32le,zscale=p=bt709,tonemap=tonemap=hable:desat=0,zscale=t=bt709:m=bt709:r=tv,format=yuv420p,scale=1280:-2`
+plus `-color_primaries/-color_trc/-colorspace bt709`. ffmpeg hat `zscale` und `tonemap`.
+
+Neu: **`video/blender-making-of.mp4`** — 1280×720, H.264, Bildrate unverändert
+(`-fps_mode passthrough`, 701 Bilder), **Ton behalten** (AAC 96k; echter Raumton, ob er
+gebraucht wird, weiß ich nicht), faststart, **CRF 24**, 3,3 MB. Gewählt an der Bildschirmschrift:
+bei 28 verschmieren „Search Blendkit" und Symbole sichtbar, 24 fast wie der unkomprimierte
+Maßstab. Poster `blender-making-of-poster.jpg/.webp` (Bild 150, Bildschirm mit Kugel).
+
+Original `IMG_3196 2.MOV` (130 MB) unverändert in `assets/video/` — **würde beim Hochladen
+GitHubs 100-MB-Grenze sprengen**. Max fragen, ob es nach `Neu/` soll.
+
+---
+
+## 15.10.2026 (abends) — Blender-Animation webtauglich gemacht, nicht eingebaut
+
+Max hat `assets/video/0001-0100.mp4` abgelegt (Blender-Render: Blender-Logo, dann schwarze
+glänzende Kugel mit Lichtmustern; 4,2 s, 1920×1080, 24 fps, 738 KB). Nicht webtauglich:
+`moov` am Dateiende (kein faststart → startet erst nach komplettem Download), stumme
+Tonspur (-91 dB).
+
+Neu: **`video/blender-animation.mp4`** — 1280×720, 24 fps, 100 Bilder wie das Original,
+H.264, Ton entfernt, faststart, **CRF 22** (457 KB). Kalibriert 20/22/24/26 (SSIM 0,998–0,997)
+und an einer dunklen Stelle mit 1,8-fach aufgehellten Schatten verglichen: 22 und 26 ohne
+sichtbaren Unterschied, Partikel bleiben; wegen der Kürze die bessere Stufe. Poster
+`blender-animation-poster.jpg/.webp` (Bild 50, Kugel mit Mustern).
+
+Original `0001-0100.mp4` unverändert daneben liegen gelassen — liegt in `assets/`, ginge
+also mit hoch (klein, aber unnötig). Max fragen, ob es nach `Neu/` soll.
+
+---
+
+## 15.10.2026 — Flyer-PDF in Einzelseiten zerlegt (für eine Animation), nicht eingebaut
+
+Quelle: `~/Desktop/Design Projekte/Abgabe/lesson2-layout-Aulinger-Max-Abgabe 2/Fertiger Flyer
+mit Textur.pdf` (10,3 MB, 4 Seiten à 138,6 × 98 mm, keine Beschnittzugabe). Max wollte die
+Seiten „sorgfältig ohne Veränderung" als Einzelbilder.
+
+**Befund:** Jede Seite besteht aus genau **einem** eingebetteten JPEG (6548 × 4630 px = 1200 dpi,
+RGB, sRGB), sonst nichts. Geprüft, indem jede Seite mit PDFKit in Originalauflösung gerendert
+und mit den herausgelösten Bildern verglichen wurde: Seite *n* ↔ Bild *n* jeweils SSIM 0,9997,
+über Kreuz ~0,80. Also keine Vektoren oder Texte darüber.
+
+**Deshalb nicht gerendert, sondern die JPEG-Daten bitgenau aus dem PDF herausgelöst** — keine
+Neuberechnung, kein Qualitätsverlust. Abgelegt in **`Cloud_Portfolio/Neu/Flyer-Seiten/`**
+(`flyer-seite-1.jpg` … `-4.jpg`, je 2,3–2,6 MB), dort von GitHub ausgeschlossen. Prüfsummen
+gleich mit dem PDF-Inhalt. Das PDF selbst ist unverändert. Für die Website müssen die Seiten
+später noch verkleinert werden (6548 px Breite ist für die Seite viel zu groß).
+
+Werkzeug, falls wieder nötig: `osascript -l JavaScript` mit `ObjC.import("Quartz")` —
+`PDFDocument`/`PDFPage` gehen ohne pdftoppm/gs/python. Das PDF lag in iCloud ausgelagert
+und brauchte ~1 Min. zum Herunterladen.
+
+---
+
+## 14.10.2026 — weitere Porträts vorbereitet, ausdrücklich NICHT eingebaut
+
+Max hat 5 Fotos nach `Cloud_Portfolio/Neue Bilder/Portraits/` gelegt und wollte sie so
+aufbereitet, dass sie später gut auf der Seite gehen — **„nicht in der Seite einbauen, nur im
+Ordner speichern"**. Neu: **`assets/img/portraits-neu/`**, JPEG q62 + WebP q68, Langkante
+1400 px, sRGB, keine Drehungsmarken, keine weißen Rahmen (gemessen), JPEG ↔ WebP 0,97–0,98.
+Die Dateien haben keine Kameradaten (vermutlich ohne Metadaten exportiert).
+
+| neu | Maße | zu sehen (meine Beschreibung) |
+|---|---|---|
+| `portraits-neu/dsc00788` | 1022×1400 | junger Mann sitzt auf einem Stuhl, drinnen |
+| `portraits-neu/dsc01731` | 1400×933 | Mann mit weinroter Kappe steigt ins Auto, Atemhauch |
+| `portraits-neu/dsc02313` | 1400×1372 | Mann in blauer Uniform mit Hut, Maske und Sonnenbrille, Straße |
+| `portraits-neu/dsc04625` | 1400×1000 | junger Mann mit Kappe und hellblauem Hemd zeigt zur Seite |
+| `portraits-neu/dsc05781` | 933×1400 | Sprungkick auf einer Wiese |
+
+Keins davon ist schon auf der Seite — mit den 7 Bildern in `portraits/`, den Porträts in
+`photo/full/` und `ueber-mich/` verglichen, mit eigenen Augen. dsc01731 gehört sichtbar
+zur selben Serie wie `portraits/portraet-cap` („Robin"), ist aber eine andere Aufnahme.
+dsc02313 sieht nach Korea aus, liegt aber bei den Porträts, weil Max es dort hingelegt hat.
+**Personennamen nicht vergeben** — nicht bekannt, nicht raten. Bildnummer als Dateiname.
+
+Seiten nachweislich unverändert: `index`, `drohne`, `kreativ` und `icapsule` byte-gleich
+mit GitHub. Git selbst hing, weil iCloud **wieder 1014 Dateien in `.git/` ausgelagert**
+hatte — vor dem nächsten Commit zurückholen.
+
+---
+
+## 10.10.2026 (später) — Fotos „über mich" vorbereitet, noch nicht eingebaut
+
+Max hat 4 Fotos nach `Cloud_Portfolio/Neue Bilder/Bilder von Mir/` gelegt (der Ordner war beim
+ersten Blick noch leer) und wollte sie genauso aufbereitet, in einem eigenen Ordner.
+**Neu: `assets/img/ueber-mich/`**, JPEG q62 + WebP, Langkante 1400 px, sRGB, keine
+Drehungsmarken, keine weißen Rahmen. **Nicht eingebaut, nicht hochgeladen.**
+
+| neu | Original | Maße | zu sehen (meine Beschreibung) |
+|---|---|---|---|
+| `ueber-mich/mit-drohne` | `39b8069e-….jpg` (keine Kameradaten) | 1051×1400 | junger Mann mit Brille und kleiner Drohne, Berge im Abendlicht |
+| `ueber-mich/lichtmalerei` | `DSC00153.jpeg` (α7 IV) | 1400×935 | nachts im Garten, daneben „MAX" mit Licht geschrieben |
+| `ueber-mich/profil-rosa` | `DSC03986.jpg` (α6700) | 1400×933 | Profil vor rosa Hintergrund |
+| `ueber-mich/lachen` | `DSC06843.jpg` (α7 III) | 933×1400 | lachend mit Brille, nah, buntes Licht |
+
+**`mit-drohne` ist schon auf der Seite** — als `misc/profile` (1000×1250, enger, 4:5). Der
+Bild-Fingerabdruck hat das wegen des anderen Zuschnitts **nicht** erkannt, erst der Blick aufs
+Bild. Trotzdem aufgenommen, weil die neue Datei die volle Fassung mit mehr Landschaft ist und
+für einen Über-mich-Teil die bessere Grundlage. **Merke:** der Fingerabdruck findet nur
+Gleiches in anderer Größe, keine anderen Zuschnitte — immer zusätzlich hinsehen.
+
+**`profil-rosa`: WebP mit q80 statt q68.** Bei q68 glättete WebP das feine Korn des glatten
+rosa Hintergrunds weg und zeigte leichte senkrechte Streifen (JPEG ↔ WebP nur 0,92).
+Vergrößert verglichen: q80 behält das Korn, Streifen weg, 70 KB (JPEG 189 KB).
+**Merke:** bei großen glatten Farbflächen das WebP ansehen, nicht nur rechnen.
+
+---
+
+## 10.10.2026 — Korea-Fotos vorbereitet, noch nicht eingebaut
+
+Max hat 39 Fotos aus Korea nach `Cloud_Portfolio/Neue Bilder/Korea/` gelegt (Sony α7 III,
+alle 2048 px Langkante, sRGB, keine Drehungsmarke). Auftrag: passend komprimieren, in einen
+Korea-Ordner in `assets/` legen, einbaufertig machen. **Noch nicht eingebaut, nicht
+hochgeladen.** Der Unterordner `Bilder von Mir` ist leer.
+
+**9 davon sind schon auf der Seite** (`assets/img/seoul/`), per Bild-Fingerabdruck gesucht und
+**mit eigenen Augen bestätigt** — der Fingerabdruck hatte bei den fast schwarzen Nachtbildern
+`nacht-rauch` und `nacht-linien` vertauscht, und gedrehte Bilder erkennt er gar nicht:
+
+| Original | auf der Seite |
+|---|---|
+| DSC07879 | `seoul/tag-pavillon` |
+| DSC08142 | `seoul/tag-regen` |
+| DSC08357 | `seoul/tag-stadt-gold` |
+| DSC08365 | `seoul/tag-stadt-pastell` |
+| DSC07436 | `seoul/tag-tempeldach` (dort enger zugeschnitten) |
+| DSC08736 | `seoul/nacht-rauch` |
+| DSC08756 | `seoul/nacht-linien` |
+| DSC08585 | `seoul/nacht-strasse` |
+| DSC08622 | `seoul/nacht-bruecke` (dort um 90° gedreht) |
+
+Diese 9 wurden **nicht** noch einmal gerechnet. `tag-flagge` ist nicht unter den neuen Fotos.
+
+**30 neue in `assets/img/korea/`**, jeweils JPEG (q62) + WebP (q68), Namen nach der
+Bildnummer (`dsc00452` usw., Zusätze wie „-Topaz-Sharpen…" und „-2" weggelassen).
+Langkante 1400 px, **Panoramen (Verhältnis ≥ 2) 1700 px** wie Aufmacher, weil sie sonst nur
+~400 px hoch wären. Nie hochskaliert.
+
+**Weiße Rahmen abgeschnitten** bei 8 Fotos (Max ausdrücklich: „schneide die Bilder mit
+weißem Rand so zu, dass der Rand weg ist"; passt zu seiner früheren Ablehnung weißer
+Rahmen). Gemessen mit Schwelle ≥ 250 auf allen vier Seiten. Erster Durchlauf ließ bei
+dsc00640 (rechts) und dsc01461 (unten) einen 1-px-Strich stehen, weil der weiche Übergang
+auf einer Seite zu knapp erfasst wurde. **Lösung:** Rahmen sind bei diesen Exporten
+symmetrisch, also je Seitenpaar den breiteren Wert + 3 px. Danach an allen Kanten nachgemessen
+und auf Magenta-Grund angesehen: keine Reste. Zugeschnitten mit `sips` (erhält das
+Farbprofil), nicht mit `ffmpeg`.
+
+JPEG ↔ WebP je Bild verglichen: 0,94–0,99. Die zwei 0,94er sind Nachtbilder mit Rauschen,
+die bestehenden `nacht-strasse`/`nacht-bruecke` liegen genauso.
+
+Beschreibung = **was ich auf dem Bild sehe**, nicht von Max. Orte und Anlässe bewusst nicht
+benannt (nicht belegt).
+
+| Datei | Maße | Format | zu sehen | Rahmen ab |
+|---|---|---|---|---|
+| `korea/dsc00452` | 1700×699 | Panorama 2.43 | Mann in roter traditioneller Tracht mit Stab, in Bewegung |  |
+| `korea/dsc00461` | 1700×627 | Panorama 2.71 | dieselbe Szene, weiter gefasst |  |
+| `korea/dsc00466` | 980×1400 | hoch 0.70 | Mann in roter Tracht mit Stab, ausfallend |  |
+| `korea/dsc00536` | 1700×518 | Panorama 3.28 | Mann in roter Tracht mit Stab, schmales Panorama |  |
+| `korea/dsc00537` | 1700×548 | Panorama 3.10 | dieselbe Szene, schmales Panorama |  |
+| `korea/dsc00554` | 1700×548 | Panorama 3.10 | dieselbe Szene, schmales Panorama |  |
+| `korea/dsc00640` | 932×1400 | hoch 0.67 | rote Fischlaterne, nah | ja |
+| `korea/dsc01024` | 1104×1400 | hoch 0.79 | alter Mann mit weißem Bart, Porträt |  |
+| `korea/dsc01025` | 1700×713 | Panorama 2.38 | derselbe Mann, sehr nah |  |
+| `korea/dsc01051` | 851×1400 | hoch 0.61 | farbige Wächterfigur mit Krone |  |
+| `korea/dsc01053` | 851×1400 | hoch 0.61 | Wächterfigur mit weißem Bart |  |
+| `korea/dsc01054` | 852×1400 | hoch 0.61 | Wächterfigur mit Krone |  |
+| `korea/dsc01382` | 1083×1400 | hoch 0.77 | Mann mit rotem Hut und Sonnenbrille, Porträt |  |
+| `korea/dsc01400` | 1400×857 | quer 1.63 | Stacheldrahtzaun mit Vögeln, grauer Himmel |  |
+| `korea/dsc01427` | 1400×931 | quer 1.50 | Felsen im schäumenden Meer, von oben | ja |
+| `korea/dsc01461` | 1400×930 | quer 1.51 | Hafen mit Hochhäusern und Bergen | ja |
+| `korea/dsc01462` | 1400×930 | quer 1.51 | Hafen mit Brücke und Hochhäusern im Dunst | ja |
+| `korea/dsc01512` | 933×1400 | hoch 0.67 | Frau mit Locken im seichten Wasser, von hinten | ja |
+| `korea/dsc01515` | 933×1400 | hoch 0.67 | Mann im weißen T-Shirt im seichten Wasser, von hinten | ja |
+| `korea/dsc01970` | 1700×484 | Panorama 3.51 | Möwen vor blauem Himmel |  |
+| `korea/dsc01971` | 1700×484 | Panorama 3.51 | Möwen vor blauem Himmel |  |
+| `korea/dsc01973` | 1700×615 | Panorama 2.76 | mehrere Möwen vor blauem Himmel |  |
+| `korea/dsc01976` | 1400×845 | quer 1.66 | einzelne Möwe im Flug |  |
+| `korea/dsc02176` | 1400×932 | quer 1.50 | Mann mit Kappe in der Menge, nachts | ja |
+| `korea/dsc07965` | 933×1400 | hoch 0.67 | belebte Einkaufsstraße mit Leuchtreklamen, nachts |  |
+| `korea/dsc08575` | 1400×933 | quer 1.50 | Lichtspuren von Autos, nachts |  |
+| `korea/dsc08579` | 1400×933 | quer 1.50 | Lichtspuren in einer Kurve, nachts |  |
+| `korea/dsc08581` | 1400×933 | quer 1.50 | Lichtspuren in einer Kurve, nachts |  |
+| `korea/dsc09222` | 933×1400 | hoch 0.67 | rosa Abendhimmel über einem Sportplatz | ja |
+| `korea/dsc09776` | 1400×933 | quer 1.50 | rote Lichtspuren, sehr dunkel |  |
+
+**Offen:** Der Originalordner `Cloud_Portfolio/Neue Bilder/` liegt im Repo und steht nicht
+in der `.gitignore` — ein `git add -A` würde die 25 MB Originale mit hochladen. Max fragen
+(Vorschlag: nach `Neu/` verschieben). Einige Fotos zeigen erkennbare fremde Personen
+(dsc01024/01025, 01382, 02176) — beim Einbau an das Recht am eigenen Bild denken.
+
+---
+
 ## 01.10.2026 (spät) — Schnee-Clip auf der Drohnenseite lud nicht
 
 Max meldete: „das durch den Schnee Video lädt irgendwie nicht". Ursache doppelt:

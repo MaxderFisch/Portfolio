@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Menschen — Max Aulinger</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./seitenwechsel.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin="">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&amp;f[]=general-sans@400,500,600&amp;display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;background:#000;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+::selection{background:#f2f2f2;color:#000}
+</style>
+</helmet>
+
+<dc-import name="Navi" aktiv="Menschen" hint-size="100%,0px"></dc-import>
+
+<section data-k="hero" data-screen-label="Menschen Start" style="position:relative;height:100svh;min-height:560px;overflow:hidden;background:#000">
+  <div style="position:absolute;inset:0;perspective:1000px;overflow:hidden">
+    <div data-k="zoom" style="position:absolute;inset:0;transform-style:preserve-3d">
+      <div data-k="group" style="position:absolute;inset:0;transform-style:preserve-3d">
+        <sc-for list="{{ ring }}" as="c" hint-placeholder-count="0">
+          <div data-card="{{ c.i }}" onClick="{{ c.open }}" style="position:absolute;left:50%;top:50%;width:{{ cw }};height:{{ ch }};opacity:{{ c.op }};transform:{{ c.tf }};cursor:zoom-in;transform-style:preserve-3d">
+            <div data-flip="" style="position:absolute;inset:0;border-radius:6px;overflow:hidden;background:#111"><img src="{{ c.src }}" alt="" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover"></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <div data-k="head" style="position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,1.4vw,18px);pointer-events:none;opacity:{{ headOp }}">
+    <h1 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,10vw,170px);line-height:.86;letter-spacing:-.035em;color:#fff">Menschen.</h1>
+    <div style="font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf">Porträts · 85 mm f/1.4</div>
+  </div>
+</section>
+
+<section data-screen-label="Menschen Bilder" style="background:#000;color:#f2f2f2;padding:clamp(80px,10vw,150px) clamp(16px,3vw,40px) clamp(60px,7vw,100px)">
+  <p data-m-scrub="" style="margin:0 0 clamp(50px,6vw,90px);max-width:1100px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(34px,5.4vw,88px);line-height:1.02;letter-spacing:-.03em">
+    <sc-for list="{{ words }}" as="w" hint-placeholder-count="0"><span data-m-sw="" style="color:#2a2a2e">{{ w.t }}</span></sc-for>
+  </p>
+  <div style="display:flex;flex-direction:column;gap:clamp(8px,1vw,14px)">
+    <sc-for list="{{ rows }}" as="r" hint-placeholder-count="0">
+      <div data-row="" style="display:flex;flex-direction:{{ rowDir }};gap:clamp(8px,1vw,14px)">
+        <sc-for list="{{ r.figs }}" as="it" hint-placeholder-count="0">
+          <figure data-fig="" onClick="{{ it.open }}" style="margin:0;position:relative;flex:{{ it.fx }};aspect-ratio:{{ it.ar }};overflow:hidden;background:#0b0b0c;cursor:zoom-in;clip-path:inset(100% 0 0 0)">
+            <img src="{{ it.src }}" alt="{{ it.name }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.035)">
+            <figcaption data-cap="" style="position:absolute;left:12px;bottom:10px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(16px,1.4vw,22px);color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.5);opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .5s cubic-bezier(.16,1,.3,1);pointer-events:none">{{ it.name }}</figcaption>
+          </figure>
+        </sc-for>
+      </div>
+    </sc-for>
+    <figure data-eyes="" onClick="{{ eyesOpen }}" style="margin:0;position:relative;aspect-ratio:1700/713;overflow:hidden;background:#000;cursor:zoom-in">
+      <div data-eclip="" style="position:absolute;inset:0;clip-path:inset(20% 0 70% 0)"><img src="assets/korea/dsc01025.webp" alt="Älterer Mann in Südkorea" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+    </figure>
+  </div>
+</section>
+
+<section style="background:#000;color:#f2f2f2;padding:clamp(70px,9vw,140px) clamp(16px,3vw,40px) 28px">
+  <div style="display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center">
+    <a href="Startseite.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">← Zurück zur Übersicht</a>
+    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">Schreib mir</a>
+  </div>
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(60px,8vw,120px);padding-top:14px;border-top:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">
+    <span>© 2026 Max Aulinger</span>
+    <span>Menschen</span>
+  </div>
+</section>
+
+<sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ lbClose }}" style="position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:6vh 5vw;cursor:zoom-out">
+    <img src="{{ lbSrc }}" alt="" style="max-width:100%;max-height:84vh;object-fit:contain;display:block">
+    <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:16px;color:#f2f2f2">{{ lbName }}</div>
+    <span style="position:absolute;top:20px;right:24px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#f2f2f2">Schließen ✕</span>
+    <button onClick="{{ lbPrev }}" aria-label="Vorheriges Bild" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">←</button>
+    <button onClick="{{ lbNext }}" aria-label="Nächstes Bild" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">→</button>
+  </div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, lb: -1 };
+  from = (() => { try { const v = JSON.parse(sessionStorage.getItem('mx-trans') || 'null'); return v && v.p === 'menschen' && Date.now() - v.t < 10000 ? v.t : 0; } catch (e) { return 0; } })();
+  $(s) { return document.querySelector(s); }
+  $$(s) { return Array.from(document.querySelectorAll(s)); }
+  clamp(x) { return Math.min(1, Math.max(0, x)); }
+
+  data() {
+    if (this._D) return this._D;
+    const a = n => 'assets/' + n + '.webp', k = n => 'assets/korea/' + n + '.webp', p = n => 'assets/portraits/' + n + '.webp';
+    const F = {
+      brille: [a('portraet-brille'), 933, 1400, 'Timo'], gold: [a('portraet-goldlicht'), 925, 1400, 'Ares'], ares: [a('portraet-ares-quer'), 1400, 933, 'Ares'],
+      feld: [a('portraet-feld'), 1700, 1109, 'Gabriel'], gruen: [a('portraet-gruen'), 937, 1400, 'Gabriel'], himb: [a('portraet-himbeere'), 933, 1400, 'Paul'],
+      cap: [a('portraet-cap'), 935, 1400, 'Robin'], k1382: [k('dsc01382'), 1083, 1400, 'Südkorea'], k1024: [k('dsc01024'), 1104, 1400, 'Südkorea'],
+      k2176: [k('dsc02176'), 1400, 932, 'Südkorea'], k1512: [k('dsc01512'), 933, 1400, 'Südkorea · Sokcho'], k1515: [k('dsc01515'), 933, 1400, 'Südkorea · Sokcho'],
+      n0788: [p('dsc00788'), 1022, 1400, ''], n5781: [p('dsc05781'), 933, 1400, ''], n2313: [p('dsc02313'), 1400, 1372, ''],
+      n1731: [p('dsc01731'), 1400, 933, ''], n4625: [p('dsc04625'), 1400, 1000, ''],
+      jump: ['assets/fotos/portrait-jump-bw.webp', 429, 646, ''], snow: ['assets/fotos/portrait-two-snow.webp', 660, 439, '']
+    };
+    const rows = [['brille', 'gold', 'ares'], ['feld', 'gruen', 'himb'], ['cap', 'k1382', 'k1024'], ['k1512', 'k1515', 'k2176'], ['n0788', 'n5781', 'n2313'], ['n1731', 'n4625'], ['jump', 'snow']];
+    const all = [];
+    rows.forEach(r => r.forEach(id => all.push({ id, src: F[id][0], w: F[id][1], h: F[id][2], name: F[id][3] })));
+    all.push({ id: 'eyes', src: k('dsc01025'), w: 1700, h: 713, name: 'Südkorea' });
+    const ringFull = ['brille', 'k1382', 'gold', 'k1512', 'himb', 'k1024', 'gruen', 'k1515', 'cap'];
+    return (this._D = { F, rows, all, ringFull });
+  }
+  open(id) { const i = this.data().all.findIndex(x => x.id === id); if (i > -1) this.setState({ lb: i }); }
+
+  componentDidMount() {
+    this.reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    this.onScroll = () => { if (this.tick) return; this.tick = true; requestAnimationFrame(() => { this.frame(); this.tick = false; }); };
+    this.onResize = () => { this.setState({ vw: innerWidth }); };
+    this.onKey = e => {
+      if (this.state.lb < 0) return;
+      const n = this.data().all.length;
+      if (e.key === 'Escape') this.setState({ lb: -1 });
+      if (e.key === 'ArrowRight') this.setState(s => ({ lb: (s.lb + 1) % n }));
+      if (e.key === 'ArrowLeft') this.setState(s => ({ lb: (s.lb - 1 + n) % n }));
+    };
+    this.onOver = e => { const f = e.target.closest && e.target.closest('[data-fig]'); if (f === this._hf) return; this.hover(f); };
+    addEventListener('scroll', this.onScroll, { passive: true });
+    addEventListener('resize', this.onResize);
+    addEventListener('keydown', this.onKey);
+    document.addEventListener('pointerover', this.onOver);
+    this.rio = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; this.rio.unobserve(e.target); this.revealRow(e.target); }), { threshold: 0.12 });
+    this.$$('[data-row]').forEach(r => this.rio.observe(r));
+    try { sessionStorage.removeItem('mx-trans'); } catch (e) {}
+    if (this.from) this.arrive(); else this.afterCover(() => this.intro());
+    this.frame();
+  }
+  componentDidUpdate(pp, ps) {
+    this.$$('[data-row]').forEach(r => { if (!r._obs) { r._obs = 1; this.rio.observe(r); } });
+    if (ps.vw !== this.state.vw && this._ringDone) this.placeRing();
+    document.documentElement.style.overflow = this.state.lb > -1 ? 'hidden' : '';
+  }
+  componentWillUnmount() {
+    this.dead = true;
+    removeEventListener('scroll', this.onScroll); removeEventListener('resize', this.onResize); removeEventListener('keydown', this.onKey);
+    document.removeEventListener('pointerover', this.onOver);
+    clearInterval(this.flipT); if (this.rio) this.rio.disconnect();
+    document.documentElement.style.overflow = '';
+  }
+
+  geo() {
+    const vw = innerWidth, vh = innerHeight, w = Math.max(64, Math.min(116, vw * 0.075)), h = w * 1.5;
+    const R1 = h * 0.85, R2 = vw < 700 ? Math.min(vw * 0.36, vh * 0.3) : Math.min(vw * 0.3, vh * 0.36);
+    return { vw, vh, w, h, R1, R2 };
+  }
+  T(x, y, r, ax, ay, s) { return 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + r.toFixed(2) + 'deg) rotateX(' + ax + 'deg) rotateY(' + ay + 'deg) scale(' + s + ')'; }
+  arrive() {
+    this.placeRing();
+    const head = this.$('[data-k="head"]'), nav = this.$('[data-k="nav"]'), grp = this.$('[data-k="group"]');
+    if (head) head.style.opacity = 1;
+    if (nav) nav.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, fill: 'forwards' });
+    if (grp && !this.reduce) this._spin = grp.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], { duration: 70000, delay: -Math.max(0, Date.now() - this.from), iterations: Infinity, easing: 'linear' });
+    this.startFlips();
+  }
+  startFlips() {
+    const cards = this.$$('[data-card]'), n = cards.length; if (!n || this.reduce) return;
+    clearInterval(this.flipT);
+    this.flipT = setInterval(() => {
+      if (document.hidden || scrollY > innerHeight) return;
+      const c = cards[Math.floor(Math.random() * n)], f = c && c.querySelector('[data-flip]');
+      if (f) f.animate([{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(360deg)' }], { duration: 1100, easing: 'cubic-bezier(.65,0,.35,1)' });
+    }, 1700);
+  }
+  afterCover(fn) {
+    const C = window.__mxCover; let arr = !!(C && C.pending);
+    if (!arr && !C) { try { const v = JSON.parse(sessionStorage.getItem('mx-go') || 'null'); arr = !!(v && Date.now() - v.t < 6000); } catch (e) {} }
+    if (!arr) { fn(); return; }
+    let d = false; const go = () => { if (d || this.dead) return; d = true; fn(); };
+    addEventListener('mx-reveal', go, { once: true }); setTimeout(go, 6000);
+  }
+  async intro() {
+    const from = false;
+    const cards = this.$$('[data-card]'), n = cards.length, head = this.$('[data-k="head"]'), nav = this.$('[data-k="nav"]');
+    if (!n) return;
+    const imgs = cards.map(c => c.querySelector('img'));
+    await Promise.race([Promise.all(imgs.map(i => (i.decode ? i.decode().catch(() => {}) : null))), new Promise(r => setTimeout(r, from ? 500 : 1500))]);
+    if (this.dead) return;
+    const g = this.geo(), sl = 360 / n, ST = this.T(0, 0, 0, 0, 0, 1);
+    const ang = i => i * sl - 90, pos = (i, R, extra) => { const t = (ang(i) + (extra || 0)) * Math.PI / 180; return [R * Math.cos(t), R * Math.sin(t)]; };
+    if (this.reduce) { this.placeRing(); cards.forEach(c => { c.style.opacity = 1; }); if (head) head.style.opacity = 1; if (nav) nav.style.opacity = 1; return; }
+    let t0 = 120;
+    if (!from) {
+      cards.forEach((c, i) => c.animate([{ opacity: 0.8, transform: this.T(0, g.vh / 2 + g.h * 1.5, 0, -180, 0, 3) }, { opacity: 1, transform: ST }], { duration: 520, delay: 200 + i * 100, easing: 'cubic-bezier(.25,.46,.45,.94)', fill: 'both' }));
+      t0 = 200 + (n - 1) * 100 + 520;
+    } else cards.forEach(c => { c.style.opacity = 1; c.style.transform = ST; });
+    cards.forEach((c, i) => {
+      const [x1, y1] = pos(i, g.R1), [x2, y2] = pos(i, g.R2, sl);
+      c.animate([
+        { opacity: 1, transform: ST, easing: 'cubic-bezier(.33,0,.2,1)' },
+        { opacity: 1, transform: this.T(x1, y1, ang(i) + 90, 0, 15, 1), offset: 0.42, easing: 'cubic-bezier(.45,0,.2,1)' },
+        { opacity: 1, transform: this.T(x2, y2, ang(i) + sl + 90, 0, 360, 1) }
+      ], { duration: 2100, delay: t0, fill: 'forwards' }).onfinish = i === n - 1 ? () => { this.placeRing(); this.startFlips(); } : null;
+    });
+    if (head) head.animate([{ opacity: 0, filter: 'blur(40px)', transform: 'scale(1.08)' }, { opacity: 1, filter: 'blur(0px)', transform: 'scale(1)' }], { duration: 1300, delay: t0 + 900, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' });
+    if (nav) nav.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 800, delay: t0 + 1400, fill: 'forwards' });
+    const grp = this.$('[data-k="group"]');
+    if (grp) this._spin = grp.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], { duration: 70000, delay: t0 + 1500, iterations: Infinity, easing: 'linear' });
+  }
+  placeRing() {
+    const cards = this.$$('[data-card]'), n = cards.length, g = this.geo(), sl = 360 / n;
+    cards.forEach((c, i) => {
+      const a = i * sl - 90 + sl, t = a * Math.PI / 180;
+      c.getAnimations().forEach(x => x.cancel());
+      c.style.opacity = 1; c.style.transform = this.T(g.R2 * Math.cos(t), g.R2 * Math.sin(t), a + 90, 0, 0, 1);
+    });
+    this._ringDone = true;
+  }
+  frame() {
+    const y = scrollY, vh = innerHeight;
+    if (y <= vh * 1.3) {
+      const p = this.clamp(y / vh), z = this.$('[data-k="zoom"]'), h = this.$('[data-k="head"]');
+      if (z) { z.style.transform = 'scale(' + (1 + p * 1.6).toFixed(4) + ')'; z.style.opacity = (1 - p * 1.1).toFixed(3); }
+      if (h) h.style.transform = 'translate3d(0,' + (-y * 0.25).toFixed(1) + 'px,0)';
+    }
+    this.scrub(); this.eyes();
+  }
+  scrub() {
+    const p = this.$('[data-m-scrub]'); if (!p) return;
+    const r = p.getBoundingClientRect(), vh = innerHeight; if (r.bottom < -50 || r.top > vh + 50) return;
+    const k = this.clamp((vh * 0.85 - r.top) / (r.height + vh * 0.35)), ws = p.querySelectorAll('[data-m-sw]'), lit = Math.round(k * ws.length);
+    ws.forEach((w, i) => { const c = i < lit ? '#f2f2f2' : '#2a2a2e'; if (w._c !== c) { w._c = c; w.style.color = c; } });
+  }
+  eyes() {
+    const f = this.$('[data-eyes]'), c = this.$('[data-eclip]'); if (!f || !c) return;
+    const r = f.getBoundingClientRect(), vh = innerHeight; if (r.bottom < -50 || r.top > vh + 50) return;
+    const p = this.reduce ? 1 : this.clamp((vh * 0.75 - r.top) / (vh * 0.55)), e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+    c.style.clipPath = 'inset(' + (20 * (1 - e)).toFixed(2) + '% 0 ' + (70 * (1 - e)).toFixed(2) + '% 0)';
+  }
+  revealRow(row) {
+    row.querySelectorAll('[data-fig]').forEach((f, i) => {
+      if (this.reduce) { f.style.clipPath = 'none'; return; }
+      f.animate([{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)' }], { duration: 1050, delay: i * 120, easing: 'cubic-bezier(.77,0,.18,1)', fill: 'forwards' });
+      const im = f.querySelector('img'); if (im) im.animate([{ transform: 'scale(1.15)' }, { transform: 'scale(1)' }], { duration: 1500, delay: i * 120, easing: 'cubic-bezier(.16,1,.3,1)' });
+    });
+  }
+  hover(f) {
+    if (!matchMedia('(hover:hover)').matches) return;
+    const prev = this._hf; this._hf = f;
+    const setCap = (x, on) => { const c = x && x.querySelector('[data-cap]'); if (c) { c.style.opacity = on ? 1 : 0; c.style.transform = on ? 'translateY(0)' : 'translateY(8px)'; } };
+    if (prev) setCap(prev, false);
+    if (f) setCap(f, true);
+  }
+
+  renderVals() {
+    const D = this.data(), vw = this.state.vw, phone = vw < 700, g = typeof window !== 'undefined' ? this.geo() : { w: 100, h: 150 }, lb = this.state.lb;
+    const n = D.all.length, cur = lb > -1 ? D.all[lb] : null;
+    return {
+      cw: g.w.toFixed(0) + 'px', ch: g.h.toFixed(0) + 'px',
+      ring: D.ringFull.map((id, i) => {
+        let op = '0', tf = 'translate(-50%,-50%)';
+        if (this.from && typeof window !== 'undefined') { const sl = 360 / D.ringFull.length, a = i * sl - 90 + sl, t = a * Math.PI / 180; op = '1'; tf = this.T(g.R2 * Math.cos(t), g.R2 * Math.sin(t), a + 90, 0, 0, 1); }
+        return { i, op, tf, src: 'assets/thumb/men-' + i + '.webp', open: () => this.open(id) };
+      }),
+      headOp: this.from ? '1' : '0',
+      words: 'Ein Foto machen. Es zeigen. Und sie freuen sich.'.split(' ').map(t => ({ t })),
+      rowDir: phone ? 'column' : 'row',
+      rows: D.rows.map(r => ({ figs: r.map(id => { const x = D.F[id]; return { src: x[0], name: x[3], ar: x[1] + ' / ' + x[2], fx: phone ? '0 0 auto' : (x[1] / x[2]).toFixed(4) + ' 1 0px', open: () => this.open(id) }; }) })),
+      eyesOpen: () => this.open('eyes'),
+      lbOpen: !!cur, lbSrc: cur ? cur.src : '', lbName: cur ? cur.name : '',
+      lbClose: () => this.setState({ lb: -1 }),
+      lbPrev: e => { e.stopPropagation(); this.setState(s => ({ lb: (s.lb - 1 + n) % n })); },
+      lbNext: e => { e.stopPropagation(); this.setState(s => ({ lb: (s.lb + 1) % n })); }
+    };
+  }
+}
+</script>
+</body>
+</html>

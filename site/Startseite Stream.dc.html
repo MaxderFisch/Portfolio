@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Max Aulinger — Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./seitenwechsel.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin="">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&amp;f[]=general-sans@400,500,600&amp;display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+html,body{margin:0;background:#0c0c0c;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:inherit;text-decoration:none}
+a:hover{color:inherit}
+button{font-family:inherit}
+::selection{background:#f2f2f2;color:#0c0c0c}
+</style>
+</helmet>
+
+<sc-if value="{{ pickOn }}" hint-placeholder-val="{{ true }}">
+<div data-k="picker" data-screen-label="Profilauswahl" style="position:fixed;inset:0;z-index:100;background:#0c0c0c;display:flex;flex-direction:column;overflow:auto">
+  <div style="padding:clamp(18px,2.4vw,30px) 4vw"><img src="assets/logo-max.png" alt="Max Aulinger" style="display:block;height:clamp(20px,2.2vw,32px);width:auto"></div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 16px 12vh;text-align:center">
+    <h1 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(34px,3.8vw,60px);line-height:1;letter-spacing:-.02em;color:#f2f2f2">Wer schaut zu?</h1>
+    <p style="margin:12px 0 0;font-size:clamp(15px,1.25vw,20px);color:#8d8d92">Who’s watching?</p>
+    <div style="display:flex;justify-content:center;gap:clamp(22px,2.8vw,44px);margin-top:clamp(34px,3.8vw,60px)">
+      <button data-pk="de" onClick="{{ pickDe }}" style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:0;border:0;background:none;color:#8d8d92;cursor:pointer;transition:color .2s" style-hover="color:#f2f2f2">
+        <span data-pk-img="" style="display:block;width:clamp(108px,10.5vw,176px);aspect-ratio:1/1;border-radius:6px;overflow:hidden;outline:3px solid rgba(242,242,242,0);transition:outline-color .2s" style-hover="outline-color:#f2f2f2"><img src="assets/profil-icon.png" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></span>
+        <span style="font-size:clamp(15px,1.25vw,20px);font-weight:500">Deutsch</span>
+      </button>
+      <button data-pk="en" onClick="{{ pickEn }}" style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:0;border:0;background:none;color:#8d8d92;cursor:pointer;transition:color .2s" style-hover="color:#f2f2f2">
+        <span data-pk-img="" style="display:block;width:clamp(108px,10.5vw,176px);aspect-ratio:1/1;border-radius:6px;overflow:hidden;outline:3px solid rgba(242,242,242,0);transition:outline-color .2s" style-hover="outline-color:#f2f2f2"><img src="assets/profil-icon.png" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></span>
+        <span style="font-size:clamp(15px,1.25vw,20px);font-weight:500">English</span>
+      </button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ introMount }}" hint-placeholder-val="{{ false }}">
+<div data-k="intro" style="position:fixed;inset:0;z-index:95;background:#000;display:none">
+  <video data-k="iv" src="assets/video/intro-logo.mp4" preload="auto" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{ introFit }};opacity:0"></video>
+  <button data-k="skip" onClick="{{ skipIntro }}" style="position:absolute;right:4vw;bottom:clamp(20px,5vh,48px);display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(255,255,255,.4);border-radius:4px;background:rgba(0,0,0,.35);color:#fff;font-size:13px;font-weight:500;letter-spacing:.06em;cursor:pointer;opacity:0" style-hover="background:rgba(0,0,0,.6)">{{ L.skip }} ›</button>
+</div>
+</sc-if>
+<img data-k="fly" src="assets/logo-max.png" alt="" style="position:fixed;left:0;top:0;z-index:97;display:none;transform-origin:0 0;pointer-events:none">
+
+<header data-k="nav" style="position:fixed;top:0;left:0;right:0;z-index:60;height:68px;display:flex;align-items:center;gap:clamp(18px,2.6vw,44px);padding:0 4vw;background-color:rgba(12,12,12,0);background-image:linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,0) 100%);transition:background-color .4s">
+  <a href="#top" data-k="navlogo" style="flex:0 0 auto;display:block;opacity:{{ navLogoOp }}"><img src="assets/logo-max.png" alt="Max Aulinger" style="display:block;height:clamp(18px,1.9vw,26px);width:auto"></a>
+  <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+    <nav style="display:flex;align-items:center;gap:clamp(14px,1.7vw,26px)">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="7">
+        <a href="{{ l.href }}" style="font-size:14px;font-weight:{{ l.fw }};color:{{ l.fg }};white-space:nowrap;transition:color .3s" style-hover="color:#b3b3b3">{{ l.t }}</a>
+      </sc-for>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+    <div data-menu="" style="position:relative">
+      <button onClick="{{ toggleNav }}" style="display:flex;align-items:center;gap:6px;padding:8px 0;border:0;background:none;color:#f2f2f2;font-size:14px;font-weight:500;cursor:pointer">{{ L.browse }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button>
+      <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:-12px;top:44px;min-width:220px;padding:8px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-top:2px solid #f2f2f2;border-radius:2px">
+          <sc-for list="{{ links }}" as="l" hint-placeholder-count="0">
+            <a href="{{ l.href }}" style="display:block;padding:11px 18px;font-size:14px;color:{{ l.fg }};font-weight:{{ l.fw }}" style-hover="background:rgba(255,255,255,.06)">{{ l.t }}</a>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:clamp(14px,1.6vw,24px)">
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><a href="#kontakt" style="font-size:14px;color:#e5e5e5;transition:color .3s" style-hover="color:#b3b3b3">{{ L.contact }}</a></sc-if>
+    <div data-menu="" style="position:relative">
+      <button onClick="{{ toggleProf }}" aria-label="{{ L.profile }}" style="display:flex;align-items:center;gap:8px;padding:0;border:0;background:none;color:#f2f2f2;cursor:pointer">
+        <img src="{{ curImg }}" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="transform:rotate({{ caretRot }});transition:transform .25s"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+      <sc-if value="{{ profOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;right:0;top:48px;min-width:230px;padding:10px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-radius:2px">
+          <sc-for list="{{ profs }}" as="p" hint-placeholder-count="0">
+            <button onClick="{{ p.pick }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:8px 16px;border:0;background:none;color:#f2f2f2;font-size:14px;cursor:pointer;text-align:left" style-hover="background:rgba(255,255,255,.06)">
+              <img src="{{ p.img }}" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
+              <span>{{ p.t }}</span>
+              <span style="margin-left:auto;font-size:12px;color:#8d8d92">{{ p.mark }}</span>
+            </button>
+          </sc-for>
+          <div style="height:1px;margin:8px 0;background:rgba(255,255,255,.14)"></div>
+          <button onClick="{{ switchProfile }}" style="display:block;width:100%;padding:9px 16px;border:0;background:none;color:#f2f2f2;font-size:14px;cursor:pointer;text-align:left" style-hover="background:rgba(255,255,255,.06)">{{ L.switchP }}</button>
+          <a href="mailto:maxau.aulo@gmail.com" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2" style-hover="background:rgba(255,255,255,.06)">{{ L.contact }}</a>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</header>
+
+<section id="top" data-k="hero" data-screen-label="Showreel" style="position:relative;height:max(560px,min(100svh,56.25vw));overflow:hidden;background:#000">
+  <div style="position:absolute;inset:0">
+    <sc-for list="{{ clips }}" as="c" hint-placeholder-count="0">
+      <div data-k="layer" style="position:absolute;inset:0;opacity:0;overflow:hidden">
+        <sc-if value="{{ c.isVid }}" hint-placeholder-val="{{ false }}"><video data-src="{{ c.src }}" data-poster="{{ c.poster }}" muted="" playsinline="" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ c.pos }}"></video></sc-if>
+        <sc-if value="{{ c.isImg }}" hint-placeholder-val="{{ false }}"><img data-src="{{ c.src }}" alt="" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ c.pos }};transform-origin:{{ c.origin }}"></sc-if>
+      </div>
+    </sc-for>
+  </div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(77deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.34) 40%,rgba(0,0,0,0) 66%)"></div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:42%;pointer-events:none;background:linear-gradient(to top,#0c0c0c 0%,rgba(12,12,12,.55) 42%,rgba(12,12,12,0) 100%)"></div>
+  <div data-k="htext" style="position:absolute;z-index:2;left:4vw;bottom:clamp(150px,17vw,300px);width:min(600px,88vw)">
+    <div style="display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:#f2f2f2"><span style="display:block;width:20px;height:3px;background:#dc0304"></span>Showreel</div>
+    <div data-k="hswap">
+      <h1 style="margin:16px 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(44px,6.4vw,112px);line-height:.92;letter-spacing:-.03em;text-wrap:balance;text-shadow:0 2px 24px rgba(0,0,0,.25)">{{ hero.t }}</h1>
+      <div style="margin-top:16px;font-size:14px;font-weight:500;color:#d9d9dc">{{ hero.meta }}</div>
+      <p style="margin:10px 0 0;max-width:46ch;font-size:clamp(15px,1.2vw,19px);line-height:1.5;color:#ececee;text-wrap:pretty;text-shadow:0 1px 10px rgba(0,0,0,.45)">{{ hero.txt }}</p>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px">
+      <a href="{{ hero.href }}" style="display:flex;align-items:center;gap:10px;height:46px;padding:0 26px 0 20px;border-radius:4px;background:#f2f2f2;color:#0c0c0c;font-size:16px;font-weight:600;transition:background .2s" style-hover="background:rgba(242,242,242,.75);color:#0c0c0c"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg>{{ L.watch }}</a>
+      <button onClick="{{ heroInfo }}" style="display:flex;align-items:center;gap:10px;height:46px;padding:0 24px 0 18px;border:0;border-radius:4px;background:rgba(109,109,110,.7);color:#f2f2f2;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s" style-hover="background:rgba(109,109,110,.45)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"></circle><path d="M12 11v6M12 7v1"></path></svg>{{ L.more }}</button>
+    </div>
+  </div>
+  <div style="position:absolute;z-index:2;right:4vw;bottom:calc(clamp(70px,9vw,170px) + 24px);display:flex;gap:5px">
+    <sc-for list="{{ clips }}" as="c" hint-placeholder-count="0">
+      <button onClick="{{ c.go }}" aria-label="{{ c.label }}" style="display:flex;align-items:center;width:clamp(12px,1.5vw,26px);height:16px;padding:0;border:0;background:none;cursor:pointer"><span style="position:relative;display:block;width:100%;height:3px;background:rgba(255,255,255,.28);overflow:hidden"><span data-k="segf" style="position:absolute;inset:0;background:#f2f2f2;transform-origin:0 50%;transform:scaleX(0)"></span></span></button>
+    </sc-for>
+  </div>
+</section>
+
+<main style="position:relative;z-index:3;margin-top:calc(-1 * clamp(70px,9vw,170px));padding-bottom:20px">
+  <sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
+    <section id="{{ r.id }}" data-row="" data-screen-label="{{ r.t }}" style="position:relative;margin-bottom:clamp(26px,3vw,48px)">
+      <div style="display:flex;align-items:baseline;gap:14px;padding:0 4vw;margin-bottom:10px">
+        <h2 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(18px,1.6vw,26px);letter-spacing:-.005em">{{ r.t }}</h2>
+        <sc-if value="{{ r.hasHref }}" hint-placeholder-val="{{ false }}"><a href="{{ r.href }}" style="font-size:13px;font-weight:500;color:#8d8d92;white-space:nowrap;transition:color .2s" style-hover="color:#f2f2f2">{{ L.all }} ›</a></sc-if>
+      </div>
+      <div style="position:relative">
+        <div data-scroll="" style="display:flex;gap:clamp(6px,.6vw,10px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0 4vw;padding:4px 4vw 8px;scrollbar-width:none">
+          <sc-for list="{{ r.items }}" as="it" hint-placeholder-count="6">
+            <a href="{{ it.href }}" data-card="{{ it.id }}" style="position:relative;display:block;flex:0 0 auto;width:{{ r.w }};aspect-ratio:{{ r.ar }};border-radius:4px;overflow:hidden;background:#1a1a1c;scroll-snap-align:start">
+              <img src="{{ it.src }}" alt="{{ it.alt }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:{{ it.pos }}">
+              <sc-if value="{{ it.hasT }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;left:0;right:0;bottom:0;padding:34px 12px 10px;background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,0));font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:{{ r.fs }};line-height:1.02;letter-spacing:-.01em">{{ it.t }}</div></sc-if>
+            </a>
+          </sc-for>
+        </div>
+        <button data-arr="l" aria-label="Zurück" style="position:absolute;left:0;top:4px;bottom:8px;width:4vw;min-width:34px;display:flex;align-items:center;justify-content:center;padding:0;border:0;background:rgba(12,12,12,.6);color:#f2f2f2;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"></path></svg></button>
+        <button data-arr="r" aria-label="Weiter" style="position:absolute;right:0;top:4px;bottom:8px;width:4vw;min-width:34px;display:flex;align-items:center;justify-content:center;padding:0;border:0;background:rgba(12,12,12,.6);color:#f2f2f2;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .25s"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 5l7 7-7 7"></path></svg></button>
+      </div>
+    </section>
+  </sc-for>
+</main>
+
+<footer id="kontakt" data-screen-label="Kontakt" style="padding:clamp(70px,9vw,140px) 4vw 32px">
+  <div style="font-size:11px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:#8d8d92">{{ L.contact }}</div>
+  <a href="mailto:maxau.aulo@gmail.com" style="display:inline-block;margin-top:18px;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(48px,8vw,140px);line-height:.9;letter-spacing:-.035em;transition:opacity .3s" style-hover="opacity:.6">{{ L.write }}</a>
+  <div style="margin-top:22px"><a href="mailto:maxau.aulo@gmail.com" style="font-size:clamp(16px,1.4vw,22px);color:#c9c9ce;transition:color .2s" style-hover="color:#f2f2f2">maxau.aulo@gmail.com</a></div>
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;margin-top:clamp(60px,7vw,110px);padding-top:16px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;color:#8d8d92">
+    <span>© 2026 Max Aulinger</span>
+    <div style="display:flex;gap:18px">
+      <button onClick="{{ toDe }}" style="padding:0;border:0;background:none;font-size:13px;color:{{ deFg }};cursor:pointer" style-hover="color:#f2f2f2">Deutsch</button>
+      <button onClick="{{ toEn }}" style="padding:0;border:0;background:none;font-size:13px;color:{{ enFg }};cursor:pointer" style-hover="color:#f2f2f2">English</button>
+    </div>
+    <a href="#top" style="color:#8d8d92;transition:color .2s" style-hover="color:#f2f2f2">{{ L.top }} ↑</a>
+  </div>
+</footer>
+
+<div data-k="pop" onMouseLeave="{{ popLeave }}" style="position:fixed;left:0;top:0;width:320px;z-index:70;display:none;border-radius:6px;overflow:hidden;background:#181819;box-shadow:0 14px 44px rgba(0,0,0,.65)">
+  <a href="{{ pop.href }}" style="position:relative;display:block;aspect-ratio:16/9;background:#111">
+    <img src="{{ pop.src }}" alt="" style="display:block;width:100%;height:100%;object-fit:cover;object-position:{{ pop.pos }}">
+    <video data-k="popv" muted="" playsinline="" loop="" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s"></video>
+  </a>
+  <div data-k="popi" style="padding:14px 16px 18px">
+    <div style="display:flex;align-items:center;gap:8px">
+      <a href="{{ pop.href }}" aria-label="{{ L.watch }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:#f2f2f2;color:#0c0c0c;transition:background .2s" style-hover="background:#cfcfd2;color:#0c0c0c"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg></a>
+      <span style="font-size:13px;font-weight:500;color:#d9d9dc">{{ L.watch }}</span>
+      <button onClick="{{ popInfo }}" aria-label="{{ L.more }}" style="margin-left:auto;display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.45);background:rgba(36,36,38,.6);color:#f2f2f2;cursor:pointer;transition:border-color .2s" style-hover="border-color:#f2f2f2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"></path></svg></button>
+    </div>
+    <div style="margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">{{ pop.kicker }}</div>
+    <div style="margin-top:4px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:18px;line-height:1.1">{{ pop.t }}</div>
+    <div style="margin-top:6px;font-size:12px;color:#a3a3a8">{{ pop.meta }}</div>
+    <p style="margin:8px 0 0;font-size:13px;line-height:1.5;color:#d0d0d4;text-wrap:pretty">{{ pop.txt }}</p>
+  </div>
+</div>
+
+<sc-if value="{{ modalOn }}" hint-placeholder-val="{{ false }}">
+<div data-k="modal" onClick="{{ modalBg }}" style="position:fixed;inset:0;z-index:80;overflow-y:auto;padding:clamp(16px,4vh,48px) 12px;background:rgba(0,0,0,.74)">
+  <div data-k="mpanel" style="position:relative;max-width:900px;margin:0 auto;border-radius:8px;overflow:hidden;background:#161617;box-shadow:0 24px 80px rgba(0,0,0,.7)">
+    <div style="position:relative;aspect-ratio:16/9;background:#000">
+      <img src="{{ m.src }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:{{ m.pos }}">
+      <sc-if value="{{ m.hasVid }}" hint-placeholder-val="{{ false }}"><video data-k="mvid" src="{{ m.vid }}" muted="" loop="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></sc-if>
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,#161617 0%,rgba(22,22,23,.4) 34%,rgba(22,22,23,0) 60%)"></div>
+      <button onClick="{{ closeModal }}" aria-label="Schließen" style="position:absolute;top:14px;right:14px;display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border:0;border-radius:50%;background:#161617;color:#f2f2f2;cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+      <div style="position:absolute;left:clamp(20px,4vw,48px);right:clamp(20px,4vw,48px);bottom:clamp(16px,2.6vw,32px)">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#d9d9dc">{{ m.kicker }}</div>
+        <h2 style="margin:6px 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(30px,4.4vw,60px);line-height:.95;letter-spacing:-.025em">{{ m.t }}</h2>
+        <a href="{{ m.href }}" style="display:inline-flex;align-items:center;gap:10px;height:42px;margin-top:18px;padding:0 22px 0 18px;border-radius:4px;background:#f2f2f2;color:#0c0c0c;font-size:15px;font-weight:600;transition:background .2s" style-hover="background:rgba(242,242,242,.75);color:#0c0c0c"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg>{{ L.toPage }}</a>
+      </div>
+    </div>
+    <div style="padding:12px clamp(20px,4vw,48px) clamp(28px,4vw,48px)">
+      <div style="font-size:14px;color:#a3a3a8">{{ m.meta }}</div>
+      <p style="margin:12px 0 0;max-width:58ch;font-size:16px;line-height:1.6;color:#e6e6e8;text-wrap:pretty">{{ m.txt }}</p>
+      <sc-if value="{{ m.hasMore }}" hint-placeholder-val="{{ false }}">
+        <h3 style="margin:36px 0 14px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:20px">{{ L.moreOf }}</h3>
+        <div style="display:grid;grid-template-columns:{{ m.cols }};gap:10px">
+          <sc-for list="{{ m.more }}" as="x" hint-placeholder-count="0">
+            <a href="{{ x.href }}" style="display:block;aspect-ratio:{{ x.ar }};border-radius:4px;overflow:hidden;background:#222"><img src="{{ x.src }}" alt="{{ x.alt }}" loading="lazy" style="display:block;width:100%;height:100%;object-fit:cover;object-position:{{ x.pos }};transition:transform .5s ease" style-hover="transform:scale(1.04)"></a>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;profilauswahl&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Immer&quot;,&quot;Einmal pro Sitzung&quot;,&quot;Aus&quot;],&quot;default&quot;:&quot;Immer&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Ablauf&quot;},&quot;intro&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ablauf&quot;},&quot;sprache&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Deutsch&quot;,&quot;English&quot;],&quot;default&quot;:&quot;Deutsch&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Ablauf&quot;}}">
+class Component extends DCLogic {
+  state = this.boot();
+
+  boot() {
+    const P = this.props || {}, W = typeof window !== 'undefined';
+    const ss = k => { try { return sessionStorage.getItem(k); } catch (e) { return null; } };
+    const ls = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    let arriving = false;
+    try { const g = JSON.parse(ss('mx-go') || 'null'); arriving = !!(g && Date.now() - g.t < 6000); } catch (e) {}
+    if (W && window.__mxArrive) arriving = true;
+    const mode = P.profilauswahl ?? 'Immer', saved = ss('mx-profil');
+    const def = (P.sprache ?? 'Deutsch') === 'English' ? 'en' : 'de';
+    const lang = mode === 'Aus' ? def : (saved || ls('mx-lang') || def);
+    const skip = mode === 'Aus' || arriving || (mode === 'Einmal pro Sitzung' && !!saved);
+    return { stage: skip ? 'browse' : 'pick', lang: lang === 'en' ? 'en' : 'de', cur: 0, pop: null, modal: null, menu: null, navLogo: skip ? 1 : 0, vw: W ? innerWidth : 1280, vh: W ? innerHeight : 800 };
+  }
+
+  data() {
+    if (this._D) return this._D;
+    const A = 'assets/', T = A + 'thumb/', N = T + 'n/', K = A + 'korea/t/', KB = A + 'korea/', V = A + 'video/';
+    const P = {
+      korea: { t: ['Südkorea', 'South Korea'], href: 'Korea%20v3.dc.html', card: K + 'dsc00452.webp', big: KB + 'dsc00452.webp', pos: '50% 30%', meta: ['Fotografie · Seoul & Sokcho · 2026', 'Photography · Seoul & Sokcho · 2026'], txt: ['Mein Auslandssemester. Hier gibt es viele Motive, an denen ich mich ausprobieren kann.', 'My semester abroad. There are so many subjects here to try things out on.'] },
+      drohne: { t: ['Drohne & FPV', 'Drone & FPV'], href: 'Drohne%20v5.dc.html', card: T + 'zeitraffer-poster.webp', big: A + 'zeitraffer-poster.webp', vid: V + 'drohne-nebel.mp4', meta: ['Luftaufnahmen · DJI Mini 2 · FPV', 'Aerial · DJI Mini 2 · FPV'], txt: ['Aus der Luft sieht man, was man sonst nie sieht. Vor meinem ersten echten FPV-Flug saß ich 100 Stunden im Simulator.', 'From the air you see what you never get to see otherwise. Before my first real FPV flight I spent 100 hours in the simulator.'] },
+      menschen: { t: ['Menschen', 'People'], href: 'Menschen.dc.html', card: T + 'portraet-feld.webp', big: A + 'portraet-feld.webp', pos: '50% 35%', meta: ['Porträts · Sony A7 III · 85 mm f/1.4', 'Portraits · Sony A7 III · 85 mm f/1.4'], txt: ['Ich liebe es, Leuten eine Freude zu machen: Foto machen, zeigen, und sie sind glücklich.', 'I love making people happy: take a photo, show it to them, and they light up.'] },
+      sonne: { t: ['Sonnenaufgänge', 'Sunrises'], href: 'Fotos.dc.html#sonnenaufgaenge', card: T + 'sa-donau-gold.webp', big: A + 'sa-donau-gold.webp', meta: ['Fotografie · Donau', 'Photography · Danube'], txt: ['Für den Nebel über der Donau stehe ich um vier Uhr morgens auf.', 'For the fog over the Danube I get up at four in the morning.'] },
+      tiere: { t: ['Tiere', 'Animals'], href: 'Fotos.dc.html#tiere', card: T + 'tier-zunge.webp', big: A + 'tier-zunge.webp', meta: ['Fotografie · Natur', 'Photography · Nature'], txt: ['Ich fotografiere so gern Tiere, weil es ihnen egal ist. Sie würden mich nie judgen, im Gegensatz zu Menschen.', 'I love photographing animals because they don’t care. They would never judge me, unlike people.'] },
+      icapsule: { t: ['iCapsule', 'iCapsule'], href: '3D%20Design.dc.html#icapsule', card: T + 'icap-hero-weiss.webp', big: A + 'icap-hero-weiss.webp', meta: ['3D · Blender · 1. Semester', '3D · Blender · 1st semester'], txt: ['Mein erstes Projekt im Studium: ein eigenes Apple-Produkt, komplett in Blender.', 'My first university project: my own Apple product, built entirely in Blender.'] },
+      plakate: { t: ['Politische Plakate', 'Political posters'], href: '3D%20Design.dc.html#plakate', card: T + 'plakat-bubble.webp', big: A + 'plakat-bubble.webp', meta: ['Design · Blender', 'Design · Blender'], txt: ['Seit dem ersten Semester mache ich selbst Plakate nur noch in Blender.', 'Since my first semester I make even posters only in Blender.'] },
+      therme: { t: ['Therme Bad Füssing', 'Therme Bad Füssing'], href: '3D%20Design.dc.html#therme', card: T + 'therme-cover.webp', big: A + 'therme-cover.webp', vid: V + 'therme-doku.mp4', meta: ['Animation · Blender · Auftrag', 'Animation · Blender · Commission'], txt: ['Mein erster bezahlter Job: eine Unterwasser-Animation für die Wand der Therme.', 'My first paid job: an underwater animation for the wall of the thermal spa.'] },
+      filme: { t: ['Filme', 'Films'], href: 'Video.dc.html', card: T + 'bergmann-cover.webp', big: A + 'bergmann-cover.webp', meta: ['Film · im Team · Studium', 'Film · team projects · university'], txt: ['In den ersten Semestern habe ich im Team ein paar Filme gedreht, vor allem zum Lernen.', 'In my first semesters I shot a few films as part of a team, mostly to learn.'] },
+      blender: { t: ['Blender', 'Blender'], href: '3D%20Design.dc.html#blender', card: A + 'blender/park-kugeln-poster.webp', big: A + 'blender/park-kugeln-poster.webp', vid: V + 'park-kugeln.mp4', meta: ['3D · freie Projekte', '3D · personal projects'], txt: ['Blender ist mein absolutes Lieblingsprogramm.', 'Blender is my absolute favourite program.'] },
+      flyer: { t: ['Flyer', 'Flyer'], href: '3D%20Design.dc.html', card: A + 'flyer-cover.jpg', big: A + 'flyer-cover.jpg', meta: ['Design · Illustrator & InDesign · 1. Semester', 'Design · Illustrator & InDesign · 1st semester'], txt: ['Im ersten Semester musste ich Illustrator und InDesign nutzen. Danach habe ich mir geschworen: nie wieder Adobe.', 'In my first semester I had to use Illustrator and InDesign. Afterwards I swore: never Adobe again.'] }
+    };
+    const mini = ['DJI Mini 2', 'DJI Mini 2'], fpv = ['FPV', 'FPV'];
+    const rows = [
+      { id: 'projekte', t: ['Projekte', 'Projects'], shape: 'big', items: ['korea', 'drohne', 'menschen', 'sonne', 'tiere', 'icapsule', 'plakate', 'therme', 'filme', 'blender'].map(k => ({ p: k, src: P[k].card, t: P[k].t, pos: P[k].pos, vid: P[k].vid, proj: true })) },
+      { id: 'luft', t: ['Aus der Luft', 'From above'], href: 'Drohne%20v5.dc.html', shape: 'wide', items: [
+        { p: 'drohne', src: A + 'zeitraffer-poster.webp', t: ['Über den Wolken', 'Above the clouds'], m: ['Zeitraffer · DJI Mini 4 Pro', 'Timelapse · DJI Mini 4 Pro'] },
+        { p: 'drohne', src: A + 'drohne-nebel-poster.webp', t: ['Nebel', 'Fog'], m: ['DJI Mini 4 Pro', 'DJI Mini 4 Pro'], vid: V + 'drohne-nebel.mp4' },
+        { p: 'drohne', src: A + 'fpv-timeline-1-poster.webp', t: ['FPV-Flug', 'FPV flight'], m: fpv, vid: V + 'fpv-timeline-1.mp4' },
+        { p: 'drohne', src: A + 'fpv-papierflieger-poster.webp', t: ['Papierflieger', 'Paper plane'], m: ['FPV · Schulprojekt · Bayerischer Wald', 'FPV · school project · Bavarian Forest'] },
+        { p: 'drohne', src: A + 'drohne-schnee-poster.webp', t: ['Schnee', 'Snow'], m: fpv },
+        { p: 'drohne', src: A + 'fpv-autos-kurz-poster.webp', t: ['Autos', 'Cars'], m: fpv, vid: V + 'fpv-autos-kurz.mp4' },
+        { p: 'drohne', src: N + 'dji-kueste.webp', t: ['Küste', 'Coast'], m: mini },
+        { p: 'drohne', src: N + 'dji-bucht.webp', t: ['Bucht', 'Bay'], m: mini },
+        { p: 'drohne', src: N + 'dji-kapelle.webp', t: ['Kapelle', 'Chapel'], m: mini }
+      ] },
+      { id: 'suedkorea', t: ['Südkorea', 'South Korea'], href: 'Korea%20v3.dc.html', shape: 'wide', items: [
+        ['dsc00452', ['Krieger', 'Warriors'], '50% 30%'], ['dsc01025', ['Gesichter', 'Faces'], '50% 40%'], ['dsc01051', ['Tempelwächter', 'Temple guardians'], '50% 30%'],
+        ['dsc01976', ['Möwen', 'Gulls']], ['dsc01427', ['Am Meer', 'By the sea']], ['dsc08579', ['Seoul bei Nacht', 'Seoul at night']],
+        ['tag-regen', ['Regen', 'Rain']], ['dsc07965', ['Seoul', 'Seoul'], '50% 40%'], ['tag-tempeldach', ['Tempeldach', 'Temple roof'], '50% 40%']
+      ].map(([n, t, pos]) => ({ p: 'korea', src: K + n + '.webp', t, pos })) },
+      { id: 'menschen', t: ['Menschen', 'People'], href: 'Menschen.dc.html', shape: 'tall', items: [0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => ({ p: 'menschen', src: T + 'men-' + i + '.webp' })) },
+      { id: 'filme', t: ['Filme aus dem Studium', 'Films from university'], href: 'Video.dc.html', shape: 'wide', items: [
+        { p: 'filme', src: A + 'film-electrify-poster.webp', t: ['Electrify Your Future'], m: ['Imagefilm · Szenenbild · 3:01', 'Image film · Set design · 3:01'], x: ['Imagefilm für den Studiengang Elektrotechnik unserer Hochschule, gedreht mit der ARRI Alexa Mini.', 'Image film for our university’s electrical engineering programme, shot on an ARRI Alexa Mini.'] },
+        { p: 'filme', src: A + 'film-bergmann-poster.webp', t: ['Ein Tag als Bergmann'], m: ['Doku · Ton · 5:48', 'Documentary · Sound · 5:48'], x: ['Eine Doku, gedreht unten im Graphitbergwerk Kropfmühl.', 'A documentary shot deep inside the Kropfmühl graphite mine.'] },
+        { p: 'filme', src: A + 'film-kommt-zu-mir-poster.webp', t: ['Kommt zu mir'], m: ['Porträt · Produktion · 5:17', 'Portrait · Production · 5:17'], x: ['Porträt über einen Jugendseelsorger.', 'A portrait of a youth pastor.'] },
+        { p: 'filme', src: A + 'film-hostage-holiday-poster.webp', t: ['Hostage Holiday'], m: ['Kurzfilm · Regie & Schnitt · 2:18', 'Short film · Directing & editing · 2:18'], x: ['Mein erster Kurzfilm, ohne Dialog.', 'My first short film, without dialogue.'] }
+      ] },
+      { id: 'design', t: ['3D & Design', '3D & Design'], href: '3D%20Design.dc.html', shape: 'wide', items: [
+        { p: 'icapsule', src: T + 'icap-hero-weiss.webp', t: ['iCapsule'] },
+        { p: 'blender', src: A + 'blender/schaedel-moos-1600.webp', t: ['Vorstellungskraft', 'Imagination'], vid: V + 'vorstellungskraft-schaedel.mp4' },
+        { p: 'therme', src: T + 'therme-cover.webp', t: ['Therme Bad Füssing'], vid: V + 'therme-doku.mp4' },
+        { p: 'plakate', src: T + 'plakat-bubble.webp', t: ['Politische Plakate', 'Political posters'] },
+        { p: 'blender', src: A + 'blender/park-kugeln-poster.webp', t: ['Kugeln im Park', 'Spheres in the park'], vid: V + 'park-kugeln.mp4' },
+        { p: 'blender', src: A + 'blender/toms-buero.webp', t: ['Toms Büro', 'Tom’s office'] },
+        { p: 'icapsule', src: T + 'ibee-hell.webp' },
+        { p: 'plakate', src: A + 'plakat-rechts.webp', pos: '50% 30%' },
+        { p: 'flyer', src: A + 'flyer-cover.jpg', t: ['Flyer'] }
+      ] },
+      { id: 'natur', t: ['Natur', 'Nature'], href: 'Fotos.dc.html', shape: 'wide', items: [
+        { p: 'sonne', src: N + 'sa-bruecke-nebel.webp', t: ['Nebel', 'Fog'] },
+        { p: 'tiere', src: N + 'tier-zunge.webp', t: ['Zunge raus', 'Tongue out'] },
+        { p: 'sonne', src: N + 'sa-donau-blau.webp', t: ['Blaue Stunde', 'Blue hour'] },
+        { p: 'tiere', src: N + 'tier-hund.webp' },
+        { p: 'sonne', src: N + 'sa-donau-gold.webp', t: ['Goldene Stunde', 'Golden hour'] },
+        { p: 'tiere', src: N + 'tier-gelb.webp' },
+        { p: 'sonne', src: N + 'sa-sonne-bruecke.webp' },
+        { p: 'tiere', src: N + 'tier-dunkel.webp' },
+        { p: 'sonne', src: N + 'sa-donau-gaense.webp', t: ['Gänse', 'Geese'] },
+        { p: 'tiere', src: N + 'tier-hund-profil.webp' }
+      ] }
+    ];
+    const byId = {}, all = [];
+    rows.forEach((r, ri) => r.items.forEach((it, k) => { it.id = ri + '-' + k; it.shape = r.shape; byId[it.id] = it; if (!it.proj) all.push(it); }));
+    const clips = [
+      { v: V + 'drohne-nebel.mp4', poster: A + 'drohne-nebel-poster.webp', s: 3, d: 6000, p: 'drohne' },
+      { i: KB + 'dsc00452.webp', d: 4500, p: 'korea', pos: '50% 35%', origin: '60% 40%' },
+      { v: V + 'therme-doku.mp4', poster: A + 'therme-doku-poster.webp', s: 0, d: 5000, p: 'therme' },
+      { i: A + 'portraet-feld.webp', d: 4500, p: 'menschen', pos: '50% 30%', origin: '50% 30%' },
+      { v: V + 'fpv-timeline-1.mp4', poster: A + 'fpv-timeline-1-poster.webp', s: 6, d: 5500, p: 'drohne' },
+      { v: V + 'vorstellungskraft-schaedel.mp4', poster: A + 'blender/schaedel-moos-1600.webp', s: 1, d: 4500, p: 'blender' },
+      { i: A + 'sa-bruecke-nebel.webp', d: 4500, p: 'sonne', origin: '30% 60%' },
+      { i: KB + 'dsc08579.webp', d: 4500, p: 'korea', origin: '70% 50%' },
+      { v: V + 'park-kugeln.mp4', poster: A + 'blender/park-kugeln-poster.webp', s: 0, d: 5800, p: 'blender' },
+      { i: A + 'icap-farben.webp', d: 4500, p: 'icapsule' },
+      { i: A + 'tier-zunge.webp', d: 4200, p: 'tiere', origin: '50% 40%' },
+      { i: A + 'film-electrify-poster.webp', d: 4500, p: 'filme' }
+    ];
+    const S = {
+      de: { watch: 'Ansehen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreOf: 'Mehr aus dem Projekt', all: 'Alle ansehen', skip: 'Überspringen', switchP: 'Profil wechseln', contact: 'Kontakt', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', profile: 'Profil', active: 'aktiv' },
+      en: { watch: 'Watch', more: 'More info', toPage: 'Open project', moreOf: 'More from this project', all: 'See all', skip: 'Skip', switchP: 'Switch profile', contact: 'Contact', write: 'Write to me.', top: 'Back to top', browse: 'Browse', profile: 'Profile', active: 'active' }
+    };
+    const links = [[['Start', 'Home'], '#top'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Video', 'Film'], 'Video.dc.html'], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
+    return this._D = { P, rows, byId, all, clips, S, links };
+  }
+
+  $(k) { return document.querySelector('[data-k="' + k + '"]'); }
+
+  componentDidMount() {
+    this.reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.paused = new Set(['pick']);
+    this.onR = () => this.setState({ vw: innerWidth, vh: innerHeight });
+    addEventListener('resize', this.onR); this.onR();
+    this.onS = () => { const n = this.$('nav'); if (n) n.style.backgroundColor = scrollY > 30 ? 'rgba(12,12,12,.97)' : 'rgba(12,12,12,0)'; this.popClose(true); };
+    addEventListener('scroll', this.onS, { passive: true }); this.onS();
+    this.onK = e => { if (e.key === 'Escape') { if (this.state.modal) this.closeModal(); else if (this.state.menu) this.setState({ menu: null }); } };
+    addEventListener('keydown', this.onK);
+    this.onDoc = e => { if (this.state.menu && !(e.target.closest && e.target.closest('[data-menu]'))) this.setState({ menu: null }); };
+    document.addEventListener('click', this.onDoc);
+    this.onVis = () => this.setPause('tab', document.hidden);
+    document.addEventListener('visibilitychange', this.onVis);
+    this.hoverInit();
+    this.tick = now => { this.step(now); this.raf = requestAnimationFrame(this.tick); };
+    this.raf = requestAnimationFrame(this.tick);
+    if (this.state.stage !== 'browse') document.documentElement.style.overflow = 'hidden';
+    this._t1 = setTimeout(() => {
+      this.reelInit(); this.rowsInit(); this.heroIO();
+      if (this.state.stage === 'browse') this.startBrowse();
+    }, 60);
+  }
+
+  componentWillUnmount() {
+    removeEventListener('resize', this.onR); removeEventListener('scroll', this.onS); removeEventListener('keydown', this.onK);
+    document.removeEventListener('click', this.onDoc); document.removeEventListener('visibilitychange', this.onVis);
+    document.removeEventListener('pointerover', this.onOver); document.removeEventListener('pointerout', this.onOut);
+    cancelAnimationFrame(this.raf); clearTimeout(this._t1); clearTimeout(this._safe); clearTimeout(this.hovT);
+    if (this.io) this.io.disconnect();
+    document.documentElement.style.overflow = '';
+  }
+
+  componentDidUpdate(pp) {
+    const p = this.props;
+    if (pp.profilauswahl !== p.profilauswahl) {
+      if (p.profilauswahl === 'Aus' && this.state.stage !== 'browse') this.finishNow();
+      else if (p.profilauswahl !== 'Aus' && pp.profilauswahl === 'Aus') this.switchProfile();
+    }
+    if (pp.sprache !== p.sprache && (p.profilauswahl ?? 'Immer') === 'Aus') this.setLang(p.sprache === 'English' ? 'en' : 'de');
+  }
+
+  setLang(l) {
+    try { sessionStorage.setItem('mx-profil', l); localStorage.setItem('mx-lang', l); } catch (e) {}
+    document.documentElement.lang = l;
+    this.setState({ lang: l, menu: null });
+  }
+
+  /* ---------- Profilauswahl + Intro ---------- */
+  pick(lang) {
+    if (this.picking) return; this.picking = true;
+    this.setLang(lang);
+    const pk = this.$('picker'), useIntro = (this.props.intro ?? true) && !this.reduce;
+    if (useIntro) {
+      const ov = this.$('intro'), iv = this.$('iv');
+      if (ov && iv) {
+        this.introDone = false;
+        ov.style.display = 'block'; iv.style.transition = 'none'; iv.style.opacity = '0';
+        try { iv.currentTime = 0; } catch (e) {}
+        iv.muted = false;
+        const go = () => { iv.style.transition = 'opacity .5s ease'; iv.style.opacity = '1'; };
+        const pr = iv.play();
+        if (pr) pr.then(go).catch(() => { iv.muted = true; iv.play().then(go).catch(() => this.endIntro(true)); }); else go();
+        iv.onended = () => this.endIntro(false);
+        clearTimeout(this._safe); this._safe = setTimeout(() => this.endIntro(false), 9000);
+        const sk = this.$('skip');
+        if (sk) { sk.style.transition = 'none'; sk.style.opacity = '0'; setTimeout(() => { sk.style.transition = 'opacity .4s'; sk.style.opacity = '1'; }, 1000); }
+      }
+    }
+    const tile = pk && pk.querySelector('[data-pk="' + lang + '"] [data-pk-img]');
+    if (tile && !this.reduce) tile.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.08)' }], { duration: 450, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards' });
+    const end = () => { if (useIntro && this.$('intro')) this.setState({ stage: 'intro' }); else this.finishNow(); };
+    if (pk) pk.animate([{ opacity: 1 }, { opacity: 0 }], { duration: this.reduce ? 200 : 520, delay: this.reduce ? 0 : 160, easing: 'ease', fill: 'forwards' }).onfinish = end; else end();
+  }
+
+  finishNow() {
+    this.introDone = true; clearTimeout(this._safe);
+    this.setState({ stage: 'browse', navLogo: 1 });
+    this.startBrowse();
+  }
+
+  endIntro(skip) {
+    if (this.introDone) return; this.introDone = true; clearTimeout(this._safe);
+    const ov = this.$('intro'), iv = this.$('iv'), fly = this.$('fly'), nl = this.$('navlogo');
+    scrollTo(0, 0);
+    const done = () => { if (fly) { fly.getAnimations().forEach(a => a.cancel()); fly.style.display = 'none'; } this.setState({ stage: 'browse', navLogo: 1 }); };
+    if (!ov || !iv || !fly || !nl || this.reduce) {
+      if (ov) ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 450, fill: 'forwards' }).onfinish = done; else done();
+      this.startBrowse(); return;
+    }
+    iv.onended = null;
+    const vw = innerWidth, vh = innerHeight, fit = getComputedStyle(iv).objectFit;
+    const sc = fit === 'contain' ? Math.min(vw / 1920, vh / 1080) : Math.max(vw / 1920, vh / 1080);
+    const x = (vw - 1920 * sc) / 2 + 489 * sc, y = (vh - 1080 * sc) / 2 + 480 * sc, w = 937 * sc, h = 179 * sc;
+    Object.assign(fly.style, { display: 'block', left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px', opacity: skip ? '0' : '1', transform: 'none' });
+    if (skip) fly.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, fill: 'forwards' });
+    iv.pause(); iv.style.transition = 'opacity .55s ease'; iv.style.opacity = '0';
+    const sk = this.$('skip'); if (sk) sk.style.opacity = '0';
+    setTimeout(() => {
+      const T = nl.querySelector('img').getBoundingClientRect(), s = T.width / w;
+      fly.animate([{ transform: 'translate(0px,0px) scale(1)' }, { transform: 'translate(' + (T.left - x) + 'px,' + (T.top - y) + 'px) scale(' + s + ')' }], { duration: 1100, easing: 'cubic-bezier(.75,0,.2,1)', fill: 'forwards' })
+        .onfinish = () => this.setState({ navLogo: 1 }, () => requestAnimationFrame(done));
+      ov.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 900, delay: 300, easing: 'ease', fill: 'forwards' });
+      this.startBrowse();
+    }, skip ? 380 : 650);
+  }
+
+  switchProfile() {
+    this.picking = false; this.introDone = false;
+    this.popClose(true); this.setPause('pick', true);
+    scrollTo(0, 0); document.documentElement.style.overflow = 'hidden';
+    this.setState({ stage: 'pick', menu: null, navLogo: 0, modal: null });
+  }
+
+  startBrowse() {
+    document.documentElement.style.overflow = '';
+    if (!this.layers) this.reelInit();
+    if (!this.reelOn) { this.reelOn = true; this.reelGo(0); }
+    this.setPause('pick', false);
+    const h = this.$('htext');
+    if (h && !this.reduce) h.animate([{ opacity: 0, transform: 'translateY(18px)' }, { opacity: 1, transform: 'none' }], { duration: 900, delay: 350, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'backwards' });
+  }
+
+  /* ---------- Showreel ---------- */
+  reelInit() {
+    this.layers = [...document.querySelectorAll('[data-k="layer"]')];
+    this.segs = [...document.querySelectorAll('[data-k="segf"]')];
+    this.layers.forEach(l => { const v = l.querySelector('video'); if (v) { v.muted = true; v.playsInline = true; v.setAttribute('playsinline', ''); } });
+    this.prep(0); this.prep(1);
+  }
+
+  prep(i) {
+    const l = this.layers && this.layers[i]; if (!l || l._prep) return; l._prep = true;
+    const im = l.querySelector('img'), v = l.querySelector('video');
+    if (im && im.dataset.src) im.src = im.dataset.src;
+    if (v) { if (v.dataset.poster) v.poster = v.dataset.poster; v.preload = 'auto'; if (v.dataset.src) v.src = v.dataset.src; }
+  }
+
+  reelGo(i) {
+    const C = this.data().clips, n = C.length; i = ((i % n) + n) % n;
+    if (!this.layers || !this.layers.length) return;
+    const prev = this.ri; this.ri = i; this.rt0 = performance.now(); this.rel = 0;
+    this.prep(i); this.prep((i + 1) % n);
+    this.layers.forEach((l, k) => { if (k !== i && k !== prev) { l.style.transition = 'none'; l.style.opacity = '0'; l.style.zIndex = '0'; const v = l.querySelector('video'); if (v) v.pause(); } });
+    const L = this.layers[i], c = C[i];
+    L.style.zIndex = '2'; L.style.transition = 'opacity .9s ease'; L.style.opacity = '1';
+    const v = L.querySelector('video'), im = L.querySelector('img');
+    if (v) {
+      const seek = () => { try { v.currentTime = c.s || 0; } catch (e) {} };
+      if (v.readyState >= 1) seek(); else v.addEventListener('loadedmetadata', seek, { once: true });
+      if (!this.paused.size) v.play().catch(() => {});
+    }
+    if (im) { im.getAnimations().forEach(a => a.cancel()); if (!this.reduce) { const a = im.animate([{ transform: 'scale(1.12)' }, { transform: 'scale(1)' }], { duration: c.d + 1400, easing: 'linear', fill: 'forwards' }); if (this.paused.size) a.pause(); } }
+    if (prev != null && prev !== i) {
+      const Pl = this.layers[prev]; Pl.style.zIndex = '1';
+      setTimeout(() => { if (this.ri !== prev) { Pl.style.transition = 'none'; Pl.style.opacity = '0'; Pl.style.zIndex = '0'; const pv = Pl.querySelector('video'); if (pv) pv.pause(); } }, 950);
+    }
+    this.segs.forEach((s, k) => { s.style.transform = k < i ? 'scaleX(1)' : 'scaleX(0)'; });
+    this.heroSwap(i);
+  }
+
+  heroSwap(i) {
+    const el = this.$('hswap');
+    if (!el || this.reduce || this.state.cur === i) { this.setState({ cur: i }); return; }
+    el.getAnimations().forEach(a => a.cancel());
+    el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 260, easing: 'ease-in', fill: 'forwards' }).onfinish = () => {
+      this.setState({ cur: i }, () => {
+        el.getAnimations().forEach(a => a.cancel());
+        el.animate([{ opacity: 0, transform: 'translateY(-8px)' }, { opacity: 1, transform: 'none' }], { duration: 560, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      });
+    };
+  }
+
+  step(now) {
+    if (!this.reelOn || this.paused.size) return;
+    const c = this.data().clips[this.ri]; if (!c) return;
+    const p = Math.min(1, (this.rel + now - this.rt0) / c.d);
+    const s = this.segs[this.ri]; if (s) s.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    if (p >= 1) this.reelGo(this.ri + 1);
+  }
+
+  setPause(k, on) {
+    const was = this.paused.size > 0;
+    if (on) this.paused.add(k); else this.paused.delete(k);
+    const is = this.paused.size > 0;
+    if (!this.reelOn || was === is) return;
+    const now = performance.now(), L = this.layers[this.ri], v = L && L.querySelector('video'), im = L && L.querySelector('img');
+    if (is) { this.rel += now - this.rt0; if (v) v.pause(); if (im) im.getAnimations().forEach(a => a.pause()); }
+    else { this.rt0 = now; if (v) v.play().catch(() => {}); if (im) im.getAnimations().forEach(a => a.play()); }
+  }
+
+  heroIO() {
+    const h = this.$('hero'); if (!h || !window.IntersectionObserver) return;
+    this.io = new IntersectionObserver(es => es.forEach(e => this.setPause('off', e.intersectionRatio < 0.2)), { threshold: [0, 0.2, 0.5] });
+    this.io.observe(h);
+  }
+
+  jump(i) { if (this.reelOn) this.reelGo(i); }
+
+  /* ---------- Reihen ---------- */
+  rowsInit() {
+    document.querySelectorAll('[data-row]').forEach(row => {
+      if (row._init) return; row._init = true;
+      const sc = row.querySelector('[data-scroll]'), l = row.querySelector('[data-arr="l"]'), r = row.querySelector('[data-arr="r"]');
+      if (!sc || !l || !r) return;
+      const upd = () => {
+        const on = row._hov, a = on && sc.scrollLeft > 8, b = on && sc.scrollLeft + sc.clientWidth < sc.scrollWidth - 8;
+        l.style.opacity = a ? '1' : '0'; l.style.pointerEvents = a ? 'auto' : 'none';
+        r.style.opacity = b ? '1' : '0'; r.style.pointerEvents = b ? 'auto' : 'none';
+      };
+      row.addEventListener('mouseenter', () => { row._hov = matchMedia('(hover:hover)').matches; upd(); });
+      row.addEventListener('mouseleave', () => { row._hov = false; upd(); });
+      sc.addEventListener('scroll', () => { upd(); this.popClose(true); }, { passive: true });
+      l.addEventListener('click', () => sc.scrollBy({ left: -sc.clientWidth * 0.85, behavior: 'smooth' }));
+      r.addEventListener('click', () => sc.scrollBy({ left: sc.clientWidth * 0.85, behavior: 'smooth' }));
+    });
+  }
+
+  hoverInit() {
+    this.onOver = e => {
+      if (innerWidth < 900 || this.state.modal || this.state.stage !== 'browse' || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+      const card = e.target.closest && e.target.closest('[data-card]'); if (!card || this.hovCard === card) return;
+      this.hovCard = card; clearTimeout(this.hovT);
+      this.hovT = setTimeout(() => this.popOpen(card), 480);
+    };
+    this.onOut = e => {
+      const card = e.target.closest && e.target.closest('[data-card]'); if (!card) return;
+      if (e.relatedTarget && card.contains(e.relatedTarget)) return;
+      if (this.hovCard === card) { this.hovCard = null; clearTimeout(this.hovT); }
+    };
+    document.addEventListener('pointerover', this.onOver);
+    document.addEventListener('pointerout', this.onOut);
+  }
+
+  popOpen(card) {
+    const id = card.getAttribute('data-card'), it = this.data().byId[id]; if (!it) return;
+    const r = card.getBoundingClientRect(); if (r.right < 0 || r.left > innerWidth) return;
+    this.setState({ pop: id }, () => {
+      const pop = this.$('pop'), info = this.$('popi'), v = this.$('popv'); if (!pop) return;
+      pop.getAnimations().forEach(a => a.cancel());
+      const W = Math.max(r.width * 1.15, Math.min(r.width * 1.45, 560), 300), ih = W * 9 / 16;
+      pop.style.width = W + 'px'; pop.style.display = 'block'; pop.style.visibility = 'hidden';
+      const H = pop.offsetHeight;
+      const left = Math.max(12, Math.min(innerWidth - W - 12, r.left + r.width / 2 - W / 2));
+      const top = Math.max(76, Math.min(innerHeight - H - 12, r.top + r.height / 2 - ih / 2));
+      pop.style.left = left + 'px'; pop.style.top = top + 'px'; pop.style.visibility = 'visible';
+      const s = r.width / W, tx = r.left + r.width / 2 - (left + W / 2), ty = r.top + r.height / 2 - (top + ih / 2);
+      pop.style.transformOrigin = (W / 2) + 'px ' + (ih / 2) + 'px';
+      this.popFrom = { tx, ty, s };
+      pop.animate([{ transform: 'translate(' + tx + 'px,' + ty + 'px) scale(' + s + ')' }, { transform: 'none' }], { duration: 320, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      if (info) info.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 260, delay: 120, fill: 'backwards' });
+      if (v) {
+        v.pause(); v.style.opacity = '0'; v.muted = true; v.oncanplay = null;
+        if (it.vid) { v.src = it.vid; v.oncanplay = () => { v.style.opacity = '1'; }; v.play().catch(() => {}); }
+        else if (v.getAttribute('src')) { v.removeAttribute('src'); v.load(); }
+      }
+    });
+  }
+
+  popClose(now) {
+    clearTimeout(this.hovT); this.hovCard = null;
+    const pop = this.$('pop'); if (!pop || pop.style.display === 'none' || !pop.style.display) return;
+    const v = this.$('popv'); if (v) v.pause();
+    const f = this.popFrom; this.popFrom = null;
+    if (now || !f) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; return; }
+    pop.animate([{ transform: 'none', opacity: 1 }, { transform: 'translate(' + f.tx + 'px,' + f.ty + 'px) scale(' + f.s + ')', opacity: 0 }], { duration: 220, easing: 'ease-in', fill: 'forwards' })
+      .onfinish = () => { if (!this.popFrom) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; } };
+  }
+
+  /* ---------- Mehr Infos ---------- */
+  openModal(key, id) {
+    this.popClose(true); this.setPause('modal', true);
+    document.documentElement.style.overflow = 'hidden';
+    this.setState({ modal: { key, id: id || null }, menu: null }, () => {
+      const p = this.$('mpanel'); if (p && !this.reduce) p.animate([{ opacity: 0, transform: 'translateY(26px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 380, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      const mv = this.$('mvid'); if (mv) { mv.muted = true; mv.playsInline = true; mv.play().catch(() => {}); }
+      const m = this.$('modal'); if (m) m.scrollTop = 0;
+    });
+  }
+
+  closeModal() {
+    const p = this.$('mpanel'), fin = () => { this.setState({ modal: null }); document.documentElement.style.overflow = ''; this.setPause('modal', false); };
+    if (p && !this.reduce) p.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(18px) scale(.98)' }], { duration: 200, easing: 'ease-in', fill: 'forwards' }).onfinish = fin; else fin();
+  }
+
+  renderVals() {
+    const D = this.data(), lg = this.state.lang, li = lg === 'en' ? 1 : 0, L = D.S[lg];
+    const tr = a => a ? (a[li] ?? a[0]) : '';
+    const vw = this.state.vw, vh = this.state.vh, wide = vw >= 900, st = this.state.stage;
+    const SH = { big: ['clamp(250px,27vw,520px)', '16/9', 'clamp(20px,1.7vw,28px)'], wide: ['clamp(210px,19vw,350px)', '16/9', '15px'], tall: ['clamp(140px,12.6vw,232px)', '2/3', '15px'] };
+    const hc = D.clips[this.state.cur] || D.clips[0], hp = D.P[hc.p];
+
+    const pi = this.state.pop && D.byId[this.state.pop], pp = pi && D.P[pi.p];
+    const pop = pi ? { href: pp.href, src: pi.src, pos: pi.pos || '50% 50%', t: tr(pi.t) || tr(pp.t), kicker: pi.t && !pi.proj ? tr(pp.t) : '', meta: pi.m ? tr(pi.m) : tr(pp.meta), txt: pi.x ? tr(pi.x) : tr(pp.txt) } : { href: '#top', src: 'assets/logo-max.png', pos: '50% 50%', t: '', kicker: '', meta: '', txt: '' };
+
+    const mo = this.state.modal;
+    let m = { t: '', kicker: '', meta: '', txt: '', href: '#top', src: 'assets/logo-max.png', pos: '50% 50%', vid: '', hasVid: false, more: [], hasMore: false, cols: '1fr' };
+    if (mo) {
+      const P = D.P[mo.key], it = mo.id ? D.byId[mo.id] : null, own = !!(it && it.x);
+      const more = D.all.filter(x => x.p === mo.key && x.id !== mo.id).slice(0, 12);
+      const tall = more.length && more[0].shape === 'tall';
+      m = {
+        t: own ? tr(it.t) : tr(P.t), kicker: own ? tr(P.t) : '', meta: own ? tr(it.m) : tr(P.meta), txt: own ? tr(it.x) : tr(P.txt), href: P.href,
+        src: own ? it.src : P.big, pos: (own ? it.pos : P.pos) || '50% 50%', vid: (it && it.vid) || P.vid || '',
+        more: more.map(x => ({ src: x.src, href: P.href, ar: x.shape === 'tall' ? '2/3' : '16/9', pos: x.pos || '50% 50%', alt: tr(x.t) || tr(P.t) })),
+        cols: tall ? 'repeat(auto-fill,minmax(120px,1fr))' : 'repeat(auto-fill,minmax(180px,1fr))'
+      };
+      m.hasVid = !!m.vid; m.hasMore = m.more.length > 0;
+    }
+
+    const imgs = { de: 'ueber-mich/max-1.webp', en: 'ueber-mich/max-4.webp' };
+    return {
+      L,
+      pickOn: st === 'pick', introMount: st === 'pick' || st === 'intro', introFit: vw / vh < 1.3 ? 'contain' : 'cover',
+      pickDe: () => this.pick('de'), pickEn: () => this.pick('en'), skipIntro: () => this.endIntro(true),
+      navLogoOp: this.state.navLogo, wide, narrow: !wide,
+      links: D.links.map(([t, href], i) => ({ t: tr(t), href, fw: i === 0 ? 600 : 400, fg: i === 0 ? '#f2f2f2' : '#e5e5e5' })),
+      navOpen: this.state.menu === 'nav', profOpen: this.state.menu === 'prof', caretRot: this.state.menu === 'prof' ? '180deg' : '0deg',
+      toggleNav: () => this.setState(s => ({ menu: s.menu === 'nav' ? null : 'nav' })),
+      toggleProf: () => this.setState(s => ({ menu: s.menu === 'prof' ? null : 'prof' })),
+      curImg: imgs[lg],
+      profs: [['de', 'Deutsch'], ['en', 'English']].map(([k, t]) => ({ t, img: imgs[k], mark: k === lg ? L.active : '', pick: () => this.setLang(k) })),
+      switchProfile: () => this.switchProfile(),
+      clips: D.clips.map((c, i) => ({ isVid: !!c.v, isImg: !c.v, src: c.v || c.i, poster: c.poster || '', pos: c.pos || '50% 50%', origin: c.origin || '50% 50%', label: tr(D.P[c.p].t), go: () => this.jump(i) })),
+      hero: { t: tr(hp.t), meta: tr(hp.meta), txt: tr(hp.txt), href: hp.href },
+      heroInfo: () => this.openModal(hc.p),
+      rows: D.rows.map(r => ({
+        id: r.id, t: tr(r.t), href: r.href || '#top', hasHref: !!r.href, w: SH[r.shape][0], ar: SH[r.shape][1], fs: SH[r.shape][2],
+        items: r.items.map(it => ({ id: it.id, href: D.P[it.p].href, src: it.src, pos: it.pos || '50% 50%', t: tr(it.t), hasT: !!it.t, alt: tr(it.t) || tr(D.P[it.p].t) }))
+      })),
+      pop, popLeave: () => this.popClose(false), popInfo: () => { if (pi) this.openModal(pi.p, pi.proj ? null : pi.id); },
+      modalOn: !!mo, m, closeModal: () => this.closeModal(), modalBg: e => { if (e.target === e.currentTarget) this.closeModal(); },
+      toDe: () => this.setLang('de'), toEn: () => this.setLang('en'),
+      deFg: lg === 'de' ? '#f2f2f2' : '#8d8d92', enFg: lg === 'en' ? '#f2f2f2' : '#8d8d92'
+    };
+  }
+}
+</script>
+</body>
+</html>
