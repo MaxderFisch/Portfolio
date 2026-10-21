@@ -1114,3 +1114,58 @@ Die übrigen fünf `film-*.mp4` sind nicht fragmentiert (geprüft).
 Nebenbei: der lokale `werkzeug/serve.js` beantwortet Range-Anfragen mit 200 und der ganzen
 Datei. Bei zugeklapptem Browserbereich bleiben Videos dann gern bei `readyState 0` hängen —
 die Datei einzeln direkt aufrufen und `duration` lesen, das klappt.
+
+## `img.decode()` kann hängen bleiben (21.10.2026)
+
+Beim Test von `site/Fotos-leicht.dc.html` blieb `new Image().decode()` bei verdecktem Fenster
+**nie aufgelöst**: kein Erfolg, kein Fehler. Das Bild hing auf „wird geladen" (`pend`) und wurde
+nie getauscht. Daher: nie allein auf `decode()` warten. Lösung dort: nach `onload` `decode()`
+probieren **und** einen Rückfall-Timer (0,4 s) setzen, der den Tausch auf jeden Fall macht, mit
+einer `done`-Sperre gegen doppeltes Tauschen.
+
+## Claude-Design-Seiten bei verdecktem Browser trotzdem durchspielen (21.10.2026)
+
+Ist der Browserbereich verdeckt, laufen rAF und WAAPI-Animationen gar nicht (0 Bilder/s). Ein
+Aufklappen per `show_pane` hilft nicht, wenn das Claude-Fenster selbst nicht vorne ist. Für Tests
+der **Logik** (nicht der Bildrate!) hilft dieser Weg: Seite per `fetch` holen, `requestAnimationFrame`
+durch `setTimeout(…,16)` ersetzen und das HTML per `document.open/write/close` neu schreiben. Das
+`window` bleibt dabei erhalten, also auch die Ersatzfunktion. Das ist nur ein Testkniff, er
+verändert keine Datei. Einzelne `javascript_tool`-Aufrufe dürfen höchstens 45 s dauern, längere
+Abläufe also aufteilen. Hilfsfunktionen, die man auf `window` ablegt, überleben das `document.write`.
+
+Zum Vergleichen vom Zoom **Tasten** („+", „0") mit festen Pausen nehmen, nicht das Mausrad. Die
+Mausrad-Ereignisse sammeln sich je nach Takt unterschiedlich an (ein Lauf endete bei Maßstab 1,0,
+ein anderer bei 6,0). So sind die Läufe nicht vergleichbar.
+
+## Riesige skalierte Ebene: schwarze Löcher beim schnellen Zoomen (21.10.2026)
+
+`site/Fotos.dc.html` schiebt und skaliert **eine** Ebene von 10000×7160 px mit 78 Bildern per
+`transform: … scale()`. Bei schnellem Zoomen oder Wischen rastert der Browser die Kacheln dieser
+Ebene nicht schnell genug nach. Man sieht dann **schwarze Flächen und rechteckige Löcher** in den
+Bildern, vor allem direkt nach dem Herauszoomen. Max hat das auch auf dem MacBook gesehen.
+`requestAnimationFrame`-Messungen zeigen davon **nichts** (Hauptprozess bleibt bei ~8 ms). Nur
+Bildschirmfotos mitten in der Bewegung zeigen es. Weniger Bildspeicher (kleinere Vorschauen)
+hilft nicht. Abhilfe: selbst auf eine `<canvas>` zeichnen (`Fotos-leinwand.dc.html`).
+
+Beim Zeichnen auf canvas:
+- **Nur den sichtbaren Ausschnitt** an `drawImage` geben. Ein stark vergrößertes Bild ganz zu
+  zeichnen (Ziel weit größer als der Schirm) kostete mit `imageSmoothingQuality='high'` bis 2 s
+  pro Bild. „high" nur zum Verkleinern benutzen, beim Vergrößern bringt es nichts.
+- `createImageBitmap(imgElement)` entpackt in Chrome **im Hauptprozess** (Hänger 0,7 s bei großen
+  Fotos). Besser `fetch(u).then(r=>r.blob()).then(createImageBitmap)`.
+- Bitmaps mit `.close()` freigeben, sonst bleibt der Speicher belegt.
+
+## Messungen kippen, sobald Max parallel testet (21.10.2026)
+
+Wenn Max während meiner Messung selbst im Browser testet oder ein anderes Fenster vorne hat,
+wird der Vorschaubereich verdeckt. rAF fällt auf ~1/s, und es kommen „Bildzeiten" von 2 s heraus.
+**Vor und nach jeder Leistungsmessung** `document.visibilityState` und rAF/s prüfen und
+Läufe mit `hidden` verwerfen. Echte Grafik-Hänger (GL-Befehle, die warten) sehen ähnlich aus,
+deshalb unbedingt unterscheiden.
+
+## 2D-Canvas ist für eine Fotowand zu teuer (21.10.2026)
+
+Beim ersten `drawImage` eines neuen Bitmaps wird es im Hauptprozess zur Grafik gebracht.
+Verkleinern mit `imageSmoothingQuality='high'` kostet zusätzlich. Beim Hineinfahren in ein Foto
+(viele Bilder wechseln gleichzeitig die Stufe) gab das Hänger bis 1,4 s. WebGL mit Mipmaps und
+einer Upload-Warteschlange zeichnet dieselbe Wand in 0,2 ms.

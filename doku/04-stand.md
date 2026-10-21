@@ -1,8 +1,325 @@
 # Stand
 
+## 21.10.2026 — Handy-Videos (9:16): waren schon eingebaut, Weiterlaufen ergänzt
+
+Max schickte `korea-9x16.mp4` und `3d-design-9x16.mp4`: „für die mobile Version … genau so wie die
+anderen Videos, nur halt für die Handy-Version". Die waren schon drin (siehe Eintrag darunter),
+byte-gleich mit `site/assets/video/intro-*-9x16.mp4`. In Handy-Größe (375×812 bzw. 394×853) geprüft:
+Korea und 3D laden die 9:16-Fassung.
+
+**Ergänzt:** Beim Test hielt das Video an, sobald der Vorschaubereich verdeckt war. Am Handy passiert
+dasselbe beim App-Wechsel, und weil das Video per `play()` statt `autoplay` startet, wäre es danach
+stehen geblieben. Jetzt läuft es bei `visibilitychange` → sichtbar wieder an (Listener wird beim
+Abbauen entfernt). Skript in beiden Dateien geprüft. Am echten Handy nicht getestet.
+
+---
+
+## 21.10.2026 — Vorspann von Korea und 3D & Design als Video (Testseiten, lokal)
+
+Max hat die Vorspann-Animationen selbst als Videos gerendert. Werkzeug: `site/render/`
+(Puppeteer, `render-showreels.mjs`, LIES-MICH.md darin). Die Videos rendern Bild für Bild, ohne
+Navi, Knöpfe, Fortschrittsbalken und Filmkorn (die bleiben auf der Seite). Seine Bitte: „baue bitte
+mal diese Videos statt der Animation ein". Genannt hat er `korea-16x9.mp4` und `3d-design-16x9.mp4`.
+
+**Videos:** H.264, 30 fps, ohne Ton, schon faststart. **Unverändert** kopiert (nicht neu
+komprimiert) nach `site/assets/video/intro-korea-16x9.mp4` (35 s, 16,2 MB),
+`intro-korea-9x16.mp4` (10,9 MB), `intro-3d-design-16x9.mp4` (48 s, 28,8 MB),
+`intro-3d-design-9x16.mp4` (20,5 MB). Kein Standbild: Das erste Bild ist bei allen schwarz (alle
+vier Standbilder hatten identisch 3776 Byte), also gelöscht, der Bereich ist ohnehin schwarz.
+
+**Neue Seiten neben den Originalen** (Originale unberührt, 20.10. 19:47):
+`site/Korea v3 Video.dc.html` und `site/3D Design Video.dc.html`.
+- Der Inhalt von `[data-k="film"]` (Korea) bzw. `[data-k="reel"]` (3D) ist ersetzt durch **ein**
+  `<video muted="true" loop="true" playsinline="true" preload="auto">` mit `object-fit:cover`.
+  Boolesche Attribute mit `"true"` (siehe 05-fallen). Bei Korea sind auch die Wörter unten raus,
+  die sind im Video.
+- Zwei Quellen: **9:16 bei `(max-aspect-ratio: 3/4)`** (Handy, Tablet hochkant), sonst 16:9.
+  Erst war es `orientation: portrait`, aber der leicht hochkante Vorschaubereich (716×811) bekam
+  so schon die Handy-Fassung → geändert. Die 9:16-Fassung hat Max nicht ausdrücklich genannt,
+  ich habe sie dazugenommen, weil er sie mitgerendert hat. Leicht wieder zu entfernen.
+- Start wie bisher die Animation: erst nach dem Seitenwechsel (`afterCover` → `startVid`).
+- Korea: Fortschrittsbalken (`data-f="vprog"`) folgt dem Video per `requestVideoFrameCallback`.
+- Die Animationslogik ist noch drin, findet aber keine Elemente mehr (läuft ins Leere, schadet nicht).
+
+**Geprüft:** Klammern, IDs, Skript, alle Dateien vorhanden. Im Browser: Video lädt, läuft, ist
+stumm und in der Schleife, Knopf und Balken sind da, keine alten Animationsteile, Rest der
+3D-Seite vorhanden. 404 nur für `{{ … }}`-Platzhalter (harmlos, wie im Original). **Nicht geprüft:**
+echtes Handy. Ruckeln habe ich auf Max' Wunsch nicht gemessen.
+
+**Offen, Max fragen:** `site/render/` liegt im Repo (229 MB, davon `node_modules` 90 MB,
+`videos` 139 MB). Steht nicht in `.gitignore` → würde bei `git add -A` mit hochgehen. Nicht
+angefasst. Ebenso offen: die gerenderte Startseiten-Fassung (`startseite-*.mp4`) ist noch nicht
+eingebaut, war nicht beauftragt.
+
+---
+
+## 21.10.2026 — `site/Fotos-einfach.dc.html`: Max' eigener Vorschlag umgesetzt (lokal)
+
+Max, sinngemäß: Nimm die unbearbeitete Seite. Am Anfang alles in schlechter Qualität laden. Erst
+wenn man auf ein Bild gezoomt wird und direkt drauf ist, lädt **dieses eine Bild** nach ~0,5 s die
+beste Fassung. Bewegt man sich, wird das abgebrochen. Und deutlich: **„Das ganze Messen bringt
+nichts … ich messe für dich. Du misst gar nichts, du änderst einfach nur."** → keine
+Leistungsmessungen mehr von mir, Max testet selbst.
+
+Umgesetzt als Kopie von `Fotos.dc.html` (Original unberührt, 20.10. 19:47), nur drei Eingriffe:
+1. Alle 78 Bilder starten mit der kleinen Fassung `assets/fotos-leicht/s/` (360 px).
+2. `hires()` ist leer: Zoomen lädt **nichts** Größeres nach.
+3. Klick/Pfeil auf ein Bild (`focus`): nach Fahrt (1 s) + 0,5 s lädt nur dieses Bild voll, getauscht
+   nach `decode()`. Verlassen (`unfocus`, Ziehen, Rad, anderes Bild) bricht ab und setzt große
+   Fassungen wieder auf klein.
+Nachbarbilder werden nicht mehr vorgeladen. Die Ebene mit `will-change` ist geblieben, wie sie war.
+Geprüft nur statisch (Klammern, Skript, alle kleinen Fassungen vorhanden), auf Max' Wunsch nicht
+im Browser gemessen.
+
+---
+
+## 21.10.2026 — `Fotos-webgl` ruckelt laut Max „noch viel viel krasser"
+
+Dritter Versuch, der es für Max nicht besser macht (leicht → leinwand → webgl). Ehrlich festgehalten:
+Ich habe zu viel aus Teilmessungen geschlossen. Nachprüfung jetzt: Die Seite selbst ist im
+Ruhezustand still (Schleife steht, keine Warteschlange, Timer 0,5 ms). Der Vorschaubereich lief
+trotzdem nur mit 4 Bildern/s (sichtbar, aber das Claude-Fenster nicht vorne). **Eine saubere
+Vergleichsmessung aller vier Fassungen ist nur möglich, wenn Max das Claude-Fenster eine Minute
+vorne lässt und nichts anfasst.** Darum gebeten, außerdem gefragt, in welchem Browser er testet.
+Nichts weiter umgebaut.
+
+---
+
+## 21.10.2026 — Fotos per WebGL, Nachladen erst nach dem Anhalten: `site/Fotos-webgl.dc.html` (lokal)
+
+**Max zu `Fotos-leinwand`:** flackert nicht mehr, **ruckelt aber stark** auf dem MacBook, vor allem
+„wenn ich vom Bild, wo ich alle Bilder sehe, auf eins draufdrücke und dann automatisch
+reingezoomt wird". Auch in meiner Vorschau. Sein Wunsch: **„mach halt, dass es flüssig rein
+lädt, in die komprimierte Version des Fotos, also die kleinere, und dann nach einer Zeit
+einfach die bessere lädt"**.
+
+**Gemessen an `Fotos-leinwand` (2D-Canvas), Klick in der Übersicht:** einzelne Zeichendurchgänge
+96 ms bis **1,4 s**. Die 2D-Leinwand lädt jedes neue Foto beim ersten Zeichnen in die Grafik und
+verkleinert mit hoher Qualität, alles im Hauptprozess. Schon das bloße Bewegen in 1512×982
+(Leinwand 3024×1964) kostete regelmäßig 16,7 ms pro Bild.
+
+**Neu, `Fotos-webgl.dc.html`** (Kopie von `Fotos-leinwand`, das bleibt liegen):
+- Zeichnen per WebGL 2 (Rückfall WebGL 1, dann 2D). Jedes Foto wird einmal als Textur mit
+  Mipmaps hochgeladen, danach zeichnet die Grafik 78 Rechtecke. Gemessen: ein kompletter
+  Durchgang inkl. `gl.finish()` **0,2 ms** (Apple M4 Pro, ANGLE/Metal).
+- Hochladen über eine Warteschlange, nicht beim Zeichnen.
+- **Wie von Max gewünscht:** Während einer Bewegung (Fahrt, Zoom, Ziehen) wird **nichts
+  nachgeladen**, es wird die kleine Stufe gezeichnet. 0,2 s nach dem Anhalten werden die nötigen
+  Stufen geholt und **einzeln** hochgeladen (höchstens 6 Bilder bzw. 1,2 MP pro Bild). Neue
+  Bewegung pausiert das. Die Großansicht lädt nicht mehr sofort voll (`loadHi` aus `focus`
+  entfernt), sondern erst nach der Fahrt.
+- Kontextverlust der Grafik wird abgefangen (Texturen neu laden).
+
+Instrumentiert vor der letzten Änderung: Während der Fahrt hingen einzelne GL-Befehle
+(`uniform4f` 114 ms, `clear` 183 ms, `texImage2D` 139 ms). Das ist Rückstau in der Grafik durch
+gleichzeitiges Hochladen, deshalb das Nachladen nur in Ruhe. Einzelnes großes Foto separat
+gemessen: holen 10 ms, entpacken 10 ms, hochladen 2 ms. Das ist also nicht das Problem.
+
+**Nicht sauber nachgemessen:** Die Fahrt nach der letzten Änderung. Mitten in der Messung wurde
+der Vorschaubereich verdeckt (Max testete parallel, rAF 1/s, `visibilityState: hidden`). Die
+Werte dieser Läufe (bis 2 s „Bildzeit") sind **wertlos**. Gesichert ist nur: Beim Klick gibt es
+keinen langen Block im Hauptprozess (PerformanceObserver `longtask` leer). **Max muss selbst
+testen.**
+
+Stand der Testdateien: `Fotos-leicht` (verworfen, Speicher), `Fotos-leinwand` (kein Flackern, aber
+Ruckeln), `Fotos-webgl` (aktueller Versuch). `Fotos.dc.html` unberührt. Nichts hochgeladen.
+
+---
+
+## 21.10.2026 — Fotos-Seite als Leinwand: `site/Fotos-leinwand.dc.html` (lokal, nicht hochgeladen)
+
+**Max' Rückmeldung zu `Fotos-leicht`:** „keinen Deut performativer", flackert auch auf seinem
+MacBook bei schnellem Rein-/Rauszoomen und Wischen. Nach dem Rauszoomen gibt es **schwarze
+Flecken, wo die Bilder nicht laden**. „Ich glaube, du musst es anders lösen."
+
+**Ursache (jetzt gesehen, Browserbereich lief diesmal mit 120 Bildern/s):** Bildschirmfotos
+mitten in schneller Bewegung zeigen schon auf der **Originalseite** fehlende Flächen und
+rechteckige Löcher in Bildern. Der Browser rastert die eine riesige Ebene (10000×7160 px,
+`will-change:transform`, Zoom per `scale`) nicht schnell genug nach. Der Hauptprozess war dabei
+unauffällig (Median 8,3 ms). Das Problem liegt also im Zeichnen, nicht im Skript. Die Stufen in
+`Fotos-leicht` sparen Speicher, ändern daran aber nichts, und sie tauschten beim schnellen Bewegen
+69 statt 11 Mal ein Bild. **Der Ansatz `Fotos-leicht` ist damit verworfen** (Datei bleibt zum
+Vergleich liegen).
+
+**Neuer Ansatz:** Die Fotowand wird per `<canvas>` gezeichnet. Pro Bild zeichnet die Seite selbst
+die gerade sichtbaren Fotos aus fertig entpackten `ImageBitmap`s. Fehlt eine größere Stufe noch,
+wird die kleinere gezeichnet. Löcher sind so nicht möglich. Gleiche Bilder und Stufen wie
+`fotos-leicht/` (s/m/voll). Die kleine Stufe aller 78 Bilder bleibt immer geladen, größere werden
+nach 1,5 s Ruhe wieder freigegeben. Einblendung (gestaffelt, gleiche Kurve
+`cubic-bezier(.16,1,.3,1)`, 900 ms), Abdunkeln in der Großansicht, Klick, Pfeile, Escape, Knöpfe,
+Ziehen, Schwung und Mauszeiger sind nachgebaut, Treffer per Koordinate statt per Element.
+Fenstergröße wird jetzt direkt im resize-Handler behandelt (`resized()`), weil
+`componentDidUpdate` von der Laufzeit ohne prevState aufgerufen wird.
+
+**Zwei eigene Fehler, beim Messen gefunden und behoben:**
+1. Bei starkem Zoom dauerte ein Bild bis **2 s**: Es wurde das ganze riesig vergrößerte Foto
+   gezeichnet, auch außerhalb des Schirms, und das mit `imageSmoothingQuality='high'`. Jetzt wird
+   nur der sichtbare Ausschnitt gezeichnet, „high" nur noch beim Verkleinern. Danach max. 9,4 ms.
+2. Ein einzelner Hänger von **0,7 s** beim schnellen Rein und Raus: `createImageBitmap(img)`
+   entpackt in Chrome im Hauptprozess. Jetzt `fetch` → Blob → `createImageBitmap`, mit Rückfall
+   auf `<img>`. Danach max. 16,5 ms (erster Durchgang) bzw. 9,4 ms.
+
+**Gemessen** (eingebauter Browser, echt laufend, 120 Hz, 716×811 px):
+
+| Test | langsamstes Bild | Bilder > 20 ms |
+|---|---|---|
+| 14× „+" bis tief hinein | 25,1 ms | 2 |
+| tief hineingezoomt hin und her schieben | 9,4 ms | 0 |
+| 3× schnell rein, wischen, raus (kalt) | 16,5 ms | 0 |
+| dasselbe nochmal | 9,4 ms | 0 |
+
+Bildschirmfotos mitten in der Bewegung zeigen keine Löcher. Speicher: Übersicht 6,7 MP (26 MB),
+tief hineingezoomt nach langem Wischen 38 MP (146 MB), 4 s nach „0" wieder 7,6 MP (29 MB).
+Bedienung per echtem Klick geprüft: Katze → Großansicht (scharf, Rest abgedunkelt), Pfeil →
+nächstes Bild, ✕, „Alle Bilder", +, −, Ziehen.
+
+**Nicht geprüft:** Touch/Pinch am Handy und Tablet (Logik unverändert übernommen, aber nicht
+getestet), Safari. Einen Nachteil gibt es: Die Fotos sind auf der Leinwand keine einzelnen
+`<img>` mehr (kein Rechtsklick „Bild speichern", kein Alt-Text pro Bild; vorher stand überall nur
+„Foto").
+
+---
+
+## 21.10.2026 — Testfassung `site/Fotos-leicht.dc.html` (lokal, nicht hochgeladen)
+
+Max: „können wir das testweise mal ausprobieren, wie es wäre, wenn du es performativer machen
+würdest?" Gemeint ist die Fotos-Seite (siehe Eintrag darunter). Den Hinweis zum
+iPhone-Stromsparmodus (Nachteil der Video-Idee) soll ich ignorieren.
+
+**Neu angelegt, nichts überschrieben:** `site/Fotos-leicht.dc.html` (Kopie von `Fotos.dc.html`)
+und `site/assets/fotos-leicht/s/` (78 Bilder, 360 px lange Kante, cwebp q74, zusammen 0,8 MB) sowie
+`…/m/` (66 Bilder, 960 px, q72, 2,5 MB). Zwölf `fotos/`-Bilder sind ≤ 700 px und haben keine
+mittlere Stufe. Quelle war jeweils das volle Bild aus `site/assets/`, hochskaliert wurde nichts.
+`Fotos.dc.html` ist unberührt (Zeitstempel 20.10. 19:47).
+
+**Änderungen in der Testfassung:**
+- Jedes Bild hat drei Stufen (klein/mittel/voll). `hires()` wählt pro Bild die kleinste Stufe, die
+  für die Bildschirmgröße × DPR reicht. Aufgestuft wird sofort, abgestuft nur in Ruhe und nur,
+  wenn das Bild deutlich (unter 60 %) kleiner ist als die aktuelle Stufe. Bilder mehr als eine
+  halbe Bildschirmbreite außerhalb fallen auf klein zurück. In der Großansicht bleiben das Bild
+  und seine Nachbarn voll.
+- Getauscht wird erst nach `decode()`, mit Rückfall nach 0,4 s (siehe 05-fallen).
+- Die rAF-Schleife hält nach ~30 Ruhebildern an, Eingaben, `flyTo` und `zoomBy` wecken sie.
+- Seitentitel „Fotos (Test leicht)". Kein Link aus der Navi, nur direkt erreichbar.
+
+**Gemessen** (eingebauter Browser, Ersatztakt per setTimeout, DPR 2, gleiche Abfolge: Übersicht →
+5× „+" → seitlich schieben → 3× „+" → „0"):
+
+| Zustand | Original | Testfassung |
+|---|---|---|
+| Übersicht nach dem Öffnen | 47,6 MP · 182 MB | 9,8 MP · 38 MB |
+| 5× hineingezoomt | 57,9 MP · 221 MB | 19,6 MP · 75 MB |
+| verschoben | 60,5 MP · 231 MB | 19,2 MP · 73 MB |
+| 8× hineingezoomt | 60,5 MP · 231 MB | 12,3 MP · 47 MB |
+| zurück in der Übersicht | 61,9 MP · 236 MB | 9,8 MP · 38 MB |
+| iPad-Format 1180×820, Übersicht | 46,9 MP · 179 MB | 8,2 MP · 31 MB |
+
+Qualitätsprüfung: In keinem Zustand ist ein sichtbares Bild kleiner als 90 % der benötigten
+Pixel (oder es ist schon das volle Bild). Großansicht zeigt das volle Bild (1700 px bei
+1150 px Anzeige). Keine kaputten Bilder.
+
+**Eigener Fehler, beim Prüfen gefunden:** Beim Abstufen bin ich zuerst auf die Stufe `keep`
+statt `lv` gesprungen, also eine Stufe zu tief. Das ergab 7 leicht unscharfe Bilder in der
+Übersicht (z. B. Feld-Porträt 360 statt 453 px nötig). Korrigiert und nachgemessen: 0.
+
+**Nicht geprüft:** echtes Flüssigsein auf einem Tablet. Der Browserbereich war verdeckt,
+rAF stand still (0 Bilder/s), deshalb gibt es keine Bildraten. Gemessen ist nur der Bildspeicher.
+Ebenfalls nicht angefasst: die riesige Ebene mit `will-change:transform` und die
+Einblend-Animation der 78 Bilder.
+
+**Gesehen, nicht verursacht:** `TypeError: Cannot read properties of undefined (reading 'vw')`
+in `componentDidUpdate` tritt auch im **Original** auf (die Laufzeit ruft es ohne prevState auf).
+
+Offen: Max testet am Tablet. Dafür müsste die Testseite hochgeladen werden (nur die neuen
+Dateien), **Max fragen**. Der lokale Server hört nur auf 127.0.0.1, das Tablet kommt also nicht dran.
+
+---
+
+## 21.10.2026 — Fotos-Seite: Grafiklast untersucht (nur gemessen, nichts geändert)
+
+Ein Freund von Max meinte, die Fotos-Seite (`site/Fotos.dc.html`) könne schwächere Geräte, vor
+allem **Tablets**, überfordern: Flackern, Bilder laden nicht sauber. Sein Vorschlag war, die
+Vorspann-Animationen (Korea, 3D) als Video zu rendern. Max stellte klar: **es geht nicht ums
+langsame Laden, sondern darum, dass die Grafik zu viele Bilder gleichzeitig zeigen muss**, und
+zwar auf der Fotos-Seite.
+
+Gemessen im eingebauten Browser, 1440×900, DPR 2:
+- 78 Bilder auf einer einzigen Fläche von 10000×7160 px (`will-change:transform`, gezoomt per `scale`).
+- Die „Vorschaubilder" sind 640–960 px breit (`thumb/n/`, `korea/t/`). Teils gibt es gar keine
+  Vorschau, dann wird gleich das volle Bild geladen (`portraits/`, `fotos/`, `a()` ohne `th`).
+  Angezeigt werden sie in der Übersicht mit **14–515 px, im Median 70 px**. Im Median sind sie
+  damit ~5× größer als nötig.
+- Schon in der Übersicht ergibt das **46 Megapixel ≈ 180 MB entpackte Bilddaten**. Nach etwas
+  Herumzoomen waren es in einem ersten Lauf 88 MP ≈ 340 MB, weil geladene Vollbilder nie wieder
+  freigegeben werden.
+- Übertragen wurden ~4,2 MB. Am Laden liegt es also tatsächlich nicht.
+
+Die Korea-Messung ist abgebrochen, weil der Browserbereich zugeklappt war (rAF eingefroren).
+Vorschläge an Max siehe Antwort vom selben Tag: echte kleine Vorschaustufen, Speicher wieder
+freigeben, Bildtausch erst nach `decode()`, Ebene ruhen lassen. **Noch nichts umgesetzt**, Max'
+Antwort steht aus.
+
+---
+
+## 21.10.2026 (neue Session) — Überblick abgefragt, nichts geändert
+
+Max fragte, ob ich alles Wichtige sehen und verstehen kann. Ich habe den Stand zusammengefasst,
+die vier offenen Fragen unten noch einmal gestellt und angeboten, in `01-ueberblick.md` einen
+Vermerk „überholt, siehe site/" nachzutragen. Außerdem habe ich auf die vielen unversionierten
+Dateien hingewiesen (u. a. `assets/3D/`, `.acr`, `korea/`, `portraits-neu/`, `Vorlagen/`), die
+bei einem pauschalen `git add -A` mit hochgehen würden. Max' Antwort: **„nö es sollte alles
+passen"**. Deshalb nichts geändert, auch kein Vermerk im Überblick. Ob das auch die vier offenen
+Fragen einzeln beantwortet, ist **unklar**. Sie bleiben offen, bis Max sie ausdrücklich beantwortet.
+
+---
+
+## 21.10.2026 — Sammelstelle: offene Punkte zum Sessionende (für den nächsten Chat)
+
+Website = `site/` (Claude Design Version 2), Einstieg `site/Startseite Stream.dc.html`. Letzter
+veröffentlichter Commit `cf13c46`. **Lokal noch nicht hochgeladen:** nur Doku-Einträge
+(dieser + „Ganze Filme in besserer Qualität … verworfen" + Live-Vermerk zu Maskiert).
+
+Offene Fragen an Max, **keine davon beantwortet** — nichts davon ungefragt umsetzen:
+1. Navi und iCapsule verlinken „Startseite" auf `Startseite.dc.html` (Kartenwand) statt auf
+   „Startseite Stream" — umstellen?
+2. `Portfolio/assets/img/design3d/plakat-syntheca.jpg` ist lokal gelöscht, online noch da — Absicht?
+3. Einspieler: beim Kürzen der schwarzen Bilder sind Tonausklänge weggefallen — zurückholen?
+4. Originale liegen noch in `Portfolio/assets/video/neu/` (~1 GB) und `img/design3d/neu/` —
+   nach `Neu/` verschieben, damit sie nie mit hochgehen?
+5. `kreativ.html` benutzt das fragmentierte `film-electrify.mp4` (Browser meldet 5 s Länge) —
+   nicht beauftragt, nicht angefasst.
+6. Ganze Filme bewusst in alter Qualität gelassen (Max: „passt schon").
+
+---
+
+## 21.10.2026 — Ganze Filme in besserer Qualität: angefangen, auf Max' Wunsch verworfen
+
+Max fand die ganzen Filme „sehr verpixelt" und wollte sie etwas weniger stark komprimiert (nur die
+Filme, die Showreel-Clips passen). Kurz darauf: **„lass so, das passt schon, komprimiere nichts neu."**
+Grund nicht genannt. **Nichts geändert, nichts hochgeladen.**
+
+Was bis dahin herauskam, für ein späteres Mal:
+- Die Filme laufen in 720p mit sehr wenig Datenrate (Bergmann 0,8, Kommt zu mir 0,5, Hostage 0,76,
+  Imker 1,5 Mbit/s), die Showreel-Clips dagegen in 1080p mit 4–6 Mbit/s — daher der Unterschied.
+- Originale: Bergmann, Kommt zu mir, Hostage Holiday (`TeamA4_…mp4`) in `Neu/Videos/` (1080p),
+  Imker in `Neu/Videos/Andere Video Projekte/Imker.mov` (4K/50p). **Electrify hat kein besseres
+  Original** — `Neu/Videos/Electrify Your Future.mp4` ist selbst schon die 720p-Fassung mit 1 Mbit/s.
+- **Platz:** GitHub Pages erlaubt 1 GB pro Seite, belegt sind 694 MB → gut 300 MB Luft.
+- Probe (40 s aus der Mitte, x264 slow, SSIM gegen Original bei 1080p), hochgerechnet auf ganze Länge mit Ton:
+
+| Film | jetzt | 720p CRF 22 | 1080p CRF 23 | 1080p CRF 25 | 1080p CRF 27 |
+|---|---|---|---|---|---|
+| Bergmann | 46,5 MB · 0,9829 | 82,0 MB · 0,9890 | 147,2 MB · 0,9918 | 116,8 MB · 0,9903 | 93,7 MB · 0,9886 |
+| Kommt zu mir | 21,7 MB · 0,9823 | 39,0 MB · 0,9885 | 68,4 MB · 0,9929 | 53,3 MB · 0,9914 | 41,6 MB · 0,9897 |
+| Hostage Holiday | 16,7 MB · 0,9863 | 18,9 MB · 0,9869 | 40,1 MB · 0,9886 | — | — |
+
+Imker nicht mehr gemessen (abgebrochen). Bergmann ist in 1080p der teure Fall (dunkles Bergwerk).
+
+---
+
 ## 21.10.2026 — Einspieler Staffel 1: Maskiert ans Ende
 
-Max: in Staffel 1 (The Big Brain Battle) soll **Maskiert die letzte Folge** sein, nach Regal. Neu: Auto → Theke → Schutzbrille → Regal → Maskiert (Folgennummern zählen automatisch mit). Nur die Reihenfolge in `site/Video.dc.html` geändert. Im Browser geprüft: Reihe und Infofenster zeigen Maskiert als Folge 5. **Hochgeladen** auf Max' Ja (live-Prüfung siehe Nachtrag unten in diesem Abschnitt).
+Max: in Staffel 1 (The Big Brain Battle) soll **Maskiert die letzte Folge** sein, nach Regal. Neu: Auto → Theke → Schutzbrille → Regal → Maskiert (Folgennummern zählen automatisch mit). Nur die Reihenfolge in `site/Video.dc.html` geändert. Im Browser geprüft: Reihe und Infofenster zeigen Maskiert als Folge 5. **Hochgeladen** auf Max' Ja (Commit `cf13c46`), nach ~90 s live geprüft: Reihenfolge auf der Live-Seite stimmt.
 
 ---
 
