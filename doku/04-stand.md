@@ -30,6 +30,7 @@ Kommt zu mir. `films` selbst und die Showreel-Liste `clips` unverändert.
 Electrify → Einspieler → Bienen → Hostage (nur die Clip-Dateien). Abspielen im Infofenster: alle
 fünf Filme laden die ganze Datei, mit Ton, Längen 348/74/138/317 s; Electrify neu 181 s.
 Sicherung vorher: `Portfolio/archiv/Video.dc.2026-10-21-vor-ganzen-filmen.html`.
+**Hochgeladen** (Commit `2258581`), live geprüft: nach ~2 min ausgeliefert, Staffeln und Reihe stimmen, alle fünf Filmdateien antworten mit 200 und richtiger Größe. Nur 25,9 MB neu (Electrify), die anderen vier lagen schon oben.
 
 ---
 
