@@ -1095,3 +1095,22 @@ Videos selbst — ohne `pause()`-Aufruf im Skript. Sieht aus wie ein Fehler der 
 Steuerung, ist es aber nicht. Erkennen: `HTMLMediaElement.prototype.pause` umleiten und
 mitschreiben; kommen keine Aufrufe, war es der Browser. Gegenprobe mit einer bekannt
 funktionierenden Seite machen. Durchlaufen eines Films lässt sich so nicht prüfen.
+
+## Fragmentiertes MP4: Browser kennt die Länge nicht (21.10.2026)
+
+`Portfolio/assets/video/film-electrify.mp4` ist ein **fragmentiertes** MP4 (36 `moof`-Blöcke,
+kein `mehd` im Kopf). `ffprobe` zeigt brav 181 s, der Browser meldet aber nur **5,04 s** —
+die Länge des ersten Fragments. Folge: Zeitleiste und Spulen funktionieren nicht richtig.
+Fiel erst auf, als der ganze Film auf der Video-Seite abspielen sollte.
+
+Erkennen: `grep -c -a moof datei.mp4` (> 0 = fragmentiert) oder im Browser `video.duration`
+direkt messen, nicht `ffprobe` vertrauen. Beheben verlustfrei:
+```bash
+ffmpeg -nostdin -i alt.mp4 -map 0 -c copy -movflags +faststart neu.mp4
+```
+Gegenprobe mit `-f streamhash -hash md5`: Bild und Ton müssen identische Prüfsummen haben.
+Die übrigen fünf `film-*.mp4` sind nicht fragmentiert (geprüft).
+
+Nebenbei: der lokale `werkzeug/serve.js` beantwortet Range-Anfragen mit 200 und der ganzen
+Datei. Bei zugeklapptem Browserbereich bleiben Videos dann gern bei `readyState 0` hängen —
+die Datei einzeln direkt aufrufen und `duration` lesen, das klappt.

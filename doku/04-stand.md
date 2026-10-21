@@ -1,5 +1,38 @@
 # Stand
 
+## 21.10.2026 — Video-Seite: ganze Filme, Reihenfolge der Reihen, Staffeln getauscht
+
+Max: „Abspielen" soll den **ganzen Film** zeigen, nicht nur den Ausschnitt. Dazu: bei den
+Einspielern die Clips von „The Big Brain Battle" zuerst, in „Filme aus dem Studium" **Bergmann
+zuerst** und **Imagefilm als viertes**. Ausdrücklich: **an den Showreel-Clips oben nichts ändern.**
+
+**Ganze Filme:** neues Feld `full` in `films` (`site/Video.dc.html`); `playOf()` nimmt es vor
+`embed` und Ausschnitt, mit Ton. Gilt für Abspielen im Infofenster, im Vorschau-Popup und für den
+Abspielen-Knopf oben im Showreel (der spielt jetzt den ganzen Film des gerade laufenden Clips;
+bei den Einspielern weiter den Ausschnitt, die haben keinen ganzen Film). Die Filme lagen schon
+im Repo unter `Portfolio/assets/video/` und werden per `../Portfolio/assets/video/` verwiesen —
+**nicht neu hochgeladen**: Bergmann 5:48, Hostage Holiday 2:18, Kommt zu mir 5:17.
+**Bienen = `film-imker.mp4` (1:14)** — von Max so gewählt (Alternative war `film-animals.mp4`,
+2:44 mit Eule/Elch/Wolf; beide waren laut Doku bisher bewusst nicht eingebaut). „Kommt zu mir"
+ist damit abspielbar, das Schild „Ausschnitt folgt" fällt weg; einen Showreel-Clip hat er
+weiterhin nicht (Max' Wahl von früher).
+**Electrify** war ein fragmentiertes MP4 (Browser meldete 5,04 s statt 3:01, siehe 05-fallen) →
+verlustfrei umgepackt nach `site/assets/video/film-electrify.mp4` (25,9 MB, Prüfsummen von Bild
+und Ton identisch). Original in `Portfolio/assets/video/` unberührt — `kreativ.html` benutzt
+weiter das alte, fehlerhafte; nicht beauftragt, Max Bescheid gesagt.
+
+**Einspieler:** auf Max' Wahl die Staffeln komplett getauscht — **Staffel 1 = The Big Brain
+Battle**, Staffel 2 = Doschauher, ein Mord! (Nummern, Reiter im Infofenster und Reihe folgen).
+**Filme-Reihe:** eigene Reihenfolge Bergmann → Doschauher → Bienen → Imagefilm → Hostage Holiday →
+Kommt zu mir. `films` selbst und die Showreel-Liste `clips` unverändert.
+
+**Geprüft im Browser:** Reihenfolge aller drei Reihen ausgelesen; Showreel weiter Bergmann →
+Electrify → Einspieler → Bienen → Hostage (nur die Clip-Dateien). Abspielen im Infofenster: alle
+fünf Filme laden die ganze Datei, mit Ton, Längen 348/74/138/317 s; Electrify neu 181 s.
+Sicherung vorher: `Portfolio/archiv/Video.dc.2026-10-21-vor-ganzen-filmen.html`.
+
+---
+
 ## 21.10.2026 — Showreel-Reihenfolge auf der Video-Seite
 
 Max: im Showreel oben auf der Video-Seite soll **„Ein Tag als Bergmann" zuerst** und **Hostage
@@ -7,7 +40,7 @@ Holiday zuletzt** laufen. Geändert nur die eigene Clip-Liste (`site/Video.dc.ht
 nicht die Filmliste `films` — die Reihen weiter unten bleiben unverändert. Neu: Bergmann →
 Electrify → Einspieler → Bienen → Hostage Holiday (mittlere drei in alter Reihenfolge). Im Browser
 geprüft: Titel oben „Ein Tag als Bergmann", beim Öffnen lädt nur `showreel-5-bergmann.mp4`.
-**Noch nicht hochgeladen** (Max fragen).
+**Hochgeladen** (Commit `d51cc9e`), live geprüft.
 
 ---
 
