@@ -1,5 +1,16 @@
 # Stand
 
+## 21.10.2026 — Showreel-Reihenfolge auf der Video-Seite
+
+Max: im Showreel oben auf der Video-Seite soll **„Ein Tag als Bergmann" zuerst** und **Hostage
+Holiday zuletzt** laufen. Geändert nur die eigene Clip-Liste (`site/Video.dc.html`, `const clips = […]`),
+nicht die Filmliste `films` — die Reihen weiter unten bleiben unverändert. Neu: Bergmann →
+Electrify → Einspieler → Bienen → Hostage Holiday (mittlere drei in alter Reihenfolge). Im Browser
+geprüft: Titel oben „Ein Tag als Bergmann", beim Öffnen lädt nur `showreel-5-bergmann.mp4`.
+**Noch nicht hochgeladen** (Max fragen).
+
+---
+
 ## 21.10.2026 — Claude Design Version 2 online (site/)
 
 Max hat einen neuen Export geliefert (`Portfolio-Website Überblick (2).zip`, 618 Dateien, 453 MB)
@@ -29,6 +40,12 @@ Logo-Intro, Drohne nur Zeitraffer, 3D & Design 3 kurze Showreel-Clips (~7 MB), V
 auf die gewählte Stream-Seite — Max fragen. Seiten brauchen JS + unpkg (React, Lenis).
 Upload: 242 MB neu (Claude Design hat alle Bilder als eigene Fassungen abgelegt), 64 MB
 inhaltsgleich schon vorhanden.
+
+**Veröffentlicht:** Commit `75e81ae` (327 Dateien, nur `site/`, Weiterleitungen, Sicherung, Doku —
+explizit vorgemerkt). Live geprüft: alle Einstiegsadressen leiten auf die Stream-Startseite, neue
+Clips, Papierflieger und Über-mich-Bilder antworten mit 200, Live-Seite lädt ohne fehlende Dateien.
+Nicht im Commit: Max hat lokal `Portfolio/assets/img/design3d/plakat-syntheca.jpg` gelöscht — online
+bleibt sie (Löschung nicht übernommen).
 
 ---
 
