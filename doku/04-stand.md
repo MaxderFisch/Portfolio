@@ -1,5 +1,11 @@
 # Stand
 
+## 21.10.2026 — Einspieler Staffel 1: Maskiert ans Ende
+
+Max: in Staffel 1 (The Big Brain Battle) soll **Maskiert die letzte Folge** sein, nach Regal. Neu: Auto → Theke → Schutzbrille → Regal → Maskiert (Folgennummern zählen automatisch mit). Nur die Reihenfolge in `site/Video.dc.html` geändert. Im Browser geprüft: Reihe und Infofenster zeigen Maskiert als Folge 5. **Hochgeladen** auf Max' Ja (live-Prüfung siehe Nachtrag unten in diesem Abschnitt).
+
+---
+
 ## 21.10.2026 — Video-Seite: ganze Filme, Reihenfolge der Reihen, Staffeln getauscht
 
 Max: „Abspielen" soll den **ganzen Film** zeigen, nicht nur den Ausschnitt. Dazu: bei den
