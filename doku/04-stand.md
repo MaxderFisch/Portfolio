@@ -1,5 +1,44 @@
 # Stand
 
+## 21.10.2026 — Neue Fassungen ersetzen die normalen Seiten (Korea, 3D & Design, Fotos)
+
+Max: „Du solltest es doch in die normale Seite einbauen statt der ursprünglichen und nicht als
+extra Seite." Er hatte über die Navigation gewechselt und deshalb nur die alten Seiten gesehen.
+**Mein Missverständnis:** Ich hatte „statt der Animation" als neue Testseite daneben gelesen
+(Regel „nie in bestehende Datei"). Ein ausdrücklicher Auftrag von Max geht der Regel vor.
+
+- Sicherung vorher (byte-gleich): `Portfolio/archiv/Korea v3.dc.2026-10-21-vor-video.html`,
+  `…/3D Design.dc.2026-10-21-vor-video.html`, `…/Fotos.dc.2026-10-21-vor-einfach.html`.
+  Außerdem liegen die alten Stände in Git (`cbd8156` und früher).
+- `site/Korea v3.dc.html` = bisherige `Korea v3 Video`, `site/3D Design.dc.html` = `3D Design Video`,
+  `site/Fotos.dc.html` = `Fotos-einfach`. Per diff geprüft: Unterschied nur im `<title>` (wieder
+  der ursprüngliche Titel).
+- Die drei Testseiten sind aus dem Repo entfernt (`git rm`), damit es keine Doppelungen gibt.
+- Statisch geprüft: Klammern, IDs, Skript, alle eingebundenen Dateien vorhanden.
+
+---
+
+## 21.10.2026 — Hochgeladen: Video-Vorspanne und Fotos-einfach (Commit `cbd8156`)
+
+Max: „lade die aktuelle Version wieder auf GitHub hoch". Einzeln vorgemerkt (87 Dateien, 74 MB):
+`site/Korea v3 Video.dc.html`, `site/3D Design Video.dc.html`, `site/Fotos-einfach.dc.html`,
+`site/assets/fotos-leicht/s/` (78), die vier `site/assets/video/intro-*.mp4`, `doku/04-stand.md`,
+`doku/05-fallen.md`. **Bewusst nicht dabei:** `site/render/` (229 MB, Frage nach `.gitignore`
+weiter offen), die verworfenen Testseiten `Fotos-leicht/-leinwand/-webgl` und
+`fotos-leicht/m/`, das lokal gelöschte `plakat-syntheca.jpg`, alles Unversionierte in
+`Portfolio/`, `Vorlagen/`, `doku/alt-ki-uebergaben/`.
+
+Live geprüft nach ~2 min: alle drei Seiten 200, die vier Videos 200 mit exakt richtiger Größe,
+Startseite Stream und Original-Fotos weiter 200. Die neuen Seiten sind **nur über ihre Adresse**
+erreichbar, die Navi zeigt weiter auf die Originale (nicht beauftragt, das umzustellen):
+- https://maxderfisch.github.io/Portfolio/site/Korea%20v3%20Video.dc.html
+- https://maxderfisch.github.io/Portfolio/site/3D%20Design%20Video.dc.html
+- https://maxderfisch.github.io/Portfolio/site/Fotos-einfach.dc.html
+
+Dieser Eintrag selbst ist nur lokal (nach dem Push geschrieben).
+
+---
+
 ## 21.10.2026 — Handy-Videos (9:16): waren schon eingebaut, Weiterlaufen ergänzt
 
 Max schickte `korea-9x16.mp4` und `3d-design-9x16.mp4`: „für die mobile Version … genau so wie die

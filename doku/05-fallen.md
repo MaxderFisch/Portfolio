@@ -1169,3 +1169,13 @@ Beim ersten `drawImage` eines neuen Bitmaps wird es im Hauptprozess zur Grafik g
 Verkleinern mit `imageSmoothingQuality='high'` kostet zusätzlich. Beim Hineinfahren in ein Foto
 (viele Bilder wechseln gleichzeitig die Stufe) gab das Hänger bis 1,4 s. WebGL mit Mipmaps und
 einer Upload-Warteschlange zeichnet dieselbe Wand in 0,2 ms.
+
+## Auf GitHub Pages warten: `curl --retry` braucht `-f` (21.10.2026)
+
+`curl --retry … --retry-all-errors` wiederholt bei **404 nicht**, solange `-f`/`--fail` fehlt.
+Eine 404 gilt ohne `-f` nicht als Fehler, curl gibt sofort auf, und man hält den Upload
+fälschlich für kaputt. Richtig:
+`curl -sf -o /dev/null --retry 30 --retry-delay 15 --retry-all-errors URL`.
+Den Stand des Pages-Baus zeigt ohne Anmeldung
+`https://api.github.com/repos/MaxderFisch/Portfolio/actions/runs?per_page=2`.
+Ein Bau mit 74 MB neuen Dateien brauchte ~2 min.

@@ -27,77 +27,8 @@ a:hover{color:inherit}
 <dc-import name="Navi" aktiv="Korea" hint-size="100%,0px"></dc-import>
 <sc-if value="{{ isB }}" hint-placeholder-val="{{ true }}">
 <section id="film" data-k="film" style="position:relative;height:100svh;min-height:520px;overflow:hidden;background:#000;color:#fff">
-  <div data-f="frame" style="position:absolute;inset:0;overflow:hidden;clip-path:inset(34% 37% 34% 37%);opacity:0;background:#0b0b0c">
-    <sc-for list="{{ flash }}" as="f" hint-placeholder-count="0"><img data-ff="{{ f.i }}" src="{{ f.t }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0"></sc-for>
-    <img data-f="k1" src="assets/korea/dsc00452.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0">
-  </div>
-  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;mix-blend-mode:difference;color:#fff">
-    <div style="overflow:hidden;padding:.02em .04em .08em"><div data-f="title" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(60px,13vw,230px);line-height:.9;letter-spacing:-.035em;transform:translateY(105%)">Südkorea.</div></div>
-  </div>
-
-  <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:1.2vh">
-    <div data-f="b0" style="position:relative;width:min(94vw,calc(29vh * 3.2));aspect-ratio:1700/518;overflow:hidden;clip-path:inset(50% 0 50% 0)"><img data-f="bi0" src="assets/korea/dsc00536.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transform-origin:50% 30%"></div>
-    <div data-f="b1" style="position:relative;width:min(94vw,calc(29vh * 3.2));aspect-ratio:1700/548;overflow:hidden;clip-path:inset(50% 0 50% 0)"><img data-f="bi1" src="assets/korea/dsc00537.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transform-origin:50% 30%"></div>
-    <div data-f="b2" style="position:relative;width:min(94vw,calc(29vh * 3.2));aspect-ratio:1700/548;overflow:hidden;clip-path:inset(50% 0 50% 0)"><img data-f="bi2" src="assets/korea/dsc00554.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;transform-origin:50% 30%"></div>
-  </div>
-
-  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1vw">
-    <div data-f="d0" style="position:relative;height:min(82vh,48vw);aspect-ratio:851/1400;overflow:hidden;clip-path:inset(0 50% 0 50%)"><img data-f="di0" src="assets/korea/dsc01051.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.25)"></div>
-    <div data-f="d1" style="position:relative;height:min(82vh,48vw);aspect-ratio:851/1400;overflow:hidden;clip-path:inset(0 50% 0 50%)"><img data-f="di1" src="assets/korea/dsc01053.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.25)"></div>
-    <div data-f="d2" style="position:relative;height:min(82vh,48vw);aspect-ratio:852/1400;overflow:hidden;clip-path:inset(0 50% 0 50%)"><img data-f="di2" src="assets/korea/dsc01054.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.25)"></div>
-  </div>
-
-  <div style="position:absolute;inset:0;display:flex;gap:.8vw">
-    <div data-f="c0" style="position:relative;flex:1 1 0px;overflow:hidden;clip-path:inset(100% 0 0 0)"><img data-f="ca0" src="assets/tag-stadt-gold.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><img data-f="cb0" src="assets/tag-pavillon.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%)"></div>
-    <div data-f="c1" style="position:relative;flex:1 1 0px;overflow:hidden;clip-path:inset(100% 0 0 0)"><img data-f="ca1" src="assets/tag-stadt-pastell.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><img data-f="cb1" src="assets/tag-flagge.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%)"></div>
-    <div data-f="c2" style="position:relative;flex:1 1 0px;overflow:hidden;clip-path:inset(100% 0 0 0)"><img data-f="ca2" src="assets/tag-regen.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><img data-f="cb2" src="assets/tag-tempeldach.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:translateY(100%)"></div>
-  </div>
-
-  <div data-f="eye" style="position:absolute;inset:0;overflow:hidden;clip-path:inset(42% 40% 42% 40%);opacity:0"><img data-f="eyei" src="assets/korea/dsc01025.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:55% 27%;transform:scale(1.35)"></div>
-
-  <div data-f="tri" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0">
-    <div style="display:flex;gap:.8vw;width:min(92vw,160vh)">
-      <div data-f="t0" style="flex:.7886 1 0px;min-width:0;aspect-ratio:1104/1400;overflow:hidden;clip-path:inset(100% 0 0 0)"><img src="assets/korea/dsc01024.webp" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></div>
-      <div data-f="t1" style="flex:1.502 1 0px;min-width:0;aspect-ratio:1400/932;overflow:hidden;clip-path:inset(100% 0 0 0)"><img src="assets/korea/dsc02176.webp" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></div>
-      <div data-f="t2" style="flex:.7736 1 0px;min-width:0;aspect-ratio:1083/1400;overflow:hidden;clip-path:inset(100% 0 0 0)"><img src="assets/korea/dsc01382.webp" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></div>
-    </div>
-  </div>
-
-  <div data-f="meer" style="position:absolute;inset:0;overflow:hidden;opacity:0">
-    <img data-f="aer" src="assets/korea/dsc01427.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.18)">
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1vw">
-      <div data-f="p0" style="width:min(21vw,31vh);aspect-ratio:933/1400;overflow:hidden;transform:translateY(120vh)"><img src="assets/korea/dsc01512.webp" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></div>
-      <div data-f="p1" style="width:min(21vw,31vh);aspect-ratio:933/1400;overflow:hidden;transform:translateY(120vh)"><img src="assets/korea/dsc01515.webp" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></div>
-    </div>
-  </div>
-
-  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
-    <div style="display:flex;flex-direction:column;width:min(88vw,92vh)">
-      <img data-f="s0" src="assets/korea/dsc01970.webp" alt="" style="display:block;width:100%;height:auto;opacity:0">
-      <img data-f="s1" src="assets/korea/dsc01971.webp" alt="" style="display:block;width:100%;height:auto;opacity:0">
-      <img data-f="s2" src="assets/korea/dsc01973.webp" alt="" style="display:block;width:100%;height:auto;opacity:0">
-    </div>
-  </div>
-  <div data-f="m4" style="position:absolute;inset:0;overflow:hidden;clip-path:inset(50% 0 50% 0);opacity:0"><img data-f="m4i" src="assets/korea/dsc01976.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.15)"></div>
-
-  <div data-f="nacht" style="position:absolute;inset:0;overflow:hidden;opacity:0;background:#000">
-    <div data-f="fx" aria-hidden="true" style="position:absolute;inset:0;overflow:hidden"></div>
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:1vw">
-      <div data-f="n0" style="height:min(80vh,45vw);aspect-ratio:933/1400;overflow:hidden;clip-path:inset(0 0 100% 0)"><img src="assets/nacht-linien.webp" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></div>
-      <div data-f="n1" style="height:min(80vh,45vw);aspect-ratio:933/1400;overflow:hidden;clip-path:inset(0 0 100% 0)"><img src="assets/nacht-rauch.webp" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></div>
-      <div data-f="n2" style="height:min(80vh,45vw);aspect-ratio:933/1400;overflow:hidden;clip-path:inset(0 0 100% 0)"><img src="assets/nacht-strasse.webp" alt="" style="display:block;width:100%;height:100%;object-fit:cover"></div>
-    </div>
-    <div data-f="br" style="position:absolute;inset:0;overflow:hidden;clip-path:inset(0 50% 0 50%)"><img data-f="bri" src="assets/korea/bruecke.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.1)"></div>
-    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none"><div style="position:relative;height:min(70vh,calc(86vw / 1.5));aspect-ratio:3/2">
-      <img data-f="x1" src="assets/korea/dsc08579.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0">
-      <img data-f="x2" src="assets/korea/dsc08581.webp" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0">
-    </div></div>
-  </div>
-
-  <sc-for list="{{ words }}" as="w" hint-placeholder-count="0">
-    <div style="position:absolute;left:clamp(16px,3vw,40px);bottom:{{ wordBot }};overflow:hidden;clip-path:inset(0);padding:.02em .02em .12em;pointer-events:none"><div data-f="{{ w.k }}" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(44px,7vw,120px);line-height:.9;letter-spacing:-.03em;color:#fff;transform:translateY(140%);text-shadow:0 2px 40px rgba(0,0,0,.35)">{{ w.t }}</div></div>
-  </sc-for>
-  <div data-f="prog" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#fff;opacity:.5;transform-origin:0 50%;transform:scaleX(0)"></div>
+  <video data-f="vid" muted="true" loop="true" playsinline="true" preload="auto" disablepictureinpicture="true" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000"><source media="(max-aspect-ratio: 3/4)" src="assets/video/intro-korea-9x16.mp4" type="video/mp4"><source src="assets/video/intro-korea-16x9.mp4" type="video/mp4"></video>
+  <div data-f="vprog" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#fff;opacity:.5;transform-origin:0 50%;transform:scaleX(0)"></div>
   <a href="#flaeche" style="position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)">Alle Bilder ansehen <span data-f="arrow" style="display:inline-block;font-size:15px">↓</span></a>
 </section>
 </sc-if>
@@ -189,6 +120,7 @@ class Component extends DCLogic {
     if (pp.tempo !== this.props.tempo) { this.fa.forEach(a => a.cancel()); if (this.fio) this.fio.disconnect(); this.setupFilm(); }
   }
   componentWillUnmount() {
+    if (this.onVis) document.removeEventListener("visibilitychange", this.onVis);
     this.dead = true;
     removeEventListener('resize', this.onResize); removeEventListener('pointerdown', this.onDown); removeEventListener('pointermove', this.onMove);
     removeEventListener('pointerup', this.onUp); removeEventListener('pointercancel', this.onUp); removeEventListener('wheel', this.onWheel); removeEventListener('keydown', this.onKey);
@@ -451,8 +383,24 @@ class Component extends DCLogic {
     const kf = s.map(([t, p, e]) => Object.assign({ offset: Math.min(1, Math.max(0, t / T)), easing: e || 'linear' }, p));
     return el.animate(kf, { duration: T * this.spd(), iterations: Infinity, fill: 'both' });
   }
+  // Vorspann als gerendertes Video (statt der Animation): starten und Fortschrittsbalken mitlaufen lassen
+  startVid(root) {
+    const v = root.querySelector('[data-f="vid"]'), pb = root.querySelector('[data-f="vprog"]'); if (!v || v._on) return; v._on = true;
+    v.muted = true; v.loop = true; v.playsInline = true;
+    try { v.currentTime = 0; } catch (e) {}
+    const play = () => { const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+    play();
+    // Nach App-Wechsel oder verdecktem Fenster hält der Browser das Video an: dann weiterlaufen lassen
+    this.onVis = () => { if (!this.dead && document.visibilityState === "visible" && v.paused) play(); };
+    document.addEventListener("visibilitychange", this.onVis);
+    if (pb) {
+      const upd = () => { if (v.duration) pb.style.transform = 'scaleX(' + (v.currentTime / v.duration).toFixed(4) + ')'; if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(upd); };
+      if (v.requestVideoFrameCallback) v.requestVideoFrameCallback(upd); else v.addEventListener('timeupdate', upd);
+    }
+  }
   setupFilm() {
     this.fa = []; const root = this.el('film'); if (!root) return;
+    this.afterCover(() => { if (!this.dead) this.startVid(root); });
     const q = k => root.querySelector('[data-f="' + k + '"]');
     if (this.reduce) { const fr = q('frame'), k1 = q('k1'), t = q('title'); if (fr) { fr.style.clipPath = 'none'; fr.style.opacity = 1; } if (k1) k1.style.opacity = 1; if (t) t.style.transform = 'none'; return; }
     const E1 = 'cubic-bezier(.16,1,.3,1)', E2 = 'cubic-bezier(.76,0,.24,1)', E3 = 'cubic-bezier(.77,0,.18,1)', SL = 'cubic-bezier(.3,1.45,.5,1)', EI = 'cubic-bezier(.5,0,.75,.2)';

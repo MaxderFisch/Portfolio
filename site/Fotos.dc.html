@@ -59,7 +59,7 @@ class Component extends DCLogic {
     const f = (id, w, h) => ({ src: F + id + '.webp', th: F + id + '.webp', w, h });
     const p = (id, w, h) => ({ src: P + id + '.webp', th: P + id + '.webp', w, h });
     const k = id => ({ src: (id.indexOf('dsc') === 0 || id === 'bruecke' ? K : A) + id + '.webp', th: KT + id + '.webp', w: KD[id][0], h: KD[id][1] });
-    return (this._G = [
+    const G = [
       [a('portraet-feld', 1700, 1109, 'portraet-feld'), a('portraet-brille', 933, 1400, 'men-0'), a('portraet-goldlicht', 925, 1400, 'men-2'), a('portraet-ares-quer', 1400, 933), a('portraet-gruen', 937, 1400, 'men-6'), a('portraet-himbeere', 933, 1400, 'men-4'), a('portraet-cap', 935, 1400, 'men-8'), p('dsc00788', 1022, 1400), p('dsc05781', 933, 1400), p('dsc02313', 1400, 1372), p('dsc01731', 1400, 933), p('dsc04625', 1400, 1000), f('portrait-jump-bw', 429, 646), f('portrait-two-snow', 660, 439)],
       [n('sa-donau-gold', 1400, 933), n('sa-donau-blau', 1700, 1133), n('sa-donau-gaense', 933, 1400), n('sa-bruecke-nebel', 1400, 933), n('sa-baum-bruecke', 1400, 933), n('sa-sonne-bruecke', 1400, 933), n('sa-badezimmer', 1500, 999)],
       [n('tier-zunge', 1800, 1199), n('tier-gelb', 933, 1400), n('tier-hund', 933, 1400), n('tier-dunkel', 1155, 1800), n('tier-gaehnen', 933, 1400), n('tier-hund-profil', 1400, 933), f('ant-macro', 700, 467)],
@@ -72,7 +72,12 @@ class Component extends DCLogic {
       ['dsc01427', 'dsc01512', 'dsc01515', 'dsc01461', 'dsc01462', 'dsc01400'].map(k),
       ['dsc01970', 'dsc01971', 'dsc01973', 'dsc01976'].map(k),
       ['nacht-rauch', 'nacht-linien', 'nacht-strasse', 'dsc08579', 'bruecke', 'dsc09776', 'dsc00640', 'dsc09222', 'dsc08581'].map(k)
-    ]);
+    ];
+    G.forEach(g => g.forEach(it => {
+      if (Math.max(it.w, it.h) > 360) it.th = 'assets/fotos-leicht/s/' + it.src.replace(/^assets\//, '').replace(/\.(webp|jpg)$/, '').replace(/\//g, '-') + '.webp';
+      else it.th = it.src;
+    }));
+    return (this._G = G);
   }
 
   part(ars, r) {
@@ -193,13 +198,14 @@ class Component extends DCLogic {
     const L = this._L, it = L.items[i]; if (!it) return;
     const m = L.m, aw = m.sw - 2 * m.side, ah = m.sh - m.top - m.bot, [sx, sy] = this.center();
     this.fi = i; this.flyTo(it.x + it.w / 2, it.y + it.h / 2, Math.min(aw / it.w, ah / it.h), sx, sy, 1000);
-    [i, i + 1, i - 1].forEach(j => this.loadHi(j));
+    this.stopHi(i);
+    this.hiT = setTimeout(() => { if (this.fi === i && !this.tw && !this.drag) this.loadHi(i); }, (this.reduce ? 0 : 1000) + 500);
     this.dim();
     if (this.state.foc !== i) this.setState({ foc: i });
   }
   unfocus(toCluster) {
     const i = this.fi; if (i == null || i < 0) return;
-    this.fi = -1; this.dim();
+    this.fi = -1; this.stopHi(-1); this.dim();
     if (this.state.foc !== -1) this.setState({ foc: -1 });
     if (toCluster) { const it = this._L.items[i]; if (it) this.flyBox(this._L.boxes[it.ci], 1000); }
   }
@@ -213,19 +219,27 @@ class Component extends DCLogic {
   }
   figs() { if (!this._figs || this._figs.length !== this._L.items.length) this._figs = Array.from(document.querySelectorAll('[data-k="plane"] [data-i]')); return this._figs; }
   loadHi(i) {
-    const it = this._L.items[i]; if (!it || it.hi) return; it.hi = true;
+    const it = this._L.items[i]; if (!it || it.hi || it.src === it.th) return; it.hi = true;
     const f = this.figs()[i], el = f && f.querySelector('[data-im]'); if (!el) return;
-    const im = new Image(); im.decoding = 'async'; im.onload = () => { if (!this.dead) el.src = it.src; }; im.src = it.src;
+    const tok = this.hiTok = (this.hiTok || 0) + 1, im = new Image(); im.decoding = 'async';
+    const swap = () => { if (this.dead) return; if (tok === this.hiTok && this.fi === i) el.src = it.src; else it.hi = false; };
+    im.onload = () => { if (im.decode) im.decode().then(swap, swap); else swap(); };
+    im.onerror = () => { it.hi = false; };
+    im.src = it.src;
   }
-  hires() {
-    const L = this._L, c = this.cam, m = L.m, dpr = Math.min(2, devicePixelRatio || 1);
-    L.items.forEach((it, i) => {
-      if (it.hi || it.w * c.z * dpr < 560) return;
-      const x = c.x + it.x * c.z, y = c.y + it.y * c.z;
-      if (x > m.sw || y > m.sh || x + it.w * c.z < 0 || y + it.h * c.z < 0) return;
-      this.loadHi(i);
+  // Laufendes Nachladen abbrechen und alle großen Fassungen außer keep wieder auf klein setzen
+  stopHi(keep) {
+    clearTimeout(this.hiT); this.hiTok = (this.hiTok || 0) + 1;
+    const figs = this.figs();
+    this._L.items.forEach((it, j) => {
+      if (j === keep || !it.hi) return; it.hi = false;
+      const el = figs[j] && figs[j].querySelector('[data-im]'); if (!el) return;
+      const im = new Image(); im.src = it.th;
+      const back = () => { if (!this.dead && !it.hi) el.src = it.th; };
+      if (im.decode) im.decode().then(back, back); else back();
     });
   }
+  hires() {}
 
   tick() {
     const c = this.cam; let moved = false;
@@ -271,7 +285,7 @@ class Component extends DCLogic {
   }
   componentDidUpdate(pp, ps) {
     if (ps.vw !== this.state.vw || ps.vh !== this.state.vh || pp.abstand !== this.props.abstand) {
-      this._figs = null; this.fi = -1;
+      this._figs = null; this.fi = -1; clearTimeout(this.hiT);
       const L = this.lay(this.state.vw, this.state.vh), [sx, sy] = this.center();
       this.tw = null; this.setNow(L.PW / 2, L.PH / 2, this.fitZ(), sx, sy);
       requestAnimationFrame(() => { this.dim(); this.hires(); });
@@ -279,7 +293,7 @@ class Component extends DCLogic {
     }
   }
   componentWillUnmount() {
-    this.dead = true; cancelAnimationFrame(this.raf);
+    this.dead = true; cancelAnimationFrame(this.raf); clearTimeout(this.hiT);
     removeEventListener('resize', this.onResize); removeEventListener('pointerdown', this.onDown); removeEventListener('pointermove', this.onMove);
     removeEventListener('pointerup', this.onUp); removeEventListener('pointercancel', this.onUp); removeEventListener('wheel', this.onWheel); removeEventListener('keydown', this.onKey);
   }
