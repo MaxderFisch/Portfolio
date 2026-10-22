@@ -1,5 +1,13 @@
 # Stand
 
+## 22.10.2026 — „beste" → „bessere"
+
+Max: „ändere beste zu bessere, aber ändere sonst nichts". Nur das deutsche Wort im Handy-Hinweis geändert:
+„Für das bessere Erlebnis / bitte am PC oder Tablet ansehen." Die englische Zeile („best experience") bleibt,
+wie alles andere. Diff: genau eine Zeile. **Nicht hochgeladen.**
+
+---
+
 ## 22.10.2026 — Hinweis nur auf Handy-Bildschirmen, sonst wieder „Wer schaut zu?" (lokal)
 
 Max: Lässt sich erkennen, ob Computer oder Handy? Dann den Hinweis **nur am Handy** zeigen. Am Computer und Tablet
@@ -13,7 +21,9 @@ Erkannt wird also die Bildschirmgröße, nicht das Gerät. Tablets (ab 744 px) z
 (die Seite nutzt keine), sondern Attribut-Selektoren. Eine HTML-Notiz im Template habe ich zur Sicherheit wieder
 entfernt. Sicherung `archiv/Startseite Stream.dc.2026-10-22-vor-handy-nur.html`.
 Geprüft: 1440 px und Tablet 768×1024 → „Wer schaut zu? | Who’s watching?", Handy 375 px (Touch) → nur der
-Hinweis. Quer gehaltenes Handy nicht emuliert (Werkzeug setzt Touch erst unter 768 px). **Nicht hochgeladen.**
+Hinweis. Quer gehaltenes Handy nicht emuliert (Werkzeug setzt Touch erst unter 768 px). ~~Nicht hochgeladen~~ →
+**Hochgeladen** auf Max’ „ja" (Commit `e00cf12`), **live geprüft**: 1440 px „Wer schaut zu? | Who’s watching?", Handy 375 px
+nur der Hinweis. (Vermerk nur lokal.)
 
 ---
 
