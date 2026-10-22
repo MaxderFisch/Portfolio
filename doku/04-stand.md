@@ -1,5 +1,30 @@
 # Stand
 
+## 22.10.2026 — Kopfleiste überall wie auf Video und Startseite (lokal)
+
+Max: Die Leiste mit Menschen, Fotos, Korea usw. soll **linksbündig neben dem Max-Aulinger-Logo**
+stehen wie auf Video- und Startseite, „dass das bitte auf allen Seiten gleich aussieht".
+
+- `site/Navi.dc.html` neu geschrieben, nach dem Vorbild der Kopfleiste von `Video.dc.html` /
+  `Startseite Stream.dc.html`: Höhe 68 px, `padding:0 4vw`, Verlauf von oben, rotes Logo links,
+  die Seiten direkt daneben (Start · Menschen · Fotos · Korea · Drohne · Video · 3D & Design), 14 px,
+  normale Schreibweise statt Versalien, aktive Seite 600/#f2f2f2, sonst 400/#e5e5e5, Hover #b3b3b3.
+  „Kontakt" (mailto) rechts. Unter 900 px wird die Liste zum Menü **„Entdecken ▾"** (wie Video),
+  das sich bei Klick daneben schließt. Das Logo ist jetzt auch am Handy sichtbar (vorher unter
+  760 px ausgeblendet). Das Profil- und Sprachmenü der Video-Seite ist **nicht** übernommen (gibt
+  es nur dort).
+- `site/live/icapsule.html`: eigene Leiste (`.mxn`) per CSS auf dasselbe Aussehen gebracht,
+  „Start" vorn ergänzt, Kontakt rechts. Am Handy bleibt die Liste waagerecht wischbar, kein Menü.
+- Gemessen bei 1440×900: Auf allen sechs Seiten (Menschen, Fotos, Korea, Drohne, 3D, iCapsule) ist
+  der Kopf 68 px hoch, das Logo steht bei 58–194 px, der erste Link bei **231 px, genau wie auf
+  der Video-Seite**. Die jeweils aktive Seite ist fett. Handy (375 px): Logo und „Entdecken" mit
+  allen 7 Seiten.
+- Sicherungen: `Portfolio/archiv/Navi.dc.2026-10-22-vor-linksbuendig.html`,
+  `…/icapsule.site.2026-10-22-vor-linksbuendig.html`.
+- **Nicht hochgeladen.**
+
+---
+
 ## 22.10.2026 — Drohne: Clip „Durch den Schnee" spielt jetzt das Video
 
 Max: „Das Video Durch den Schnee ist noch nicht hochgeladen … aktuell ist da nur ein Standbild,

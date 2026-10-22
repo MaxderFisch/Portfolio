@@ -7,28 +7,51 @@
 </head>
 <body>
 <x-dc>
-<div data-k="navi" style="position:fixed;top:0;left:0;right:0;z-index:90;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:{{ pad }};background:linear-gradient(to bottom,rgba(0,0,0,.62) 0%,rgba(0,0,0,.28) 60%,rgba(0,0,0,0) 100%);color:#fff;font-family:'General Sans',system-ui,sans-serif">
-  <a href="{{ home }}" style="display:{{ nameDisp }};flex:0 0 auto;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px;letter-spacing:.04em;color:#fff;text-decoration:none;transition:opacity .3s" style-hover="opacity:.6"><img src="assets/logo-max.png" alt="Max Aulinger" style="display:block;height:clamp(18px,1.9vw,26px);width:auto"></a>
-  <nav style="display:flex;align-items:center;gap:clamp(16px,2vw,30px);min-width:0;overflow-x:auto;scrollbar-width:none;margin-left:auto">
-    <sc-for list="{{ links }}" as="l" hint-placeholder-count="8">
-      <a href="{{ l.href }}" style="flex:0 0 auto;padding:6px 0;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;text-decoration:none;color:{{ l.fg }};border-bottom:1px solid {{ l.line }};transition:color .3s,border-color .3s" style-hover="color:#fff;border-color:#fff">{{ l.t }}</a>
-    </sc-for>
-  </nav>
-</div>
+<header data-k="navi" style="position:fixed;top:0;left:0;right:0;z-index:90;height:68px;display:flex;align-items:center;gap:clamp(18px,2.6vw,44px);padding:0 4vw;background-image:linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,0) 100%);color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif">
+  <a href="{{ home }}" style="flex:0 0 auto;display:block"><img src="assets/logo-max.png" alt="Max Aulinger" style="display:block;height:clamp(18px,1.9vw,26px);width:auto"></a>
+  <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}">
+    <nav style="display:flex;align-items:center;gap:clamp(14px,1.7vw,26px)">
+      <sc-for list="{{ links }}" as="l" hint-placeholder-count="7">
+        <a href="{{ l.href }}" style="font-size:14px;font-weight:{{ l.fw }};color:{{ l.fg }};white-space:nowrap;text-decoration:none;transition:color .3s" style-hover="color:#b3b3b3">{{ l.t }}</a>
+      </sc-for>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
+    <div data-menu="" style="position:relative">
+      <button onClick="{{ toggle }}" style="display:flex;align-items:center;gap:6px;padding:8px 0;border:0;background:none;color:#f2f2f2;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer">Entdecken<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button>
+      <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;left:-12px;top:44px;min-width:220px;padding:8px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-top:2px solid #f2f2f2;border-radius:2px">
+          <sc-for list="{{ links }}" as="l" hint-placeholder-count="0">
+            <a href="{{ l.href }}" style="display:block;padding:11px 18px;font-size:14px;color:{{ l.fg }};font-weight:{{ l.fw }};text-decoration:none" style-hover="background:rgba(255,255,255,.06)">{{ l.t }}</a>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+  <div style="margin-left:auto;display:flex;align-items:center">
+    <a href="mailto:maxau.aulo@gmail.com" style="font-size:14px;color:#e5e5e5;white-space:nowrap;text-decoration:none;transition:color .3s" style-hover="color:#b3b3b3">Kontakt</a>
+  </div>
+</header>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;1200px&quot;,&quot;height&quot;:&quot;80px&quot;},&quot;aktiv&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;&quot;,&quot;Menschen&quot;,&quot;Fotos&quot;,&quot;Korea&quot;,&quot;Drohne&quot;,&quot;Video&quot;,&quot;3D &amp; Design&quot;],&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;home&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Startseite%20Stream.dc.html&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+// Kopfleiste wie auf Startseite Stream und Video: Logo links, Seiten direkt daneben, Kontakt rechts.
+// Unter 900 px Breite wird die Liste zum Menü „Entdecken".
 class Component extends DCLogic {
-  state = { vw: typeof window !== 'undefined' ? innerWidth : 1200 };
-  componentDidMount() { this.onR = () => this.setState({ vw: innerWidth }); addEventListener('resize', this.onR); this.onR(); this._raf = requestAnimationFrame(() => this.onR()); this._t = setTimeout(() => this.onR(), 400); }
-  componentWillUnmount() { removeEventListener('resize', this.onR); cancelAnimationFrame(this._raf); clearTimeout(this._t); }
+  state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, open: false };
+  componentDidMount() {
+    this.onR = () => this.setState({ vw: innerWidth }); addEventListener('resize', this.onR); this.onR();
+    this._raf = requestAnimationFrame(() => this.onR()); this._t = setTimeout(() => this.onR(), 400);
+    this.onDoc = e => { if (this.state.open && !(e.target.closest && e.target.closest('[data-menu]'))) this.setState({ open: false }); };
+    document.addEventListener('click', this.onDoc);
+  }
+  componentWillUnmount() { removeEventListener('resize', this.onR); document.removeEventListener('click', this.onDoc); cancelAnimationFrame(this._raf); clearTimeout(this._t); }
   renderVals() {
-    const a = this.props.aktiv ?? '', phone = this.state.vw < 760;
-    const L = [['Menschen', 'Menschen.dc.html'], ['Fotos', 'Fotos.dc.html'], ['Korea', 'Korea%20v3.dc.html'], ['Drohne', 'Drohne%20v5.dc.html'], ['Video', 'Video.dc.html'], ['3D & Design', '3D%20Design.dc.html'], ['Kontakt', 'mailto:maxau.aulo@gmail.com']];
+    const a = this.props.aktiv ?? '', home = this.props.home ?? 'Startseite%20Stream.dc.html', wide = this.state.vw >= 900;
+    const L = [['Start', home], ['Menschen', 'Menschen.dc.html'], ['Fotos', 'Fotos.dc.html'], ['Korea', 'Korea%20v3.dc.html'], ['Drohne', 'Drohne%20v5.dc.html'], ['Video', 'Video.dc.html'], ['3D & Design', '3D%20Design.dc.html']];
     return {
-      home: this.props.home ?? 'Startseite%20Stream.dc.html',
-      nameDisp: phone ? 'none' : 'block',
-      pad: phone ? '14px 16px 22px' : '18px clamp(16px,3vw,40px) 26px',
-      links: L.map(([t, href]) => ({ t, href, fg: t === a ? '#fff' : 'rgba(255,255,255,.78)', line: t === a ? '#fff' : 'transparent' }))
+      home, wide, narrow: !wide, open: this.state.open,
+      toggle: () => this.setState(s => ({ open: !s.open })),
+      links: L.map(([t, href]) => ({ t, href, fw: t === a ? 600 : 400, fg: t === a ? '#f2f2f2' : '#e5e5e5' }))
     };
   }
 }

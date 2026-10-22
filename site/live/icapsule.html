@@ -138,18 +138,19 @@
 </style>
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600&amp;f[]=general-sans@500&amp;display=swap" rel="stylesheet">
 <style>
-.mxn{position:sticky;top:0;z-index:90;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px clamp(16px,3vw,40px);background:#000;color:#fff;font-family:'General Sans',system-ui,sans-serif;-webkit-backdrop-filter:none;backdrop-filter:none;border:0}
-.mxn__n{flex:0 0 auto;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px;letter-spacing:.04em;color:#fff;text-decoration:none;transition:opacity .3s}
-.mxn__n:hover{opacity:.6}
-.mxn__r{display:flex;align-items:center;gap:clamp(16px,2vw,30px);min-width:0;overflow-x:auto;scrollbar-width:none;margin-left:auto}
-.mxn__l{flex:0 0 auto;padding:6px 0;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;text-decoration:none;color:rgba(255,255,255,.78);border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
-.mxn__l:hover,.mxn__l.is-on{color:#fff;border-color:#fff}
-@media(max-width:760px){.mxn{padding:14px 16px}.mxn__n{display:none}}
+.mxn{position:sticky;top:0;z-index:90;display:flex;align-items:center;justify-content:flex-start;gap:clamp(18px,2.6vw,44px);height:68px;padding:0 4vw;background:#000;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;-webkit-backdrop-filter:none;backdrop-filter:none;border:0}
+.mxn__n{flex:0 0 auto;display:block;text-decoration:none}
+.mxn__r{flex:1 1 auto;display:flex;align-items:center;gap:clamp(14px,1.7vw,26px);min-width:0;overflow-x:auto;scrollbar-width:none}
+.mxn__l{flex:0 0 auto;font-size:14px;font-weight:400;white-space:nowrap;text-decoration:none;color:#e5e5e5;transition:color .3s}
+.mxn__l:hover{color:#b3b3b3}
+.mxn__l.is-on{font-weight:600;color:#f2f2f2}
+.mxn__l[href^="mailto"]{margin-left:auto;padding-left:clamp(14px,1.7vw,26px)}
+@media(max-width:760px){.mxn{padding:0 16px;gap:16px}}
 </style>
 </head>
 <body>
 
-<header class="bar mxn"><a class="mxn__n" href="../Startseite%20Stream.dc.html"><img src="../assets/logo-max.png" alt="Max Aulinger" style="display:block;height:clamp(18px,1.9vw,26px);width:auto"></a><nav class="mxn__r"><a class="mxn__l" href="../Menschen.dc.html">Menschen</a><a class="mxn__l" href="../Fotos.dc.html">Fotos</a><a class="mxn__l" href="../Korea%20v3.dc.html">Korea</a><a class="mxn__l" href="../Drohne%20v5.dc.html">Drohne</a><a class="mxn__l" href="../Video.dc.html">Video</a><a class="mxn__l is-on" href="../3D%20Design.dc.html">3D &amp; Design</a><a class="mxn__l" href="mailto:maxau.aulo@gmail.com">Kontakt</a></nav></header>
+<header class="bar mxn"><a class="mxn__n" href="../Startseite%20Stream.dc.html"><img src="../assets/logo-max.png" alt="Max Aulinger" style="display:block;height:clamp(18px,1.9vw,26px);width:auto"></a><nav class="mxn__r"><a class="mxn__l" href="../Startseite%20Stream.dc.html">Start</a><a class="mxn__l" href="../Menschen.dc.html">Menschen</a><a class="mxn__l" href="../Fotos.dc.html">Fotos</a><a class="mxn__l" href="../Korea%20v3.dc.html">Korea</a><a class="mxn__l" href="../Drohne%20v5.dc.html">Drohne</a><a class="mxn__l" href="../Video.dc.html">Video</a><a class="mxn__l is-on" href="../3D%20Design.dc.html">3D &amp; Design</a><a class="mxn__l" href="mailto:maxau.aulo@gmail.com">Kontakt</a></nav></header>
 
 <!-- Auftakt: Partikelwolke, aus der Wellen nach aussen laufen -->
 <section class="auftakt" id="auftakt">
