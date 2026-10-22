@@ -1179,3 +1179,11 @@ fälschlich für kaputt. Richtig:
 Den Stand des Pages-Baus zeigt ohne Anmeldung
 `https://api.github.com/repos/MaxderFisch/Portfolio/actions/runs?per_page=2`.
 Ein Bau mit 74 MB neuen Dateien brauchte ~2 min.
+
+## Claude-Design-Bausteine: Vorgabewerte stehen doppelt (22.10.2026)
+
+Bei `dc-import`-Bausteinen wie `Navi.dc.html` steht der Vorgabewert einer Eigenschaft zweimal:
+im Code (`this.props.home ?? '…'`) **und** im `data-props`-Attribut des Skript-Tags
+(`"home":{"default":"…"}`, HTML-maskiert mit `&quot;`). Die Laufzeit setzt vermutlich die
+`data-props`-Vorgabe ein, dann greift der Fallback im Code nie. Also immer **beide** Stellen
+ändern und danach mit `grep` nach dem alten Wert suchen.

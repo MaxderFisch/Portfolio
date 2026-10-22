@@ -1,5 +1,52 @@
 # Stand
 
+## 22.10.2026 — „Max Aulinger" führt überall zur neuen Startseite, alte Startseite entfernt (lokal)
+
+Max: Auf Menschen, Fotos, Korea, Drohne und 3D & Design steht oben links noch „das alte
+Max-Aulinger-Logo, einfach dieser Schriftzug". Er führte zur alten Hauptseite (`Startseite.dc.html`,
+Kartenwand). „Die alte Hauptseite ist komplett unbrauchbar, die kannst du wegmachen." Überall soll
+ein Klick auf Max Aulinger zur **neuen** Hauptseite (Startseite Stream) führen, wie auf der
+Video-Seite und der Startseite mit dem roten Logo. Damit ist auch **offene Frage 1** vom 21.10.
+beantwortet.
+
+- `site/Navi.dc.html` (gemeinsamer Kopf von Menschen, Fotos, Korea, Drohne, 3D): Ziel
+  `Startseite%20Stream.dc.html`, **an zwei Stellen** (Fallback im Code **und** Vorgabe in
+  `data-props`, siehe 05-fallen). Der weiße Schriftzug ist durch das **rote Logo**
+  `assets/logo-max.png` ersetzt, gleiche Höhe wie auf der Video-Seite (`clamp(18px,1.9vw,26px)`).
+  Am Handy ist er wie bisher ausgeblendet (< 760 px). Das rote Logo habe ich aus „das alte
+  Logo" geschlossen, ausdrücklich verlangt war nur die Verlinkung. Max darauf hingewiesen.
+- Links „Zurück zur Übersicht" unten auf Menschen, Korea, Drohne, 3D → Startseite Stream.
+- `site/live/icapsule.html`: Kopf-Link → `../Startseite%20Stream.dc.html`, ebenfalls rotes Logo.
+- `site/Startseite.dc.html` per `git rm` entfernt. Danach verweist keine Seite mehr darauf.
+  **Folge:** Das Render-Werkzeug `site/render/render-showreels.mjs` (Job `startseite`) braucht
+  diese Seite. Die gerenderten `startseite-*.mp4` gibt es schon, neu rendern ginge nur mit der
+  Sicherung.
+- Sicherungen: `Portfolio/archiv/*.2026-10-22-vor-logo-link.html` (Navi, Menschen, Korea v3,
+  Drohne v5, 3D Design, Startseite, icapsule.site).
+- Geprüft: Skripte und Klammern ok. Im Browser bei 1440×900 auf Menschen: rotes Logo 136×26 oben
+  links, echter Klick → landet auf „Max Aulinger — Portfolio" (Startseite Stream).
+- **Nicht hochgeladen**, zusammen mit dem Innenleben-Bild von heute. Max fragen.
+
+---
+
+## 22.10.2026 — 3D & Design: Bild „Das Innenleben · Blender" ausgetauscht (lokal)
+
+Max schickte ein Handyfoto vom Blender-Bildschirm (Explosionsansicht des Geräts, 1242×1830) mit
+„mach bitte das Bild statt Innenleben Blender, also tausch das aus".
+- Gemeint ist im Abschnitt iCapsule („Eigenes Apple-Produkt") das zweite Bild neben „Am Bildschirm":
+  Eintrag `bts2` in `site/3D Design.dc.html`.
+- Original abgelegt als `Neu/Projekte/ibee-innenleben-blender-original.jpg` (nicht im Repo).
+- Neu: `site/assets/ibee-innenleben-blender.webp`, 950×1400 (sips -Z 1400, q62 → cwebp q68,
+  69 KB). **Neue Datei statt Überschreiben**, weil `Portfolio v4.dc.html` die alte
+  `ibee-innen.webp` weiter benutzt.
+- In `bts2` Pfad und Maße auf 950×1400 geändert (die Seite rechnet das Seitenverhältnis daraus).
+  Sonst nichts geändert (diff: eine Zeile). Sicherung: `Portfolio/archiv/3D Design.dc.2026-10-22-vor-innenleben.html`.
+- Im Browser bei 1440×900 geprüft: Das Bild lädt, ist 253×370 groß, gleich hoch wie „Am Bildschirm",
+  Rahmenverhältnis 0,685 zu Bildverhältnis 0,679, also nicht verzerrt.
+- **Nicht hochgeladen**, Max gefragt.
+
+---
+
 ## 21.10.2026 — Neue Fassungen ersetzen die normalen Seiten (Korea, 3D & Design, Fotos)
 
 Max: „Du solltest es doch in die normale Seite einbauen statt der ursprünglichen und nicht als
