@@ -1,5 +1,44 @@
 # Stand
 
+## 22.10.2026 — Drohne: Clip „Durch den Schnee" spielt jetzt das Video
+
+Max: „Das Video Durch den Schnee ist noch nicht hochgeladen … aktuell ist da nur ein Standbild,
+ersetze das mit dem richtigen Video." In `site/Drohne v5.dc.html` (`clipData()`) hatte der dritte
+FPV-Clip `src: undefined, dur: '—'`. Das Video gab es längst online:
+`Portfolio/assets/video/drohne-schnee.mp4` (24,3 MB, 1280×720, 63,9 s, kein Ton, faststart, nicht
+fragmentiert, live 200). In der alten Drohnenseite V1 war es seit `7078b58` eingebaut, Claude Designs
+Export hatte es wieder verloren.
+- Geändert: `src: '../Portfolio/assets/video/drohne-schnee.mp4'`, `dur: '1:04'` (eine Zeile).
+  Verweis statt Kopie, wie bei den ganzen Filmen der Video-Seite, also kein neuer Upload des Videos.
+- `site/DrohneKapitel.dc.html` hat dieselbe Lücke, wird aber nur von `Portfolio v4` benutzt.
+  Nicht angefasst.
+- Sicherung: `Portfolio/archiv/Drohne v5.dc.2026-10-22-vor-schnee-video.html`.
+- Lokal geprüft: Clip 3 lädt die Datei, 63,9 s, 1280 px, kein Fehler.
+
+---
+
+## 22.10.2026 — Fehler nach dem Logo-Klick: alte Adresse leitet jetzt weiter (Commit `28bf661`)
+
+Max: „die neue ist auch nicht verknüpft … kommt da dann Error". Live nachgesehen: Die Links waren
+richtig (`Startseite%20Stream.dc.html`). Ein echter Klick auf das Logo landete bei mir auf der
+neuen Startseite, nur später als gedacht: Der Seitenwechsel braucht über 3 s, mein erster Blick
+nach 3 s zeigte fälschlich „bleibt stehen".
+
+**Wahrscheinliche Ursache bei Max:** GitHub Pages schickt `cache-control: max-age=600`. Bis zu
+10 min nach dem Upload benutzt der Browser noch den **alten** `Navi.dc.html`, der auf die gerade
+gelöschte `Startseite.dc.html` zeigt → 404. Das ist nicht bewiesen (Max' Browser kann ich nicht
+sehen), passt aber genau.
+
+**Lösung:** `site/Startseite.dc.html` gibt es wieder, aber nur als **Weiterleitung** (Kopie von
+`site/index.html`: meta refresh + `location.replace` auf Startseite Stream). Die alte Kartenwand
+bleibt weg. So landen alte gespeicherte Seiten und Lesezeichen nie mehr auf einem Fehler. Live
+geprüft: Die alte Adresse öffnet die neue Startseite.
+
+**Merke:** Wer eine Seite löscht, auf die bis eben verlinkt wurde, legt eine Weiterleitung an
+(siehe 05-fallen).
+
+---
+
 ## 22.10.2026 — „Max Aulinger" führt überall zur neuen Startseite, alte Startseite entfernt (lokal)
 
 Max: Auf Menschen, Fotos, Korea, Drohne und 3D & Design steht oben links noch „das alte
@@ -25,7 +64,11 @@ beantwortet.
   Drohne v5, 3D Design, Startseite, icapsule.site).
 - Geprüft: Skripte und Klammern ok. Im Browser bei 1440×900 auf Menschen: rotes Logo 136×26 oben
   links, echter Klick → landet auf „Max Aulinger — Portfolio" (Startseite Stream).
-- **Nicht hochgeladen**, zusammen mit dem Innenleben-Bild von heute. Max fragen.
+- ~~Nicht hochgeladen~~ → **Hochgeladen** auf Max' „lade es hoch", zusammen mit dem
+  Innenleben-Bild (Commit `5f25cc5`). Live nach ~1,5 min geprüft: Navi mit rotem Logo und nur
+  noch Links zur neuen Startseite, ebenso Menschen, Korea, Drohne, 3D und iCapsule. Alte
+  Startseite 404, neue 200. Innenleben-Foto 200 (68 770 Byte), die 3D-Seite benutzt es.
+  (Dieser Vermerk ist nur lokal.)
 
 ---
 

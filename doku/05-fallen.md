@@ -1187,3 +1187,13 @@ im Code (`this.props.home ?? '…'`) **und** im `data-props`-Attribut des Skript
 (`"home":{"default":"…"}`, HTML-maskiert mit `&quot;`). Die Laufzeit setzt vermutlich die
 `data-props`-Vorgabe ein, dann greift der Fallback im Code nie. Also immer **beide** Stellen
 ändern und danach mit `grep` nach dem alten Wert suchen.
+
+## Gelöschte Seite + Browser-Zwischenspeicher = Fehlerseite (22.10.2026)
+
+GitHub Pages liefert alles mit `cache-control: max-age=600`. Nach einem Upload benutzen Browser
+bis zu **10 Minuten** noch alte Fassungen, auch von Bausteinen wie `Navi.dc.html`. Zeigt so ein
+alter Baustein auf eine Seite, die man gerade gelöscht hat, kommt eine 404. Daher eine Seite, auf
+die bisher verlinkt wurde, **nie ersatzlos löschen**, sondern durch eine kleine Weiterleitung
+ersetzen (Muster: `site/index.html`). Außerdem: Die Seitenwechsel-Animation (`seitenwechsel.js`)
+verzögert jede Navigation um mehrere Sekunden. Nach einem Testklick also länger als 3 s warten,
+bevor man „passiert nichts" schließt.
