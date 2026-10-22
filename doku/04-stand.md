@@ -1,5 +1,13 @@
 # Stand
 
+## 22.10.2026 — Zeilenumbruch im Hinweis wieder entfernt
+
+Max: „ne, lösch das bitte wieder raus und lade es hoch". Gedeutet als: der eben eingefügte Umbruch (`<br>`) soll
+weg. Der deutsche Satz ist am Computer wieder einzeilig, also wieder Stand `9f25029`. **Hochgeladen.** Falls er
+den ganzen Hinweis meinte, nachfragen.
+
+---
+
 ## 22.10.2026 — Hinweis hochgeladen (`9f25029`) und deutscher Satz am Computer zweizeilig
 
 Auf Max’ „lade das so auf GitHub hoch" hochgeladen (`9f25029`), live geprüft. Danach Max (mit Bildschirmfoto):
