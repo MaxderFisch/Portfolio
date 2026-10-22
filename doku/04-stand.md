@@ -1,5 +1,22 @@
 # Stand
 
+## 22.10.2026 — Hinweis nur auf Handy-Bildschirmen, sonst wieder „Wer schaut zu?" (lokal)
+
+Max: Lässt sich erkennen, ob Computer oder Handy? Dann den Hinweis **nur am Handy** zeigen. Am Computer und Tablet
+ist er irrelevant, dort wieder die alte Frage. (Damit ist die offene Frage „was meinte er mit löschen" vermutlich
+beantwortet: Am Computer sollte der Hinweis weg.)
+Umsetzung in `site/Startseite Stream.dc.html` (Profilauswahl): zwei Blöcke `data-frage="gross"` (h1 „Wer schaut
+zu?" + „Who’s watching?", **genau die alten Stile**, siehe `archiv/…vor-handy-hinweis.html`) und `data-frage="handy"`
+(der zweizeilige Hinweis). Steuerung per CSS im `<helmet>`-Stil: Handy-Block standardmäßig aus, bei
+`(max-width:699px)` **oder** `(max-height:500px) and (pointer:coarse)` (quer gehaltenes Handy) umgekehrt.
+Erkannt wird also die Bildschirmgröße, nicht das Gerät. Tablets (ab 744 px) zählen als groß. Keine CSS-Klassen
+(die Seite nutzt keine), sondern Attribut-Selektoren. Eine HTML-Notiz im Template habe ich zur Sicherheit wieder
+entfernt. Sicherung `archiv/Startseite Stream.dc.2026-10-22-vor-handy-nur.html`.
+Geprüft: 1440 px und Tablet 768×1024 → „Wer schaut zu? | Who’s watching?", Handy 375 px (Touch) → nur der
+Hinweis. Quer gehaltenes Handy nicht emuliert (Werkzeug setzt Touch erst unter 768 px). **Nicht hochgeladen.**
+
+---
+
 ## 22.10.2026 — Missverständnis: Umbruch wiederhergestellt
 
 Max: „ne, schon zweizeilig". Mein Entfernen des Umbruchs (`6b394ff`, Eintrag darunter) war **falsch gedeutet**,
