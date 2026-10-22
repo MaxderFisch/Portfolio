@@ -1,5 +1,15 @@
 # Stand
 
+## 22.10.2026 — Hinweis hochgeladen (`9f25029`) und deutscher Satz am Computer zweizeilig
+
+Auf Max’ „lade das so auf GitHub hoch" hochgeladen (`9f25029`), live geprüft. Danach Max (mit Bildschirmfoto):
+am Computer den deutschen Satz in **zwei Zeilen**, den englischen in **einer**. Umsetzung: fester Umbruch
+`Für das beste Erlebnis<br>bitte am PC oder Tablet ansehen.` Gemessen: 1440 px → Deutsch 2 Zeilen, Englisch 1.
+Handy 375 px unverändert (3 / 2 Zeilen). Als Korrektur derselben Änderung ebenfalls hochgeladen (siehe Commit
+darüber im Git-Log).
+
+---
+
 ## 22.10.2026 — Englische Zeile auch am Handy größer
 
 Max: „perfekt so passt es, ne so mit dem Englischen auch in zwei Zeilen". Gedeutet: Am Handy darf die
