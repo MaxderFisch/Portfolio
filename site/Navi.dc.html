@@ -47,7 +47,7 @@ class Component extends DCLogic {
   componentWillUnmount() { removeEventListener('resize', this.onR); document.removeEventListener('click', this.onDoc); cancelAnimationFrame(this._raf); clearTimeout(this._t); }
   renderVals() {
     const a = this.props.aktiv ?? '', home = this.props.home ?? 'Startseite%20Stream.dc.html', wide = this.state.vw >= 900;
-    const L = [['Start', home], ['Menschen', 'Menschen.dc.html'], ['Fotos', 'Fotos.dc.html'], ['Korea', 'Korea%20v3.dc.html'], ['Drohne', 'Drohne%20v5.dc.html'], ['Video', 'Video.dc.html'], ['3D & Design', '3D%20Design.dc.html']];
+    const L = [['Start', home], ['Menschen', 'Menschen.dc.html'], ['Fotos', 'Fotos.dc.html'], ['Korea', 'Korea%20v3.dc.html'], ['Drohne', 'Drohne%20v5.dc.html'], ['Filme', 'Video.dc.html'], ['3D & Design', '3D%20Design.dc.html']];
     return {
       home, wide, narrow: !wide, open: this.state.open,
       toggle: () => this.setState(s => ({ open: !s.open })),

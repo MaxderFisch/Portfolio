@@ -110,9 +110,9 @@ button{font-family:inherit}
 <main style="position:relative;z-index:3;margin-top:calc(-1 * clamp(70px,9vw,170px));padding-bottom:20px">
   <sc-for list="{{ rows }}" as="r" hint-placeholder-count="2">
     <section id="{{ r.id }}" data-row="" data-screen-label="{{ r.t }}" style="position:relative;margin-bottom:clamp(26px,3vw,48px)">
-      <div style="display:flex;align-items:baseline;gap:14px;padding:0 4vw;margin-bottom:10px">
+      <sc-if value="{{ r.hasT }}" hint-placeholder-val="{{ true }}"><div style="display:flex;align-items:baseline;gap:14px;padding:0 4vw;margin-bottom:10px">
         <h2 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(18px,1.6vw,26px);letter-spacing:-.005em">{{ r.t }}</h2>
-      </div>
+      </div></sc-if>
       <div style="position:relative">
         <div data-scroll="" style="display:flex;gap:clamp(6px,.6vw,10px);overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding:0 4vw;padding:4px 4vw 8px;scrollbar-width:none">
           <sc-for list="{{ r.items }}" as="it" hint-placeholder-count="5">
@@ -145,7 +145,7 @@ button{font-family:inherit}
 </footer>
 
 <div data-k="pop" onMouseLeave="{{ popLeave }}" style="position:fixed;left:0;top:0;width:320px;z-index:70;display:none;border-radius:6px;overflow:hidden;background:#181819;box-shadow:0 14px 44px rgba(0,0,0,.65)">
-  <a href="{{ pop.href }}" onClick="{{ pop.play }}" style="position:relative;display:block;aspect-ratio:16/9;background:#111">
+  <a href="{{ pop.href }}" onClick="{{ pop.img }}" style="position:relative;display:block;aspect-ratio:16/9;background:#111">
     <img src="{{ pop.src }}" alt="" style="display:block;width:100%;height:100%;object-fit:cover">
     <video data-k="popv" muted="" playsinline="" preload="none" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s"></video>
   </a>
@@ -235,6 +235,19 @@ button{font-family:inherit}
 <div data-k="player" style="position:fixed;inset:0;z-index:85;background:#000">
   <sc-if value="{{ pl.isEmbed }}" hint-placeholder-val="{{ false }}"><div data-k="ytbox" style="position:absolute;inset:0"></div></sc-if>
   <sc-if value="{{ pl.isClip }}" hint-placeholder-val="{{ false }}"><video data-k="pv" src="{{ pl.clip }}" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000"></video></sc-if>
+  <sc-if value="{{ nx.on }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;right:4vw;bottom:clamp(76px,11vh,120px);z-index:3;display:flex;align-items:center;gap:16px;max-width:calc(100vw - 8vw);padding:12px 14px 12px 12px;background:rgba(20,20,22,.94);border:1px solid rgba(255,255,255,.12);border-radius:6px;box-shadow:0 14px 44px rgba(0,0,0,.6)">
+      <img src="{{ nx.src }}" alt="" style="display:block;width:clamp(110px,12vw,170px);aspect-ratio:16/9;object-fit:cover;border-radius:3px">
+      <div style="min-width:0">
+        <div style="font-size:12px;color:#b3b3b8;white-space:nowrap">{{ nx.label }}</div>
+        <div style="margin-top:3px;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(16px,1.4vw,20px)">{{ nx.t }}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:10px">
+          <button onClick="{{ nx.go }}" style="position:relative;overflow:hidden;display:flex;align-items:center;gap:8px;height:38px;padding:0 18px 0 14px;border:0;border-radius:4px;background:#f2f2f2;color:#0c0c0c;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer"><span data-k="nxbar" style="position:absolute;inset:0;background:rgba(0,0,0,.16);transform:scaleX(0);transform-origin:0 50%"></span><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="position:relative"><path d="M7 4v16l13-8z"></path></svg><span style="position:relative">{{ L.next }}</span></button>
+          <button onClick="{{ nx.stop }}" aria-label="Abbrechen" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border:1px solid rgba(255,255,255,.3);border-radius:4px;background:none;color:#f2f2f2;cursor:pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
   <div style="position:absolute;top:0;left:0;right:0;display:flex;align-items:center;gap:16px;padding:18px 4vw 40px;background:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,0));pointer-events:none">
     <button onClick="{{ closePlayer }}" aria-label="{{ L.back }}" style="display:flex;align-items:center;justify-content:center;width:44px;height:44px;padding:0;border:0;background:none;color:#f2f2f2;cursor:pointer;pointer-events:auto"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 12H5M11 5l-7 7 7 7"></path></svg></button>
     <div>
@@ -318,10 +331,10 @@ class Component extends DCLogic {
     films.forEach(f => (f.seasons || []).forEach((st, si) => { st.si = si; st.parent = f.id; byId[st.id] = st; st.eps.forEach((e, ei) => { Object.assign(e, { ep: true, si, n: ei + 1, parent: f.id, yt: st.yt }); byId[e.id] = e; eps.push(e); }); }));
     const clips = ['bergmann', 'electrify', 'einspieler', 'bienen', 'hostage'].map(id => byId[id]).filter(f => f && f.clip);
     const S = {
-      de: { kicker: 'Filme', play: 'Abspielen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreFilms: 'Weitere Filme', moreVids: 'Weitere Videos', skip: 'Überspringen', contact: 'Kontakt', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', lang: 'Sprache', active: 'aktiv', soon: 'Ausschnitt folgt', soonLong: 'Film folgt', excerpt: 'Ausschnitt · ganzer Film folgt', back: 'Zurück', mute: 'Ton an', unmute: 'Ton aus', rowFilms: 'Filme aus dem Studium', rowMore: 'Weitere Videos', seasons: 'Staffeln', season: 'Staffel', episode: 'Folge', fullShow: 'Ganze Sendung ansehen', wholeShow: 'Ganze Sendung', inShow: 'In der ganzen Sendung ansehen', nSeasons: '2 Staffeln', excerptShort: 'Ausschnitt', rowEps: 'Doschauher · Einspieler', ytOpen: 'Auf YouTube ansehen' },
-      en: { kicker: 'Films', play: 'Play', more: 'More info', toPage: 'Open project', moreFilms: 'More films', moreVids: 'More videos', skip: 'Skip', contact: 'Contact', write: 'Write to me.', top: 'Back to top', browse: 'Browse', lang: 'Language', active: 'active', soon: 'Excerpt soon', soonLong: 'Film coming soon', excerpt: 'Excerpt · full film coming soon', back: 'Back', mute: 'Sound on', unmute: 'Sound off', rowFilms: 'Films from university', rowMore: 'More videos', seasons: 'Seasons', season: 'Season', episode: 'Episode', fullShow: 'Watch full show', wholeShow: 'Full show', inShow: 'Watch in the full show', nSeasons: '2 seasons', excerptShort: 'Excerpt', rowEps: 'Doschauher · Segments', ytOpen: 'Watch on YouTube' }
+      de: { kicker: 'Filme', play: 'Abspielen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreFilms: 'Weitere Filme', moreVids: 'Weitere Videos', skip: 'Überspringen', contact: 'Kontakt', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', lang: 'Sprache', active: 'aktiv', soon: 'Ausschnitt folgt', soonLong: 'Film folgt', excerpt: 'Ausschnitt · ganzer Film folgt', back: 'Zurück', mute: 'Ton an', unmute: 'Ton aus', rowFilms: 'Filme aus dem Studium', rowMore: 'Weitere Videos', seasons: 'Staffeln', season: 'Staffel', episode: 'Folge', next: 'Nächste Folge', fullShow: 'Ganze Sendung ansehen', wholeShow: 'Ganze Sendung', inShow: 'In der ganzen Sendung ansehen', nSeasons: '2 Staffeln', excerptShort: 'Ausschnitt', rowEps: 'Doschauher · Einspieler', ytOpen: 'Auf YouTube ansehen' },
+      en: { kicker: 'Films', play: 'Play', more: 'More info', toPage: 'Open project', moreFilms: 'More films', moreVids: 'More videos', skip: 'Skip', contact: 'Contact', write: 'Write to me.', top: 'Back to top', browse: 'Browse', lang: 'Language', active: 'active', soon: 'Excerpt soon', soonLong: 'Film coming soon', excerpt: 'Excerpt · full film coming soon', back: 'Back', mute: 'Sound on', unmute: 'Sound off', rowFilms: 'Films from university', rowMore: 'More videos', seasons: 'Seasons', season: 'Season', episode: 'Episode', next: 'Next episode', fullShow: 'Watch full show', wholeShow: 'Full show', inShow: 'Watch in the full show', nSeasons: '2 seasons', excerptShort: 'Excerpt', rowEps: 'Doschauher · Segments', ytOpen: 'Watch on YouTube' }
     };
-    const links = [[['Start', 'Home'], 'Startseite%20Stream.dc.html'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Video', 'Film'], '#top', true], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
+    const links = [[['Start', 'Home'], 'Startseite%20Stream.dc.html'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Filme', 'Films'], '#top', true], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
     return this._D = { films, extra, byId, clips, eps, S, links };
   }
 
@@ -360,6 +373,7 @@ class Component extends DCLogic {
     removeEventListener('resize', this.onR); removeEventListener('scroll', this.onS); removeEventListener('keydown', this.onK);
     document.removeEventListener('click', this.onDoc); document.removeEventListener('visibilitychange', this.onVis);
     document.removeEventListener('pointerover', this.onOver); document.removeEventListener('pointerout', this.onOut);
+    document.removeEventListener('pointermove', this.onMoveXY); clearTimeout(this.reHovT);
     cancelAnimationFrame(this.raf); clearTimeout(this._t1); clearTimeout(this._safe); clearTimeout(this.hovT);
     if (this.io) this.io.disconnect();
     document.documentElement.style.overflow = '';
@@ -538,7 +552,7 @@ class Component extends DCLogic {
       };
       row.addEventListener('mouseenter', () => { row._hov = matchMedia('(hover:hover)').matches; upd(); });
       row.addEventListener('mouseleave', () => { row._hov = false; upd(); });
-      sc.addEventListener('scroll', () => { upd(); this.popClose(true); }, { passive: true });
+      sc.addEventListener('scroll', () => { upd(); this.popClose(true); this.reHoverSoon(); }, { passive: true });
       l.addEventListener('click', () => sc.scrollBy({ left: -sc.clientWidth * 0.85, behavior: 'smooth' }));
       r.addEventListener('click', () => sc.scrollBy({ left: sc.clientWidth * 0.85, behavior: 'smooth' }));
     });
@@ -547,20 +561,46 @@ class Component extends DCLogic {
   hoverInit() {
     this.onOver = e => {
       if (innerWidth < 900 || this.state.modal || this.state.player || this.state.stage !== 'browse' || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-      const card = e.target.closest && e.target.closest('[data-card]'); if (!card || this.hovCard === card) return;
+      const card = e.target.closest && e.target.closest('[data-card]'); if (!card) return;
+      if (this.hovCard === card && (this.hovOn || this.popShows(card))) return;
       this.hovCard = card; clearTimeout(this.hovT);
-      this.hovT = setTimeout(() => this.popOpen(card), 480);
+      this.hovOn = true; this.hovT = setTimeout(() => { this.hovOn = false; this.popOpen(card); }, 480);
     };
     this.onOut = e => {
       const card = e.target.closest && e.target.closest('[data-card]'); if (!card) return;
       if (e.relatedTarget && card.contains(e.relatedTarget)) return;
-      if (this.hovCard === card) { this.hovCard = null; clearTimeout(this.hovT); }
+      if (this.hovCard === card) { this.hovCard = null; this.hovOn = false; clearTimeout(this.hovT); }
     };
     document.addEventListener('pointerover', this.onOver);
     document.addEventListener('pointerout', this.onOut);
+    // Letzte Mausposition merken: nach dem Wischen öffnet sich die Vorschau der Karte unter der Maus
+    this.onMoveXY = e => { this.lastXY = [e.clientX, e.clientY]; };
+    document.addEventListener('pointermove', this.onMoveXY, { passive: true });
+    // Seitliches Wischen über dem Vorschaufenster an die Reihe darunter weitergeben
+    const pe = this.$('pop');
+    if (pe) pe.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      const sc = this.popCard && this.popCard.closest('[data-scroll]'); if (!sc) return;
+      e.preventDefault(); this.lastXY = [e.clientX, e.clientY];
+      if (this.wheelSc !== sc) { this.wheelSc = sc; sc.style.scrollSnapType = 'none'; }
+      sc.scrollLeft += e.deltaX;
+    }, { passive: false });
+  }
+
+  // Nach dem Wischen (kurze Ruhe) Einrasten wieder an und die Karte unter der Maus öffnen
+  reHoverSoon() {
+    clearTimeout(this.reHovT);
+    this.reHovT = setTimeout(() => {
+      if (this.wheelSc) { this.wheelSc.style.scrollSnapType = ''; this.wheelSc = null; }
+      const p = this.lastXY;
+      if (!p || this.state.modal || this.state.player || this.state.stage !== 'browse' || innerWidth < 900 || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+      const el = document.elementFromPoint(p[0], p[1]), card = el && el.closest && el.closest('[data-card]'); if (!card || this.popShows(card)) return;
+      this.hovCard = card; clearTimeout(this.hovT); this.hovOn = true; this.hovT = setTimeout(() => { this.hovOn = false; this.popOpen(card); }, 250);
+    }, 200);
   }
 
   popOpen(card) {
+    this.popCard = card;
     const id = card.getAttribute('data-card'), it = this.data().byId[id]; if (!it) return;
     const r = card.getBoundingClientRect(); if (r.right < 0 || r.left > innerWidth) return;
     this.setState({ pop: id }, () => {
@@ -586,14 +626,16 @@ class Component extends DCLogic {
     });
   }
 
-  popClose(now) {
-    clearTimeout(this.hovT); this.hovCard = null;
+  popShows(card) { const p = this.$('pop'); return !!(p && p.style.display === 'block' && this.popCard === card && this.popFrom); }
+
+  popClose(now, keep) {
+    if (!keep) { clearTimeout(this.hovT); this.hovOn = false; this.hovCard = null; }
     const pop = this.$('pop'); if (!pop || pop.style.display === 'none' || !pop.style.display) return;
     const v = this.$('popv'); if (v) v.pause();
     const f = this.popFrom; this.popFrom = null;
     if (now || !f) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; return; }
     pop.animate([{ transform: 'none', opacity: 1 }, { transform: 'translate(' + f.tx + 'px,' + f.ty + 'px) scale(' + f.s + ')', opacity: 0 }], { duration: 220, easing: 'ease-in', fill: 'forwards' })
-      .onfinish = () => { if (!this.popFrom) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; } };
+      .onfinish = () => { if (!this.popFrom) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; if (keep && !this.hovOn) this.reHoverSoon(); } };
   }
 
   /* ---------- Mehr Infos + Player ---------- */
@@ -629,6 +671,9 @@ class Component extends DCLogic {
 
   openPlayer(id) {
     const f = this.data().byId[id]; if (!f) return;
+    // Serie: mit der ersten Folge der ersten Staffel beginnen
+    if (f.series && f.seasons && f.seasons[0] && f.seasons[0].eps[0]) return this.openPlayer(f.seasons[0].eps[0].id);
+    this.cancelNext();
     if (!f.film && !f.ep && !f.yt) { location.href = f.href; return; }
     const P = this.playOf(f);
     if (!P) { this.openModal(id); return; }
@@ -637,7 +682,7 @@ class Component extends DCLogic {
     document.documentElement.style.overflow = 'hidden';
     this.setState({ player: id, menu: null }, () => {
       const pv = this.$('pv');
-      if (pv) { pv.controls = true; pv.muted = !P.sound; try { pv.currentTime = 0; } catch (e) {} pv.play().catch(() => { pv.muted = true; pv.play().catch(() => {}); }); }
+      if (pv) { pv.controls = true; pv.muted = !P.sound; try { pv.currentTime = 0; } catch (e) {} pv.play().catch(() => { pv.muted = true; pv.play().catch(() => {}); }); pv.onended = f.ep ? () => this.epEnd(f.id) : null; pv.onplay = () => { if (this.state.nx) this.cancelNext(); }; }
       const box = this.$('ytbox');
       if (box && P.embed) {
         box.innerHTML = '';
@@ -653,7 +698,22 @@ class Component extends DCLogic {
     });
   }
 
+  // Wie bei Netflix: nach einer Folge die nächste anbieten, nach 6 s startet sie von selbst
+  epEnd(id) {
+    if (this.state.player !== id) return;
+    const E = this.data().eps, k = E.findIndex(e => e.id === id), nx = E[k + 1];
+    if (!nx || !nx.vid) return;
+    this.setState({ nx: nx.id }, () => {
+      const bar = this.$('nxbar'), T = 6000;
+      if (bar) bar.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: T, easing: 'linear', fill: 'forwards' });
+      clearTimeout(this.nxT); this.nxT = setTimeout(() => this.goNext(), T);
+    });
+  }
+  goNext() { clearTimeout(this.nxT); const id = this.state.nx; if (!id) return; this.setState({ nx: null }, () => this.openPlayer(id)); }
+  cancelNext() { clearTimeout(this.nxT); if (this.state.nx) this.setState({ nx: null }); }
+
   closePlayer() {
+    this.cancelNext();
     const pv = this.$('pv'); if (pv) pv.pause();
     this.setState({ player: null });
     if (this.state.modal) { const mv = this.$('mvid'); if (mv) mv.play().catch(() => {}); }
@@ -681,7 +741,8 @@ class Component extends DCLogic {
     const pop = pi ? {
       href: pi.film || pi.ep ? '#' + (pi.parent || pi.id) : pi.href, src: pi.src, t: tr(pi.t), meta: pi.ep ? epMeta(pi) : tr(pi.meta), txt: tr(pi.txt), hasTxt: !!tr(pi.txt),
       btn: pi.film || pi.ep ? L.play : L.toPage,
-      play: pi.film || pi.ep ? (e => { e.preventDefault(); this.openPlayer(pi.id); }) : undefined
+      play: pi.film || pi.ep ? (e => { e.preventDefault(); this.openPlayer(pi.id); }) : undefined,
+      img: pi.series ? (e => { e.preventDefault(); this.openModal(pi.id); }) : pi.film || pi.ep ? (e => { e.preventDefault(); this.openPlayer(pi.id); }) : undefined
     } : { href: '#top', src: 'assets/logo-max.png', t: '', meta: '', txt: '', hasTxt: false, btn: '' };
 
     const mi = this.state.modal && D.byId[this.state.modal];
@@ -725,13 +786,14 @@ class Component extends DCLogic {
       hero: { t: tr(hf.reelT || hf.t), meta: tr(hf.meta), txt: tr(hf.txt), hasTxt: !!tr(hf.txt) },
       heroPlay: () => this.openPlayer(hf.id), heroInfo: () => this.openModal(hf.id),
       rows: [
-        { id: 'filme', t: L.rowFilms, w: 'clamp(260px,28vw,540px)', fs: 'clamp(20px,1.7vw,28px)', items: ['bergmann', 'einspieler', 'bienen', 'electrify', 'hostage', 'kommt'].map(id => D.byId[id]).filter(Boolean).map(card) },
+        { id: 'filme', t: '', w: 'clamp(260px,28vw,540px)', fs: 'clamp(20px,1.7vw,28px)', items: ['bergmann', 'einspieler', 'bienen', 'electrify', 'hostage', 'kommt'].map(id => D.byId[id]).filter(Boolean).map(card) },
         { id: 'einspieler-folgen', t: L.rowEps, w: 'clamp(210px,19vw,350px)', fs: '15px', items: D.eps.map(card) },
         { id: 'mehr', t: L.rowMore, w: 'clamp(210px,19vw,350px)', fs: '15px', items: D.extra.map(card) }
-      ],
-      pop, popLeave: () => this.popClose(false), popInfo: () => { if (pi) { if (pi.ep) this.openModal(pi.parent, pi.si); else this.openModal(pi.id); } },
+      ].map(r => Object.assign(r, { hasT: !!r.t })),
+      pop, popLeave: () => this.popClose(false, true), popInfo: () => { if (pi) { if (pi.ep) this.openModal(pi.parent, pi.si); else this.openModal(pi.id); } },
       modalOn: !!mi, m, closeModal: () => this.closeModal(), modalBg: e => { if (e.target === e.currentTarget) this.closeModal(); },
       playerOn: !!pf, pl, closePlayer: () => this.closePlayer(),
+      nx: (() => { const x = this.state.nx && D.byId[this.state.nx]; return x ? { on: true, src: x.src, t: tr(x.t), label: L.next + ' · ' + L.season + ' ' + (x.si + 1) + ' · ' + L.episode + ' ' + x.n, go: () => this.goNext(), stop: () => this.cancelNext() } : { on: false, src: '', t: '', label: '' }; })(),
       toDe: () => this.setLang('de'), toEn: () => this.setLang('en'),
       deFg: lg === 'de' ? '#f2f2f2' : '#8d8d92', enFg: lg === 'en' ? '#f2f2f2' : '#8d8d92'
     };

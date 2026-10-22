@@ -1197,3 +1197,20 @@ die bisher verlinkt wurde, **nie ersatzlos löschen**, sondern durch eine kleine
 ersetzen (Muster: `site/index.html`). Außerdem: Die Seitenwechsel-Animation (`seitenwechsel.js`)
 verzögert jede Navigation um mehrere Sekunden. Nach einem Testklick also länger als 3 s warten,
 bevor man „passiert nichts" schließt.
+
+## Neuladen holt nachgeladene Bausteine nicht frisch (22.10.2026)
+
+Chrome holt beim normalen Neuladen nur das Hauptdokument neu. Dateien, die ein Skript per
+`fetch()` nachholt (bei Claude Design z. B. `Navi.dc.html` über `dc-import`), kommen bis zu
+10 min aus dem Zwischenspeicher (GitHub `max-age=600`). Folge: Seite neu, Kopfleiste alt, „es ist
+nicht aktualisiert". Behoben in `site/support.js` mit `fetch(target, { cache: "no-cache" })` für
+Geschwister-Importe. Wer `support.js` neu aus Claude Design übernimmt, muss das wieder eintragen.
+Bis dahin hilft ein privater Tab.
+
+## Videostartpunkte (`s`) lokal nur mit Range-Server prüfbar (22.10.2026)
+
+`werkzeug/serve.js` beantwortet `Range`-Anfragen mit 200 und der ganzen Datei. Videos sind dann
+nicht spulbar (`video.seekable` = 0–0), und ein Startpunkt wie `s: 8.75` wird ignoriert: Das Video
+läuft ab 0. Das sieht aus wie ein Fehler im Code, ist aber keiner. GitHub Pages kann Range.
+Zum Prüfen einen kleinen Node-Server mit 206/Content-Range auf einem anderen Port starten (Muster
+im Scratchpad vom 22.10., `range-serve.js`, Port 8001) und danach wieder beenden.

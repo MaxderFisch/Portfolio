@@ -241,14 +241,17 @@ class Component extends DCLogic {
       tiere: { t: ['Tiere', 'Animals'], href: 'Fotos.dc.html#tiere', card: T + 'tier-zunge.webp', big: A + 'tier-zunge.webp', meta: ['Fotografie · Natur', 'Photography · Nature'], txt: ['Ich fotografiere so gern Tiere, weil es ihnen egal ist. Sie würden mich nie judgen, im Gegensatz zu Menschen.', 'I love photographing animals because they don’t care. They would never judge me, unlike people.'] },
       icapsule: { t: ['iCapsule', 'iCapsule'], href: '3D%20Design.dc.html#icapsule', card: T + 'icap-hero-weiss.webp', big: A + 'icap-hero-weiss.webp', meta: ['3D · Blender · 1. Semester', '3D · Blender · 1st semester'], txt: ['Mein erstes Projekt im Studium: ein eigenes Apple-Produkt, komplett in Blender.', 'My first university project: my own Apple product, built entirely in Blender.'] },
       plakate: { t: ['Politische Plakate', 'Political posters'], href: '3D%20Design.dc.html#plakate', card: T + 'plakat-bubble.webp', big: A + 'plakat-bubble.webp', meta: ['Design · Blender', 'Design · Blender'], txt: ['Seit dem ersten Semester mache ich selbst Plakate nur noch in Blender.', 'Since my first semester I make even posters only in Blender.'] },
-      therme: { t: ['Therme Bad Füssing', 'Therme Bad Füssing'], href: '3D%20Design.dc.html#therme', card: T + 'therme-cover.webp', big: A + 'therme-cover.webp', vid: V + 'therme-doku.mp4', meta: ['Animation · Blender · Auftrag', 'Animation · Blender · Commission'], txt: ['Mein erster bezahlter Job: eine Unterwasser-Animation für die Wand der Therme.', 'My first paid job: an underwater animation for the wall of the thermal spa.'] },
+      therme: { t: ['Erste bezahlte Arbeit', 'First paid job'], href: '3D%20Design.dc.html#therme', card: T + 'therme-cover.webp', big: A + 'therme-cover.webp', vid: V + 'therme-doku.mp4', meta: ['Animation · Blender · Auftrag', 'Animation · Blender · Commission'], txt: ['Mein erster bezahlter Job: eine Unterwasser-Animation für die Wand der Therme.', 'My first paid job: an underwater animation for the wall of the thermal spa.'] },
       filme: { t: ['Filme', 'Films'], href: 'Video.dc.html', card: T + 'bergmann-cover.webp', big: A + 'bergmann-cover.webp', meta: ['Film · im Team · Studium', 'Film · team projects · university'], txt: ['In den ersten Semestern habe ich im Team ein paar Filme gedreht, vor allem zum Lernen.', 'In my first semesters I shot a few films as part of a team, mostly to learn.'] },
       blender: { t: ['Blender', 'Blender'], href: '3D%20Design.dc.html#blender', card: A + 'blender/park-kugeln-poster.webp', big: A + 'blender/park-kugeln-poster.webp', vid: V + 'park-kugeln.mp4', meta: ['3D · freie Projekte', '3D · personal projects'], txt: ['Blender ist mein absolutes Lieblingsprogramm.', 'Blender is my absolute favourite program.'] },
+      design: { t: ['3D & Design', '3D & Design'], href: '3D%20Design.dc.html', card: T + 'icap-hero-weiss.webp', big: A + 'icap-hero-weiss.webp', grp: ['icapsule', 'blender', 'therme', 'plakate', 'flyer'], meta: ['3D · Blender · Design', '3D · Blender · Design'], txt: ['Blender ist mein absolutes Lieblingsprogramm.', 'Blender is my absolute favourite program.'] },
+      video: { t: ['Filme', 'Films'], href: 'Video.dc.html', card: A + 'film-bergmann-poster.webp', big: A + 'film-bergmann-poster.webp', grp: ['filme'], meta: ['Film · im Team · Studium', 'Film · team projects · university'], txt: ['In den ersten Semestern habe ich im Team ein paar Filme gedreht, vor allem zum Lernen.', 'In my first semesters I shot a few films as part of a team, mostly to learn.'] },
+      fotos: { t: ['Fotos', 'Photos'], href: 'Fotos.dc.html', card: T + 'tier-zunge.webp', big: A + 'tier-zunge.webp', grp: ['sonne', 'tiere'], meta: ['Fotografie · Natur · Tiere · Sonnenaufgänge', 'Photography · Nature · Animals · Sunrises'], txt: ['Ich fotografiere so gern Tiere, weil es ihnen egal ist. Sie würden mich nie judgen, im Gegensatz zu Menschen.', 'I love photographing animals because they don’t care. They would never judge me, unlike people.'] },
       flyer: { t: ['Flyer', 'Flyer'], href: '3D%20Design.dc.html', card: A + 'flyer-cover.jpg', big: A + 'flyer-cover.jpg', meta: ['Design · Illustrator & InDesign · 1. Semester', 'Design · Illustrator & InDesign · 1st semester'], txt: ['Im ersten Semester musste ich Illustrator und InDesign nutzen. Danach habe ich mir geschworen: nie wieder Adobe.', 'In my first semester I had to use Illustrator and InDesign. Afterwards I swore: never Adobe again.'] }
     };
     const mini = ['DJI Mini 2', 'DJI Mini 2'], fpv = ['FPV', 'FPV'];
     const rows = [
-      { id: 'projekte', t: ['Projekte', 'Projects'], shape: 'big', items: ['korea', 'drohne', 'menschen', 'sonne', 'tiere', 'icapsule', 'plakate', 'therme', 'filme', 'blender'].map(k => ({ p: k, src: P[k].card, t: P[k].t, pos: P[k].pos, vid: P[k].vid, proj: true })) },
+      { id: 'projekte', t: ['Projekte', 'Projects'], shape: 'big', items: [['design'], ['korea', A + 'korea-tempelwaechter.webp', '50% 50%'], ['video'], ['drohne'], ['menschen', A + 'portraet-ares-quer.webp', '50% 40%'], ['fotos']].map(([k, src, pos]) => ({ p: k, src: src || P[k].card, t: P[k].t, pos: pos || P[k].pos, vid: P[k].vid, proj: true })) },
       { id: 'luft', t: ['Aus der Luft', 'From above'], href: 'Drohne%20v5.dc.html', shape: 'wide', items: [
         { p: 'drohne', src: A + 'zeitraffer-poster.webp', t: ['Über den Wolken', 'Above the clouds'], m: ['Zeitraffer · DJI Mini 4 Pro', 'Timelapse · DJI Mini 4 Pro'] },
         { p: 'drohne', src: A + 'drohne-nebel-poster.webp', t: ['Nebel', 'Fog'], m: ['DJI Mini 4 Pro', 'DJI Mini 4 Pro'], vid: V + 'drohne-nebel.mp4' },
@@ -299,24 +302,28 @@ class Component extends DCLogic {
     const byId = {}, all = [];
     rows.forEach((r, ri) => r.items.forEach((it, k) => { it.id = ri + '-' + k; it.shape = r.shape; byId[it.id] = it; if (!it.proj) all.push(it); }));
     const clips = [
-      { v: V + 'drohne-nebel.mp4', poster: A + 'drohne-nebel-poster.webp', s: 3, d: 6000, p: 'drohne' },
-      { i: KB + 'dsc00452.webp', d: 4500, p: 'korea', pos: '50% 35%', origin: '60% 40%' },
+      { v: V + 'showreel-5-bergmann.mp4', poster: A + 'film-bergmann-poster.webp', s: 0, d: 7500, p: 'filme' },
+      { i: A + 'portraits/dsc01731.webp', d: 4500, p: 'menschen', pos: '50% 40%', origin: '55% 35%' },
+      { v: V + 'reel-korea-tempel.mp4', poster: V + 'intro-korea-tempel-poster.webp', s: 0, d: 2650, p: 'korea' },
+      { v: V + 'reel-vorstellungskraft.mp4', poster: A + 'blender/schaedel-moos-1600.webp', s: 0, d: 4450, p: 'blender' },
+      { v: V + 'zeitraffer.mp4', poster: A + 'zeitraffer-poster.webp', s: 0, d: 6000, p: 'drohne' },
       { v: V + 'therme-doku.mp4', poster: A + 'therme-doku-poster.webp', s: 0, d: 5000, p: 'therme' },
-      { i: A + 'portraet-feld.webp', d: 4500, p: 'menschen', pos: '50% 30%', origin: '50% 30%' },
-      { v: V + 'fpv-timeline-1.mp4', poster: A + 'fpv-timeline-1-poster.webp', s: 6, d: 5500, p: 'drohne' },
-      { v: V + 'vorstellungskraft-schaedel.mp4', poster: A + 'blender/schaedel-moos-1600.webp', s: 1, d: 4500, p: 'blender' },
-      { i: A + 'sa-bruecke-nebel.webp', d: 4500, p: 'sonne', origin: '30% 60%' },
+      { v: V + 'reel-3d-blase.mp4', poster: V + 'intro-3d-blase-poster.webp', s: 0, d: 2600, p: 'blender' },
+      { v: V + 'showreel-2-einspieler.mp4', poster: A + 'film-einspieler-poster.webp', s: 0, d: 6500, p: 'filme' },
       { i: KB + 'dsc08579.webp', d: 4500, p: 'korea', origin: '70% 50%' },
+      { v: V + 'reel-fpv-winter.mp4', poster: V + 'reel-fpv-winter-poster.webp', s: 0, d: 5500, p: 'drohne' },
+      { i: A + 'sa-bruecke-nebel.webp', d: 4500, p: 'sonne', origin: '30% 60%' },
       { v: V + 'park-kugeln.mp4', poster: A + 'blender/park-kugeln-poster.webp', s: 0, d: 5800, p: 'blender' },
-      { i: A + 'icap-farben.webp', d: 4500, p: 'icapsule' },
+      { v: V + 'reel-3d-icapsule.mp4', poster: V + 'intro-3d-icapsule-poster.webp', s: 0, d: 5300, p: 'icapsule' },
+      { v: V + 'drohne-nebel.mp4', poster: A + 'drohne-nebel-poster.webp', s: 3, d: 6000, p: 'drohne' },
       { i: A + 'tier-zunge.webp', d: 4200, p: 'tiere', origin: '50% 40%' },
-      { i: A + 'film-electrify-poster.webp', d: 4500, p: 'filme' }
+      { v: V + 'showreel-1-electrify.mp4', poster: A + 'film-electrify-poster.webp', s: 0, d: 7500, p: 'filme' }
     ];
     const S = {
       de: { watch: 'Ansehen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreOf: 'Mehr aus dem Projekt', all: 'Alle ansehen', skip: 'Überspringen', switchP: 'Profil wechseln', contact: 'Kontakt', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', profile: 'Profil', active: 'aktiv' },
       en: { watch: 'Watch', more: 'More info', toPage: 'Open project', moreOf: 'More from this project', all: 'See all', skip: 'Skip', switchP: 'Switch profile', contact: 'Contact', write: 'Write to me.', top: 'Back to top', browse: 'Browse', profile: 'Profile', active: 'active' }
     };
-    const links = [[['Start', 'Home'], '#top'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Video', 'Film'], 'Video.dc.html'], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
+    const links = [[['Start', 'Home'], '#top'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Filme', 'Films'], 'Video.dc.html'], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
     return this._D = { P, rows, byId, all, clips, S, links };
   }
 
@@ -349,6 +356,7 @@ class Component extends DCLogic {
     removeEventListener('resize', this.onR); removeEventListener('scroll', this.onS); removeEventListener('keydown', this.onK);
     document.removeEventListener('click', this.onDoc); document.removeEventListener('visibilitychange', this.onVis);
     document.removeEventListener('pointerover', this.onOver); document.removeEventListener('pointerout', this.onOut);
+    document.removeEventListener('pointermove', this.onMoveXY); clearTimeout(this.reHovT);
     cancelAnimationFrame(this.raf); clearTimeout(this._t1); clearTimeout(this._safe); clearTimeout(this.hovT);
     if (this.io) this.io.disconnect();
     document.documentElement.style.overflow = '';
@@ -484,7 +492,8 @@ class Component extends DCLogic {
 
   heroSwap(i) {
     const el = this.$('hswap');
-    if (!el || this.reduce || this.state.cur === i) { this.setState({ cur: i }); return; }
+    const CL = this.data().clips, same = CL[i] && CL[this.state.cur] && CL[i].p === CL[this.state.cur].p;
+    if (!el || this.reduce || this.state.cur === i || same) { this.setState({ cur: i }); return; }
     el.getAnimations().forEach(a => a.cancel());
     el.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 260, easing: 'ease-in', fill: 'forwards' }).onfinish = () => {
       this.setState({ cur: i }, () => {
@@ -533,7 +542,7 @@ class Component extends DCLogic {
       };
       row.addEventListener('mouseenter', () => { row._hov = matchMedia('(hover:hover)').matches; upd(); });
       row.addEventListener('mouseleave', () => { row._hov = false; upd(); });
-      sc.addEventListener('scroll', () => { upd(); this.popClose(true); }, { passive: true });
+      sc.addEventListener('scroll', () => { upd(); this.popClose(true); this.reHoverSoon(); }, { passive: true });
       l.addEventListener('click', () => sc.scrollBy({ left: -sc.clientWidth * 0.85, behavior: 'smooth' }));
       r.addEventListener('click', () => sc.scrollBy({ left: sc.clientWidth * 0.85, behavior: 'smooth' }));
     });
@@ -542,20 +551,46 @@ class Component extends DCLogic {
   hoverInit() {
     this.onOver = e => {
       if (innerWidth < 900 || this.state.modal || this.state.stage !== 'browse' || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-      const card = e.target.closest && e.target.closest('[data-card]'); if (!card || this.hovCard === card) return;
+      const card = e.target.closest && e.target.closest('[data-card]'); if (!card) return;
+      if (this.hovCard === card && (this.hovOn || this.popShows(card))) return;
       this.hovCard = card; clearTimeout(this.hovT);
-      this.hovT = setTimeout(() => this.popOpen(card), 480);
+      this.hovOn = true; this.hovT = setTimeout(() => { this.hovOn = false; this.popOpen(card); }, 480);
     };
     this.onOut = e => {
       const card = e.target.closest && e.target.closest('[data-card]'); if (!card) return;
       if (e.relatedTarget && card.contains(e.relatedTarget)) return;
-      if (this.hovCard === card) { this.hovCard = null; clearTimeout(this.hovT); }
+      if (this.hovCard === card) { this.hovCard = null; this.hovOn = false; clearTimeout(this.hovT); }
     };
     document.addEventListener('pointerover', this.onOver);
     document.addEventListener('pointerout', this.onOut);
+    // Letzte Mausposition merken: nach dem Wischen öffnet sich die Vorschau der Karte unter der Maus
+    this.onMoveXY = e => { this.lastXY = [e.clientX, e.clientY]; };
+    document.addEventListener('pointermove', this.onMoveXY, { passive: true });
+    // Seitliches Wischen über dem Vorschaufenster an die Reihe darunter weitergeben
+    const pe = this.$('pop');
+    if (pe) pe.addEventListener('wheel', e => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      const sc = this.popCard && this.popCard.closest('[data-scroll]'); if (!sc) return;
+      e.preventDefault(); this.lastXY = [e.clientX, e.clientY];
+      if (this.wheelSc !== sc) { this.wheelSc = sc; sc.style.scrollSnapType = 'none'; }
+      sc.scrollLeft += e.deltaX;
+    }, { passive: false });
+  }
+
+  // Nach dem Wischen (kurze Ruhe) Einrasten wieder an und die Karte unter der Maus öffnen
+  reHoverSoon() {
+    clearTimeout(this.reHovT);
+    this.reHovT = setTimeout(() => {
+      if (this.wheelSc) { this.wheelSc.style.scrollSnapType = ''; this.wheelSc = null; }
+      const p = this.lastXY;
+      if (!p || this.state.modal || this.state.player || this.state.stage !== 'browse' || innerWidth < 900 || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+      const el = document.elementFromPoint(p[0], p[1]), card = el && el.closest && el.closest('[data-card]'); if (!card || this.popShows(card)) return;
+      this.hovCard = card; clearTimeout(this.hovT); this.hovOn = true; this.hovT = setTimeout(() => { this.hovOn = false; this.popOpen(card); }, 250);
+    }, 200);
   }
 
   popOpen(card) {
+    this.popCard = card;
     const id = card.getAttribute('data-card'), it = this.data().byId[id]; if (!it) return;
     const r = card.getBoundingClientRect(); if (r.right < 0 || r.left > innerWidth) return;
     this.setState({ pop: id }, () => {
@@ -580,14 +615,16 @@ class Component extends DCLogic {
     });
   }
 
-  popClose(now) {
-    clearTimeout(this.hovT); this.hovCard = null;
+  popShows(card) { const p = this.$('pop'); return !!(p && p.style.display === 'block' && this.popCard === card && this.popFrom); }
+
+  popClose(now, keep) {
+    if (!keep) { clearTimeout(this.hovT); this.hovOn = false; this.hovCard = null; }
     const pop = this.$('pop'); if (!pop || pop.style.display === 'none' || !pop.style.display) return;
     const v = this.$('popv'); if (v) v.pause();
     const f = this.popFrom; this.popFrom = null;
     if (now || !f) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; return; }
     pop.animate([{ transform: 'none', opacity: 1 }, { transform: 'translate(' + f.tx + 'px,' + f.ty + 'px) scale(' + f.s + ')', opacity: 0 }], { duration: 220, easing: 'ease-in', fill: 'forwards' })
-      .onfinish = () => { if (!this.popFrom) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; } };
+      .onfinish = () => { if (!this.popFrom) { pop.getAnimations().forEach(a => a.cancel()); pop.style.display = 'none'; if (keep && !this.hovOn) this.reHoverSoon(); } };
   }
 
   /* ---------- Mehr Infos ---------- */
@@ -620,7 +657,7 @@ class Component extends DCLogic {
     let m = { t: '', kicker: '', meta: '', txt: '', href: '#top', src: 'assets/logo-max.png', pos: '50% 50%', vid: '', hasVid: false, more: [], hasMore: false, cols: '1fr' };
     if (mo) {
       const P = D.P[mo.key], it = mo.id ? D.byId[mo.id] : null, own = !!(it && it.x);
-      const more = D.all.filter(x => x.p === mo.key && x.id !== mo.id).slice(0, 12);
+      const grp = P.grp || [mo.key], more = D.all.filter(x => grp.indexOf(x.p) > -1 && x.id !== mo.id).slice(0, 12);
       const tall = more.length && more[0].shape === 'tall';
       m = {
         t: own ? tr(it.t) : tr(P.t), kicker: own ? tr(P.t) : '', meta: own ? tr(it.m) : tr(P.meta), txt: own ? tr(it.x) : tr(P.txt), href: P.href,
@@ -651,7 +688,7 @@ class Component extends DCLogic {
         id: r.id, t: tr(r.t), href: r.href || '#top', hasHref: !!r.href, w: SH[r.shape][0], ar: SH[r.shape][1], fs: SH[r.shape][2],
         items: r.items.map(it => ({ id: it.id, href: D.P[it.p].href, src: it.src, pos: it.pos || '50% 50%', t: tr(it.t), hasT: !!it.t, alt: tr(it.t) || tr(D.P[it.p].t) }))
       })),
-      pop, popLeave: () => this.popClose(false), popInfo: () => { if (pi) this.openModal(pi.p, pi.proj ? null : pi.id); },
+      pop, popLeave: () => this.popClose(false, true), popInfo: () => { if (pi) this.openModal(pi.p, pi.proj ? null : pi.id); },
       modalOn: !!mo, m, closeModal: () => this.closeModal(), modalBg: e => { if (e.target === e.currentTarget) this.closeModal(); },
       toDe: () => this.setLang('de'), toEn: () => this.setLang('en'),
       deFg: lg === 'de' ? '#f2f2f2' : '#8d8d92', enFg: lg === 'en' ? '#f2f2f2' : '#8d8d92'

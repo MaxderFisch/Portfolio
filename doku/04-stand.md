@@ -1,5 +1,335 @@
 # Stand
 
+## 22.10.2026 — Filme-Seite: Überschrift „Filme aus dem Studium" entfernt
+
+Max (Bildschirmfoto): „mach da den Text Filme aus dem Studium weg". In `site/Video.dc.html` hat die
+Reihe `filme` jetzt `t: ''`. Die Überschriftenzeile wird per `sc-if` auf `r.hasT` ganz ausgeblendet
+(keine leere Lücke). Die anderen Reihen (Doschauher · Einspieler, Weitere Videos) behalten ihre
+Überschrift. Der Text `L.rowFilms` bleibt in den Sprachtexten (ungenutzt). Sicherung
+`Portfolio/archiv/Video.dc.2026-10-22-vor-ueberschrift.html`. Geprüft: Reihe filme ohne Überschrift,
+6 Karten, die anderen unverändert. **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Vorschau beim Drüberfahren blieb hängen: Ursache gefunden und behoben (lokal)
+
+Max: „manchmal, wenn ich über einem Projekt drüber hovere, öffnet sich nicht die Vorschau, da muss
+ich extra mit der Maus weg und wieder drauf".
+**Ursache** (Video-Seite und Startseite, gleicher Code): Fährt die Maus aus einer offenen
+Vorschau auf eine Nachbarkarte, feuert erst `pointerover` der Karte (Zeitgeber startet,
+`hovCard` = Karte), **danach** das `mouseleave` der Vorschau → `popClose` hat pauschal
+`clearTimeout(this.hovT); this.hovCard = null` gemacht und damit den eben gestarteten Zeitgeber der
+neuen Karte gelöscht. Die Karte füllt das `<img>` vollständig aus, also kam ohne Verlassen kein
+neues `pointerover` mehr. Zweiter Fall: Die schließende Vorschau schrumpft 220 ms lang über der
+neuen Karte. Ruht die Maus danach, gibt es kein Ereignis.
+**Behoben:**
+- `popClose(now, keep)`: `popLeave` ruft `popClose(false, true)` und lässt Zeitgeber/`hovCard` in Ruhe.
+  Nach dem Zuklappen (`onfinish`) läuft `reHoverSoon()`, also die Karte unter der Maus öffnen.
+- `hovOn` merkt, ob ein Zeitgeber läuft. `popShows(card)` = Vorschau für diese Karte sichtbar.
+  `onOver` bricht nur noch ab, wenn für dieselbe Karte ein Zeitgeber läuft oder ihre Vorschau offen
+  ist, also kein dauerhaftes Hängen mehr. `onOut` setzt `hovOn` zurück.
+- Sicherungen `Portfolio/archiv/*.2026-10-22-vor-hover-fix.html`.
+- Geprüft (nachgestellte Ereignisreihenfolge, 1440×900): Fall 1 aus der Vorschau auf die
+  Nachbarkarte → deren Vorschau öffnet. Fall 2 „gemerkte" Karte ohne Zeitgeber → öffnet beim
+  Drüberfahren. Fall 3 Maus ruht auf der Nachbarkarte, Vorschau klappt zu → Nachbar öffnet.
+  Auf beiden Seiten. **Mit echter Maus nicht geprüft. Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Wischen in den Reihen trotz offenem Vorschaufenster (Filme-Seite + Startseite, lokal)
+
+Max (mit Bildschirmfoto, Chrome, localhost): Sobald beim Drüberfahren das Vorschaufenster offen ist,
+**kann man in der Reihe nicht mehr nach rechts wischen**. Er will weiterwischen können, und die
+Karte, über der die Maus ist, soll dann die (leicht vergrößerte) Vorschau zeigen. Nebenbei: Das
+Öffnen beim Drüberfahren „bugt manchmal ein bisschen". Das hat er selbst als „egal" abgetan.
+Gezielt behoben habe ich nur das Wischen.
+
+Ursache: Das Vorschaufenster (`data-k="pop"`, `position:fixed`, z-index 70) liegt über der Reihe.
+Seitliche `wheel`-Ereignisse landen darauf statt auf dem Scroller der Reihe.
+In `site/Video.dc.html` **und** `site/Startseite Stream.dc.html` (gleicher Code) ergänzt:
+- `wheel`-Listener am Vorschaufenster: Bei überwiegend seitlicher Bewegung wird sie an die Reihe
+  der geöffneten Karte (`this.popCard`) weitergegeben (`scrollLeft += deltaX`). Senkrechtes Scrollen
+  bleibt beim Seitenscrollen.
+- Die Reihen haben `scroll-snap-type: x mandatory`. Kleine Schritte würden zurückschnappen, deshalb
+  ist das Einrasten **während** des Wischens aus und wird 200 ms nach dem letzten Scroll wieder
+  eingeschaltet (`reHoverSoon`).
+- Das Scrollen schließt das Fenster wie bisher. Neu: 200 ms nach Scrollende (+250 ms) öffnet sich
+  die Vorschau der Karte unter der letzten Mausposition (`pointermove` merkt sie,
+  `elementFromPoint`), ohne dass die Maus bewegt werden muss. Gilt auch nach normalem Wischen
+  und nach den Pfeil-Knöpfen.
+- Sicherungen: `Portfolio/archiv/Video.dc.2026-10-22-vor-wischen.html`,
+  `…/Startseite Stream.dc.2026-10-22-vor-wischen.html`.
+- Geprüft mit künstlichen `WheelEvent`s (12 × 40 px) bei 1440×900: Filme-Seite Vorschau
+  „einspieler" → Reihe 0 → 480 px, Einrasten danach wieder normal, Vorschau jetzt „bienen" (Karte
+  unter der Maus). Startseite Reihe Südkorea: 2-1 → 480 px → Vorschau 2-3. **Mit echtem Trackpad
+  nicht getestet** (Vorschaubereich verdeckt). **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Filme-Seite: Doschauher wie eine Netflix-Serie (lokal)
+
+Max (Sprachnachricht mit Bildschirmfoto vom Vorschaufenster „Doschauher"): Ein Klick aufs **Bild**
+im kleinen Vorschaufenster soll wie der Pfeil unten rechts das **Infofenster mit den Staffeln**
+öffnen. **„Abspielen" soll nicht das Showreel spielen, sondern Staffel 1, Folge 1 (Auto)**. Am
+Ende jeder Folge wie bei Netflix „Nächste Folge" mit ablaufender Zeit, dann automatisch weiter
+(Theke, Schutzbrille …), danach Staffel 2.
+
+`site/Video.dc.html` (Sicherung `Portfolio/archiv/Video.dc.2026-10-22-vor-naechste-folge.html`):
+- Vorschaufenster: Das Bild hat einen eigenen Klick `pop.img`. Bei Serie → `openModal`, bei
+  Filmen und Folgen wie bisher Abspielen (Bergmann spielt weiter den ganzen Film).
+- `openPlayer`: Ist die ID die Serie → die erste Folge der ersten Staffel wird gespielt. Das gilt
+  überall, wo die Serie „Abspielen" hat: Vorschaufenster, Infofenster und **auch oben im Showreel**
+  (bisher spielte dort der Einspieler-Ausschnitt). „Staffel abspielen" (YouTube-Gesamtshow) unverändert.
+- Neu `epEnd/goNext/cancelNext`: `pv.onended` bei Folgen → `state.nx` = nächste Folge aus
+  `D.eps` (Reihenfolge S1: Auto, Theke, Schutzbrille, Regal, Maskiert → S2: Überwachungskamera,
+  Reportage, Handyaufnahme). Kasten unten rechts im Abspieler: Vorschaubild,
+  „Nächste Folge · Staffel x · Folge y", Titel, Knopf **„▶ Nächste Folge"**, der sich über **6 s**
+  füllt (WAAPI `scaleX`), dann geht es automatisch weiter. Dazu ein ✕ zum Abbrechen. Wieder Play
+  drücken bricht ebenfalls ab. Nach der letzten Folge kommt kein Kasten. Texte de/en (`L.next`).
+- Geprüft (Funktionen direkt, Vorschaubereich verdeckt): Serie abspielen → `ep-auto`/`auto.mp4`,
+  Untertitel „Staffel 1 · Folge 1 · 0:28". Folgenende → Kasten „Nächste Folge · Staffel 1 · Folge 2 |
+  Theke". Klick → `theke.mp4`, Kasten weg. Maskiert → `ep-ueberwachung`. Handyaufnahme → keine.
+  Automatisch: Regal-Ende → nach 7 s läuft Maskiert. Bildklick Serie → Infofenster, Bildklick
+  Bergmann → spielt. Klammern ausgeglichen (div 57/57, sc-if 23/23, button 21/21).
+  **Das Aussehen des Kastens habe ich nicht gesehen.**
+- **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Menüpunkt „Video" heißt jetzt „Filme"
+
+Max: oben in der Navigation „Video" zu „Filme", ebenso in der Projektübersicht auf der Startseite.
+Geändert (Link bleibt `Video.dc.html`): Startseite-Navi `['Filme', 'Films']`, Video-Seite-Navi ebenso,
+`Navi.dc.html` (Menschen, Fotos, Korea, Drohne, 3D) `'Filme'`, iCapsule-Leiste „Filme", Startseite
+`P.video.t` → `['Filme', 'Films']` (Karte in der ersten Reihe und Infofenster). Auf allen Navigationen
+angeglichen, damit sie gleich bleiben (Max wollte die Leiste überall gleich). Nicht geändert: Seitentitel
+„Video — Max Aulinger", Dateiname, die `aktiv`-Option „Video" in Navi (wird von keiner Seite benutzt).
+Sicherungen `Portfolio/archiv/*.2026-10-22-vor-filme.html`. Geprüft: Startseite-Menü, erste Reihe,
+Menschen-Navi zeigen „Filme". **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — FPV-Winter-Reel eine Sekunde früher
+
+Max: „eine Sekunde früher". `reel-fpv-winter.mp4` neu ab **5,5 s** (statt 6,5 s), weiter 5,6 s lang,
+Standbild neu aus Bild 0. Startseite unverändert (gleicher Dateiname). **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — FPV „Winter in den Bergen": Reel startet später
+
+Max: „Starte das Drohnenvideo Winter in den Bergen erst eine Sekunde nach dem aktuellen Ende als
+Showreel, also mach den Start erst später." Das Reel war `fpv-timeline-1.mp4` mit `s: 6, d: 5500`.
+Max hat lokal geschaut (Startseite nicht hochgeladen), dort kann nicht gesprungen werden, er sah
+also **0–5,5 s**. Gedeutet: neuer Start = 5,5 + 1 = **6,5 s**. Hätte er die Online-Fassung
+gemeint (6–11,5 s), wäre es 12,5 s. **Max darauf hingewiesen.**
+Neu: `site/assets/video/reel-fpv-winter.mp4` = ab 6,5 s, 5,6 s lang (1280×720, 59,94 fps, CRF 21,
+2,2 MB, ohne Ton), Standbild `reel-fpv-winter-poster.webp` aus Bild 0. Reel `s: 0, d: 5500`.
+Die Karte „FPV-Flug" in der Reihe „Aus der Luft" benutzt weiter das Original. **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Politische Plakate aus den Reels genommen
+
+Max: „Nimm Politische Plakate da raus aus den Showreels, die kannst du weglassen." Das Plakate-Reel
+ist aus `clips` in `site/Startseite Stream.dc.html` entfernt, jetzt 16 Reels. Die nur dafür
+erzeugten Dateien `video/reel-3d-plakate.mp4` und `video/intro-3d-plakate-poster.webp` sind
+gelöscht (waren nie hochgeladen, nirgends sonst verwendet). Die Plakate in der Reihe 3D & Design
+und im Projekt `P.plakate` sind unverändert. Vorher (unbeantwortet) gefragt: Sollen alle Reels
+über Schwarz wechseln oder nur Vorstellungskraft? **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Vorstellungskraft: Standbild verworfen, Ausschnitt bis zum Ende
+
+Max zum gehaltenen Standbild: **„jetzt stoppt es einfach zu früh"**. Der Eintrag darunter
+(„bleibt länger stehen", 1,5 s gehaltenes letztes Bild) ist damit **überholt**.
+Bei genauerem Hinsehen: Ab ~5,0 s **leuchten die Augen des Totenkopfs rot und er fliegt auf die
+Kamera zu**. Das ist der eigentliche Abschluss, danach Abblende ins Schwarz (bis 5,46 s). Das
+Standbild hielt genau davor an. Der ursprünglich „zu frühe Übergang" kam sehr wahrscheinlich
+vom lokalen Server: `s: 1` lässt sich dort nicht anspringen → Video ab 0 → nach `d` = 4,5 s
+(Video bei 4,5 s) wechselte das Reel **vor** den roten Augen. Online wäre es bis 5,5 s gelaufen.
+Neu: `reel-vorstellungskraft.mp4` = Original ab 1,0 s **bis zum Ende** (4,54 s, CRF 21, 4,8 MB),
+ohne Standbild, Reel `s: 0, d: 4450`. Läuft so lokal und online gleich.
+**Lehre:** Bei Max' Rückmeldungen zu Reels zuerst fragen bzw. prüfen, ob er lokal (ohne Spulen)
+oder online geschaut hat. Zweimal war die Ursache der Testserver, nicht das Timing.
+**Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Vorstellungskraft-Reel bleibt länger stehen
+
+Max: Vorstellungskraft „soll länger sichtbar bleiben, jetzt geht der Übergang minimal zu früh los".
+Ursache: `vorstellungskraft-schaedel.mp4` ist nur 5,54 s lang und blendet selbst ab ~5,0 s ins
+Schwarz (YAVG 175 → 89 bei 5,25 s → 16 bei 5,5 s). Das Reel startete bei 1 s, also begann die
+Abblende nach 4 s. Neu: `site/assets/video/reel-vorstellungskraft.mp4` = Original 1,0–5,0 s
+(vor der Abblende) + letztes Bild **1,5 s gehalten** (`tpad=stop_mode=clone`), 5,5 s, CRF 21,
+4,4 MB. Zwischen 4 und 5 s ist das Bild schon ruhig (YAVG gleichbleibend), das Halten fällt nicht
+auf. Startseite: Reel nutzt die neue Datei, `s: 0, d: 5300` (vorher `s: 1, d: 4500`). Das Original
+bleibt für die Karte in der Reihe 3D & Design.
+**Merke (ffmpeg):** `-t` **vor** `-i` begrenzt die Eingabe. Danach würde es auch die Ausgabe
+abschneiden, dann wirkt `tpad` nicht (erster Versuch: 4,0 statt 5,5 s). **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Tempelwächter-Reel endet vor dem Übergang
+
+Max: Der Ausschnitt schneidet „mitten in der Übergangsanimation". Er soll enden, „wo die
+Tempelwächter noch vollständig da sind". Per Helligkeit je Bild gemessen: Das Bild ist bis
+11,53 s ruhig (YAVG 46,1), ab 11,57 s beginnt das Zuklappen. Vorher endete der Ausschnitt bei
+11,92 s. `reel-korea-tempel.mp4` neu: 8,75 → 11,50 s (2,73 s), die letzten Bilder haben alle
+YAVG 46,14 (vollständig offen). In der Startseite `d` 3100 → 2650 ms, damit das nächste Reel
+vor Dateiende überblendet. Beim Überblenden bleibt das letzte (volle) Bild stehen.
+**Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Menschen-Reel: nur Robin
+
+Max: „nur das eine Bild bei Menschen und nicht 3 verschiedene, sondern nur das eine". Die drei
+anderen Porträts sind raus, Robin (`portraits/dsc01731.webp`) läuft allein, wieder 4,5 s wie
+früher das einzelne Porträt. Jetzt 17 Reels: Bergmann · Robin · Korea Tempelwächter ·
+Vorstellungskraft · Über den Wolken · Erste bezahlte Arbeit · 3D Blase · Einspieler · Seoul Nacht ·
+FPV · 3D Plakate · Sonnenaufgang · Park-Kugeln · 3D iCapsule · Drohne Nebel · Tiere · Electrify.
+Die `heroSwap`-Ausnahme (gleicher Bereich → Text nicht neu einblenden) bleibt im Code. Sie schadet
+nicht, greift aber zurzeit nirgends. Die Frage nach dem Namen der Frau („Ares"/„Iris") erledigt
+sich für die Startseite. **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Startseite: Reel-Reihenfolge nach Max, Ausschnitte als eigene Dateien (lokal)
+
+Max: Film zuerst passt. Dann **2. Menschen mit Robin**, **3. Südkorea, aber direkt mit den drei
+Tempelbildern** (bei ihm startete es mit dem Schriftzug „Südkorea" und dem Aufploppen), **4. die
+Blender-Animation mit dem Totenkopf (Vorstellungskraft)**, dann Drohne/FPV, aber „mit dem Video
+**über den Wolken**", dann andere Projekte nach meiner Wahl. Drohne Nebel „erst später".
+**Robin** = Mann mit weinroter Kappe und Lederjacke, raucht vor dem Auto =
+`portraits/dsc01731.webp` (von Max bestätigt: „einer der letzten Bilder der Menschen-Seite, das wo
+einer raucht vor dem Auto". Auf der Menschen-Seite heißt `portraet-cap` „Robin", dieselbe Person).
+
+**Warum Korea bei Max falsch startete:** Er testete lokal auf `werkzeug/serve.js`, der nicht
+spulen kann (siehe 05-fallen). Dort lief `intro-korea` ab 0 statt ab 8,75 s. **Lösung:** Die
+Ausschnitte sind jetzt **eigene kurze Dateien**, die genau an der Stelle beginnen. So braucht es
+kein Springen, und es lädt viel weniger (statt 16–29 MB):
+
+| Datei (`site/assets/video/`) | aus | ab | Länge | Größe |
+|---|---|---|---|---|
+| `reel-korea-tempel.mp4` | intro-korea-16x9 | 8,75 s | 3,17 s | 1,2 MB |
+| `reel-3d-blase.mp4` | intro-3d-design-16x9 | 14,033 s | 2,7 s | 0,7 MB |
+| `reel-3d-plakate.mp4` | intro-3d-design-16x9 | 19,9 s | 2,5 s | 1,1 MB |
+| `reel-3d-icapsule.mp4` | intro-3d-design-16x9 | 34,0 s | 5,4 s | 1,7 MB |
+
+x264 slow CRF 20, 1080p, ohne Ton, faststart. **Fehler beim ersten Schnitt:** Die Blase begann bei
+13,9 s mit Schwarz. Meine Bildfolgen (fps-Filter nach `-ss`) waren zeitlich ungenau. Per
+Helligkeit je Einzelbild (`signalstats` YAVG; 16 = Schwarz) gemessen: Das Logo kommt ab 14,03 s →
+neu geschnitten. Bei allen vier ist das erste Bild nicht schwarz (YAVG 20–34). Das Korea-Standbild
+ist neu aus Bild 0 des Ausschnitts.
+
+Reihenfolge jetzt (20): Bergmann · Robin · Frau Querformat (Name offen) · Gabriel (Feld) ·  ← überholt, siehe unten
+Junge zeigt (dsc04625) · Korea Tempelwächter · Vorstellungskraft · Zeitraffer „Über den Wolken" ·
+Erste bezahlte Arbeit · 3D Blase · Einspieler · Seoul Nacht · FPV · 3D Plakate · Sonnenaufgang ·
+Park-Kugeln · 3D iCapsule · Drohne Nebel · Tiere · Electrify.
+Sicherung: `Portfolio/archiv/Startseite Stream.dc.2026-10-22-vor-reel-reihenfolge-2.html`.
+Geprüft: Liste wie oben, alle vier Ausschnittdateien laden auf dem normalen lokalen Server
+(Längen stimmen). Vorschaubereich verdeckt, also kein Abspielen gesehen. Hinweis: Vorstellungskraft
+(ab 1 s), FPV (ab 6 s) und Drohne Nebel (ab 3 s) springen weiterhin in der Datei, das klappt
+lokal nicht, online schon (war schon immer so). **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Startseite: Reels umsortiert, Menschen wechseln, „Erste bezahlte Arbeit" (lokal)
+
+Max, ausdrücklich „ändere diese Dinge auf der Startseite und nichts anderes":
+1. Nicht Drohne zuerst, sondern **der Film** → Bergmann-Clip ist jetzt Reel 1.
+2. Südkorea: statt des Standbilds (Krieger, `dsc00452`) **direkt die Tempelwächter-Animation**
+   → der Ausschnitt `intro-korea` ab 8,75 s steht an der Stelle des Standbilds, der doppelte
+   weiter hinten ist raus.
+3. 3D & Design: „mehr Animationsdurchlauf" aus seinen Videos, z. B. die platzende Blase mit dem
+   Blender-Logo und „die andere Animation, die da eh schon drin ist" → Blase (13,9 s) bleibt,
+   **neu** Plakate aus `intro-3d-design` ab 19,9 s für 2,5 s, und das **iCapsule-Standbild
+   (`icap-farben`) ist durch den iCapsule-Ausschnitt ab 34,0 s für 5,4 s ersetzt** (Kuppel mit
+   „iCapsule", Schnittbild, weißer Render). Vorstellungskraft und Park-Kugeln bleiben.
+   Neue Standbilder: `video/intro-3d-plakate-poster.webp`, `video/intro-3d-icapsule-poster.webp`.
+4. Menschen: „mehrere Bilder abwechselnd, vor allem das mit **Iris** oder andere, die cool sind"
+   → vier Querformate je 3 s hintereinander: `portraet-ares-quer` (das Bild, das Max am selben Tag
+   „Ares" nannte, jetzt „Iris". **Name unklar, Max gefragt, nicht geraten**), `portraet-feld`,
+   `portraits/dsc04625`, `portraits/dsc01731`. Damit der Text dabei nicht blinkt: `heroSwap`
+   blendet nicht aus und ein, wenn das nächste Reel zum selben Bereich gehört (`p` gleich).
+5. Therme: Titel **„Erste bezahlte Arbeit"** (`P.therme.t`, en „First paid job"). Das gilt für
+   das Reel oben und für das Infofenster. Die Karte in der Reihe 3D & Design heißt weiter
+   „Therme Bad Füssing" (eigener Text, nicht angefasst). Max darauf hingewiesen.
+
+Reihenfolge jetzt (19 Reels): Bergmann · Drohne Nebel · Korea Tempelwächter · Therme · 3D Blase ·
+4× Menschen · FPV · Vorstellungskraft · Sonnenaufgang · Seoul Nacht · Einspieler · Park-Kugeln ·
+3D Plakate · 3D iCapsule · Tiere · Electrify.
+
+Sicherung: `Portfolio/archiv/Startseite Stream.dc.2026-10-22-vor-reel-reihenfolge.html`.
+Geprüft mit Range-Testserver (8001, danach beendet): Liste wie oben, das erste Reel ist Bergmann,
+Startstellen Korea 8,75 s und iCapsule 34 s sitzen. Die Bereichsgleichheit habe ich direkt an
+`heroSwap` geprüft: Porträt → Porträt 0 Textanimationen, Porträt → Drohne 1. Abspielen live
+**nicht** gesehen, der Vorschaubereich war verdeckt (0 Bilder/s). **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Startseite: erste Reihe = Bereiche, Vorschau-Reels mit Filmen und Animationsausschnitten (lokal)
+
+Max (lange Sprachnachricht, Kern): In der Reihe „Projekte" stehen Einzelprojekte (Sonnenaufgänge,
+Tiere, iCapsule …). Stattdessen als erste Zeile die Bereiche **wie im Menü**, Reihenfolge
+„3D & Design, dann Südkorea, dann Video, Drohne und Menschen", dazu Fotos. Vorschaubilder:
+Südkorea = „die drei Statuen, diese drei Tempel-Dinger nebeneinander" aus der Animation,
+Menschen = Ares im Querformat, 3D & Design = das Bild, das schon bei iCapsule ist, Video = das
+Bergmann-Vorschaubild der Video-Seite. Oben die Vorschau-Reels überarbeiten: mehr aus den
+Filmprojekten (z. B. Bergmann) und Ausschnitte aus den Korea-/3D-Animationen (Tempelwächter,
+„Blender-Animation von dieser platzenden Blase"). „So wie es aktuell ist, kannst du es auch ein
+bisschen lassen." Und ausdrücklich: **„aber ändere sonst nichts, auch nichts"**.
+„Dann bei Tiere was" war nicht eindeutig. Gedeutet als: Fotos bekommt ein Tierbild
+(`tier-zunge`, das bisherige Tiere-Bild). **Max darauf hingewiesen.** Drohne behält ihr Bild
+(nicht genannt).
+
+`site/Startseite Stream.dc.html` (Sicherung `Portfolio/archiv/Startseite Stream.dc.2026-10-22-vor-projekte-reels.html`):
+- Neue Einträge in `P`: `design`, `video`, `fotos`, jeweils mit `grp` (welche Projekte im
+  Infofenster unter „Mehr aus dem Projekt" erscheinen: design → icapsule, blender, therme, plakate,
+  flyer; video → filme; fotos → sonne, tiere). Texte aus vorhandenen Einträgen übernommen
+  (blender, filme, tiere), nichts neu erfunden. Der Filter in `renderVals` nutzt `P.grp`.
+- Reihe „Projekte" (Titel unverändert) = 3D & Design (`thumb/icap-hero-weiss`) · Südkorea
+  (**neu** `assets/korea-tempelwaechter.webp`: dsc01051/53/54 je 498×820 mit 16 px Abstand auf
+  schwarzem 1600×900, wie die Szene in der Animation, 133 KB) · Video (`film-bergmann-poster.webp`
+  wie auf der Video-Seite) · Drohne (wie bisher) · Menschen (`portraet-ares-quer.webp`) · Fotos
+  (`thumb/tier-zunge`). Die anderen Reihen sind unverändert.
+- Reels oben (`clips`), alle bisherigen bleiben, dazu kommen:
+  Bergmann-Clip (`showreel-5-bergmann`, 7,5 s), 3D-Ausschnitt aus `intro-3d-design-16x9.mp4`
+  **ab 13,9 s für 2,8 s** (Blender-Logo, Glaskugel fliegt, zerplatzt in Partikel), Korea-Ausschnitt
+  aus `intro-korea-16x9.mp4` **ab 8,75 s für 3,2 s** (die drei Tempelwächter gehen auf),
+  Einspieler-Clip (6,5 s). Das bisherige **Standbild** von Electrify ist jetzt der Electrify-**Clip**
+  (7,5 s). 16 statt 12 Reels. Neue Standbilder: `video/intro-korea-tempel-poster.webp`,
+  `video/intro-3d-blase-poster.webp`. Die Startstellen habe ich aus Bildfolgen im 0,25-s-Raster
+  bestimmt.
+- **Geprüft:** Erste Reihe im Browser: Reihenfolge, Bilder geladen, Links. Reels mit einem
+  **eigenen Testserver mit Range-Unterstützung** (Port 8001, Skript im Scratchpad, danach beendet),
+  weil `werkzeug/serve.js` nicht spulen lässt (`seekable` 0–0, siehe 05-fallen). Alle fünf neuen
+  Reels laufen ab der gesetzten Stelle (z. B. Korea 8,75 → 9,64 s nach 0,9 s). Infofenster:
+  design 9, fotos 10, video 4, korea 9 Bilder unter „Mehr". Diff zur Sicherung: nur die genannten
+  Stellen.
+- **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — „Immer noch nicht aktualisiert": Laufzeit fragt Bausteine jetzt immer nach (Commit `372b7a6`)
+
+Max sah die neue Kopfleiste online nicht. Per curl geprüft: Online war alles aktuell. Ursache:
+`support.js` holt `dc-import`-Bausteine (z. B. `Navi.dc.html`) per `fetch()`. Beim Neuladen
+holt Chrome nur das Dokument frisch, solche nachgeladenen Dateien kommen bis zu 10 min
+(`max-age=600`) aus dem Zwischenspeicher. Neuladen hilft also nicht.
+- `site/support.js`, eine Zeile (Geschwister-Import, ~Z. 1651): `fetch(target, { cache: "no-cache" })`.
+  Damit fragt der Browser jedes Mal beim Server nach (bei unveränderter Datei nur „304").
+  Sicherung: `Portfolio/archiv/support.site.2026-10-22-vor-no-cache.js`.
+- Lokal geprüft: Der Kopf lädt weiter. Live: Die Datei ist oben.
+- Kurz danach meldete Max: **„jetzt ist es aktualisiert"**.
+- Hinweis: `support.js` selbst wird ebenfalls 10 min zwischengespeichert. Die Verbesserung
+  greift pro Browser erst, wenn der die neue `support.js` hat.
+
+---
+
 ## 22.10.2026 — Kopfleiste überall wie auf Video und Startseite (lokal)
 
 Max: Die Leiste mit Menschen, Fotos, Korea usw. soll **linksbündig neben dem Max-Aulinger-Logo**
@@ -21,7 +351,14 @@ stehen wie auf Video- und Startseite, „dass das bitte auf allen Seiten gleich 
   allen 7 Seiten.
 - Sicherungen: `Portfolio/archiv/Navi.dc.2026-10-22-vor-linksbuendig.html`,
   `…/icapsule.site.2026-10-22-vor-linksbuendig.html`.
-- **Nicht hochgeladen.**
+- ~~Nicht hochgeladen~~ → **Hochgeladen** auf Max' „ja" (Commit `f2a06be`), live geprüft.
+- **Nachtrag, beim Live-Test gefunden:** Beim ersten Laden stand der erste Link bei 95 statt
+  231 px. Das Logo (73 KB PNG) hatte vor dem Laden keine Breite, dann sprang die Leiste. Regel 2
+  aus CLAUDE.md (immer `width`/`height`) hatte ich nicht beachtet. Behoben mit
+  `width="937" height="179"` am Logo in Navi und iCapsule (Commit `e0a106d`). Lokal geprüft: Die
+  Laufzeit behält die Attribute. Live hatte mein Browser noch die zwischengespeicherte Navi
+  (10 min, siehe 05-fallen), die Datei selbst ist oben (geprüft per curl). Video- und Startseite
+  haben dasselbe Logo **ohne** Maße. Nicht angefasst, nicht beauftragt.
 
 ---
 
