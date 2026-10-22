@@ -1,5 +1,82 @@
 # Stand
 
+## 22.10.2026 — Englische Zeile auch am Handy größer
+
+Max: „perfekt so passt es, ne so mit dem Englischen auch in zwei Zeilen". Gedeutet: Am Handy darf die
+englische Zeile größer sein und umbrechen. Mindestgröße 15 → **16 px** (`clamp(16px,1.5vw,24px)`). Am Handy
+(375 px) 2 Zeilen (vorher gemessen), am Computer unverändert 21,6 px einzeilig. **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Englische Hinweiszeile etwas größer
+
+Max: „mach das Englische minimal größer". `font-size` der englischen Zeile `clamp(15px,1.25vw,20px)` →
+`clamp(15px,1.5vw,24px)`: am Computer 1440 px 21,6 px (vorher 18), einzeilig. Am Handy bleibt sie 15 px
+(mit 16 px brach sie in 2 Zeilen um), einzeilig. **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Hinweistext endgültig: „Für das beste Erlebnis bitte am PC oder Tablet ansehen."
+
+Max hat entschieden: Fernseher weglassen („da wird es keiner schauen, umständlich"), nur **PC oder Tablet** nennen,
+kein Wort mehr übers Handy. Aus meinen Varianten Nr. 1 gewählt, **mit „bitte" vor „am"**:
+„Für das beste Erlebnis bitte am PC oder Tablet ansehen." / „For the best experience, watch on a PC or tablet."
+(Englisch wie von ihm vorgegeben, ohne „please".) Die früheren Texte (Einträge darunter) sind **überholt**.
+Gemessen 1024 px: beide einzeilig (721 / 334 px). **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Hinweistext: „am Handy geht viel verloren"
+
+Max zu „am Handy geht’s aber auch": **nervt ihn**, weil Leute dann denken, das Handy sei kein Problem. Er will
+Handy-Schauen **vermeiden**, aber ohne Befehlston. Jetzt: „Gemacht für große Bildschirme, am Handy geht viel
+verloren." / „Made for big screens, a phone won’t do it justice." Größe wie im Eintrag darunter. Gemessen
+1024 px: beide einzeilig (799 / 336 px). **Merke für Max’ Ton:** nichts verbieten, aber auch nichts erlauben,
+sondern sagen, was man verpasst. **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Hinweistext neu: „Gemacht für große Bildschirme, am Handy geht’s aber auch."
+
+Der Text vom Eintrag darunter („bitte nicht am Handy schauen") ist **überholt**. Max fand ihn wie einen Befehl:
+Man *kann* am Handy schauen, es ist nur nicht dafür gemacht. Grund: Die meisten Videos sind Querformat.
+Es geht um die **Bildschirmgröße**, nicht ums Gerät (Tablet, Fernseher gehen auch). Gewünscht: kurz, je **eine
+Zeile** Deutsch und Englisch, „aber so, dass es komplett klar ist".
+Jetzt: h1 „Gemacht für große Bildschirme, am Handy geht’s aber auch.", darunter „Made for big screens, but your
+phone works too." Damit Deutsch am Computer einzeilig bleibt, ist die Überschrift kleiner: `clamp(24px,2.7vw,46px)`,
+`line-height:1.1` (vorher `clamp(34px,3.8vw,60px)`, 1). Gemessen: 1440 px und 1024 px (iPad quer) → beide Sätze
+einzeilig. Am Handy (375 px) bricht Deutsch in 3 Zeilen um (24 px), Englisch einzeilig. Bei der Satzlänge geht
+das nicht anders. **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Startseite: Handy-Hinweis statt „Wer schaut zu?"
+
+Max: Die Frage am Anfang („Wer schaut zu?" / „Who’s watching?") soll heißen „Für das beste Erlebnis bitte
+nicht am Handy schauen" und „For the best experience, don’t watch on a phone" („oder so").
+In der Profilauswahl von `site/Startseite Stream.dc.html` jetzt: h1 „Für das beste Erlebnis bitte nicht am Handy
+schauen.", darunter „For the best experience, please don’t watch on a phone." Gleiche Schrift und Größe,
+nur `text-wrap:balance` ergänzt (ausgewogener Umbruch). Gemessen: 1440 px → je 1 Zeile (Titel 1355 px
+breit), Handy 375 px → Titel 3 Zeilen, Englisch 2 Zeilen, innerhalb 16 px Rand. Sicherung
+`Portfolio/archiv/Startseite Stream.dc.2026-10-22-vor-handy-hinweis.html`. **Nicht hochgeladen.**
+
+---
+
+## 22.10.2026 — Hochgeladen: alle Änderungen an Startseite, Filme-Seite, Navigation (Commit `b0ab1d5`)
+
+Max: „lade die alle Änderungen bitte wieder auf GitHub hoch". Gezielt vorgemerkt (16 Dateien):
+`site/Startseite Stream.dc.html`, `site/Video.dc.html`, `site/Navi.dc.html`, `site/live/icapsule.html`,
+`doku/04-stand.md`, `doku/05-fallen.md`, `site/assets/korea-tempelwaechter.webp`, die fünf
+`site/assets/video/reel-*.mp4` und vier Standbilder. Vorher: alle Verweise beider Seiten auf
+vorhandene Dateien geprüft (0 fehlend), keine iCloud-Platzhalter. **Nicht dabei** (wie bisher):
+`site/render/`, `Fotos-leicht/-leinwand/-webgl` + `fotos-leicht/m/`, gelöschtes `plakat-syntheca.jpg`,
+`Portfolio/archiv/*`, sonstiges Unversioniertes in `Portfolio/`, `Vorlagen/`, `doku/alt-ki-uebergaben/`.
+Live nach ~1,5 min geprüft: Startseite (erste Reihe, Therme-Titel, Wisch-/Hover-Fix), Filme-Seite
+(Nächste Folge, Überschrift weg), Navi „Filme" ausgeliefert, alle 10 neuen Dateien 200 mit exakt
+der lokalen Größe. (Dieser Vermerk ist nur lokal.)
+
+---
+
 ## 22.10.2026 — Filme-Seite: Überschrift „Filme aus dem Studium" entfernt
 
 Max (Bildschirmfoto): „mach da den Text Filme aus dem Studium weg". In `site/Video.dc.html` hat die
