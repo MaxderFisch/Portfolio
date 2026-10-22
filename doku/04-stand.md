@@ -1,5 +1,13 @@
 # Stand
 
+## 22.10.2026 — Missverständnis: Umbruch wiederhergestellt
+
+Max: „ne, schon zweizeilig". Mein Entfernen des Umbruchs (`6b394ff`, Eintrag darunter) war **falsch gedeutet**,
+das ist überholt. Zweizeilige Fassung wiederhergestellt und hochgeladen. **Offen:** Was meinte Max mit „lösch das
+bitte wieder raus"? Nachgefragt, nichts weiter geändert.
+
+---
+
 ## 22.10.2026 — Zeilenumbruch im Hinweis wieder entfernt
 
 Max: „ne, lösch das bitte wieder raus und lade es hoch". Gedeutet als: der eben eingefügte Umbruch (`<br>`) soll
