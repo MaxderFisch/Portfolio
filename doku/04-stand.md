@@ -1,5 +1,34 @@
 # Stand
 
+## 25.10.2026 — Impressum und Datenschutz (Minimalfassung, lokal)
+
+Max wollte „auf die Schnelle das Minimum" und gab dafür seine Anschrift: **Euzersdorf 8e, 94121 Salzweg** (Gemeinde
+Salzweg, Landkreis Passau). E-Mail `maxau.aulo@gmail.com`.
+- Neu: `site/impressum.html` (Name, Anschrift, E-Mail, Hinweis zu eigenen Inhalten) und `site/datenschutz.html` (Verantwortlicher,
+  keine eigenen Cookies/Tracking, Browser-Speicher nur Sprache/Übergänge, GitHub Pages, Fontshare + unpkg, YouTube erst auf Klick,
+  E-Mail, Rechte inkl. BayLDA Ansbach, Stand Oktober 2026). Schlichte statische Seiten **ohne** fremde Schriften oder Bibliotheken,
+  `noindex`, rotes Logo mit festen Maßen.
+- Links „Impressum · Datenschutz" in der ©-Zeile von Startseite, Filme, Menschen, 3D, Drohne. Korea bekam dafür eine ©-Zeile wie
+  die anderen („Südkorea"). Fotos: kleiner Link unten links. iCapsule: unter „Zurück zu 3D & Design".
+- ~~Offen: voller Name?~~ Max: „ne das passt", also **„Max Aulinger" bleibt**. Texte sind meine
+  Minimalfassung, keine Rechtsberatung. Empfohlen: mit einem Generator gegenprüfen, später Schriften/React selbst hosten.
+- Sicherungen `archiv/*.2026-10-25-vor-impressum.html`. Geprüft: beide Seiten 200, je ein Link auf allen 8 Seiten, Korea-Fuß im
+  Browser. **Hochgeladen** auf Max’ ausdrückliches „lade es hoch" (enthält seine Wohnadresse).
+
+---
+
+## 25.10.2026 — Frage Impressum/Datenschutz (nur Auskunft, nichts gebaut)
+
+Max fragte, wie nötig ein Impressum für eine Bewerbungsseite ist. Meine Einschätzung (keine Rechtsberatung): Name + Anschrift
+sind sehr wahrscheinlich nötig (§ 18 Abs. 1 MStV, die Seite ist öffentlich und nicht rein privat). Das volle Impressum nach § 5 DDG
+ist eine Grauzone, spätestens bei bezahlten Aufträgen aber Pflicht. Wichtiger als das Impressum: eine **Datenschutzerklärung**,
+weil die Seite fremde Dienste lädt. Geprüft am 25.10.: **Fontshare** (fast alle Seiten, `seitenwechsel.js`), **unpkg.com**
+(React/Laufzeit in `support.js`), **YouTube**-Einbettung auf der Filme-Seite (lädt erst auf Klick, `youtube.com` statt
+`youtube-nocookie`), dazu GitHub Pages selbst (Server-Logs). Kein Google Fonts mehr in `site/`. Vorschlag an Max: Impressum- und
+Datenschutz-Seite, Schriften und React selbst hosten, YouTube auf nocookie. Offene Entscheidung: welche Adresse ins Impressum.
+
+---
+
 ## 25.10.2026 — „Leberkassemmel-Debakel", dann alles von heute hochgeladen
 
 Max: „Leberkas-Semmel ohne Bindestrich zusammengeschrieben" → Folge heißt **„Leberkassemmel-Debakel"** (der Bindestrich vor
