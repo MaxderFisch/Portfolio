@@ -1,5 +1,18 @@
 # Stand
 
+## 26.10.2026 — Startseite: Doschauher und Bienen in der Filme-Reihe (lokal)
+
+Max (mit Screenshot der Reihe „Filme aus dem Studium“): Bienen und Doschauher sollen dort auch stehen.
+Reihe jetzt: Electrify Your Future · **Doschauher** · Ein Tag als Bergmann · Kommt zu mir · **Bienen** · Hostage Holiday.
+Position von mir gewählt (Doschauher als Hochschulprojekt vorne, Bienen vor dem ältesten Film Hostage Holiday); Grund für eine
+bestimmte Reihenfolge hat Max nicht genannt. Titel, Meta und Texte 1:1 aus `Video.dc.html` übernommen (Doschauher mit `xs` kurz und
+`x` lang). Bilder `film-einspieler-poster.webp`, `film-bienen-poster.webp` (vorhanden, 200).
+Offen: Die Überschrift „Filme aus dem Studium“ passt nicht ganz zu Bienen (privat im Garten), nicht geändert, Max gefragt.
+Sicherung `archiv/startseite-stream.2026-10-26-vor-filme-reihe.html`. Geprüft: Reihe im Browser ausgelesen, Skript-Syntax.
+~~Nicht hochgeladen.~~ Hochgeladen auf Max’ „hochladen bitte“ (Überschrift-Frage unbeantwortet, bleibt vorerst).
+
+---
+
 ## 25.10.2026 — Startseite: Kartentitel „Tempeldach“ → „Tempel“
 
 Max: „ändere bei der Hauptseite die Bezeichnung Tempeldach zu einfach nur Tempel“. Reihe Südkorea, Karte `tag-tempeldach`:
