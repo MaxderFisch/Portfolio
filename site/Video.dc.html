@@ -53,22 +53,15 @@ button{font-family:inherit}
     </div>
   </sc-if>
   <div style="margin-left:auto;display:flex;align-items:center;gap:clamp(14px,1.6vw,24px)">
-    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><a href="#kontakt" style="font-size:14px;color:#e5e5e5;transition:color .3s" style-hover="color:#b3b3b3">{{ L.contact }}</a></sc-if>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><a href="ueber-mich.html" style="font-size:14px;color:#e5e5e5;transition:color .3s" style-hover="color:#b3b3b3">{{ L.about }}</a></sc-if>
     <div data-menu="" style="position:relative">
       <button onClick="{{ toggleProf }}" aria-label="{{ L.lang }}" style="display:flex;align-items:center;gap:8px;padding:0;border:0;background:none;color:#f2f2f2;cursor:pointer">
         <img src="assets/profil-icon.png" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="transform:rotate({{ caretRot }});transition:transform .25s"><path d="M6 9l6 6 6-6"></path></svg>
       </button>
       <sc-if value="{{ profOpen }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;right:0;top:48px;min-width:230px;padding:10px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-radius:2px">
-          <sc-for list="{{ profs }}" as="p" hint-placeholder-count="0">
-            <button onClick="{{ p.pick }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:8px 16px;border:0;background:none;color:#f2f2f2;font-size:14px;cursor:pointer;text-align:left" style-hover="background:rgba(255,255,255,.06)">
-              <img src="assets/profil-icon.png" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
-              <span>{{ p.t }}</span>
-              <span style="margin-left:auto;font-size:12px;color:#8d8d92">{{ p.mark }}</span>
-            </button>
-          </sc-for>
-          <div style="height:1px;margin:8px 0;background:rgba(255,255,255,.14)"></div>
+        <div style="position:absolute;right:0;top:48px;min-width:190px;padding:8px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-radius:2px">
+          <a href="ueber-mich.html" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2" style-hover="background:rgba(255,255,255,.06)">{{ L.about }}</a>
           <a href="mailto:maxau.aulo@gmail.com" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2" style-hover="background:rgba(255,255,255,.06)">{{ L.contact }}</a>
         </div>
       </sc-if>
@@ -334,8 +327,8 @@ class Component extends DCLogic {
     films.forEach(f => (f.seasons || []).forEach((st, si) => { st.si = si; st.parent = f.id; byId[st.id] = st; st.eps.forEach((e, ei) => { Object.assign(e, { ep: true, si, n: ei + 1, parent: f.id, yt: st.yt }); byId[e.id] = e; eps.push(e); }); }));
     const clips = ['bergmann', 'electrify', 'einspieler', 'bienen', 'hostage'].map(id => byId[id]).filter(f => f && f.clip);
     const S = {
-      de: { kicker: 'Filme', play: 'Abspielen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreFilms: 'Weitere Filme', moreVids: 'Weitere Videos', skip: 'Überspringen', contact: 'Kontakt', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', lang: 'Sprache', active: 'aktiv', soon: 'Ausschnitt folgt', soonLong: 'Film folgt', excerpt: 'Ausschnitt · ganzer Film folgt', back: 'Zurück', mute: 'Ton an', unmute: 'Ton aus', rowFilms: 'Filme aus dem Studium', rowMore: 'Weitere Videos', seasons: 'Staffeln', season: 'Staffel', episode: 'Folge', next: 'Nächste Folge', home2: 'Zurück zur Startseite', mail2: 'Schreib mir', fullShow: 'Ganze Sendung ansehen', wholeShow: 'Ganze Sendung', inShow: 'In der ganzen Sendung ansehen', nSeasons: '2 Staffeln', excerptShort: 'Ausschnitt', rowEps: 'Doschauher · Einspieler', ytOpen: 'Auf YouTube ansehen' },
-      en: { kicker: 'Films', play: 'Play', more: 'More info', toPage: 'Open project', moreFilms: 'More films', moreVids: 'More videos', skip: 'Skip', contact: 'Contact', write: 'Write to me.', top: 'Back to top', browse: 'Browse', lang: 'Language', active: 'active', soon: 'Excerpt soon', soonLong: 'Film coming soon', excerpt: 'Excerpt · full film coming soon', back: 'Back', mute: 'Sound on', unmute: 'Sound off', rowFilms: 'Films from university', rowMore: 'More videos', seasons: 'Seasons', season: 'Season', episode: 'Episode', next: 'Next episode', home2: 'Back to home', mail2: 'Write to me', fullShow: 'Watch full show', wholeShow: 'Full show', inShow: 'Watch in the full show', nSeasons: '2 seasons', excerptShort: 'Excerpt', rowEps: 'Doschauher · Segments', ytOpen: 'Watch on YouTube' }
+      de: { kicker: 'Filme', play: 'Abspielen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreFilms: 'Weitere Filme', moreVids: 'Weitere Videos', skip: 'Überspringen', contact: 'Kontakt', about: 'Über mich', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', lang: 'Sprache', active: 'aktiv', soon: 'Ausschnitt folgt', soonLong: 'Film folgt', excerpt: 'Ausschnitt · ganzer Film folgt', back: 'Zurück', mute: 'Ton an', unmute: 'Ton aus', rowFilms: 'Filme aus dem Studium', rowMore: 'Weitere Videos', seasons: 'Staffeln', season: 'Staffel', episode: 'Folge', next: 'Nächste Folge', home2: 'Zurück zur Startseite', mail2: 'Schreib mir', fullShow: 'Ganze Sendung ansehen', wholeShow: 'Ganze Sendung', inShow: 'In der ganzen Sendung ansehen', nSeasons: '2 Staffeln', excerptShort: 'Ausschnitt', rowEps: 'Doschauher · Einspieler', ytOpen: 'Auf YouTube ansehen' },
+      en: { kicker: 'Films', play: 'Play', more: 'More info', toPage: 'Open project', moreFilms: 'More films', moreVids: 'More videos', skip: 'Skip', contact: 'Contact', about: 'About me', write: 'Write to me.', top: 'Back to top', browse: 'Browse', lang: 'Language', active: 'active', soon: 'Excerpt soon', soonLong: 'Film coming soon', excerpt: 'Excerpt · full film coming soon', back: 'Back', mute: 'Sound on', unmute: 'Sound off', rowFilms: 'Films from university', rowMore: 'More videos', seasons: 'Seasons', season: 'Season', episode: 'Episode', next: 'Next episode', home2: 'Back to home', mail2: 'Write to me', fullShow: 'Watch full show', wholeShow: 'Full show', inShow: 'Watch in the full show', nSeasons: '2 seasons', excerptShort: 'Excerpt', rowEps: 'Doschauher · Segments', ytOpen: 'Watch on YouTube' }
     };
     const links = [[['Start', 'Home'], 'Startseite%20Stream.dc.html'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Filme', 'Films'], '#top', true], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
     return this._D = { films, extra, byId, clips, eps, S, links };

@@ -81,22 +81,15 @@ button{font-family:inherit}
     </div>
   </sc-if>
   <div style="margin-left:auto;display:flex;align-items:center;gap:clamp(14px,1.6vw,24px)">
-    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><a href="#kontakt" style="font-size:14px;color:#e5e5e5;transition:color .3s" style-hover="color:#b3b3b3">{{ L.contact }}</a></sc-if>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><a href="ueber-mich.html" style="font-size:14px;color:#e5e5e5;transition:color .3s" style-hover="color:#b3b3b3">{{ L.about }}</a></sc-if>
     <div data-menu="" style="position:relative">
       <button onClick="{{ toggleProf }}" aria-label="{{ L.profile }}" style="display:flex;align-items:center;gap:8px;padding:0;border:0;background:none;color:#f2f2f2;cursor:pointer">
-        <img src="{{ curImg }}" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
+        <img src="assets/profil-icon.png" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="transform:rotate({{ caretRot }});transition:transform .25s"><path d="M6 9l6 6 6-6"></path></svg>
       </button>
       <sc-if value="{{ profOpen }}" hint-placeholder-val="{{ false }}">
-        <div style="position:absolute;right:0;top:48px;min-width:230px;padding:10px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-radius:2px">
-          <sc-for list="{{ profs }}" as="p" hint-placeholder-count="0">
-            <button onClick="{{ p.pick }}" style="display:flex;align-items:center;gap:12px;width:100%;padding:8px 16px;border:0;background:none;color:#f2f2f2;font-size:14px;cursor:pointer;text-align:left" style-hover="background:rgba(255,255,255,.06)">
-              <img src="{{ p.img }}" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
-              <span>{{ p.t }}</span>
-              <span style="margin-left:auto;font-size:12px;color:#8d8d92">{{ p.mark }}</span>
-            </button>
-          </sc-for>
-          <div style="height:1px;margin:8px 0;background:rgba(255,255,255,.14)"></div>
+        <div style="position:absolute;right:0;top:48px;min-width:190px;padding:8px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-radius:2px">
+          <a href="ueber-mich.html" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2" style-hover="background:rgba(255,255,255,.06)">{{ L.about }}</a>
           <button onClick="{{ switchProfile }}" style="display:block;width:100%;padding:9px 16px;border:0;background:none;color:#f2f2f2;font-size:14px;cursor:pointer;text-align:left" style-hover="background:rgba(255,255,255,.06)">{{ L.switchP }}</button>
           <a href="mailto:maxau.aulo@gmail.com" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2" style-hover="background:rgba(255,255,255,.06)">{{ L.contact }}</a>
         </div>
@@ -328,8 +321,8 @@ class Component extends DCLogic {
       { v: V + 'showreel-1-electrify.mp4', poster: A + 'film-electrify-poster.webp', s: 0, d: 7500, p: 'filme' }
     ];
     const S = {
-      de: { watch: 'Ansehen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreOf: 'Mehr aus dem Projekt', all: 'Alle ansehen', skip: 'Überspringen', switchP: 'Profil wechseln', contact: 'Kontakt', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', profile: 'Profil', active: 'aktiv' },
-      en: { watch: 'Watch', more: 'More info', toPage: 'Open project', moreOf: 'More from this project', all: 'See all', skip: 'Skip', switchP: 'Switch profile', contact: 'Contact', write: 'Write to me.', top: 'Back to top', browse: 'Browse', profile: 'Profile', active: 'active' }
+      de: { watch: 'Ansehen', more: 'Mehr Infos', toPage: 'Zur Projektseite', moreOf: 'Mehr aus dem Projekt', all: 'Alle ansehen', skip: 'Überspringen', switchP: 'Profil wechseln', contact: 'Kontakt', about: 'Über mich', write: 'Schreib mir.', top: 'Nach oben', browse: 'Entdecken', profile: 'Profil', active: 'aktiv' },
+      en: { watch: 'Watch', more: 'More info', toPage: 'Open project', moreOf: 'More from this project', all: 'See all', skip: 'Skip', switchP: 'Switch profile', contact: 'Contact', about: 'About me', write: 'Write to me.', top: 'Back to top', browse: 'Browse', profile: 'Profile', active: 'active' }
     };
     const links = [[['Start', 'Home'], '#top'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Filme', 'Films'], 'Video.dc.html'], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
     return this._D = { P, rows, byId, all, clips, S, links };
@@ -694,7 +687,7 @@ class Component extends DCLogic {
       heroInfo: () => this.openModal(hc.p),
       rows: D.rows.map(r => ({
         id: r.id, t: tr(r.t), href: r.href || '#top', hasHref: !!r.href, w: SH[r.shape][0], ar: SH[r.shape][1], fs: SH[r.shape][2],
-        items: r.items.map(it => ({ id: it.id, href: D.P[it.p].href, src: it.src, pos: it.pos || '50% 50%', t: tr(it.t), hasT: !!it.t, alt: tr(it.t) || tr(D.P[it.p].t) }))
+        items: r.items.map(it => ({ id: it.id, href: D.P[it.p].href, src: it.src, pos: it.pos || '50% 50%', t: tr(it.t), hasT: !!it.t && r.id !== 'natur' && r.id !== 'design', alt: tr(it.t) || tr(D.P[it.p].t) }))
       })),
       pop, popLeave: () => this.popClose(false, true), popInfo: () => { if (pi) this.openModal(pi.p, pi.proj ? null : pi.id); },
       modalOn: !!mo, m, closeModal: () => this.closeModal(), modalBg: e => { if (e.target === e.currentTarget) this.closeModal(); },

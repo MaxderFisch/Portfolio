@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Über mich — Max Aulinger</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin="">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&amp;display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;background:#0c0c0c;color:#e8e8ea;font-family:'General Sans',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+  *{box-sizing:border-box}
+  a{color:inherit}
+  header{display:flex;align-items:center;height:68px;padding:0 4vw}
+  header img{display:block;height:clamp(18px,1.9vw,26px);width:auto}
+  main{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:center;max-width:1180px;margin:0 auto;padding:clamp(28px,6vh,72px) 4vw 80px;min-height:calc(100svh - 68px)}
+  .bild img{display:block;width:100%;height:auto;max-height:78svh;object-fit:cover;border-radius:4px}
+  h1{margin:0 0 28px;font-size:clamp(34px,4.6vw,62px);font-weight:600;line-height:1.02;letter-spacing:-.02em;color:#f2f2f2}
+  p{margin:0 0 16px;max-width:34em;font-size:clamp(16px,1.25vw,19px);line-height:1.65;color:#cfcfd3}
+  .unten{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:40px;font-size:15px}
+  .unten a{text-decoration:none;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:2px;transition:border-color .3s}
+  .unten a:hover{border-color:#f2f2f2}
+  .klein{margin-top:56px;font-size:13px;color:#8d8d92}
+  .klein a{text-decoration:none}
+  [data-l="en"]{display:none}
+  html[lang="en"] [data-l="de"]{display:none}
+  html[lang="en"] [data-l="en"]{display:block}
+  html[lang="en"] .unten[data-l="en"]{display:flex}
+  @media (max-width:760px){
+    main{grid-template-columns:1fr;gap:32px;padding:16px 20px 64px;min-height:0}
+    .bild img{max-height:60svh;object-position:50% 35%}
+  }
+</style>
+<script>try{if(localStorage.getItem('mx-lang')==='en')document.documentElement.lang='en'}catch(e){}</script>
+</head>
+<body>
+<header><a href="Startseite%20Stream.dc.html"><img src="assets/logo-max.png" alt="Max Aulinger" width="937" height="179"></a></header>
+<main>
+  <div class="bild">
+    <picture>
+      <source srcset="ueber-mich/max-1.webp" type="image/webp">
+      <img src="ueber-mich/max-1.jpg" alt="Max Aulinger mit seiner Drohne bei Sonnenuntergang" width="1051" height="1400">
+    </picture>
+  </div>
+  <div>
+    <div data-l="de">
+      <h1>Hey, ich bin Max</h1>
+      <p>Ich bin 21 Jahre alt und studiere im fünften Semester Medientechnik an der TH Deggendorf. Gerade bin ich für ein Auslandssemester in Südkorea.</p>
+      <p>Ich studiere das, weil ich machen will, was mir Spaß macht, und Dinge, die ich cool finde. Ich weiß vielleicht nicht alles, aber ich weiß mir zu helfen.</p>
+      <p>Fast alles, was du hier siehst, ist im letzten Jahr entstanden.</p>
+    </div>
+    <div data-l="en">
+      <h1>Hey, I’m Max</h1>
+      <p>I’m 21 and in my fifth semester of Media Technology at Deggendorf Institute of Technology. Right now I’m spending a semester abroad in South Korea.</p>
+      <p>I study it because I want to do what I enjoy and make things I think are cool. I might not know everything, but I know how to figure things out.</p>
+      <p>Almost everything you see here was made in the last year.</p>
+    </div>
+    <div class="unten" data-l="de"><a href="Startseite%20Stream.dc.html">← Zurück zur Startseite</a><a href="mailto:maxau.aulo@gmail.com">Schreib mir</a></div>
+    <div class="unten" data-l="en"><a href="Startseite%20Stream.dc.html">← Back to the start page</a><a href="mailto:maxau.aulo@gmail.com">Write to me</a></div>
+    <div class="klein"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></div>
+  </div>
+</main>
+</body>
+</html>

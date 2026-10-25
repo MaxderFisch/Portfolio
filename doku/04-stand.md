@@ -1,5 +1,48 @@
 # Stand
 
+## 25.10.2026 — Kopfleiste „Über mich" + eigene Seite `site/ueber-mich.html` (lokal)
+
+Max (diktiert, mit Selbstkorrekturen): Oben rechts soll auf **allen** Seiten statt „Kontakt" etwas wie „Infos zu mir / zur Person"
+stehen, daneben der kleine Pfeil nach unten mit Menü. Im Menü **Deutsch/Englisch raus**, dafür ein Knopf zur neuen Seite.
+Auf der Startseite nicht sein Foto im Knopf, sondern das schwarz-weiße Symbol von der Filme-Seite. Die neue Seite: ein Bild von ihm,
+darunter/daneben ein schlichter Text, „einfach vollständigkeitshalber". Danach schickte er einen Screenshot von der Seite eines
+Freundes (Foto links, Text rechts) mit dem Hinweis: **nicht erkennbar kopieren**, nur den Umfang übernehmen, Text aus seinen Punkten.
+
+Umsetzung:
+- **Wort oben:** „Über mich" / „About me". Grund: kurz und üblich; Max hatte „Infos zu mir oder zur Person oder so" vorgeschlagen,
+  also unentschieden. Leicht zu ändern (`about:` in `L` von Startseite und Video, Klartext in Navi und icapsule).
+- **Startseite + Filme:** Textlink oben führt nach `ueber-mich.html` (vorher `#kontakt`). Menü: „Über mich", (Startseite zusätzlich
+  „Profil wechseln", das führt zur Profilwahl, wo man weiterhin die Sprache wählt), „Kontakt" (mailto). Die DE/EN-Liste mit Bildern
+  ist raus. Startseite-Knopf zeigt jetzt `assets/profil-icon.png` statt `ueber-mich/max-1.webp`. Filme-Seite: Sprache bleibt über
+  die Knöpfe im Fuß wählbar. `imgs`/`profs` im Code stehen noch, werden aber nicht mehr angezeigt.
+- **Navi.dc.html** (Menschen, Fotos, Korea, Drohne, 3D): rechts jetzt „Über mich" (ab 900 px) + Symbol mit Pfeil, Menü mit
+  „Über mich" und „Kontakt". Eigener Zustand `prof`, schließt sich wie „Entdecken" beim Klick daneben; beide Menüs schließen sich gegenseitig.
+- **live/icapsule.html:** „Kontakt" in der statischen Leiste durch „Über mich" ersetzt (kein Menü dort).
+- **Neue Seite `site/ueber-mich.html`:** statisch, dunkel, General Sans, rotes Logo oben. Foto `ueber-mich/max-1` (mit Drohne bei
+  Sonnenuntergang) links, Text rechts; unter 760 px untereinander, Foto dann höchstens 60svh. `<picture>` mit WebP + neuem JPEG
+  `ueber-mich/max-1.jpg` (aus der WebP, 1051×1400, q62, 119 KB). Englisch, wenn `mx-lang` = en.
+  Text bewusst eigenständig zum Vorbild des Freundes (kein Zitat, keine Kapitelzeile, kein „Philosophie"):
+  „Hey, ich bin Max" / 21, fünftes Semester Medientechnik an der TH Deggendorf, gerade Auslandssemester in Südkorea /
+  studiert das, weil er machen will, was ihm Spaß macht und was er cool findet; weiß nicht alles, weiß sich aber zu helfen /
+  fast alles hier ist im letzten Jahr entstanden. Die Variante „erste Kamera vor ein paar Monaten" **nicht** genommen, weil Max sie
+  nur als Alternative nannte. Darunter „← Zurück zur Startseite · Schreib mir" und klein Impressum/Datenschutz.
+- Sicherungen `Portfolio/archiv/{startseite-stream,video,navi,icapsule}.2026-10-25-vor-ueber-mich.html`.
+- Geprüft: Klammern/divs/sc-if/Skripte aller 5 Dateien; im Browser Menüinhalte auf Startseite, Filme, Menschen per Klick ausgelesen,
+  Startseiten-Knopf zeigt das Symbol; neue Seite bei 1280 px nebeneinander und bei 648 px untereinander angesehen, Englisch-Umschaltung.
+  **Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Startseite: Kartentitel in den Reihen „Natur" und „3D & Design" ausgeblendet (lokal)
+
+Max: Unter den Bildern dieser zwei Reihen sollen keine Namen stehen (z. B. „Goldene Stunde", „Toms Büro"), „ändere nichts außer" das.
+Umsetzung: In `renderVals` ist `hasT` für Karten der Reihen `natur` und `design` immer falsch. Die Namen bleiben in den Daten,
+damit das Vorschaufenster beim Drüberfahren seine Titel behält. Alle anderen Reihen unverändert (geprüft: Projekte, Aus der Luft,
+Südkorea, Filme zeigen ihre Titel, Natur und 3D & Design keine). Sicherung `archiv/Startseite Stream.dc.2026-10-25-vor-kartentitel.html`.
+**Nicht hochgeladen.**
+
+---
+
 ## 25.10.2026 — Impressum und Datenschutz (Minimalfassung, lokal)
 
 Max wollte „auf die Schnelle das Minimum" und gab dafür seine Anschrift: **Euzersdorf 8e, 94121 Salzweg** (Gemeinde
