@@ -29,23 +29,19 @@ a:hover{color:inherit}
 <section id="film" data-k="film" style="position:relative;height:100svh;min-height:520px;overflow:hidden;background:#000;color:#fff">
   <video data-f="vid" muted="true" loop="true" playsinline="true" preload="auto" disablepictureinpicture="true" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000"><source media="(max-aspect-ratio: 3/4)" src="assets/video/intro-korea-9x16.mp4" type="video/mp4"><source src="assets/video/intro-korea-16x9.mp4" type="video/mp4"></video>
   <div data-f="vprog" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#fff;opacity:.5;transform-origin:0 50%;transform:scaleX(0)"></div>
-  <a href="#flaeche" style="position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)">Alle Bilder ansehen <span data-f="arrow" style="display:inline-block;font-size:15px">↓</span></a>
+  <a href="#flaeche" data-k="mehr" style="opacity:0;pointer-events:none;position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)">Alle Bilder ansehen <span data-f="arrow" style="display:inline-block;font-size:15px">↓</span></a>
 </section>
 </sc-if>
 
 <section id="flaeche" data-k="stage" style="position:relative;height:100svh;min-height:520px;overflow:hidden;background:#000;color:#f2f2f2;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab">
   <div data-k="sq" style="position:absolute;inset:0;transform-origin:50% 50%">
     <div data-k="plane" style="position:absolute;left:0;top:0;width:{{ pw }};height:{{ ph }};transform-origin:0 0;will-change:transform">
-      <sc-for list="{{ labels }}" as="c" hint-placeholder-count="0">
-        <div data-m-lab="" style="position:absolute;left:{{ c.l }};top:{{ c.t }};font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:44px;line-height:1;letter-spacing:-.02em;color:#f2f2f2;white-space:nowrap;opacity:0">{{ c.name }}</div>
-      </sc-for>
       <div data-k="dim" style="position:absolute;inset:-6000px;background:#000;opacity:0;z-index:5;pointer-events:none;transition:opacity .45s ease"></div>
       <sc-for list="{{ items }}" as="it" hint-placeholder-count="0">
         <figure data-ci="{{ it.i }}" style="position:absolute;left:{{ it.l }};top:{{ it.t }};width:{{ it.w }};height:{{ it.h }};margin:0;overflow:hidden;background:#0d0d0f;z-index:1;opacity:0;cursor:pointer;transition:transform .6s cubic-bezier(.16,1,.3,1)"><img src="{{ it.th }}" alt="{{ it.cap }}" draggable="false" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none"></figure>
       </sc-for>
     </div>
   </div>
-  <div data-k="cap" style="position:absolute;top:66px;left:clamp(16px,3vw,40px);z-index:20;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#e6e6e6;opacity:0;transition:opacity .3s;pointer-events:none"></div>
   <div data-k="bar" style="position:absolute;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;padding:44px clamp(16px,3vw,40px) clamp(12px,1.8vw,22px);background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,0));pointer-events:none;transition:opacity .35s">
     <div>
       <sc-if value="{{ isA }}" hint-placeholder-val="{{ false }}">
@@ -53,8 +49,7 @@ a:hover{color:inherit}
         <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf"><span>Auslandssemester</span><span data-k="hint" style="transition:opacity .6s">Ziehen, um alles zu sehen</span></div>
       </sc-if>
       <sc-if value="{{ isB }}" hint-placeholder-val="{{ true }}">
-        <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(26px,3vw,44px);line-height:.9;letter-spacing:-.03em">Alle Bilder.</div>
-        <div data-k="hint" style="margin-top:8px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf;transition:opacity .6s">Ziehen, um alles zu sehen</div>
+        <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(26px,3vw,44px);line-height:.9;letter-spacing:-.03em">Alle Bilder</div>
       </sc-if>
     </div>
     <div style="display:none;flex-wrap:nowrap;gap:5px;min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none;pointer-events:auto">
@@ -67,7 +62,7 @@ a:hover{color:inherit}
 
 <sc-if value="{{ isB }}" hint-placeholder-val="{{ true }}">
   <section style="background:#000;color:#f2f2f2;padding:clamp(50px,6vw,90px) clamp(16px,3vw,40px) 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px 30px">
-    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">← Zurück zum Portfolio</a>
+    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">← Zurück zur Startseite</a>
     <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">Schreib mir</a>
   </section>
 </sc-if>
@@ -120,6 +115,7 @@ class Component extends DCLogic {
     if (pp.tempo !== this.props.tempo) { this.fa.forEach(a => a.cancel()); if (this.fio) this.fio.disconnect(); this.setupFilm(); }
   }
   componentWillUnmount() {
+    clearTimeout(this._mt);
     if (this.onVis) document.removeEventListener("visibilitychange", this.onVis);
     this.dead = true;
     removeEventListener('resize', this.onResize); removeEventListener('pointerdown', this.onDown); removeEventListener('pointermove', this.onMove);
@@ -384,6 +380,15 @@ class Component extends DCLogic {
     return el.animate(kf, { duration: T * this.spd(), iterations: Infinity, fill: 'both' });
   }
   // Vorspann als gerendertes Video (statt der Animation): starten und Fortschrittsbalken mitlaufen lassen
+  // Knopf erst 1,5 s nach dem Start des Vorspanns zeigen
+  showMehr(delay) {
+    clearTimeout(this._mt);
+    this._mt = setTimeout(() => {
+      const el = document.querySelector('[data-k="mehr"]'); if (!el || this.dead) return;
+      el.style.pointerEvents = 'auto'; el.style.opacity = '1';
+      if (!this.reduce) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, easing: 'ease-out' });
+    }, delay);
+  }
   startVid(root) {
     const v = root.querySelector('[data-f="vid"]'), pb = root.querySelector('[data-f="vprog"]'); if (!v || v._on) return; v._on = true;
     v.muted = true; v.loop = true; v.playsInline = true;
@@ -400,7 +405,7 @@ class Component extends DCLogic {
   }
   setupFilm() {
     this.fa = []; const root = this.el('film'); if (!root) return;
-    this.afterCover(() => { if (!this.dead) this.startVid(root); });
+    this.afterCover(() => { if (!this.dead) { this.startVid(root); this.showMehr(1500); } });
     const q = k => root.querySelector('[data-f="' + k + '"]');
     if (this.reduce) { const fr = q('frame'), k1 = q('k1'), t = q('title'); if (fr) { fr.style.clipPath = 'none'; fr.style.opacity = 1; } if (k1) k1.style.opacity = 1; if (t) t.style.transform = 'none'; return; }
     const E1 = 'cubic-bezier(.16,1,.3,1)', E2 = 'cubic-bezier(.76,0,.24,1)', E3 = 'cubic-bezier(.77,0,.18,1)', SL = 'cubic-bezier(.3,1.45,.5,1)', EI = 'cubic-bezier(.5,0,.75,.2)';

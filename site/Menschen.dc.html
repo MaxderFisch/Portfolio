@@ -36,12 +36,13 @@ a:hover{color:inherit}
     </div>
   </div>
   <div data-k="head" style="position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,1.4vw,18px);pointer-events:none;opacity:{{ headOp }}">
-    <h1 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,10vw,170px);line-height:.86;letter-spacing:-.035em;color:#fff">Menschen.</h1>
+    <h1 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,10vw,170px);line-height:.86;letter-spacing:-.035em;color:#fff">Menschen</h1>
     <div style="font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf">Porträts · 85 mm f/1.4</div>
   </div>
+  <a href="#bilder" data-k="mehr" onClick="{{ toBilder }}" style="opacity:0;pointer-events:none;position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1);z-index:6" style-hover="transform:scale(1.06)">Alle Bilder ansehen <span data-k="arrow" style="display:inline-block;font-size:15px">↓</span></a>
 </section>
 
-<section data-screen-label="Menschen Bilder" style="background:#000;color:#f2f2f2;padding:clamp(80px,10vw,150px) clamp(16px,3vw,40px) clamp(60px,7vw,100px)">
+<section id="bilder" data-screen-label="Menschen Bilder" style="background:#000;color:#f2f2f2;padding:clamp(80px,10vw,150px) clamp(16px,3vw,40px) clamp(60px,7vw,100px)">
   <p data-m-scrub="" style="margin:0 0 clamp(50px,6vw,90px);max-width:1100px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(34px,5.4vw,88px);line-height:1.02;letter-spacing:-.03em">
     <sc-for list="{{ words }}" as="w" hint-placeholder-count="0"><span data-m-sw="" style="color:#2a2a2e">{{ w.t }}</span></sc-for>
   </p>
@@ -114,6 +115,8 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    // Pfeil im Knopf „Alle Bilder ansehen" wippt wie auf der Korea-Seite
+    const ar = this.$('[data-k="arrow"]'); if (ar && !this.reduce) this._ara = ar.animate([{ transform: 'translateY(-2px)' }, { transform: 'translateY(4px)' }], { duration: 700, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' });
     this.onScroll = () => { if (this.tick) return; this.tick = true; requestAnimationFrame(() => { this.frame(); this.tick = false; }); };
     this.onResize = () => { this.setState({ vw: innerWidth }); };
     this.onKey = e => {
@@ -140,6 +143,7 @@ class Component extends DCLogic {
     document.documentElement.style.overflow = this.state.lb > -1 ? 'hidden' : '';
   }
   componentWillUnmount() {
+    clearTimeout(this._mt);
     this.dead = true;
     removeEventListener('scroll', this.onScroll); removeEventListener('resize', this.onResize); removeEventListener('keydown', this.onKey);
     document.removeEventListener('pointerover', this.onOver);
@@ -153,7 +157,17 @@ class Component extends DCLogic {
     return { vw, vh, w, h, R1, R2 };
   }
   T(x, y, r, ax, ay, s) { return 'translate(-50%,-50%) translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) rotate(' + r.toFixed(2) + 'deg) rotateX(' + ax + 'deg) rotateY(' + ay + 'deg) scale(' + s + ')'; }
+  // Knopf „Alle Bilder ansehen" erst nach der Startanimation zeigen
+  showMehr(delay) {
+    clearTimeout(this._mt);
+    this._mt = setTimeout(() => {
+      const el = this.$('[data-k="mehr"]'); if (!el || this.dead) return;
+      el.style.pointerEvents = 'auto'; el.style.opacity = '1';
+      if (!this.reduce) el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 700, easing: 'ease-out' });
+    }, delay);
+  }
   arrive() {
+    this.showMehr(1000);
     this.placeRing();
     const head = this.$('[data-k="head"]'), nav = this.$('[data-k="nav"]'), grp = this.$('[data-k="group"]');
     if (head) head.style.opacity = 1;
@@ -186,7 +200,7 @@ class Component extends DCLogic {
     if (this.dead) return;
     const g = this.geo(), sl = 360 / n, ST = this.T(0, 0, 0, 0, 0, 1);
     const ang = i => i * sl - 90, pos = (i, R, extra) => { const t = (ang(i) + (extra || 0)) * Math.PI / 180; return [R * Math.cos(t), R * Math.sin(t)]; };
-    if (this.reduce) { this.placeRing(); cards.forEach(c => { c.style.opacity = 1; }); if (head) head.style.opacity = 1; if (nav) nav.style.opacity = 1; return; }
+    if (this.reduce) { this.placeRing(); cards.forEach(c => { c.style.opacity = 1; }); if (head) head.style.opacity = 1; if (nav) nav.style.opacity = 1; this.showMehr(0); return; }
     let t0 = 120;
     if (!from) {
       cards.forEach((c, i) => c.animate([{ opacity: 0.8, transform: this.T(0, g.vh / 2 + g.h * 1.5, 0, -180, 0, 3) }, { opacity: 1, transform: ST }], { duration: 520, delay: 200 + i * 100, easing: 'cubic-bezier(.25,.46,.45,.94)', fill: 'both' }));
@@ -198,7 +212,7 @@ class Component extends DCLogic {
         { opacity: 1, transform: ST, easing: 'cubic-bezier(.33,0,.2,1)' },
         { opacity: 1, transform: this.T(x1, y1, ang(i) + 90, 0, 15, 1), offset: 0.42, easing: 'cubic-bezier(.45,0,.2,1)' },
         { opacity: 1, transform: this.T(x2, y2, ang(i) + sl + 90, 0, 360, 1) }
-      ], { duration: 2100, delay: t0, fill: 'forwards' }).onfinish = i === n - 1 ? () => { this.placeRing(); this.startFlips(); } : null;
+      ], { duration: 2100, delay: t0, fill: 'forwards' }).onfinish = i === n - 1 ? () => { this.placeRing(); this.startFlips(); this.showMehr(1000); } : null;
     });
     if (head) head.animate([{ opacity: 0, filter: 'blur(40px)', transform: 'scale(1.08)' }, { opacity: 1, filter: 'blur(0px)', transform: 'scale(1)' }], { duration: 1300, delay: t0 + 900, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' });
     if (nav) nav.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 800, delay: t0 + 1400, fill: 'forwards' });
@@ -261,11 +275,12 @@ class Component extends DCLogic {
         return { i, op, tf, src: 'assets/thumb/men-' + i + '.webp', open: () => this.open(id) };
       }),
       headOp: this.from ? '1' : '0',
-      words: 'Ein Foto machen. Es zeigen. Und sie freuen sich.'.split(' ').map(t => ({ t })),
+      words: 'Ich liebe es, mit coolen Bildern Leuten eine Freude zu bereiten.'.split(' ').map(t => ({ t })),
       rowDir: phone ? 'column' : 'row',
-      rows: D.rows.map(r => ({ figs: r.map(id => { const x = D.F[id]; return { src: x[0], name: x[3], ar: x[1] + ' / ' + x[2], fx: phone ? '0 0 auto' : (x[1] / x[2]).toFixed(4) + ' 1 0px', open: () => this.open(id) }; }) })),
+      rows: D.rows.map(r => ({ figs: r.map(id => { const x = D.F[id]; return { src: x[0], name: '', ar: x[1] + ' / ' + x[2], fx: phone ? '0 0 auto' : (x[1] / x[2]).toFixed(4) + ' 1 0px', open: () => this.open(id) }; }) })),
       eyesOpen: () => this.open('eyes'),
-      lbOpen: !!cur, lbSrc: cur ? cur.src : '', lbName: cur ? cur.name : '',
+      toBilder: e => { e.preventDefault(); const el = document.getElementById('bilder'); if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: 'smooth' }); },
+      lbOpen: !!cur, lbSrc: cur ? cur.src : '', lbName: '',
       lbClose: () => this.setState({ lb: -1 }),
       lbPrev: e => { e.stopPropagation(); this.setState(s => ({ lb: (s.lb - 1 + n) % n })); },
       lbNext: e => { e.stopPropagation(); this.setState(s => ({ lb: (s.lb + 1) % n })); }

@@ -173,28 +173,27 @@ a:hover{color:inherit}
 
 <sc-if value="{{ heroRahmen }}" hint-placeholder-val="{{ false }}">
   <section data-mode="Projekt 11" data-am="DJI" style="position:relative;height:100vh;min-height:600px;background:#ecebe6;color:#0c0c0c;display:flex;flex-direction:column;padding:64px clamp(16px,3vw,40px) clamp(16px,2vw,28px)">
-    <div data-hin="" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f;opacity:0"><span><b style="color:#0c0c0c;font-weight:600">11</b> — Projekt</span><span>Mini 2 · FPV · Mini 4 Pro</span></div>
+    <div data-hin="" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f;opacity:0"></div>
     <h1 style="margin:12px 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(60px,13.4vw,230px);line-height:.84;letter-spacing:-.035em;word-spacing:.06em">
-      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-hl="" style="display:block;transform:translateY(105%)">Flieg mit mir.</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-hl="" style="display:block;transform:translateY(105%)">Flieg mit mir</span></span>
     </h1>
     <div data-k="heroFrame" style="position:relative;flex:1;min-height:0;margin-top:clamp(12px,1.6vw,22px);overflow:hidden;background:#000;clip-path:inset(50% 0 50% 0)">
       <div data-k="heroWrap" style="position:absolute;inset:0">
         <video data-k="heroVid" data-auto="" data-lsrc="assets/video/zeitraffer.mp4" preload="none" poster="assets/zeitraffer-poster.webp" muted="" loop="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
       </div>
-      <div style="position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:16px;padding:14px 16px;background:linear-gradient(to top,rgba(0,0,0,.5),rgba(0,0,0,0));font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#fff"><span>Zeitraffer · DJI Mini 4 Pro</span><span>Scrollen ↓</span></div>
     </div>
   </section>
 </sc-if>
 <sc-if value="{{ heroVoll }}" hint-placeholder-val="{{ true }}">
-  <section data-mode="Projekt 11" data-am="DJI" style="position:relative;height:100vh;min-height:560px;overflow:hidden;background:#000">
+  <section data-mode="Projekt 11" data-am="DJI" style="position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:#000">
     <div data-k="heroWrap" style="position:absolute;inset:0">
       <video data-k="heroVid" data-auto="" data-lsrc="assets/video/zeitraffer.mp4" preload="none" poster="assets/zeitraffer-poster.webp" muted="" loop="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
     </div>
     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6) 0,rgba(0,0,0,0) 50%)"></div>
-    <div data-k="heroTxt" style="position:absolute;left:0;right:0;bottom:0;padding:0 clamp(16px,3vw,40px) clamp(24px,4vw,44px)">
-      <div data-hin="" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;border-top:1px solid rgba(255,255,255,.4);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#ececec;opacity:0"><span>Projekt 11</span><span>Zeitraffer · DJI Mini 4 Pro</span></div>
+    <div data-k="heroTxt" style="position:absolute;left:0;right:0;bottom:0;padding:0 clamp(16px,3vw,40px) {{ heroPadB }}">
+      <div data-hin="" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;border-top:1px solid rgba(255,255,255,.4);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#ececec;opacity:0"></div>
       <h1 style="margin:14px 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(60px,13.4vw,230px);line-height:.84;letter-spacing:-.035em;word-spacing:.06em;color:#fff;mix-blend-mode:{{ heroBlend }}">
-        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-hl="" style="display:block;transform:translateY(105%)">Flieg mit mir.</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-hl="" style="display:block;transform:translateY(105%)">Flieg mit mir</span></span>
       </h1>
     </div>
   </section>
@@ -202,7 +201,7 @@ a:hover{color:inherit}
 
 <section id="mini2" data-mode="01 · Mini 2" data-am="DJI" style="background:#ecebe6;color:#0c0c0c;padding:clamp(90px,11vw,160px) 0 clamp(70px,9vw,120px)">
   <div style="padding:0 clamp(16px,3vw,40px)">
-    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"><span><b style="color:#0c0c0c;font-weight:600">01</b> — Der Anfang</span><span>DJI Mini 2</span></div>
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"></div>
     <p data-scrub="" data-c0="#c4c2bb" data-c1="#0c0c0c" style="margin:28px 0 0;max-width:1260px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(34px,5.2vw,82px);line-height:1.03;letter-spacing:-.022em">
       <sc-for list="{{ t1 }}" as="w" hint-placeholder-count="0"><span data-sw="" style="color:#c4c2bb">{{ w.t }}</span></sc-for>
     </p>
@@ -213,29 +212,25 @@ a:hover{color:inherit}
     <div style="position:sticky;top:0;height:100vh;overflow:hidden">
       <div data-zbox="" style="position:absolute;inset:0;clip-path:inset(24% 30% 24% 30%);background:#0c4a5a"><img data-zimg="" src="assets/dji-bucht.jpg" alt="Bucht senkrecht von oben" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.5)"></div>
       <div data-zword="" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;mix-blend-mode:difference;color:#fff;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(110px,24vw,380px);line-height:1;letter-spacing:-.04em">90°</div>
-      <div data-zcap="" style="position:absolute;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);bottom:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#fff;opacity:0;text-shadow:0 1px 3px rgba(0,0,0,.5)"><span>Im Urlaub · senkrecht nach unten</span><span>DJI Mini 2</span></div>
     </div>
   </div>
 
   <div style="padding:0 clamp(16px,3vw,40px);display:grid;grid-template-columns:{{ g12 }};gap:20px;margin-top:clamp(50px,6vw,90px);align-items:start">
     <figure data-fade="" style="margin:0;grid-column:{{ pairA }};opacity:0">
       <div style="overflow:hidden"><img data-par="0.06" src="assets/dji-kapelle.jpg" alt="" style="width:100%;height:auto;display:block;transform:scale(1.12)"></div>
-      <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Das Haus am Ende der Landzunge</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#55544f">Mini 2</span></figcaption>
     </figure>
     <figure data-fade="" data-delay="100" style="margin:0;margin-top:{{ pairMt }};grid-column:{{ pairB }};opacity:0">
       <div style="overflow:hidden"><img data-par="-0.05" src="assets/dji-kueste.jpg" alt="" style="width:100%;height:auto;display:block;transform:scale(1.12)"></div>
-      <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Die Küste entlang</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#55544f">Mini 2</span></figcaption>
     </figure>
   </div>
 </section>
 
 <section id="fpv" data-mode="02 · FPV" data-am="FPV" style="position:relative;background:#060607;color:#f2f2f2;padding:clamp(90px,11vw,160px) 0 clamp(70px,9vw,120px);overflow-x:clip">
     <div style="position:relative;z-index:1;padding:0 clamp(16px,3vw,40px)">
-    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"><span><b style="color:#fff;font-weight:600">02</b> — Der Umstieg</span><span>FPV · von Hand</span></div>
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"></div>
     <p data-scrub="" data-c0="#3a3a3f" data-c1="#f2f2f2" style="margin:28px 0 0;max-width:1260px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(34px,5.2vw,82px);line-height:1.03;letter-spacing:-.022em">
       <sc-for list="{{ t2 }}" as="w" hint-placeholder-count="0"><span data-sw="" style="color:#3a3a3f">{{ w.t }}</span></sc-for>
     </p>
-    <p data-fade="" style="margin:clamp(24px,3vw,40px) 0 0 auto;max-width:440px;font-size:15px;line-height:1.8;color:#cfcfcf;opacity:0">Bei FPV sehe ich durch eine Brille genau das, was die Drohne sieht. Kein Assistent, der abfängt — wenn ich einen Baum zu spät sehe, ist der Flug vorbei.</p>
   </div>
 
   <div data-goggle="" style="position:relative;z-index:1;height:300vh;margin-top:clamp(40px,5vw,70px)">
@@ -257,13 +252,12 @@ a:hover{color:inherit}
       </sc-if>
       <div style="position:absolute;left:clamp(24px,3.4vw,48px);right:clamp(24px,3.4vw,48px);bottom:clamp(22px,3vw,44px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px 24px">
         <div style="min-width:0">
-          <div style="overflow:hidden;padding-bottom:.08em"><div data-k="clipT" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(28px,4.6vw,72px);line-height:.92;letter-spacing:-.018em;word-spacing:.06em;color:#fff">Winter in den Bergen</div></div>
-          <div data-k="clipS" style="margin-top:8px;font-size:14px;line-height:1.5;color:#e6e6e6">Gipfelkreuz, Gegenlicht, viel Schnee</div>
+          <div style="overflow:hidden;padding-bottom:.08em"><div data-k="clipT" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(28px,4.6vw,72px);line-height:.92;letter-spacing:-.018em;word-spacing:.06em;color:#fff">In den Bergen</div></div>
+          <div data-k="clipS" style="margin-top:8px;font-size:14px;line-height:1.5;color:#e6e6e6"></div>
           <div style="display:flex;gap:6px;margin-top:16px;width:min(280px,55vw)">
             <sc-for list="{{ clips }}" as="c" hint-placeholder-count="2"><div style="flex:1;height:2px;background:rgba(255,255,255,.25);overflow:hidden"><div data-seg="{{ c.i }}" style="height:100%;background:#fff;transform:scaleX(0);transform-origin:left"></div></div></sc-for>
           </div>
         </div>
-        <button onClick="{{ toggleTon }}" style="font-family:'General Sans',system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.75);border-radius:999px;padding:10px 16px;cursor:pointer" style-hover="background:#fff;color:#000">{{ tonLabel }}</button>
       </div>
     </div>
     </div>
@@ -272,22 +266,21 @@ a:hover{color:inherit}
 
 <section data-mode="Schulprojekt" data-am="FPV" style="background:#060607;color:#f2f2f2;padding:clamp(30px,4vw,60px) 0 clamp(90px,11vw,150px)">
   <div style="padding:0 clamp(16px,3vw,40px)">
-    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"><span>Projekt</span><span>Schule · Bayerischer Wald</span></div>
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"></div>
     <div data-grow="" style="position:relative;margin-top:22px;aspect-ratio:16/9;max-height:90vh;overflow:hidden;background:#111;transform-origin:50% 0">
       <video data-vsrc="assets/video/fpv-papierflieger.mp4" poster="assets/fpv-papierflieger-poster.webp" muted="true" controls="true" playsinline="true" preload="none" style="width:100%;height:100%;object-fit:cover;display:block;background:#000"></video>
       <div data-pf-deko="" aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0,rgba(0,0,0,0) 55%)"></div>
-      <div data-pf-deko="" style="position:absolute;top:16px;right:18px;font-size:9.5px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#fff;background:rgba(0,0,0,.55);padding:6px 9px">▶ FPV · 2:23</div>
-      <div data-pf-deko="" style="position:absolute;left:clamp(18px,3vw,40px);bottom:clamp(16px,2.6vw,36px);overflow:hidden;padding-bottom:.08em"><div data-rise="" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(52px,10vw,170px);line-height:.86;letter-spacing:-.025em;color:#fff;transform:translateY(105%)">Papierflieger.</div></div>
+      <div data-pf-deko="" style="position:absolute;left:clamp(18px,3vw,40px);bottom:clamp(16px,2.6vw,36px);overflow:hidden;padding-bottom:.08em"><div data-rise="" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(52px,10vw,170px);line-height:.86;letter-spacing:-.025em;color:#fff;transform:translateY(105%)">Papierflieger</div></div>
     </div>
     <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:24px">
-      <p data-fade="" style="grid-column:{{ pfCol }};margin:0;font-size:15px;line-height:1.8;color:#cfcfcf;opacity:0">Mit der Schule waren wir im Bayerischen Wald und sollten dort ein Projekt umsetzen. Ich habe einen FPV-Film gedreht: einmal durch den Wald — und am Ende wird aus dem Hinweisblatt ein Papierflieger.</p>
+      <p data-fade="" style="grid-column:{{ pfCol }};margin:0;font-size:15px;line-height:1.8;color:#cfcfcf;opacity:0">Entstanden in einer Projektwoche unserer Schule.</p>
     </div>
   </div>
 </section>
 
 <section id="mini4" data-mode="03 · Mini 4 Pro" data-am="DJI2" style="background:#ecebe6;color:#0c0c0c;padding:clamp(90px,11vw,160px) 0 clamp(70px,9vw,120px)">
   <div style="padding:0 clamp(16px,3vw,40px)">
-    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"><span><b style="color:#0c0c0c;font-weight:600">03</b> — Geliehen</span><span>DJI Mini 4 Pro · von einem Freund</span></div>
+    <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"></div>
     <p data-scrub="" data-c0="#c4c2bb" data-c1="#0c0c0c" style="margin:28px 0 0;max-width:1260px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(34px,5.2vw,82px);line-height:1.03;letter-spacing:-.022em">
       <sc-for list="{{ t3 }}" as="w" hint-placeholder-count="0"><span data-sw="" style="color:#c4c2bb">{{ w.t }}</span></sc-for>
     </p>
@@ -297,28 +290,22 @@ a:hover{color:inherit}
     <div style="position:sticky;top:0;height:100vh;overflow:hidden">
       <div data-zbox="" style="position:absolute;inset:0;clip-path:inset(24% 30% 24% 30%);background:#1a1f24"><video data-zimg="" data-auto="" data-lsrc="assets/video/zeitraffer.mp4" preload="none" poster="assets/zeitraffer-poster.webp" muted="" loop="" playsinline="" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.5)"></video></div>
       <div data-zword="" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;mix-blend-mode:difference;color:#fff;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(64px,14.5vw,250px);line-height:1;letter-spacing:-.025em">Zeitraffer</div>
-      <div data-zcap="" style="position:absolute;left:clamp(16px,3vw,40px);right:clamp(16px,3vw,40px);bottom:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#fff;opacity:0;text-shadow:0 1px 3px rgba(0,0,0,.5)"><span>Zeitraffer aus der Luft</span><span>DJI Mini 4 Pro</span></div>
     </div>
   </div>
 
   <div style="padding:0 clamp(16px,3vw,40px);margin-top:clamp(50px,6vw,90px);display:grid;grid-template-columns:{{ g12 }};gap:24px 20px;align-items:start">
     <figure data-fade="" style="margin:0;grid-column:{{ zrA }};margin-top:{{ zrAmt }};opacity:0">
       <div data-grow="" style="position:relative;overflow:hidden;background:#000;aspect-ratio:16/9;transform-origin:50% 0"><video data-auto="" data-lsrc="assets/video/drohne-nebel.mp4" preload="none" poster="assets/drohne-nebel-poster.webp" muted="" loop="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
-      <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Im Nebel</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#55544f">Zeitraffer · DJI Mini 4 Pro</span></figcaption>
     </figure>
     <figure data-fade="" data-delay="120" style="margin:0;grid-column:{{ zrB }};margin-top:{{ zrBmt }};opacity:0">
       <div data-grow="" style="position:relative;overflow:hidden;background:#000;aspect-ratio:16/9;transform-origin:50% 0"><video data-auto="" data-lsrc="assets/video/drone-clip-1.mp4" preload="none" poster="assets/drone-clip-1-poster.webp" muted="" loop="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></div>
-      <figcaption style="margin-top:10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:14px">Noch ein Zeitraffer</span><span style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#55544f">DJI Mini 4 Pro · 0:16</span></figcaption>
     </figure>
   </div>
 </section>
 
 <section id="koffer" data-mode="04 · Equipment" data-am="LAND" style="background:#ecebe6;color:#0c0c0c;padding:clamp(40px,5vw,70px) clamp(16px,3vw,40px) clamp(60px,8vw,110px)">
-  <div style="display:flex;justify-content:space-between;gap:16px;border-top:2px solid #0c0c0c;padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"><span><b style="color:#0c0c0c;font-weight:600">04</b> — Heute</span><span>Antippen für Details</span></div>
-  <p data-scrub="" data-c0="#c4c2bb" data-c1="#0c0c0c" style="margin:28px 0 0;max-width:1260px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(34px,5.2vw,82px);line-height:1.03;letter-spacing:-.022em">
-    <sc-for list="{{ t4 }}" as="w" hint-placeholder-count="0"><span data-sw="" style="color:#c4c2bb">{{ w.t }}</span></sc-for>
-  </p>
-  <div style="overflow:hidden;margin-top:clamp(40px,5vw,70px);padding:.03em 0 .08em"><h2 data-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(58px,10vw,160px);line-height:.88;letter-spacing:-.032em;transform:translateY(105%)">Equipment.</h2></div>
+  <div style="display:flex;justify-content:space-between;gap:16px;border-top:2px solid #0c0c0c;padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f"></div>
+  <div style="overflow:hidden;margin-top:clamp(40px,5vw,70px);padding:.03em 0 .08em"><h2 data-rise="" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(58px,10vw,160px);line-height:.88;letter-spacing:-.032em;transform:translateY(105%)">Equipment</h2></div>
   <div data-k="bento" style="display:grid;grid-template-columns:{{ bentoCols }};margin-top:clamp(24px,3vw,40px);border-top:2px solid #0c0c0c;border-left:2px solid #0c0c0c">
     <sc-for list="{{ gear }}" as="g" hint-placeholder-count="5">
       <div data-asm="{{ g.asm }}" data-tilt="" data-gcell="{{ g.i }}" style="grid-column:{{ g.col }};min-height:{{ g.minH }};position:relative;display:flex;flex-direction:column;padding:18px clamp(16px,1.8vw,24px) 22px;border-right:2px solid #0c0c0c;border-bottom:2px solid #0c0c0c;background:#ecebe6;cursor:pointer;transition:background .35s" style-hover="background:#ffffff">
@@ -341,13 +328,13 @@ a:hover{color:inherit}
 </section>
 
 <section data-mode="Gelandet" data-am="LAND" style="background:#060607;color:#f2f2f2;padding:clamp(70px,9vw,120px) clamp(16px,3vw,40px) 28px">
-  <a href="Startseite%20Stream.dc.html" style="display:block;border-top:2px solid #f2f2f2;padding-top:16px;transition:opacity .3s" style-hover="opacity:.6">
-    <div style="font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92">Danke fürs Mitfliegen</div>
-    <div style="overflow:hidden;margin-top:14px;padding-bottom:.08em"><div data-rise="" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(48px,9vw,150px);line-height:.88;letter-spacing:-.032em;word-spacing:.05em;transform:translateY(105%)">Zurück zum Portfolio →</div></div>
-  </a>
-  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(50px,6vw,90px);padding-top:14px;border-top:1px solid rgba(255,255,255,.18);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">
-    <span>Max Aulinger</span>
-        <a href="mailto:maxau.aulo@gmail.com" style="color:#f2f2f2" style-hover="opacity:.6">Schreib mir →</a>
+  <div style="display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center">
+    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">← Zurück zur Startseite</a>
+    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">Schreib mir</a>
+  </div>
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(50px,7vw,100px);padding-top:14px;border-top:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">
+    <span>© 2026 Max Aulinger</span>
+    <span>Drohne &amp; FPV</span>
   </div>
 </section>
 
@@ -641,9 +628,9 @@ class Component extends DCLogic {
 
   clipData() {
     return this._clips || (this._clips = [
-      { src: 'assets/video/fpv-timeline-1.mp4', poster: 'assets/fpv-timeline-1-poster.webp', t: 'Winter in den Bergen', s: 'Gipfelkreuz, Gegenlicht, viel Schnee', dur: '0:33' },
-      { src: 'assets/video/fpv-autos-kurz.mp4', poster: 'assets/fpv-autos-kurz-poster.webp', t: 'Autos über Feldwege', s: 'Tief, schnell, nah dran', dur: '1:43' },
-      { src: '../Portfolio/assets/video/drohne-schnee.mp4', poster: 'assets/drohne-schnee-poster.webp', t: 'Durch den Schnee', s: 'FPV im Winter', dur: '1:04' }
+      { src: 'assets/video/fpv-timeline-1.mp4', poster: 'assets/fpv-timeline-1-poster.webp', t: 'In den Bergen', s: '', dur: '0:33' },
+      { src: 'assets/video/fpv-autos-kurz.mp4', poster: 'assets/fpv-autos-kurz-poster.webp', t: 'Auto-Rallye', s: '', dur: '1:43' },
+      { src: '../Portfolio/assets/video/drohne-schnee.mp4', poster: 'assets/drohne-schnee-poster.webp', t: 'Durch den Schnee', s: '', dur: '1:04' }
     ]);
   }
   gearData() {
@@ -676,7 +663,7 @@ class Component extends DCLogic {
     const gd = this.gearData(), di = this.state.det;
     const det = di != null ? Object.assign({}, gd[di], { facts: gd[di].facts.map(([k, v]) => ({ k, v })) }) : { no: '', typ: '', name: '', role: '', img: '', s: '', facts: [], dmw: '100%' };
     return {
-      heroRahmen: hero === 'Rahmen', heroVoll: hero !== 'Rahmen', heroBlend: hero === 'Negativ' ? 'difference' : 'normal',
+      heroPadB: phone ? '72px' : 'clamp(24px,4vw,44px)', heroRahmen: hero === 'Rahmen', heroVoll: hero !== 'Rahmen', heroBlend: hero === 'Negativ' ? 'difference' : 'normal',
       t1: W('Drohnen sind seit Jahren meine Leidenschaft. Angefangen hat alles mit einer DJI Mini 2 — mit ihr habe ich im Urlaub meine ersten Luftaufnahmen gemacht.'),
       t2: W('Irgendwann wollte ich mehr: dynamischere Aufnahmen. Ich fand FPV einfach cool — also bin ich umgestiegen.'),
       t3: W('Von einem Freund habe ich mir eine DJI Mini 4 Pro ausgeliehen und damit Zeitraffer-Aufnahmen gemacht.'),

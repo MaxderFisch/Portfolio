@@ -1,10 +1,217 @@
 # Stand
 
+## 25.10.2026 — „Leberkassemmel-Debakel", dann alles von heute hochgeladen
+
+Max: „Leberkas-Semmel ohne Bindestrich zusammengeschrieben" → Folge heißt **„Leberkassemmel-Debakel"** (der Bindestrich vor
+„Debakel" bleibt). Dann: „lade bitte wieder alle Änderungen von heute auf GitHub hoch".
+Hochgeladen: `site/Menschen.dc.html`, `site/Korea v3.dc.html`, `site/3D Design.dc.html`, `site/Drohne v5.dc.html`,
+`site/Video.dc.html`, `site/Startseite Stream.dc.html`, `doku/04-stand.md`. Vorher alle sechs geprüft (Skript ok, Tags
+ausgeglichen, alle verwendeten Dateien vorhanden). **Nicht dabei:** `site/update-handy/` (neu, nicht von mir: Kopien von
+„3D Design" und „Korea v3" vom 23.10. 15:52, Max gefragt), Archiv-Sicherungen, die verworfenen Foto-Testseiten,
+`site/render/` und das Übrige wie bisher.
+
+---
+
+## 25.10.2026 — Lange Texte nur im Infofenster, oben und im Vorschaufenster wieder kurz
+
+Max: Die langen Texte standen jetzt auch **groß über dem Showreel** und verdeckten zu viel. Sie gehören nur ins Infofenster
+(„Mehr Infos"), oben sollen „wieder so kurze kleine Wörter wie davor" stehen.
+Lösung: Neues Feld **`short`** (Filme-Seite, Startseite `P`) bzw. **`xs`** (Startseite-Karten mit eigenem `x`). Showreel oben
+und Vorschaufenster zeigen `short || txt`, das Infofenster weiter `txt`/`x` (lang).
+- Filme-Seite: Imagefilm `short` = alter Satz „Imagefilm für den Studiengang Elektrotechnik unserer Hochschule, gedreht mit der
+  ARRI Alexa Mini." Doschauher `short` = „Eine Live-Show unserer Hochschule." Bergmann, Hostage, Bienen, Kommt sind ohnehin kurz.
+- Startseite: iCapsule `short` = alt „Mein erstes Projekt im Studium: ein eigenes Apple-Produkt, komplett in Blender.", Therme
+  `short` = alt „Mein erster bezahlter Job: eine Unterwasser-Animation für die Wand der Therme.", Flyer `short` = „Die zweite
+  Aufgabe war ein Flyer, gemacht in Illustrator und InDesign." (der alte „nie wieder Adobe"-Satz bewusst nicht), Imagefilm-Karte
+  `xs` wie oben.
+**Merke:** Showreel-Texte (Hero) sind Kurztexte. Lange Beschreibungen nur ins Infofenster.
+Sicherungen `archiv/*.2026-10-25-vor-kurztexte.html`. Geprüft: oben Imagefilm/Doschauher/iCapsule/Therme kurz, Infofenster
+Imagefilm/Therme lang. **Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Filme-Seite: Texte nach Max, Folgen umbenannt, Fuß wie überall; Startseite übernimmt alle neuen Texte (lokal)
+
+`site/Video.dc.html` (Sicherung `archiv/Video.dc.2026-10-25-vor-texte.html`), Inhalte von Max (Sprachnachricht):
+- Bergmann: Meta „Doku · Ton · 5:48" → **„Doku · 5:48"**, Text bleibt.
+- Imagefilm: Meta **„Imagefilm · 3:01"**. Text: mit erfahrenen Studenten, viel gelernt, Szenenbild, aber überall mit angepackt,
+  ARRI Alexa Mini, „bis jetzt mit Abstand mein professionellster Dreh". (Max erwähnte auch Kostüm/Make-up, wollte es aber nur
+  als „Szenenbild" zusammengefasst.)
+- Bienen: Meta **„Doku · 1:14"**, Text **„Kein direktes Projekt, sondern einfach eine kleine filmische Dokumentation im eigenen
+  Garten."** (vorher leer, Meta „Doku · im Team · Studium" war falsch).
+- Doschauher: Text „Eine Live-Show unserer Hochschule. Ich war im Einspieler-Team und der zuständige Kameramann für die
+  Einspieler, die zwischendrin gelaufen sind." **Folgen umbenannt:** S1 Auto → **Parkplatzproblem**, Theke →
+  **Leberkas-Semmel-Debakel**, Schutzbrille → **Versuchsaufbau**, Regal → **Ladendiebstahl 1**, Maskiert → **Ladendiebstahl 2**.
+  S2: Überwachungskamera bleibt, Reportage → **Außenreporter**, Handyaufnahme → **Maskierter Zeuge**. (IDs/Dateinamen
+  unverändert, z. B. `ep-auto`, `auto.mp4`.)
+- Hostage Holiday: Meta **„Stummfilm · 2:18"**, Text **„Mein allererstes Filmprojekt im ersten Semester, noch ganz ohne Erfahrung."**
+- Kommt zu mir: Meta **„Personenporträt · 5:17"**, Text **„Mein zweites Filmprojekt im zweiten Semester."** (Jugendseelsorger raus).
+- Weitere Videos: „Kugeln im Park" → **„Blender-Projekte"** (Text „Weitere kleine Projekte in meinem Lieblingsprogramm.").
+  Therme: neues Vorschaubild **`therme-doku-poster.webp`** (aus dem Film vor Ort, 16:9 unverzerrt). Das alte `thumb/therme-cover`
+  ist ein Standbild der 2756×384-Animation, in 16:9 gequetscht.
+- Fuß: statt „Kontakt / Schreib mir. / E-Mail" jetzt dieselbe Zeile wie überall: „← Zurück zur Startseite · Schreib mir" (de/en über
+  `L.home2`/`L.mail2`). Unten bleiben ©, Deutsch/English und „Nach oben".
+**Startseite** (Max: Texte, die dort auch vorkommen, mitnehmen; Sicherung `archiv/Startseite Stream.dc.2026-10-25-vor-texte.html`):
+  Infofenster-Texte von Menschen, iCapsule, Plakate, Erste bezahlte Arbeit, Blender, Flyer = die neuen Seitentexte (de) + von mir
+  übersetzt (en). Filme-Reihe: Metas und Texte wie auf der Filme-Seite. FPV-Karten: „In den Bergen", „Durch den Schnee",
+  „Auto-Rallye". Therme-Bild (Bereich und Karte) → `therme-doku-poster.webp`.
+  **Offen/nicht angefasst:** Text des Bereichs „3D & Design" ist noch „Blender ist mein absolutes Lieblingsprogramm.", Meta
+  „FPV · Schulprojekt · Bayerischer Wald" beim Papierflieger, Korea-Kartentitel (Krieger …) und „FPV-Flug" in „Weitere Videos"
+  der Filme-Seite. Max gefragt.
+Geprüft: Reihen und Folgennamen, Infofenster Imagefilm, Fuß im Browser ausgelesen. Tags ausgeglichen. **Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Drohne: Texte und Beschriftungen aufgeräumt, „Flieg mit mir" am Handy höher (lokal)
+
+Max: Die Drohnen-Seite ist etwas veraltet, bleibt aber gestalterisch, wie sie ist. Nur:
+- „Flieg mit mir." → **„Flieg mit mir"** (beide Startvarianten). Am Handy saß der Schriftzug zu tief. **Ursache:** Der Abschnitt
+  hatte `height:100vh`. Am iPhone ist das höher als der sichtbare Bereich (Adressleiste). Jetzt `100vh;100svh` wie die anderen
+  Seiten, und am Handy unten 72 px Abstand (`heroPadB`, vorher clamp 24–44 px). Gemessen 375×812: Unterkante 72 px über dem Rand.
+- **Kleine Beschriftungen weg:** „Projekt 11 · Zeitraffer · DJI Mini 4 Pro", die Abschnitts-Kopfzeilen „01 — Der Anfang · DJI Mini
+  2", „02 — Der Umstieg · FPV · von Hand", „Projekt · Schule · Bayerischer Wald", „03 — Geliehen …", „04 — Heute · Antippen für
+  Details" (Text weg, Trennlinie bleibt), „Im Urlaub · senkrecht nach unten / DJI Mini 2", „Das Haus am Ende der Landzunge /
+  Mini 2", „Die Küste entlang / Mini 2", „Zeitraffer aus der Luft", „Im Nebel", „Noch ein Zeitraffer", „▶ FPV · 2:23".
+  **Bleiben:** die großen Deko-Wörter „90°" und „Zeitraffer" auf den Zoom-Bildern, die Kamera-Anzeigen im FPV-Player (REC,
+  CH 01/03, Zeit) und die Equipment-Karten. Max darauf hingewiesen.
+- FPV-Text „Bei FPV sehe ich durch eine Brille …" entfernt.
+- FPV-Clips: „Winter in den Bergen" → **„In den Bergen"**, „Autos über Feldwege" → **„Auto-Rallye"**, „Durch den Schnee" bleibt,
+  **alle Unterzeilen weg**. Knopf „Ton an" entfernt (Clips bleiben stumm).
+- Papierflieger: Punkt weg. Text jetzt nur **„Entstanden in einer Projektwoche unserer Schule."**
+- Satz „Mit jedem Flug bin ich besser geworden … Das ist mein Stand heute." entfernt. „Equipment." → **„Equipment"**.
+- Schluss: statt „Danke fürs Mitfliegen / Zurück zum Portfolio →" und „Max Aulinger · Schreib mir →" jetzt **derselbe Fuß wie auf 3D**:
+  „← Zurück zur Startseite" · „Schreib mir", darunter „© 2026 Max Aulinger · Drohne & FPV". Der Abschnitt behält
+  `data-am="LAND"` (Höhenanzeige 0 m).
+- Nicht angefasst: die Texte t1–t3 (Max fand sie gut. Sie enthalten noch Gedankenstriche „—", falls er die später loswerden will).
+Sicherung `archiv/Drohne v5.dc.2026-10-25-vor-texte.html`. Tags ausgeglichen, Abschnittstexte im Browser ausgelesen.
+**Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Plakate-Text: Illustrator und Photoshop
+
+Max: Bei den politischen Plakaten waren nicht Illustrator und InDesign vorgesehen, sondern **Illustrator und Photoshop**.
+Neu: „Eigentlich waren hier Illustrator und Photoshop vorgesehen. Weil ich Blender aber viel lieber mag, habe ich die
+Plakate trotzdem darin gemacht." Das „auch" ist weggefallen, weil die Programme jetzt andere sind als beim Flyer.
+**Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Flyer-Text: Schluss gekürzt
+
+Max: „beim letzten Muster sogar die meisten. Seitdem fühle ich mich … eingeschränkt. Ich kann es noch ganz gut, aber …" wirkt
+komisch. Stattdessen: „Heutzutage benutze ich diese Programme eher ungern." (sein Satz). Damit „diese Programme" einen
+Bezug hat, steht vorne jetzt „in Illustrator **und InDesign** verbracht". **Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — 3D & Design: Texte neu, Punkte und kleine Beschriftungen weg, „Zurück zur Startseite" (lokal)
+
+Max wollte Texte, die **nicht KI-generiert wirken**, „aber trotzdem nicht scheiße klingen", und nicht länger als vorher.
+Meine Regeln dafür: Ich-Form, kurze Sätze, locker; **keine** Gedankenstriche, keine Doppelpunkt-Aufzählungen,
+keine „nicht nur … sondern", keine Werbewörter. Inhalte von Max vorgegeben (Sprachnachricht):
+- **iCapsule:** Produktbeschreibung bleibt, **neu:** vom HomePod inspiriert, Apples Designsprache übernehmen wollen.
+- **Flyer:** alles ausprobiert, bei Mustern an Grenzen gestoßen, Linien per Hand (letztes Muster fast komplett),
+  fühlt sich eingeschränkt, kann es noch, nutzt es ungern.
+- **Plakate:** eigentlich Illustrator/InDesign vorgesehen, Blender aber viel lieber, deshalb trotzdem Blender.
+- **Erste bezahlte Arbeit:** statt Aufzählung des Gezeigten (Muschel, Fischschwarm …) jetzt: viele Techniken
+  ausprobiert, ewig herumgespielt, Probleme. Wegen der Lichtreflexionen nur einfache Qualität, realistisch hätte der
+  Rechner mehrere Tage rendern müssen, dafür war die Zeit zu knapp.
+- **Blender-Abschnitt:** statt „Blender ist mein absolutes Lieblingsprogramm." jetzt „Weitere kleine Projekte in meinem
+  Lieblingsprogramm" (ohne Punkt, Blender-Logo darüber bleibt).
+- Punkte weg bei „Eigenes Apple-Produkt", „Flyer", „Politische Plakate", „Erste bezahlte Arbeit".
+- **Kleine Beschriftungen weg:** Kopfzeilen über den Abschnitten („iCapsule · Erstes Semester · Blender" usw.;
+  Text weg, die dünne Trennlinie bleibt), „In Blender · gedruckt und ausgestellt", „Vor Ort in der Therme", „Die
+  Animation · Original / 2756 × 384", alle Beschriftungen unter den Blender-Arbeiten (Toms Büro, Syntheca, Kugeln im
+  Park …). Plakate: **Titel bleiben** (Rechts ist nie ein Weg, Where your bubble ends, Kein Platz für Nazis), die
+  Unterzeilen (3D-Typografie, Typografie, Verzerrte Schrift) sind weg. Großansicht: nur bei den drei Plakaten der Titel,
+  sonst nichts.
+- Fuß: „← Zurück zur Übersicht" → „← Zurück zur Startseite". **Korea:** dort wieder ein Link „← Zurück zur Startseite"
+  vor „Schreib mir" (gleicher Stil wie der entfernte „Zurück zum Portfolio"). Menschen hat noch „Zurück zur Übersicht".
+  Nicht angefasst, Max gefragt.
+Sicherungen `archiv/3D Design.dc.2026-10-25-vor-texte.html`, `archiv/Korea v3.dc.2026-10-25-vor-startseite-link.html`.
+Geprüft: alle Abschnittstexte wie oben ausgelesen, keine Kleinbeschriftungen, Großansicht Blender ohne Text, Plakat
+mit Titel, Fuß „← Zurück zur Startseite | Schreib mir". **Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Knopf „Alle Bilder ansehen" / „Zu den Projekten" erscheint verzögert (lokal)
+
+Max: Bei Menschen soll der Knopf erst erscheinen, „wenn die Startanimation durch ist, also erst nach so 1 sec".
+Dann: „bei den anderen Seiten auch erst nach so 1,5 sec".
+- Knopf startet überall mit `opacity:0; pointer-events:none` (Merkmal `data-k="mehr"`), `showMehr(delay)` blendet
+  700 ms weich ein und macht ihn klickbar. Den Zeitgeber räumt `componentWillUnmount` auf.
+- **Menschen:** 1 s nach Ende der Startanimation (letzte Karte im Ring, `onfinish`). Die Startanimation selbst
+  dauert ~3,6 s nach dem Bilder-Entpacken (bis 1,5 s Wartezeit), also insgesamt ca. 4,6–6 s nach dem Laden. Bei
+  Ankunft per Seitenwechsel (`arrive`, keine Startanimation): nach 1 s. Bei reduzierter Bewegung sofort.
+- **Korea / 3D & Design:** 1,5 s nach Start des Vorspann-Videos (`afterCover` → `startVid` + `showMehr(1500)`).
+- Gedeutet: Bei Menschen „1 s nach Ende". Falls Max „1 s nach dem Laden" meinte, ist es ein Wert. **Max gesagt.**
+Sicherungen `archiv/*.2026-10-25-vor-knopf-spaeter.html`. Gemessen (Vorschau verdeckt, Zeitgeber gedrosselt):
+Korea erscheint nach 1,5 s, 3D ~2 s nach Messbeginn, Menschen nach 6,1 s (inkl. 1,5 s Entpack-Wartezeit),
+danach jeweils klickbar. **Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Texte: Fotos (nichts), Korea aufgeräumt, Pfeil-Knopf auf Menschen und 3D (lokal)
+
+**Fotos:** Laut Max kein Text, nichts geändert.
+**Korea** (`site/Korea v3.dc.html`, angezeigte Variante B):
+- „Alle Bilder." → „Alle Bilder"
+- „Ziehen, um alles zu sehen" entfernt (in der nicht angezeigten Variante A steht es noch, unsichtbar)
+- „← Zurück zum Portfolio" entfernt, „Schreib mir" bleibt
+- Gruppen-Überschriften auf der Bildfläche (`labels`, z. B. Krieger, Möwen, Am Meer, Seoul bei Nacht) entfernt
+- Ebenso die Beschriftung oben links beim Vergrößern (`data-k="cap"`: Gruppenname + Bildtitel wie „Der pinke
+  Schirm", „Goldenes Licht"). Das ist von mir als „kleine Überschriften" gedeutet und Max so gesagt. Die `CAP`-Texte
+  stehen noch im Code.
+**Knopf „Alle Bilder ansehen ↓"** (weiße Pille, schwarze Schrift, wippender Pfeil, unten rechts im Startbereich), so wie
+auf Korea:
+- Menschen: neu im Startbereich, Ziel `#bilder` (neue ID an der Bilder-Sektion), sanftes Scrollen (`toBilder`),
+  Pfeil-Animation in `componentDidMount` wie bei Korea.
+- 3D & Design: Der bisherige kleine Textlink „Zu den Projekten ↓" hat jetzt **genau das Aussehen** des Korea-Knopfs.
+  Text bleibt „Zu den Projekten" (passt dort besser), Ziel und Wipp-Animation unverändert. Max darauf hingewiesen.
+Sicherungen `Portfolio/archiv/*.2026-10-25-vor-texte-2.html`. Geprüft bei 1440×900: Korea-Fläche zeigt nur „Alle
+Bilder", 0 Labels, kein Hover-Text, Fuß nur „Schreib mir". Menschen- und 3D-Knopf je 40 px rechts / 45 px unten,
+Hintergrund #f2f2f2, Pfeil wippt, Klick scrollt genau zu den Bildern bzw. Projekten. **Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Menschen: neuer Satz von Max
+
+Max hat meine Vorschläge abgelehnt („neh, eher so") und selbst formuliert: „Ich liebe es mit coolen Bildern Leuten
+eine Freude zu bereiten". Übernommen, nur Rechtschreibung angepasst (Komma, „Bildern"):
+**„Ich liebe es, mit coolen Bildern Leuten eine Freude zu bereiten."** (`words` in `site/Menschen.dc.html`).
+Geprüft: 11 Wörter, das Wort-für-Wort-Einfärben bleibt. **Merke:** Max formuliert lieber selbst, locker und
+umgangssprachlich („coole Bilder"). Meine Vorschläge waren ihm zu gestelzt. **Nicht hochgeladen.**
+
+---
+
+## 25.10.2026 — Texte überarbeiten, Seite für Seite. Start: Menschen (lokal)
+
+Max: Die Texte sind KI-generiert und sollen jetzt **Seite für Seite** überarbeitet werden. Start mit **Menschen**
+(wenig Text). Ausdrücklich „mach nichts anderes".
+1. Große Überschrift ohne Punkt: „Menschen." → **„Menschen"**. Max’ Regel: Bei dicken Überschriften bzw.
+   Wörtern dieser Art kommt der Punkt weg. Er erwähnte, dass andere Seiten das auch haben. Die kommen erst dran,
+   wenn wir bei ihnen sind. (Hinweis für später: Bei Korea und 3D ist „Südkorea." / „Design." Teil der
+   gerenderten Videos.)
+2. **Namen weg**: Bei manchen Bildern standen Namen (Timo, Ares, Gabriel, Paul, Robin), bei anderen „Südkorea",
+   bei manchen nichts. Max fand das uneinheitlich, also überall nichts. Beschriftung beim Drüberfahren
+   (`figcaption`), Name in der Großansicht und `alt` geben jetzt leer aus (`name: ''`, `lbName: ''`). **Die Namen
+   bleiben intern in `F`** als Wissen, wer auf welchem Bild ist. Der `alt` vom Augen-Bild („Älterer Mann in
+   Südkorea", unsichtbar) bleibt unverändert.
+3. Satz „Ein Foto machen. Es zeigen. Und sie freuen sich." wirkt komisch. Max will **Vorschläge** und hat sich noch
+   nicht entschieden. Sinn laut Max: „du kannst einfach von vielen Menschen coole Bilder machen und ihnen zeigen,
+   und sie freuen sich dann". **Noch nicht geändert.**
+Sicherung `Portfolio/archiv/Menschen.dc.2026-10-25-vor-texte.html`. Geprüft: Überschrift „Menschen", 19 Bilder,
+keine Beschriftung mit Text, Großansicht ohne Namen. **Nicht hochgeladen.**
+
+---
+
 ## 22.10.2026 — „beste" → „bessere"
 
 Max: „ändere beste zu bessere, aber ändere sonst nichts". Nur das deutsche Wort im Handy-Hinweis geändert:
 „Für das bessere Erlebnis / bitte am PC oder Tablet ansehen." Die englische Zeile („best experience") bleibt,
-wie alles andere. Diff: genau eine Zeile. **Nicht hochgeladen.**
+wie alles andere. Diff: genau eine Zeile. ~~Nicht hochgeladen~~ → **Hochgeladen** auf Max’ „ja" (Commit `9c717f1`),
+live geprüft: Seite liefert „Für das bessere Erlebnis" (Handy) und „Wer schaut zu?" (groß) aus. (Vermerk nur lokal.)
 
 ---
 
