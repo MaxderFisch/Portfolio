@@ -1,5 +1,13 @@
 # Stand
 
+## 25.10.2026 — Startseite: Kartentitel „Tempeldach“ → „Tempel“
+
+Max: „ändere bei der Hauptseite die Bezeichnung Tempeldach zu einfach nur Tempel“. Reihe Südkorea, Karte `tag-tempeldach`:
+Titel jetzt ['Tempel', 'Temple'] (Englisch mitgezogen). Bilddatei unverändert. Sicherung `archiv/startseite-stream.2026-10-25-vor-tempel.html`.
+Hochgeladen auf Max’ Wunsch im selben Satz.
+
+---
+
 ## 25.10.2026 — Logo-Intro („Netflix-Intro") ohne Ton (lokal)
 
 Max: Beim Übergang mit dem Intro soll **nie** ein Ton zu hören sein.
@@ -7,7 +15,7 @@ Der Ton kam aus `assets/video/intro-logo.mp4`, das Startseite (nach der Profilwa
 `iv.muted = false` starteten. Jetzt auf beiden Seiten `iv.muted = true` plus `muted=""` am `<video data-k="iv">`. Die Videodatei
 selbst ist unverändert (Tonspur noch drin, wird nur nicht abgespielt). `seitenwechsel.js` spielt keinen Ton ab (geprüft per Suche).
 Sicherungen `Portfolio/archiv/*.2026-10-25-vor-intro-stumm.html`. Geprüft: Profil gewählt → Intro läuft (`paused` false), `muted` true.
-**Nicht hochgeladen.**
+~~Nicht hochgeladen.~~ Hochgeladen (Commit e63bd56), live geprüft.
 
 ---
 
