@@ -1214,3 +1214,12 @@ nicht spulbar (`video.seekable` = 0–0), und ein Startpunkt wie `s: 8.75` wird 
 läuft ab 0. Das sieht aus wie ein Fehler im Code, ist aber keiner. GitHub Pages kann Range.
 Zum Prüfen einen kleinen Node-Server mit 206/Content-Range auf einem anderen Port starten (Muster
 im Scratchpad vom 22.10., `range-serve.js`, Port 8001) und danach wieder beenden.
+
+---
+
+## 25.10.2026 — Neue schlichte Seite ⇒ Startseite zeigt wieder die Profilauswahl
+
+Die Startseite überspringt „Wer schaut zu?" nur, wenn sie weiß, dass man von innen kommt: `sessionStorage['mx-go']`
+(setzt `seitenwechsel.js` beim Klick) oder `sessionStorage['mx-weiter']` (setzen die schlichten HTML-Seiten per Einzeiler vor `</body>`).
+**Jede neue Seite ohne `seitenwechsel.js` braucht den Einzeiler**, sonst landet man nach „Zurück zur Startseite" wieder in der Auswahl.
+Vorlage: Ende von `site/impressum.html`. Nicht über `document.referrer` lösen: die Weiterleitungsseiten sind ebenfalls „von innen".

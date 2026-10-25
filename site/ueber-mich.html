@@ -10,8 +10,29 @@
   html,body{margin:0;background:#0c0c0c;color:#e8e8ea;font-family:'General Sans',system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
   *{box-sizing:border-box}
   a{color:inherit}
-  header{display:flex;align-items:center;height:68px;padding:0 4vw}
-  header img{display:block;height:clamp(18px,1.9vw,26px);width:auto}
+  header{position:relative;z-index:90;display:flex;align-items:center;gap:clamp(18px,2.6vw,44px);height:68px;padding:0 4vw;color:#f2f2f2}
+  header a{text-decoration:none}
+  .logo{flex:0 0 auto;display:block}
+  .logo img{display:block;height:clamp(18px,1.9vw,26px);width:auto}
+  .seiten{display:flex;align-items:center;gap:clamp(14px,1.7vw,26px)}
+  .seiten a,.rechts>a{font-size:14px;color:#e5e5e5;white-space:nowrap;transition:color .3s}
+  .seiten a:hover,.rechts>a:hover{color:#b3b3b3}
+  .rechts>a.an{font-weight:600;color:#f2f2f2}
+  .rechts{margin-left:auto;display:flex;align-items:center;gap:clamp(14px,1.6vw,24px)}
+  .menue{position:relative}
+  .menue>button{display:flex;align-items:center;gap:6px;padding:8px 0;border:0;background:none;color:#f2f2f2;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer}
+  .menue>button img{display:block;width:32px;height:32px;border-radius:4px;object-fit:cover}
+  .menue>button svg{transition:transform .25s}
+  .menue.offen>button svg{transform:rotate(180deg)}
+  .liste{display:none;position:absolute;top:48px;padding:8px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-radius:2px}
+  .menue.offen .liste{display:block}
+  .liste a{display:block;padding:9px 16px;font-size:14px;color:#f2f2f2;white-space:nowrap}
+  .liste a:hover{background:rgba(255,255,255,.06)}
+  .entdecken{display:none}
+  .entdecken .liste{left:-12px;min-width:220px;border-top:2px solid #f2f2f2}
+  .entdecken .liste a{padding:11px 18px}
+  .profil .liste{right:0;min-width:190px}
+  @media (max-width:899px){.seiten,.rechts>a{display:none}.entdecken{display:block}}
   main{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:center;max-width:1180px;margin:0 auto;padding:clamp(28px,6vh,72px) 4vw 80px;min-height:calc(100svh - 68px)}
   .bild img{display:block;width:100%;height:auto;max-height:78svh;object-fit:cover;border-radius:4px}
   h1{margin:0 0 28px;font-size:clamp(34px,4.6vw,62px);font-weight:600;line-height:1.02;letter-spacing:-.02em;color:#f2f2f2}
@@ -33,7 +54,15 @@
 <script>try{if(localStorage.getItem('mx-lang')==='en')document.documentElement.lang='en'}catch(e){}</script>
 </head>
 <body>
-<header><a href="Startseite%20Stream.dc.html"><img src="assets/logo-max.png" alt="Max Aulinger" width="937" height="179"></a></header>
+<header>
+  <a class="logo" href="Startseite%20Stream.dc.html"><img src="assets/logo-max.png" alt="Max Aulinger" width="937" height="179"></a>
+  <nav class="seiten"><a href="Startseite%20Stream.dc.html">Start</a><a href="Menschen.dc.html">Menschen</a><a href="Fotos.dc.html">Fotos</a><a href="Korea%20v3.dc.html">Korea</a><a href="Drohne%20v5.dc.html">Drohne</a><a href="Video.dc.html">Filme</a><a href="3D%20Design.dc.html">3D &amp; Design</a></nav>
+  <div class="menue entdecken"><button type="button">Entdecken<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button><div class="liste"><a href="Startseite%20Stream.dc.html">Start</a><a href="Menschen.dc.html">Menschen</a><a href="Fotos.dc.html">Fotos</a><a href="Korea%20v3.dc.html">Korea</a><a href="Drohne%20v5.dc.html">Drohne</a><a href="Video.dc.html">Filme</a><a href="3D%20Design.dc.html">3D &amp; Design</a></div></div>
+  <div class="rechts">
+    <a class="an" href="ueber-mich.html">Über mich</a>
+    <div class="menue profil"><button type="button" aria-label="Menü"><img src="assets/profil-icon.png" alt=""><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button><div class="liste"><a href="ueber-mich.html">Über mich</a><a href="mailto:maxau.aulo@gmail.com">Kontakt</a></div></div>
+  </div>
+</header>
 <main>
   <div class="bild">
     <picture>
@@ -59,5 +88,13 @@
     <div class="klein"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></div>
   </div>
 </main>
+<script>
+document.addEventListener('click',function(e){
+  var m=e.target.closest&&e.target.closest('.menue'), b=e.target.closest&&e.target.closest('.menue>button');
+  document.querySelectorAll('.menue.offen').forEach(function(x){if(x!==m)x.classList.remove('offen')});
+  if(b)m.classList.toggle('offen');
+});
+</script>
+<script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href*="Startseite"]');if(a)try{sessionStorage.setItem('mx-weiter',String(Date.now()))}catch(x){}});</script>
 </body>
 </html>

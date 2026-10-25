@@ -1,5 +1,25 @@
 # Stand
 
+## 25.10.2026 — Über mich mit voller Leiste; „Zurück zur Startseite" ohne Profilauswahl (lokal)
+
+Max: Auf der Über-mich-Seite soll oben die normale Leiste stehen (z. B. zu Drohne springen), „ändere sonst nichts". Und: Klick auf
+„Zurück zur Startseite" soll **überall** direkt zur Startseite führen, nicht noch einmal zur Auswahl Deutsch/Englisch.
+
+- **Ursache Auswahl:** Die Projektseiten laden `seitenwechsel.js`. Das setzt beim Klick `sessionStorage['mx-go']`, die Startseite sieht
+  das als „Ankunft" und überspringt die Auswahl. Die schlichten Seiten (Über mich, Impressum, Datenschutz, iCapsule) haben das Skript
+  nicht, deshalb kam dort die Auswahl. Auf Menschen geprüft: dort kam sie schon vorher nicht.
+- **Lösung:** Diese vier Seiten setzen beim Klick auf einen Link zur Startseite `sessionStorage['mx-weiter']` (Zeitstempel). Die
+  Startseite überspringt die Auswahl, wenn der Merker jünger als 15 s ist (`boot()`, direkt nach `__mxArrive`). Bewusst **nicht**
+  `seitenwechsel.js` eingebaut (hätte die Seiten mit Übergangsanimation verändert) und **nicht** über `document.referrer` gelöst
+  (die Weiterleitungen `site/index.html`, `index.html`, `Portfolio/live/index.html` hätten dann Erstbesuchern die Auswahl genommen).
+- **Leiste auf `ueber-mich.html`:** statischer Nachbau von `Navi.dc.html`: Logo, Start…3D & Design, rechts „Über mich" (fett, weil
+  aktiv) + Symbol-Menü (Über mich, Kontakt); unter 900 px „Entdecken"-Menü. Liegt im Fluss (nicht fixiert), Seite darunter unverändert.
+- Sicherungen `Portfolio/archiv/*.2026-10-25-vor-leiste-ohne-auswahl.html`.
+- Geprüft im Browser: Menü auf, „Entdecken" bei 648 px mit 7 Links; Klick „Zurück zur Startseite" von Über mich → keine Auswahl;
+  Gegenprobe Startseite ohne Merker neu geladen → Auswahl erscheint; von Menschen → keine Auswahl. **Nicht hochgeladen.**
+
+---
+
 ## 25.10.2026 — Kopfleiste „Über mich" + eigene Seite `site/ueber-mich.html` (lokal)
 
 Max (diktiert, mit Selbstkorrekturen): Oben rechts soll auf **allen** Seiten statt „Kontakt" etwas wie „Infos zu mir / zur Person"
@@ -29,7 +49,7 @@ Umsetzung:
 - Sicherungen `Portfolio/archiv/{startseite-stream,video,navi,icapsule}.2026-10-25-vor-ueber-mich.html`.
 - Geprüft: Klammern/divs/sc-if/Skripte aller 5 Dateien; im Browser Menüinhalte auf Startseite, Filme, Menschen per Klick ausgelesen,
   Startseiten-Knopf zeigt das Symbol; neue Seite bei 1280 px nebeneinander und bei 648 px untereinander angesehen, Englisch-Umschaltung.
-  **Nicht hochgeladen.**
+  ~~Nicht hochgeladen.~~ **Hochgeladen** auf Max’ „lade es hoch“ (Commit e36e863, zusammen mit den Kartentiteln), live geprüft: neue Seite und JPEG 200, Navi und Startseite liefern die neue Fassung.
 
 ---
 
@@ -39,7 +59,7 @@ Max: Unter den Bildern dieser zwei Reihen sollen keine Namen stehen (z. B. „Go
 Umsetzung: In `renderVals` ist `hasT` für Karten der Reihen `natur` und `design` immer falsch. Die Namen bleiben in den Daten,
 damit das Vorschaufenster beim Drüberfahren seine Titel behält. Alle anderen Reihen unverändert (geprüft: Projekte, Aus der Luft,
 Südkorea, Filme zeigen ihre Titel, Natur und 3D & Design keine). Sicherung `archiv/Startseite Stream.dc.2026-10-25-vor-kartentitel.html`.
-**Nicht hochgeladen.**
+~~Nicht hochgeladen.~~ Hochgeladen am 25.10. mit Commit e36e863.
 
 ---
 

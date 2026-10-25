@@ -224,6 +224,8 @@ class Component extends DCLogic {
     let arriving = false;
     try { const g = JSON.parse(ss('mx-go') || 'null'); arriving = !!(g && Date.now() - g.t < 6000); } catch (e) {}
     if (W && window.__mxArrive) arriving = true;
+    // Von Über mich, Impressum, Datenschutz, iCapsule (ohne Seitenwechsel-Skript): Profilauswahl überspringen
+    { const w = Number(ss('mx-weiter')); if (w && Date.now() - w < 15000) arriving = true; }
     const mode = P.profilauswahl ?? 'Immer', saved = ss('mx-profil');
     const def = (P.sprache ?? 'Deutsch') === 'English' ? 'en' : 'de';
     const lang = mode === 'Aus' ? def : (saved || ls('mx-lang') || def);
