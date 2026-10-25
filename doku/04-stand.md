@@ -1,5 +1,16 @@
 # Stand
 
+## 25.10.2026 — Logo-Intro („Netflix-Intro") ohne Ton (lokal)
+
+Max: Beim Übergang mit dem Intro soll **nie** ein Ton zu hören sein.
+Der Ton kam aus `assets/video/intro-logo.mp4`, das Startseite (nach der Profilwahl) und Filme-Seite (`playIntro`) bewusst mit
+`iv.muted = false` starteten. Jetzt auf beiden Seiten `iv.muted = true` plus `muted=""` am `<video data-k="iv">`. Die Videodatei
+selbst ist unverändert (Tonspur noch drin, wird nur nicht abgespielt). `seitenwechsel.js` spielt keinen Ton ab (geprüft per Suche).
+Sicherungen `Portfolio/archiv/*.2026-10-25-vor-intro-stumm.html`. Geprüft: Profil gewählt → Intro läuft (`paused` false), `muted` true.
+**Nicht hochgeladen.**
+
+---
+
 ## 25.10.2026 — Über mich mit voller Leiste; „Zurück zur Startseite" ohne Profilauswahl (lokal)
 
 Max: Auf der Über-mich-Seite soll oben die normale Leiste stehen (z. B. zu Drohne springen), „ändere sonst nichts". Und: Klick auf
@@ -16,7 +27,7 @@ Max: Auf der Über-mich-Seite soll oben die normale Leiste stehen (z. B. zu Droh
   aktiv) + Symbol-Menü (Über mich, Kontakt); unter 900 px „Entdecken"-Menü. Liegt im Fluss (nicht fixiert), Seite darunter unverändert.
 - Sicherungen `Portfolio/archiv/*.2026-10-25-vor-leiste-ohne-auswahl.html`.
 - Geprüft im Browser: Menü auf, „Entdecken" bei 648 px mit 7 Links; Klick „Zurück zur Startseite" von Über mich → keine Auswahl;
-  Gegenprobe Startseite ohne Merker neu geladen → Auswahl erscheint; von Menschen → keine Auswahl. **Nicht hochgeladen.**
+  Gegenprobe Startseite ohne Merker neu geladen → Auswahl erscheint; von Menschen → keine Auswahl. ~~Nicht hochgeladen.~~ **Hochgeladen** (Commit e11260d) auf Max’ „ja hochladen“, live geprüft: alle 5 Dateien liefern die neue Fassung.
 
 ---
 

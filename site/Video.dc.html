@@ -25,7 +25,7 @@ button{font-family:inherit}
 
 <sc-if value="{{ introMount }}" hint-placeholder-val="{{ true }}">
 <div data-k="intro" data-mx-own-intro="" style="position:fixed;inset:0;z-index:95;background:#000">
-  <video data-k="iv" src="assets/video/intro-logo.mp4" preload="auto" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{ introFit }};opacity:0"></video>
+  <video data-k="iv" src="assets/video/intro-logo.mp4" preload="auto" muted="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{ introFit }};opacity:0"></video>
   <button data-k="skip" onClick="{{ skipIntro }}" style="position:absolute;right:4vw;bottom:clamp(20px,5vh,48px);display:flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(255,255,255,.4);border-radius:4px;background:rgba(0,0,0,.35);color:#fff;font-size:13px;font-weight:500;letter-spacing:.06em;cursor:pointer;opacity:0" style-hover="background:rgba(0,0,0,.6)">{{ L.skip }} ›</button>
 </div>
 </sc-if>
@@ -401,7 +401,7 @@ class Component extends DCLogic {
     if (!iv) { this.finishNow(); return; }
     iv.style.transition = 'none'; iv.style.opacity = '0';
     try { iv.currentTime = 0; } catch (e) {}
-    iv.muted = false;
+    iv.muted = true; // Intro immer ohne Ton (Max, 25.10.2026)
     const go = () => { iv.style.transition = 'opacity .5s ease'; iv.style.opacity = '1'; };
     const pr = iv.play();
     if (pr) pr.then(go).catch(() => { iv.muted = true; iv.play().then(go).catch(() => this.endIntro(true)); }); else go();
