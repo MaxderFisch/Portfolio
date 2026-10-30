@@ -117,7 +117,6 @@ button{font-family:inherit}
       <p style="margin:10px 0 0;max-width:46ch;font-size:clamp(15px,1.2vw,19px);line-height:1.5;color:#ececee;text-wrap:pretty;text-shadow:0 1px 10px rgba(0,0,0,.45)">{{ hero.txt }}</p>
     </div>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px">
-      <a href="{{ hero.href }}" style="display:flex;align-items:center;gap:10px;height:46px;padding:0 26px 0 20px;border-radius:4px;background:#f2f2f2;color:#0c0c0c;font-size:16px;font-weight:600;transition:background .2s" style-hover="background:rgba(242,242,242,.75);color:#0c0c0c"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg>{{ L.watch }}</a>
       <button onClick="{{ heroInfo }}" style="display:flex;align-items:center;gap:10px;height:46px;padding:0 24px 0 18px;border:0;border-radius:4px;background:rgba(109,109,110,.7);color:#f2f2f2;font-size:16px;font-weight:600;cursor:pointer;transition:background .2s" style-hover="background:rgba(109,109,110,.45)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9.5"></circle><path d="M12 11v6M12 7v1"></path></svg>{{ L.more }}</button>
     </div>
   </div>
@@ -172,8 +171,8 @@ button{font-family:inherit}
   </a>
   <div data-k="popi" style="padding:14px 16px 18px">
     <div style="display:flex;align-items:center;gap:8px">
-      <a href="{{ pop.href }}" aria-label="{{ L.watch }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:#f2f2f2;color:#0c0c0c;transition:background .2s" style-hover="background:#cfcfd2;color:#0c0c0c"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg></a>
-      <span style="font-size:13px;font-weight:500;color:#d9d9dc">{{ L.watch }}</span>
+      <a href="{{ pop.href }}" aria-label="{{ L.more }}" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:#f2f2f2;color:#0c0c0c;transition:background .2s" style-hover="background:#cfcfd2;color:#0c0c0c"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M6 3.5l15 8.5-15 8.5z" fill="currentColor"></path></svg></a>
+      <span style="font-size:13px;font-weight:500;color:#d9d9dc">{{ L.more }}</span>
       <button onClick="{{ popInfo }}" aria-label="{{ L.more }}" style="margin-left:auto;display:flex;align-items:center;justify-content:center;width:38px;height:38px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,.45);background:rgba(36,36,38,.6);color:#f2f2f2;cursor:pointer;transition:border-color .2s" style-hover="border-color:#f2f2f2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 9l6 6 6-6"></path></svg></button>
     </div>
     <div style="margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">{{ pop.kicker }}</div>
@@ -291,7 +290,7 @@ class Component extends DCLogic {
         { p: 'plakate', src: A + 'plakat-rechts.webp', pos: '50% 30%' },
         { p: 'flyer', src: A + 'flyer-cover.jpg', t: ['Flyer'] }
       ] },
-      { id: 'natur', t: ['Natur', 'Nature'], href: 'Fotos.dc.html', shape: 'wide', items: [
+      { id: 'natur', t: ['Weitere Fotos', 'More photos'], href: 'Fotos.dc.html', shape: 'wide', items: [
         { p: 'sonne', src: N + 'sa-bruecke-nebel.webp', t: ['Nebel', 'Fog'] },
         { p: 'tiere', src: N + 'tier-zunge.webp', t: ['Zunge raus', 'Tongue out'] },
         { p: 'sonne', src: N + 'sa-donau-blau.webp', t: ['Blaue Stunde', 'Blue hour'] },
@@ -329,6 +328,8 @@ class Component extends DCLogic {
       en: { watch: 'Watch', more: 'More info', toPage: 'Open project', moreOf: 'More from this project', all: 'See all', skip: 'Skip', switchP: 'Switch profile', contact: 'Contact', about: 'About me', write: 'Write to me.', top: 'Back to top', browse: 'Browse', profile: 'Profile', active: 'active' }
     };
     const links = [[['Start', 'Home'], '#top'], [['Menschen', 'People'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Filme', 'Films'], 'Video.dc.html'], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
+    // Max, 31.10.2026: Von der Startseite aus immer oben auf der Zielseite landen, nie direkt beim Projekt
+    for (const k in P) if (P[k].href) P[k].href = P[k].href.split('#')[0];
     return this._D = { P, rows, byId, all, clips, S, links };
   }
 

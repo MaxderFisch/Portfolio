@@ -1,5 +1,22 @@
 # Stand
 
+## 31.10.2026 — Startseite: immer oben landen, „Mehr Infos“ statt „Ansehen“, „Weitere Fotos“ (lokal)
+
+Max (nach Rückfrage bestätigt): Jeder Klick auf der Startseite führt auf die Zielseite **ganz oben** (Animation/Intro sehen),
+nie direkt zu einem Projekt weiter unten, „bei allen Sachen“. Außerdem:
+- **Hover-Fenster:** Beim runden weißen Knopf steht „Mehr Infos“ statt „Ansehen“ (auch `aria-label`). Verhalten unverändert: Klick führt
+  zur Seite. Der zweite runde Knopf rechts (öffnet das Infofenster) bleibt, Max: „lass den so“.
+- **Showreel oben:** Knopf „Ansehen“ entfernt, nur „Mehr Infos“ bleibt (öffnet wie bisher das Infofenster).
+- **Reihe „Natur“** heißt jetzt „Weitere Fotos“ / „More photos“ (id bleibt `natur`).
+- 3D & Design: sonst nichts geändert.
+Umsetzung Sprungmarken: am Ende von `data()` werden alle `P[k].href` auf den Teil vor `#` gekürzt (betraf 3D #icapsule/#therme/
+#plakate/#blender, Fotos #sonnenaufgaenge/#tiere). Die Marken bleiben in den Daten stehen, falls man sie später wieder will.
+Sicherung `archiv/startseite-stream.2026-10-31-vor-mehr-infos.html`. Geprüft im Browser: kein Link der Startseite mit `.html#`,
+Showreel nur „Mehr Infos“, Hover-Knopf „Mehr Infos“, Reihentitel; Klick auf 3D-Karte → 3D-Seite ohne Hash, scrollY 0.
+~~Nicht hochgeladen.~~ Hochgeladen auf Max’ „ja lade nur die änderungen hoch“.
+
+---
+
 ## 26.10.2026 — Startseite: Doschauher und Bienen in der Filme-Reihe (lokal)
 
 Max (mit Screenshot der Reihe „Filme aus dem Studium“): Bienen und Doschauher sollen dort auch stehen.
