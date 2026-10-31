@@ -1,5 +1,19 @@
 # Stand
 
+## 31.10.2026 — Tab-Symbol (Favicon): rotes M auf Schwarz (lokal)
+
+Max: Im Chrome-Tab ist bei seiner Seite nur ein grauer Kreis; er will „ein rotes M auf schwarzem Hintergrund“ in der Schrift des Logos.
+Umsetzung: Das M direkt aus `assets/logo-max.png` ausgeschnitten (Bereich x 11–97, y 17–163, per Alphakanal ermittelt), damit es
+genau die Logo-Schrift samt leichter Perspektive hat. Mit ffmpeg auf schwarzes Quadrat gesetzt, **nur verkleinert** (147 px → 130/37/25 px):
+`assets/favicon-32.png`, `assets/favicon-48.png`, `assets/apple-touch-icon.png` (180, für iPhone-Homescreen).
+Eingebunden per `<link rel="icon">` + `apple-touch-icon` vor `</head>` in: Startseite Stream, Video, Menschen, Fotos, Korea v3,
+Drohne v5, 3D Design, ueber-mich, impressum, datenschutz, site/index.html, Startseite.dc.html (Weiterleitung), live/icapsule (mit `../`).
+Nicht in Testseiten (Fotos-*, DrohneKapitel, Portfolio v4) und nicht in Navi.dc.html (nur Baustein).
+Hinweis: GitHub Pages liefert kein `/favicon.ico` an der Domainwurzel aus unserem Repo, deshalb müssen die Links in jeder Seite stehen.
+Geprüft: auf Korea und iCapsule im Browser alle drei Links vorhanden und 200. ~~Nicht hochgeladen.~~ Hochgeladen auf Max’ „lade hoch“.
+
+---
+
 ## 31.10.2026 — Startseite: immer oben landen, „Mehr Infos“ statt „Ansehen“, „Weitere Fotos“ (lokal)
 
 Max (nach Rückfrage bestätigt): Jeder Klick auf der Startseite führt auf die Zielseite **ganz oben** (Animation/Intro sehen),
