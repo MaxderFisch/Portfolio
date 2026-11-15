@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-en-title="About me — Max Aulinger">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -59,18 +59,18 @@
 <body>
 <header>
   <a class="logo" href="Startseite%20Stream.dc.html"><img src="assets/logo-max.png" alt="Max Aulinger" width="937" height="179"></a>
-  <nav class="seiten"><a href="Startseite%20Stream.dc.html">Start</a><a href="Menschen.dc.html">Menschen</a><a href="Fotos.dc.html">Fotos</a><a href="Korea%20v3.dc.html">Korea</a><a href="Drohne%20v5.dc.html">Drohne</a><a href="Video.dc.html">Filme</a><a href="3D%20Design.dc.html">3D &amp; Design</a></nav>
-  <div class="menue entdecken"><button type="button">Entdecken<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button><div class="liste"><a href="Startseite%20Stream.dc.html">Start</a><a href="Menschen.dc.html">Menschen</a><a href="Fotos.dc.html">Fotos</a><a href="Korea%20v3.dc.html">Korea</a><a href="Drohne%20v5.dc.html">Drohne</a><a href="Video.dc.html">Filme</a><a href="3D%20Design.dc.html">3D &amp; Design</a></div></div>
+  <nav class="seiten"><a href="Startseite%20Stream.dc.html" data-en="Home">Start</a><a href="Menschen.dc.html" data-en="Portraits">Menschen</a><a href="Fotos.dc.html" data-en="Photos">Fotos</a><a href="Korea%20v3.dc.html">Korea</a><a href="Drohne%20v5.dc.html" data-en="Drone">Drohne</a><a href="Video.dc.html" data-en="Films">Filme</a><a href="3D%20Design.dc.html">3D &amp; Design</a></nav>
+  <div class="menue entdecken"><button type="button" data-en="Browse<svg width=&quot;12&quot; height=&quot;12&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.4&quot;><path d=&quot;M6 9l6 6 6-6&quot;></path></svg>">Entdecken<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button><div class="liste"><a href="Startseite%20Stream.dc.html" data-en="Home">Start</a><a href="Menschen.dc.html" data-en="Portraits">Menschen</a><a href="Fotos.dc.html" data-en="Photos">Fotos</a><a href="Korea%20v3.dc.html">Korea</a><a href="Drohne%20v5.dc.html" data-en="Drone">Drohne</a><a href="Video.dc.html" data-en="Films">Filme</a><a href="3D%20Design.dc.html">3D &amp; Design</a></div></div>
   <div class="rechts">
-    <a class="an" href="ueber-mich.html">Über mich</a>
-    <div class="menue profil"><button type="button" aria-label="Menü"><img src="assets/profil-icon.png" alt=""><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button><div class="liste"><a href="ueber-mich.html">Über mich</a><a href="mailto:maxau.aulo@gmail.com">Kontakt</a></div></div>
+    <a class="an" href="ueber-mich.html" data-en="About me">Über mich</a>
+    <div class="menue profil"><button type="button" aria-label="Menü" data-en-aria="Menu"><img src="assets/profil-icon.png" alt=""><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button><div class="liste"><a href="ueber-mich.html" data-en="About me">Über mich</a><a href="mailto:maxau.aulo@gmail.com" data-en="Contact">Kontakt</a></div></div>
   </div>
 </header>
 <main>
   <div class="bild">
     <picture>
       <source srcset="ueber-mich/max-1.webp" type="image/webp">
-      <img src="ueber-mich/max-1.jpg" alt="Max Aulinger mit seiner Drohne bei Sonnenuntergang" width="1051" height="1400">
+      <img src="ueber-mich/max-1.jpg" alt="Max Aulinger mit seiner Drohne bei Sonnenuntergang" data-en-alt="Max Aulinger with his drone at sunset" width="1051" height="1400">
     </picture>
   </div>
   <div>
@@ -87,10 +87,11 @@
       <p>Almost everything you see here was made in the last year.</p>
     </div>
     <div class="unten" data-l="de"><a href="Startseite%20Stream.dc.html">← Zurück zur Startseite</a><a href="mailto:maxau.aulo@gmail.com">Schreib mir</a></div>
-    <div class="unten" data-l="en"><a href="Startseite%20Stream.dc.html">← Back to the start page</a><a href="mailto:maxau.aulo@gmail.com">Write to me</a></div>
-    <div class="klein"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></div>
+    <div class="unten" data-l="en"><a href="Startseite%20Stream.dc.html">← Back to home</a><a href="mailto:maxau.aulo@gmail.com">Write to me</a></div>
+    <div class="klein"><a href="impressum.html" data-en="Legal notice">Impressum</a> · <a href="datenschutz.html" data-en="Privacy">Datenschutz</a></div>
   </div>
 </main>
+<script>/* Englisch, wenn auf Startseite oder Filme-Seite English gewählt wurde */(function(){var en=false;try{en=localStorage.getItem('mx-lang')==='en'}catch(x){}if(!en)return;var d=document,h=d.documentElement;h.lang='en';if(h.getAttribute('data-en-title'))d.title=h.getAttribute('data-en-title');d.querySelectorAll('[data-en]').forEach(function(e){e.innerHTML=e.getAttribute('data-en')});d.querySelectorAll('[data-en-alt]').forEach(function(e){e.alt=e.getAttribute('data-en-alt')});d.querySelectorAll('[data-en-aria]').forEach(function(e){e.setAttribute('aria-label',e.getAttribute('data-en-aria'))})})();</script>
 <script>
 document.addEventListener('click',function(e){
   var m=e.target.closest&&e.target.closest('.menue'), b=e.target.closest&&e.target.closest('.menue>button');

@@ -175,10 +175,10 @@ a:hover{color:inherit}
 </sc-if>
 
 <sc-if value="{{ heroRahmen }}" hint-placeholder-val="{{ false }}">
-  <section data-mode="Projekt 11" data-am="DJI" style="position:relative;height:100vh;min-height:600px;background:#ecebe6;color:#0c0c0c;display:flex;flex-direction:column;padding:64px clamp(16px,3vw,40px) clamp(16px,2vw,28px)">
+  <section data-mode="{{ T.mProj }}" data-am="DJI" style="position:relative;height:100vh;min-height:600px;background:#ecebe6;color:#0c0c0c;display:flex;flex-direction:column;padding:64px clamp(16px,3vw,40px) clamp(16px,2vw,28px)">
     <div data-hin="" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;border-top:1px solid rgba(12,12,12,.25);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#55544f;opacity:0"></div>
     <h1 style="margin:12px 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(60px,13.4vw,230px);line-height:.84;letter-spacing:-.035em;word-spacing:.06em">
-      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-hl="" style="display:block;transform:translateY(105%)">Flieg mit mir</span></span>
+      <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-hl="" style="display:block;transform:translateY(105%)">{{ T.fly }}</span></span>
     </h1>
     <div data-k="heroFrame" style="position:relative;flex:1;min-height:0;margin-top:clamp(12px,1.6vw,22px);overflow:hidden;background:#000;clip-path:inset(50% 0 50% 0)">
       <div data-k="heroWrap" style="position:absolute;inset:0">
@@ -188,7 +188,7 @@ a:hover{color:inherit}
   </section>
 </sc-if>
 <sc-if value="{{ heroVoll }}" hint-placeholder-val="{{ true }}">
-  <section data-mode="Projekt 11" data-am="DJI" style="position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:#000">
+  <section data-mode="{{ T.mProj }}" data-am="DJI" style="position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;background:#000">
     <div data-k="heroWrap" style="position:absolute;inset:0">
       <video data-k="heroVid" data-auto="" data-lsrc="assets/video/zeitraffer.mp4" preload="none" poster="assets/zeitraffer-poster.webp" muted="" loop="" playsinline="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
     </div>
@@ -196,7 +196,7 @@ a:hover{color:inherit}
     <div data-k="heroTxt" style="position:absolute;left:0;right:0;bottom:0;padding:0 clamp(16px,3vw,40px) {{ heroPadB }}">
       <div data-hin="" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;border-top:1px solid rgba(255,255,255,.4);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#ececec;opacity:0"></div>
       <h1 style="margin:14px 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(60px,13.4vw,230px);line-height:.84;letter-spacing:-.035em;word-spacing:.06em;color:#fff;mix-blend-mode:{{ heroBlend }}">
-        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-hl="" style="display:block;transform:translateY(105%)">Flieg mit mir</span></span>
+        <span style="display:block;overflow:hidden;padding-bottom:.06em"><span data-hl="" style="display:block;transform:translateY(105%)">{{ T.fly }}</span></span>
       </h1>
     </div>
   </section>
@@ -208,12 +208,12 @@ a:hover{color:inherit}
     <p data-scrub="" data-c0="#c4c2bb" data-c1="#0c0c0c" style="margin:28px 0 0;max-width:1260px;display:flex;flex-wrap:wrap;column-gap:.26em;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(34px,5.2vw,82px);line-height:1.03;letter-spacing:-.022em">
       <sc-for list="{{ t1 }}" as="w" hint-placeholder-count="0"><span data-sw="" style="color:#c4c2bb">{{ w.t }}</span></sc-for>
     </p>
-    <p data-fade="" style="margin:clamp(24px,3vw,40px) 0 0 auto;max-width:440px;font-size:15px;line-height:1.8;color:#2b2a27;opacity:0">Erfahrung mit Bildbearbeitung hatte ich damals noch keine, deshalb ist die Qualität nicht ganz so hoch. Ich fliege die Mini 2 aber bis heute gern.</p>
+    <p data-fade="" style="margin:clamp(24px,3vw,40px) 0 0 auto;max-width:440px;font-size:15px;line-height:1.8;color:#2b2a27;opacity:0">{{ T.mini }}</p>
   </div>
 
   <div data-zoom="" style="position:relative;height:175vh;margin-top:clamp(30px,4vw,60px)">
     <div style="position:sticky;top:0;height:100vh;overflow:hidden">
-      <div data-zbox="" style="position:absolute;inset:0;clip-path:inset(24% 30% 24% 30%);background:#0c4a5a"><img data-zimg="" src="assets/dji-bucht.jpg" alt="Bucht senkrecht von oben" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.5)"></div>
+      <div data-zbox="" style="position:absolute;inset:0;clip-path:inset(24% 30% 24% 30%);background:#0c4a5a"><img data-zimg="" src="assets/dji-bucht.jpg" alt="{{ T.altBay }}" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.5)"></div>
       <div data-zword="" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;mix-blend-mode:difference;color:#fff;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(110px,24vw,380px);line-height:1;letter-spacing:-.04em">90°</div>
     </div>
   </div>
@@ -255,7 +255,7 @@ a:hover{color:inherit}
       </sc-if>
       <div style="position:absolute;left:clamp(24px,3.4vw,48px);right:clamp(24px,3.4vw,48px);bottom:clamp(22px,3vw,44px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px 24px">
         <div style="min-width:0">
-          <div style="overflow:hidden;padding-bottom:.08em"><div data-k="clipT" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(28px,4.6vw,72px);line-height:.92;letter-spacing:-.018em;word-spacing:.06em;color:#fff">In den Bergen</div></div>
+          <div style="overflow:hidden;padding-bottom:.08em"><div data-k="clipT" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(28px,4.6vw,72px);line-height:.92;letter-spacing:-.018em;word-spacing:.06em;color:#fff">{{ T.clip1 }}</div></div>
           <div data-k="clipS" style="margin-top:8px;font-size:14px;line-height:1.5;color:#e6e6e6"></div>
           <div style="display:flex;gap:6px;margin-top:16px;width:min(280px,55vw)">
             <sc-for list="{{ clips }}" as="c" hint-placeholder-count="2"><div style="flex:1;height:2px;background:rgba(255,255,255,.25);overflow:hidden"><div data-seg="{{ c.i }}" style="height:100%;background:#fff;transform:scaleX(0);transform-origin:left"></div></div></sc-for>
@@ -267,16 +267,16 @@ a:hover{color:inherit}
   </div>
 </section>
 
-<section data-mode="Schulprojekt" data-am="FPV" style="background:#060607;color:#f2f2f2;padding:clamp(30px,4vw,60px) 0 clamp(90px,11vw,150px)">
+<section data-mode="{{ T.mSchool }}" data-am="FPV" style="background:#060607;color:#f2f2f2;padding:clamp(30px,4vw,60px) 0 clamp(90px,11vw,150px)">
   <div style="padding:0 clamp(16px,3vw,40px)">
     <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.16);padding-top:12px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#8d8d92"></div>
     <div data-grow="" style="position:relative;margin-top:22px;aspect-ratio:16/9;max-height:90vh;overflow:hidden;background:#111;transform-origin:50% 0">
       <video data-vsrc="assets/video/fpv-papierflieger.mp4" poster="assets/fpv-papierflieger-poster.webp" muted="true" controls="true" playsinline="true" preload="none" style="width:100%;height:100%;object-fit:cover;display:block;background:#000"></video>
       <div data-pf-deko="" aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0,rgba(0,0,0,0) 55%)"></div>
-      <div data-pf-deko="" style="position:absolute;left:clamp(18px,3vw,40px);bottom:clamp(16px,2.6vw,36px);overflow:hidden;padding-bottom:.08em"><div data-rise="" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(52px,10vw,170px);line-height:.86;letter-spacing:-.025em;color:#fff;transform:translateY(105%)">Papierflieger</div></div>
+      <div data-pf-deko="" style="position:absolute;left:clamp(18px,3vw,40px);bottom:clamp(16px,2.6vw,36px);overflow:hidden;padding-bottom:.08em"><div data-rise="" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(52px,10vw,170px);line-height:.86;letter-spacing:-.025em;color:#fff;transform:translateY(105%)">{{ T.pf }}</div></div>
     </div>
     <div style="display:grid;grid-template-columns:{{ g12 }};gap:18px 28px;margin-top:24px">
-      <p data-fade="" style="grid-column:{{ pfCol }};margin:0;font-size:15px;line-height:1.8;color:#cfcfcf;opacity:0">Entstanden in einer Projektwoche unserer Schule.</p>
+      <p data-fade="" style="grid-column:{{ pfCol }};margin:0;font-size:15px;line-height:1.8;color:#cfcfcf;opacity:0">{{ T.pfTxt }}</p>
     </div>
   </div>
 </section>
@@ -292,7 +292,7 @@ a:hover{color:inherit}
   <div data-zoom="" style="position:relative;height:175vh;margin-top:clamp(30px,4vw,60px)">
     <div style="position:sticky;top:0;height:100vh;overflow:hidden">
       <div data-zbox="" style="position:absolute;inset:0;clip-path:inset(24% 30% 24% 30%);background:#1a1f24"><video data-zimg="" data-auto="" data-lsrc="assets/video/zeitraffer.mp4" preload="none" poster="assets/zeitraffer-poster.webp" muted="" loop="" playsinline="" style="width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.5)"></video></div>
-      <div data-zword="" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;mix-blend-mode:difference;color:#fff;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(64px,14.5vw,250px);line-height:1;letter-spacing:-.025em">Zeitraffer</div>
+      <div data-zword="" aria-hidden="true" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;mix-blend-mode:difference;color:#fff;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(64px,14.5vw,250px);line-height:1;letter-spacing:-.025em">{{ T.zr }}</div>
     </div>
   </div>
 
@@ -330,14 +330,14 @@ a:hover{color:inherit}
   </div>
 </section>
 
-<section data-mode="Gelandet" data-am="LAND" style="background:#060607;color:#f2f2f2;padding:clamp(70px,9vw,120px) clamp(16px,3vw,40px) 28px">
+<section data-mode="{{ T.mLand }}" data-am="LAND" style="background:#060607;color:#f2f2f2;padding:clamp(70px,9vw,120px) clamp(16px,3vw,40px) 28px">
   <div style="display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center">
-    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">← Zurück zur Startseite</a>
-    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">Schreib mir</a>
+    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">{{ T.home }}</a>
+    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">{{ T.mail }}</a>
   </div>
   <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(50px,7vw,100px);padding-top:14px;border-top:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">
-    <span>© 2026 Max Aulinger · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
-    <span>Drohne &amp; FPV</span>
+    <span>© 2026 Max Aulinger · <a href="impressum.html">{{ T.imp }}</a> · <a href="datenschutz.html">{{ T.ds }}</a></span>
+    <span>{{ T.label }}</span>
   </div>
 </section>
 
@@ -363,17 +363,25 @@ a:hover{color:inherit}
         </div>
         <p data-dfade="" style="margin:20px 0 0;max-width:460px;font-size:14.5px;line-height:1.75;color:#2b2a27">{{ det.s }}</p>
         <div data-dfade="" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:26px">
-          <button onClick="{{ detPrev }}" style="font-family:'General Sans',system-ui,sans-serif;font-size:12px;font-weight:600;color:#0c0c0c;background:transparent;border:1.5px solid #0c0c0c;border-radius:999px;padding:10px 18px;cursor:pointer" style-hover="background:#0c0c0c;color:#f4f3ef">← Zurück</button>
-          <button onClick="{{ detNext }}" style="font-family:'General Sans',system-ui,sans-serif;font-size:12px;font-weight:600;color:#0c0c0c;background:transparent;border:1.5px solid #0c0c0c;border-radius:999px;padding:10px 18px;cursor:pointer" style-hover="background:#0c0c0c;color:#f4f3ef">Weiter →</button>
+          <button onClick="{{ detPrev }}" style="font-family:'General Sans',system-ui,sans-serif;font-size:12px;font-weight:600;color:#0c0c0c;background:transparent;border:1.5px solid #0c0c0c;border-radius:999px;padding:10px 18px;cursor:pointer" style-hover="background:#0c0c0c;color:#f4f3ef">{{ T.back }}</button>
+          <button onClick="{{ detNext }}" style="font-family:'General Sans',system-ui,sans-serif;font-size:12px;font-weight:600;color:#0c0c0c;background:transparent;border:1.5px solid #0c0c0c;border-radius:999px;padding:10px 18px;cursor:pointer" style-hover="background:#0c0c0c;color:#f4f3ef">{{ T.fwd }}</button>
         </div>
       </div>
     </div>
-    <button onClick="{{ detClose }}" aria-label="Schließen" style="pointer-events:auto;position:fixed;top:16px;right:clamp(16px,3vw,40px);z-index:2;width:46px;height:46px;border-radius:50%;border:1.5px solid #0c0c0c;background:#f4f3ef;color:#0c0c0c;font-size:18px;line-height:1;cursor:pointer" style-hover="background:#0c0c0c;color:#f4f3ef">✕</button>
+    <button onClick="{{ detClose }}" aria-label="{{ T.closeA }}" style="pointer-events:auto;position:fixed;top:16px;right:clamp(16px,3vw,40px);z-index:2;width:46px;height:46px;border-radius:50%;border:1.5px solid #0c0c0c;background:#f4f3ef;color:#0c0c0c;font-size:18px;line-height:1;cursor:pointer" style-hover="background:#0c0c0c;color:#f4f3ef">✕</button>
   </div>
 </sc-if>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;hero&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Rahmen&quot;,&quot;Weiß&quot;,&quot;Negativ&quot;],&quot;default&quot;:&quot;Weiß&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Start&quot;},&quot;aufbau&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Equipment&quot;},&quot;hud&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;FPV&quot;},&quot;wechsel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Rauschen&quot;,&quot;Schnitt&quot;],&quot;default&quot;:&quot;Rauschen&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;FPV&quot;},&quot;hoehenmesser&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Seite&quot;}}">
 class Component extends DCLogic {
+  // Englisch, wenn auf Startseite oder Filme-Seite English gewählt wurde (localStorage mx-lang). Deutsch bleibt Standard.
+  isEn() { if (this._en == null) { let e = false; try { e = localStorage.getItem('mx-lang') === 'en'; } catch (x) {} this._en = e; } return this._en; }
+  sprache(de, en, titel) {
+    if (this._T) return this._T;
+    const e = this.isEn();
+    if (e && typeof document !== 'undefined') { document.documentElement.lang = 'en'; if (titel) document.title = titel; }
+    return this._T = e ? Object.assign({}, de, en) : de;
+  }
   state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, ton: false, clip: 0, det: null };
   clipShown = -1; gClip = 0; seen = new WeakSet(); vseen = new WeakSet();
   $(s) { return document.querySelector(s); }
@@ -631,13 +639,14 @@ class Component extends DCLogic {
 
   clipData() {
     return this._clips || (this._clips = [
-      { src: 'assets/video/fpv-timeline-1.mp4', poster: 'assets/fpv-timeline-1-poster.webp', t: 'In den Bergen', s: '', dur: '0:33' },
-      { src: 'assets/video/fpv-autos-kurz.mp4', poster: 'assets/fpv-autos-kurz-poster.webp', t: 'Auto-Rallye', s: '', dur: '1:43' },
-      { src: '../Portfolio/assets/video/drohne-schnee.mp4', poster: 'assets/drohne-schnee-poster.webp', t: 'Durch den Schnee', s: '', dur: '1:04' }
+      { src: 'assets/video/fpv-timeline-1.mp4', poster: 'assets/fpv-timeline-1-poster.webp', t: this.isEn() ? 'In the mountains' : 'In den Bergen', s: '', dur: '0:33' },
+      { src: 'assets/video/fpv-autos-kurz.mp4', poster: 'assets/fpv-autos-kurz-poster.webp', t: this.isEn() ? 'Car rally' : 'Auto-Rallye', s: '', dur: '1:43' },
+      { src: '../Portfolio/assets/video/drohne-schnee.mp4', poster: 'assets/drohne-schnee-poster.webp', t: this.isEn() ? 'Through the snow' : 'Durch den Schnee', s: '', dur: '1:04' }
     ]);
   }
   gearData() {
-    return this._gear || (this._gear = [
+    if (this._gear) return this._gear;
+    const G = [
       { no: '01', typ: 'FPV-Drohne', name: 'iFlight Nazgul Evoque F5', role: 'Highspeed-Action', num: 190, unit: 'km/h', tagLine: 'Car-Tracking · Action-Sport · weite Landschaften', img: 'assets/gear/nazgul-evoque-f5.png', mw: '86%', dmw: '100%', asm: '-180,140,-7',
         s: 'Die große. Für schnelle Verfolgungen im Freien — Autos, Action-Sport und weite Landschaften.',
         facts: [['Größe', '5 Zoll · 6S'], ['Spitze', '190 km/h'], ['Gewicht', 'ca. 492 g ohne Akku'], ['Motoren', 'XING2 2207 · 1750 KV'], ['Kamera', 'DJI O4 Air Unit Pro'], ['Rahmen', 'DeadCat oder True X, umbaubar']] },
@@ -653,10 +662,13 @@ class Component extends DCLogic {
       { no: '05', typ: 'Funke', name: 'Radiomaster Pocket', role: 'Von Hand', tagLine: 'Kein Assistent, der abfängt', img: 'assets/gear/radiomaster-pocket.png', mw: '62%', dmw: '66%', asm: '220,160,8',
         s: 'Damit fliege ich. Die Sticks lassen sich abschrauben und die Antenne einklappen — sie passt fast in die Jackentasche.',
         facts: [['Funk', 'ExpressLRS 2,4 GHz'], ['Software', 'EdgeTX'], ['Sticks', 'Hall-Effekt'], ['Gewicht', 'ca. 288 g']] }
-    ]);
+    ];
+    const EN = [{"typ":"FPV drone","role":"High-speed action","tagLine":"Car tracking · Action sports · Wide landscapes","s":"The big one. For fast chases outdoors — cars, action sports and wide landscapes.","facts":[["Size","5 inch · 6S"],["Top speed","190 km/h"],["Weight","approx. 492 g without battery"],["Motors","XING2 2207 · 1750 KV"],["Camera","DJI O4 Air Unit Pro"],["Frame","DeadCat or True X, convertible"]]},{"typ":"FPV drone","role":"Smooth Cinematics","tagLine":"Prop guards · Close to people · Indoors","s":"The small one. For tight spots the big one can’t reach — indoors and close to people too.","facts":[["Size","2.2 inch Cinewhoop · 3S"],["Top speed","110 km/h"],["Weight","approx. 150 g with battery"],["Motors","LAVA 1104 · 7200 KV"],["Camera","DJI O4 Air Unit Pro"],["Protection","Full prop guards"]]},{"typ":"Camera","role":"Professional Look","tagLine":"Records and sends the image live to the goggles","s":"Sits on both FPV drones. It records the video and at the same time sends the live image to the goggles.","facts":[["Video","4K · up to 120 fps"],["Colour","10 bit"],["Sensor","1/1.3 inch"],["Field of view","155°"],["Weight","approx. 32 g"]]},{"typ":"Goggles","name":"DJI Goggles","role":"Through the goggles","tagLine":"I see what the drone sees","s":"In them I see live exactly what the camera on the drone sees.","facts":[["Image","live from the drone"],["Counterpart","DJI O4 Air Unit Pro"]]},{"typ":"Radio","role":"By hand","tagLine":"No assistant to catch you","s":"This is what I fly with. The sticks unscrew and the antenna folds away — it almost fits in a jacket pocket.","facts":[["Link","ExpressLRS 2.4 GHz"],["Software","EdgeTX"],["Sticks","Hall effect"],["Weight","approx. 288 g"]]}];
+    return this._gear = this.isEn() ? G.map((g, i) => Object.assign({}, g, EN[i])) : G;
   }
 
   renderVals() {
+    const T = this.sprache({"home":"← Zurück zur Startseite","mail":"Schreib mir","imp":"Impressum","ds":"Datenschutz","close":"Schließen ✕","prev":"Vorheriges Bild","next":"Nächstes Bild","fly":"Flieg mit mir","mini":"Erfahrung mit Bildbearbeitung hatte ich damals noch keine, deshalb ist die Qualität nicht ganz so hoch. Ich fliege die Mini 2 aber bis heute gern.","altBay":"Bucht senkrecht von oben","clip1":"In den Bergen","pf":"Papierflieger","pfTxt":"Entstanden in einer Projektwoche unserer Schule.","zr":"Zeitraffer","label":"Drohne & FPV","back":"← Zurück","fwd":"Weiter →","closeA":"Schließen","mLand":"Gelandet","mProj":"Projekt 11","mSchool":"Schulprojekt","t1":"Drohnen sind seit Jahren meine Leidenschaft. Angefangen hat alles mit einer DJI Mini 2 — mit ihr habe ich im Urlaub meine ersten Luftaufnahmen gemacht.","t2":"Irgendwann wollte ich mehr: dynamischere Aufnahmen. Ich fand FPV einfach cool — also bin ich umgestiegen.","t3":"Von einem Freund habe ich mir eine DJI Mini 4 Pro ausgeliehen und damit Zeitraffer-Aufnahmen gemacht.","t4":"Mit jedem Flug bin ich besser geworden — und mein Equipment ist mitgewachsen. Das ist mein Stand heute.","tonOff":"Ton aus","tonOn":"Ton an"}, {"home":"← Back to home","mail":"Write to me","imp":"Legal notice","ds":"Privacy","close":"Close ✕","prev":"Previous image","next":"Next image","fly":"Fly with me","mini":"I had no experience with photo editing back then, so the quality isn’t quite as high. But I still love flying the Mini 2 today.","altBay":"Bay seen straight from above","clip1":"In the mountains","pf":"Paper plane","pfTxt":"Made during a project week at our school.","zr":"Time-lapse","label":"Drone & FPV","back":"← Back","fwd":"Next →","closeA":"Close","mLand":"Landed","mProj":"Project 11","mSchool":"School project","t1":"Drones have been my passion for years. It all started with a DJI Mini 2 — I took my first aerial shots with it on holiday.","t2":"At some point I wanted more: more dynamic shots. I just thought FPV was cool — so I switched.","t3":"I borrowed a DJI Mini 4 Pro from a friend and used it to shoot time-lapses.","t4":"With every flight I got better — and my equipment grew with me. This is where I am today.","tonOff":"Sound off","tonOn":"Sound on"}, "Drone & FPV — Max Aulinger");
     const vw = this.state.vw, phone = vw < 700, mob = vw < 900;
     const P = this.props, hero = P.hero ?? 'Weiß';
     const C = 'rgba(255,255,255,.8)', g = 'linear-gradient(' + C + ',' + C + ')';
@@ -666,11 +678,12 @@ class Component extends DCLogic {
     const gd = this.gearData(), di = this.state.det;
     const det = di != null ? Object.assign({}, gd[di], { facts: gd[di].facts.map(([k, v]) => ({ k, v })) }) : { no: '', typ: '', name: '', role: '', img: '', s: '', facts: [], dmw: '100%' };
     return {
+      T,
       heroPadB: phone ? '72px' : 'clamp(24px,4vw,44px)', heroRahmen: hero === 'Rahmen', heroVoll: hero !== 'Rahmen', heroBlend: hero === 'Negativ' ? 'difference' : 'normal',
-      t1: W('Drohnen sind seit Jahren meine Leidenschaft. Angefangen hat alles mit einer DJI Mini 2 — mit ihr habe ich im Urlaub meine ersten Luftaufnahmen gemacht.'),
-      t2: W('Irgendwann wollte ich mehr: dynamischere Aufnahmen. Ich fand FPV einfach cool — also bin ich umgestiegen.'),
-      t3: W('Von einem Freund habe ich mir eine DJI Mini 4 Pro ausgeliehen und damit Zeitraffer-Aufnahmen gemacht.'),
-      t4: W('Mit jedem Flug bin ich besser geworden — und mein Equipment ist mitgewachsen. Das ist mein Stand heute.'),
+      t1: W(T.t1),
+      t2: W(T.t2),
+      t3: W(T.t3),
+      t4: W(T.t4),
       clips: this.clipData().map((c, i) => ({ i, src: c.src, poster: c.poster })),
       chans: this.clipData().map((c, i) => ({ label: 'CH 0' + (i + 1), go: () => this.setState({ clip: i }), bg: this.state.clip === i ? '#fff' : 'rgba(0,0,0,.35)', fg: this.state.clip === i ? '#000' : '#fff' })),
       gear: gd.map((it, i) => Object.assign({}, it, {
@@ -686,7 +699,7 @@ class Component extends DCLogic {
       detCols: mob ? '1fr' : 'minmax(0,1.15fr) minmax(0,1fr)', detImgBox: mob ? '260px' : '70vh', detImgMax: mob ? '300px' : '64vh',
       detClose: () => this.closeDet(), detNext: () => this.stepDet(1), detPrev: () => this.stepDet(-1),
       hudOn: P.hud ?? true, hudCorners, altOn: (P.hoehenmesser ?? true) && !phone,
-      tonLabel: this.state.ton ? 'Ton aus' : 'Ton an',
+      tonLabel: this.state.ton ? T.tonOff : T.tonOn,
       toggleTon: () => { const on = !this.state.ton; this.$$('[data-clip]').forEach(v => { v.muted = !on; }); this.setState({ ton: on }); },
       spinOp: phone ? '.35' : '1', pfCol: mob ? '1 / -1' : '1 / span 6', zrA: mob ? '1 / -1' : '1 / span 7', zrB: mob ? '1 / -1' : '8 / span 5', zrAmt: '0px', zrBmt: mob ? '0px' : '140px',
       g12: mob ? '1fr' : 'repeat(12,minmax(0,1fr))',

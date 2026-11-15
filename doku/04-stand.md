@@ -1,5 +1,42 @@
 # Stand
 
+## 15.11.2026 — Englische Fassung für alle Seiten (lokal)
+
+Max: Bisher war nur die Startseite (und die Filme-Seite) auf Englisch. Wer am Anfang **Englisch** wählt, soll auf **allen** Seiten Englisch
+sehen; wer Deutsch wählt, sieht alles **unverändert** wie bisher. Design nicht verändern, Texte ungefähr gleich lang, Überschriften ähnlich groß.
+„Menschen" soll auf Englisch **nicht „People"/„Human"**, sondern **„Portraits"** heißen. „Flieg mit mir" → „Fly with me" ausdrücklich ok.
+Er betonte nachträglich: nur Minimalsachen, keinen großen Umbau.
+
+**Wie die Sprache ankommt:** Alle Seiten lesen `localStorage["mx-lang"]` (setzt die Profilwahl der Startseite bzw. die Sprachknöpfe der
+Filme-Seite). Ohne Eintrag oder bei "de" → Deutsch wie bisher.
+- **.dc.html-Seiten** (Navi, Menschen, Fotos, Korea v3, Drohne v5, 3D Design): Jede Komponente hat `isEn()` und `sprache(de, en, titel)`.
+  In `renderVals` steht oben `const T = this.sprache({…deutsch…}, {…englisch…}, "Tab-Titel EN")`; im Template stehen statt fester Texte
+  `{{ T.schluessel }}`. Die deutschen Werte im DE-Wörterbuch sind **1:1 die alten Texte** (bei 3D automatisch aus der Datei übernommen).
+  Daten in `data()`/`gearData()` (Korea-Bildunterschriften und Themen, Drohnen-Clips und Ausrüstung, 3D-Bildunterschriften) schalten über
+  `this.isEn()`. Bei EN wird auch `<html lang>` und der Tab-Titel umgestellt.
+- **Statische Seiten** (ueber-mich, impressum, datenschutz, live/icapsule): Englischer Text steht als `data-en="…"` am Element
+  (`data-en-alt`, `data-en-aria`, `data-en-title` am <html>); ein kleines Inline-Skript vor dem ersten <script> im body tauscht bei EN ein.
+  ueber-mich hatte schon eigene DE/EN-Blöcke für den Inhalt; dazu kamen Leiste, Fußzeile, Titel.
+- **Startseite + Filme-Seite:** nur `["Menschen", "People"]` → `["Menschen", "Portraits"]` (3× bzw. 1×). Sonst nichts.
+
+**Wortwahl (EN):** Leiste Home · Portraits · Photos · Korea · Drone · Films · 3D & Design · About me · Browse · Contact.
+Fuß: „← Back to home" · „Write to me" · „Legal notice" · „Privacy". Menschen: „Portraits", Unterzeile „People · 85 mm f/1.4",
+„See all photos", Satz „I love making people happy with cool pictures." Korea: „South Korea.", „Semester abroad", „Drag to see everything",
+Themen Warriors/Temples/City/Faces/By the sea/Seagulls/At night/Overview. Drohne: „Fly with me", „Paper plane", „Time-lapse",
+Clips „In the mountains"/„Car rally"/„Through the snow", Ausrüstung komplett. 3D: „My own Apple product", „Political posters",
+„First paid job", lange Texte übersetzt (je ca. 10–15 % kürzer als Deutsch). iCapsule-Produktseite, Impressum, Datenschutz komplett.
+Kleine Abweichung: ueber-mich EN-Rücklink von „Back to the start page" auf „← Back to home" vereinheitlicht (nur Englisch).
+
+Skripte der Umstellung: Scratchpad `en/s1–s6.js` (zählen jedes Muster, brechen bei Abweichung ab, ohne zu schreiben).
+Sicherungen `Portfolio/archiv/*.2026-11-15-vor-englisch.html` (12 Dateien).
+Geprüft im Browser mit mx-lang=en: alle 9 Unterseiten per Textsuche ohne deutsche Reste (außer Eigennamen wie Kropfmühl, Bad Füssing,
+und den versteckten DE-Blöcken auf ueber-mich); Tab-Titel englisch; Startseite und Filme-Seite ohne deutsche Reste.
+Mit mx-lang=de: Menschen, Drohne, iCapsule zeigen die alten deutschen Texte und Titel. Screenshots Menschen („Portraits") und Drohne
+(„Fly with me") bei 1280 px: Layout unverändert. Nebenbei: iCloud hatte 599 Asset-Dateien ausgelagert (503 im Browser), zurückgeholt.
+~~Nicht hochgeladen.~~ Hochgeladen auf Max’ „ja“.
+
+---
+
 ## 31.10.2026 — Tab-Symbol (Favicon): rotes M auf Schwarz (lokal)
 
 Max: Im Chrome-Tab ist bei seiner Seite nur ein grauer Kreis; er will „ein rotes M auf schwarzem Hintergrund“ in der Schrift des Logos.

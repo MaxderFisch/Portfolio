@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" data-en-title="Legal notice — Max Aulinger">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,20 +24,21 @@
 <body>
 <header><a href="Startseite%20Stream.dc.html"><img src="assets/logo-max.png" alt="Max Aulinger" width="937" height="179"></a></header>
 <main>
-  <h1>Impressum</h1>
+  <h1 data-en="Legal notice">Impressum</h1>
 
-  <h2>Angaben nach § 5 DDG und § 18 MStV</h2>
+  <h2 data-en="Information pursuant to § 5 DDG and § 18 MStV">Angaben nach § 5 DDG und § 18 MStV</h2>
   <p>Max Aulinger<br>Euzersdorf 8e<br>94121 Salzweg</p>
 
-  <h2>Kontakt</h2>
+  <h2 data-en="Contact">Kontakt</h2>
   <p>E-Mail: <a href="mailto:maxau.aulo@gmail.com">maxau.aulo@gmail.com</a></p>
 
-  <h2>Hinweis</h2>
-  <p>Diese Seite ist mein persönliches Portfolio. Alle Fotos, Filme, Animationen und Texte sind, soweit nicht anders angegeben, von mir. Bitte nicht ohne Rückfrage verwenden.</p>
+  <h2 data-en="Note">Hinweis</h2>
+  <p data-en="This site is my personal portfolio. Unless stated otherwise, all photos, films, animations and texts are my own. Please don’t use them without asking.">Diese Seite ist mein persönliches Portfolio. Alle Fotos, Filme, Animationen und Texte sind, soweit nicht anders angegeben, von mir. Bitte nicht ohne Rückfrage verwenden.</p>
 
-  <p><a href="datenschutz.html">Datenschutzerklärung</a></p>
-  <a class="zurueck" href="Startseite%20Stream.dc.html">← Zurück zur Startseite</a>
+  <p><a href="datenschutz.html" data-en="Privacy policy">Datenschutzerklärung</a></p>
+  <a class="zurueck" href="Startseite%20Stream.dc.html" data-en="← Back to home">← Zurück zur Startseite</a>
 </main>
+<script>/* Englisch, wenn auf Startseite oder Filme-Seite English gewählt wurde */(function(){var en=false;try{en=localStorage.getItem('mx-lang')==='en'}catch(x){}if(!en)return;var d=document,h=d.documentElement;h.lang='en';if(h.getAttribute('data-en-title'))d.title=h.getAttribute('data-en-title');d.querySelectorAll('[data-en]').forEach(function(e){e.innerHTML=e.getAttribute('data-en')});d.querySelectorAll('[data-en-alt]').forEach(function(e){e.alt=e.getAttribute('data-en-alt')});d.querySelectorAll('[data-en-aria]').forEach(function(e){e.setAttribute('aria-label',e.getAttribute('data-en-aria'))})})();</script>
 <script>document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href*="Startseite"]');if(a)try{sessionStorage.setItem('mx-weiter',String(Date.now()))}catch(x){}});</script>
 </body>
 </html>

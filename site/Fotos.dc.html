@@ -30,27 +30,35 @@ a:hover{color:inherit}
   <div data-k="plane" style="position:absolute;left:0;top:0;width:{{ pw }};height:{{ ph }};transform-origin:0 0;will-change:transform">
     <sc-for list="{{ items }}" as="it" hint-placeholder-count="0">
       <figure data-i="{{ it.i }}" style="position:absolute;left:{{ it.l }};top:{{ it.t }};width:{{ it.w }};height:{{ it.h }};margin:0;overflow:hidden;background:#0d0d0e;opacity:0;cursor:zoom-in;transition:opacity .6s ease">
-        <img data-im="" src="{{ it.th }}" alt="Foto" draggable="false" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;transition:transform .8s cubic-bezier(.16,1,.3,1)">
+        <img data-im="" src="{{ it.th }}" alt="{{ T.foto }}" draggable="false" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;transition:transform .8s cubic-bezier(.16,1,.3,1)">
       </figure>
     </sc-for>
   </div>
 
-  <div style="position:absolute;left:clamp(12px,2.4vw,32px);bottom:clamp(12px,2.4vw,28px);z-index:5;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92"><a href="impressum.html" style="color:inherit">Impressum</a> · <a href="datenschutz.html" style="color:inherit">Datenschutz</a></div>
+  <div style="position:absolute;left:clamp(12px,2.4vw,32px);bottom:clamp(12px,2.4vw,28px);z-index:5;font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92"><a href="impressum.html" style="color:inherit">{{ T.imp }}</a> · <a href="datenschutz.html" style="color:inherit">{{ T.ds }}</a></div>
   <div style="position:absolute;right:clamp(12px,2.4vw,32px);bottom:clamp(12px,2.4vw,28px);z-index:5;display:flex;gap:6px">
-    <button onClick="{{ zoomOut }}" aria-label="Rauszoomen" style="width:44px;height:44px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;font-size:20px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">−</button>
-    <button onClick="{{ zoomIn }}" aria-label="Reinzoomen" style="width:44px;height:44px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;font-size:20px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">+</button>
-    <button onClick="{{ fitAll }}" aria-label="Alle Bilder" style="width:44px;height:44px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;cursor:pointer;display:grid;place-items:center;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000"><span style="display:block;width:14px;height:14px;border:1.5px solid currentColor"></span></button>
+    <button onClick="{{ zoomOut }}" aria-label="{{ T.zout }}" style="width:44px;height:44px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;font-size:20px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">−</button>
+    <button onClick="{{ zoomIn }}" aria-label="{{ T.zin }}" style="width:44px;height:44px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-family:'General Sans',system-ui,sans-serif;font-size:20px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">+</button>
+    <button onClick="{{ fitAll }}" aria-label="{{ T.all }}" style="width:44px;height:44px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;cursor:pointer;display:grid;place-items:center;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000"><span style="display:block;width:14px;height:14px;border:1.5px solid currentColor"></span></button>
   </div>
 
   <sc-if value="{{ focOn }}" hint-placeholder-val="{{ false }}">
-    <button onClick="{{ prev }}" aria-label="Vorheriges Bild" style="position:absolute;left:clamp(8px,2vw,24px);top:50%;z-index:5;transform:translateY(-50%);width:48px;height:48px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-size:20px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">←</button>
-    <button onClick="{{ next }}" aria-label="Nächstes Bild" style="position:absolute;right:clamp(8px,2vw,24px);top:50%;z-index:5;transform:translateY(-50%);width:48px;height:48px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-size:20px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">→</button>
-    <button onClick="{{ close }}" aria-label="Schließen" style="position:absolute;right:clamp(12px,2.4vw,32px);top:78px;z-index:5;width:44px;height:44px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-size:16px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">✕</button>
+    <button onClick="{{ prev }}" aria-label="{{ T.prev }}" style="position:absolute;left:clamp(8px,2vw,24px);top:50%;z-index:5;transform:translateY(-50%);width:48px;height:48px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-size:20px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">←</button>
+    <button onClick="{{ next }}" aria-label="{{ T.next }}" style="position:absolute;right:clamp(8px,2vw,24px);top:50%;z-index:5;transform:translateY(-50%);width:48px;height:48px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-size:20px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">→</button>
+    <button onClick="{{ close }}" aria-label="{{ T.closeA }}" style="position:absolute;right:clamp(12px,2.4vw,32px);top:78px;z-index:5;width:44px;height:44px;border:1px solid rgba(255,255,255,.22);background:#000;color:#f2f2f2;font-size:16px;line-height:1;cursor:pointer;transition:background .3s,color .3s" style-hover="background:#f2f2f2;color:#000">✕</button>
   </sc-if>
 </section>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;abstand&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Eng&quot;,&quot;Mittel&quot;,&quot;Weit&quot;],&quot;default&quot;:&quot;Mittel&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Fläche&quot;},&quot;einblenden&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Fläche&quot;}}">
 class Component extends DCLogic {
+  // Englisch, wenn auf Startseite oder Filme-Seite English gewählt wurde (localStorage mx-lang). Deutsch bleibt Standard.
+  isEn() { if (this._en == null) { let e = false; try { e = localStorage.getItem('mx-lang') === 'en'; } catch (x) {} this._en = e; } return this._en; }
+  sprache(de, en, titel) {
+    if (this._T) return this._T;
+    const e = this.isEn();
+    if (e && typeof document !== 'undefined') { document.documentElement.lang = 'en'; if (titel) document.title = titel; }
+    return this._T = e ? Object.assign({}, de, en) : de;
+  }
   state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, vh: typeof window !== 'undefined' ? innerHeight : 800, foc: -1 };
   $(s) { return document.querySelector(s); }
 
@@ -387,9 +395,11 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    const T = this.sprache({"home":"← Zurück zur Startseite","mail":"Schreib mir","imp":"Impressum","ds":"Datenschutz","close":"Schließen ✕","prev":"Vorheriges Bild","next":"Nächstes Bild","foto":"Foto","zout":"Rauszoomen","zin":"Reinzoomen","all":"Alle Bilder","closeA":"Schließen"}, {"home":"← Back to home","mail":"Write to me","imp":"Legal notice","ds":"Privacy","close":"Close ✕","prev":"Previous image","next":"Next image","foto":"Photo","zout":"Zoom out","zin":"Zoom in","all":"All photos","closeA":"Close"}, "Photos — Max Aulinger");
     const vw = this.state.vw, vh = this.state.vh, L = this.lay(vw, vh), n = L.items.length;
     const px = v => v.toFixed(1) + 'px';
     return {
+      T,
       pw: px(L.PW), ph: px(L.PH),
       items: L.items.map((it, i) => ({ i, l: px(it.x), t: px(it.y), w: px(it.w), h: px(it.h), th: it.th })),
       focOn: this.state.foc > -1,

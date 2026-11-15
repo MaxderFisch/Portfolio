@@ -30,7 +30,7 @@ a:hover{color:inherit}
   <div data-k="reel" style="position:absolute;inset:0">
     <video data-f="vid" muted="true" loop="true" playsinline="true" preload="auto" disablepictureinpicture="true" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000"><source media="(max-aspect-ratio: 3/4)" src="assets/video/intro-3d-design-9x16.mp4" type="video/mp4"><source src="assets/video/intro-3d-design-16x9.mp4" type="video/mp4"></video>
   </div>
-  <a href="#icapsule" data-k="mehr" onClick="{{ toProjects }}" style="opacity:0;pointer-events:none;position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1);z-index:3" style-hover="transform:scale(1.06)">Zu den Projekten <span data-k="arrow" style="display:inline-block;font-size:15px">↓</span></a>
+  <a href="#icapsule" data-k="mehr" onClick="{{ toProjects }}" style="opacity:0;pointer-events:none;position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1);z-index:3" style-hover="transform:scale(1.06)">{{ T.mehr }} <span data-k="arrow" style="display:inline-block;font-size:15px">↓</span></a>
 </section>
 
 <section id="icapsule" data-screen-label="iCapsule" style="position:relative;background:#0c0c0c;color:#f2f2f2;padding:clamp(70px,9vw,130px) clamp(16px,3vw,40px) 0">
@@ -38,13 +38,13 @@ a:hover{color:inherit}
   <div style="display:grid;grid-template-columns:{{ icCols }};gap:clamp(28px,3.4vw,56px);margin-top:clamp(28px,3.4vw,52px)">
     <div style="display:flex;flex-direction:column;justify-content:space-between;gap:clamp(28px,3vw,44px);min-width:0">
       <div>
-        <h2 style="margin:-.09em 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(28px,2.9vw,46px);line-height:.95;letter-spacing:-.025em;text-wrap:balance">Eigenes Apple-Produkt</h2>
-        <p data-up="" style="margin:clamp(14px,1.4vw,20px) 0 0;font-size:clamp(15px,1.1vw,16px);line-height:1.6;color:#bdbdc2;text-wrap:pretty;opacity:0">Im ersten Semester sollten wir ein eigenes Apple-Produkt entwerfen. Eigentlich war dafür Illustrator gedacht, aber weil es ein 3D-Objekt ist, habe ich es in Blender gebaut. Inspiriert hat mich vor allem der HomePod. Ich wollte, dass die iCapsule wirklich wie ein Apple-Produkt aussieht, und habe versucht, die Designsprache von Apple so gut es geht zu übernehmen. Die Idee dahinter ist ein Speicher für deine Fotos, der sie mit KI aufbereitet, dir immer wieder alte Erinnerungen zeigt und sich mit iCloud und deinem Smart Home verbindet.</p>
+        <h2 style="margin:-.09em 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(28px,2.9vw,46px);line-height:.95;letter-spacing:-.025em;text-wrap:balance">{{ T.icT }}</h2>
+        <p data-up="" style="margin:clamp(14px,1.4vw,20px) 0 0;font-size:clamp(15px,1.1vw,16px);line-height:1.6;color:#bdbdc2;text-wrap:pretty;opacity:0">{{ T.icTxt }}</p>
       </div>
       <a href="live/icapsule.html" onMouseEnter="{{ ctaIn }}" style="display:flex;align-items:center;justify-content:space-between;gap:clamp(14px,1.6vw,24px);padding:clamp(14px,1.4vw,20px) clamp(14px,1.4vw,20px) clamp(14px,1.4vw,20px) clamp(20px,2vw,28px);background:#f2f2f2;color:#0c0c0c;text-decoration:none;transition:background .35s" style-hover="background:#ffffff">
         <span style="display:flex;flex-direction:column;gap:7px;min-width:0">
-          <span style="font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#55544f">Das fertige Produkt</span>
-          <span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(24px,2.5vw,40px);line-height:1;letter-spacing:-.025em">Zur Produktseite</span>
+          <span style="font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#55544f">{{ T.fin }}</span>
+          <span style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(24px,2.5vw,40px);line-height:1;letter-spacing:-.025em">{{ T.toProd }}</span>
         </span>
         <span style="flex:0 0 auto;position:relative;width:clamp(52px,4.4vw,68px);height:clamp(52px,4.4vw,68px);border-radius:50%;background:#0c0c0c;color:#f2f2f2;overflow:hidden">
           <span data-k="ctaArr" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(20px,1.7vw,26px);line-height:1">→</span>
@@ -66,7 +66,7 @@ a:hover{color:inherit}
   <div style="display:flex;flex-wrap:wrap;gap:clamp(28px,3.4vw,56px);margin-top:clamp(28px,3.4vw,52px)">
     <div style="flex:1 1 320px;min-width:0">
       <h2 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(30px,3.2vw,52px);line-height:1.02;letter-spacing:-.025em;text-wrap:balance">Flyer</h2>
-      <p data-up="" style="margin:clamp(16px,1.6vw,24px) 0 0;max-width:46ch;font-size:clamp(15px,1.15vw,17px);line-height:1.6;color:#bdbdc2;text-wrap:pretty;opacity:0">Die zweite Aufgabe war ein Flyer. Ich habe dafür die Weihnachtsferien in Illustrator und InDesign verbracht und so ziemlich alles ausprobiert, was die Programme können. Bei einigen Mustern bin ich aber an Grenzen gestoßen, weil es einfach nicht so funktioniert hat, wie ich es mir vorgestellt hatte. Ein paar Linien habe ich am Ende per Hand gezogen. Heutzutage benutze ich diese Programme eher ungern.</p>
+      <p data-up="" style="margin:clamp(16px,1.6vw,24px) 0 0;max-width:46ch;font-size:clamp(15px,1.15vw,17px);line-height:1.6;color:#bdbdc2;text-wrap:pretty;opacity:0">{{ T.flTxt }}</p>
     </div>
     <div style="flex:2.2 1 600px;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,max(240px,calc((100% - 14px) / 2))),1fr));gap:14px">
       <sc-for list="{{ flyer }}" as="it" hint-placeholder-count="4">
@@ -81,9 +81,9 @@ a:hover{color:inherit}
 <section id="plakate" data-screen-label="Plakate" style="position:relative;background:#ecebe6;color:#0c0c0c;overflow-x:clip;padding:clamp(60px,7vw,110px) 0 clamp(40px,5vw,70px)">
   <div style="padding:0 clamp(16px,3vw,40px)">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px 30px">
-    <h2 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(48px,8vw,130px);line-height:.9;letter-spacing:-.035em">Politische Plakate</h2>
+    <h2 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(48px,8vw,130px);line-height:.9;letter-spacing:-.035em">{{ T.plT }}</h2>
   </div>
-    <p data-up="" style="margin:0;max-width:52ch;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:#3c3b37;text-wrap:pretty;opacity:0;margin-top:clamp(18px,2vw,28px);max-width:40ch">Eigentlich waren hier Illustrator und Photoshop vorgesehen. Weil ich Blender aber viel lieber mag, habe ich die Plakate trotzdem darin gemacht.</p>
+    <p data-up="" style="margin:0;max-width:52ch;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:#3c3b37;text-wrap:pretty;opacity:0;margin-top:clamp(18px,2vw,28px);max-width:40ch">{{ T.plTxt }}</p>
   </div>
   <div data-m-pin="fan" style="position:relative;height:{{ fanH }}">
     <div style="position:sticky;top:{{ fanTop }};height:{{ fanStH }}">
@@ -108,8 +108,8 @@ a:hover{color:inherit}
   <div style="display:grid;grid-template-columns:{{ icCols }};gap:clamp(28px,3.4vw,56px);margin-top:clamp(28px,3.4vw,52px)">
     <div style="display:flex;flex-direction:column;justify-content:space-between;gap:clamp(28px,3vw,44px);min-width:0">
       <div>
-        <h2 style="margin:-.09em 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(28px,2.9vw,46px);line-height:.95;letter-spacing:-.025em;text-wrap:balance">Erste bezahlte Arbeit</h2>
-        <p data-up="" style="margin:clamp(14px,1.4vw,20px) 0 0;font-size:clamp(15px,1.1vw,16px);line-height:1.6;color:#b3c9d1;text-wrap:pretty;opacity:0">Unsere Hochschule arbeitet mit der Therme Bad Füssing zusammen. Für sie habe ich einen Sommer lang an einer Unterwasser-Animation gearbeitet, die im Winter in einem der Becken läuft. Ich habe dabei viele verschiedene Techniken ausprobiert, ewig herumgespielt und hatte auch einige Probleme. Durch die vielen Lichtreflexionen war die Szene so aufwendig, dass ich sie nur in dieser einfacheren Qualität rendern konnte. In realistischer Qualität hätte mein Rechner mehrere Tage durchlaufen müssen, und dafür war die Zeit zu knapp.</p>
+        <h2 style="margin:-.09em 0 0;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(28px,2.9vw,46px);line-height:.95;letter-spacing:-.025em;text-wrap:balance">{{ T.thT }}</h2>
+        <p data-up="" style="margin:clamp(14px,1.4vw,20px) 0 0;font-size:clamp(15px,1.1vw,16px);line-height:1.6;color:#b3c9d1;text-wrap:pretty;opacity:0">{{ T.thTxt }}</p>
       </div>
       <div style="display:flex;gap:clamp(8px,1vw,14px)">
         <sc-for list="{{ th }}" as="it" hint-placeholder-count="2">
@@ -136,7 +136,7 @@ a:hover{color:inherit}
   <div style="display:flex;justify-content:space-between;gap:16px;border-top:1px solid rgba(255,255,255,.18);padding-top:12px;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#8d8d92"></div>
   <div data-up="" style="display:flex;align-items:center;gap:clamp(16px,2vw,32px);margin-top:clamp(26px,3.4vw,48px);opacity:0">
     <img src="assets/blender-logo.webp" alt="Blender" loading="lazy" decoding="async" style="display:block;width:clamp(54px,6.4vw,110px);height:auto;aspect-ratio:900/736;flex:0 0 auto">
-    <p style="margin:0;max-width:16ch;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(32px,4.6vw,78px);line-height:1.02;letter-spacing:-.03em;text-wrap:balance">Weitere kleine Projekte in meinem Lieblingsprogramm</p>
+    <p style="margin:0;max-width:16ch;font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(32px,4.6vw,78px);line-height:1.02;letter-spacing:-.03em;text-wrap:balance">{{ T.blTxt }}</p>
   </div>
   <div style="display:flex;flex-direction:{{ rowDir }};gap:clamp(8px,1vw,14px);max-width:1080px;margin-top:clamp(36px,4.4vw,70px)">
     <sc-for list="{{ bl1 }}" as="it" hint-placeholder-count="1">
@@ -157,11 +157,11 @@ a:hover{color:inherit}
 
 <section data-screen-label="Ende" style="position:relative;background:#0c0c0c;color:#f2f2f2;padding:clamp(70px,9vw,130px) clamp(16px,3vw,40px) clamp(30px,4vw,50px)">
   <div style="display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center">
-    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">← Zurück zur Startseite</a>
-    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">Schreib mir</a>
+    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">{{ T.home }}</a>
+    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">{{ T.mail }}</a>
   </div>
   <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(50px,7vw,100px);padding-top:14px;border-top:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">
-    <span>© 2026 Max Aulinger · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+    <span>© 2026 Max Aulinger · <a href="impressum.html">{{ T.imp }}</a> · <a href="datenschutz.html">{{ T.ds }}</a></span>
     <span>3D &amp; Design</span>
   </div>
 </section>
@@ -170,14 +170,22 @@ a:hover{color:inherit}
   <div onClick="{{ lbClose }}" style="position:fixed;inset:0;z-index:150;background:rgba(6,6,7,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:6vh 5vw;cursor:zoom-out">
     <img src="{{ lbSrc }}" alt="" style="max-width:100%;max-height:84vh;object-fit:contain;display:block">
     <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:16px;color:#f2f2f2">{{ lbName }}</div>
-    <span style="position:absolute;top:20px;right:24px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#f2f2f2">Schließen ✕</span>
-    <button onClick="{{ lbPrev }}" aria-label="Vorheriges Bild" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">←</button>
-    <button onClick="{{ lbNext }}" aria-label="Nächstes Bild" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">→</button>
+    <span style="position:absolute;top:20px;right:24px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#f2f2f2">{{ T.close }}</span>
+    <button onClick="{{ lbPrev }}" aria-label="{{ T.prev }}" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">←</button>
+    <button onClick="{{ lbNext }}" aria-label="{{ T.next }}" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">→</button>
   </div>
 </sc-if>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  // Englisch, wenn auf Startseite oder Filme-Seite English gewählt wurde (localStorage mx-lang). Deutsch bleibt Standard.
+  isEn() { if (this._en == null) { let e = false; try { e = localStorage.getItem('mx-lang') === 'en'; } catch (x) {} this._en = e; } return this._en; }
+  sprache(de, en, titel) {
+    if (this._T) return this._T;
+    const e = this.isEn();
+    if (e && typeof document !== 'undefined') { document.documentElement.lang = 'en'; if (titel) document.title = titel; }
+    return this._T = e ? Object.assign({}, de, en) : de;
+  }
   state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, lb: -1 };
   $(s) { return document.querySelector(s); }
   $$(s) { return Array.from(document.querySelectorAll(s)); }
@@ -201,6 +209,7 @@ class Component extends DCLogic {
       ['b-buero', A + 'blender/toms-buero.webp', 1400, 1400, 'Toms Büro', 'Blender'],
       ['p-syn', A + 'plakat-syntheca.webp', 768, 1024, 'Syntheca', 'Sticker · Blender']
     ].map(([k, src, w, h, cap, sub]) => ({ k, src, w, h, cap, sub }));
+    if (this.isEn()) { const E = {"bts1":["At the screen","Blender"],"bts2":["The insides","Blender"],"fl1":["Spread 1","Flyer"],"fl2":["Spread 2","Flyer"],"fl3":["Spread 3","Flyer"],"fl4":["Spread 4","Flyer"],"p-rechts":["The right is never the way","3D typography"],"p-bubble":["Where your bubble ends","Typography"],"p-nazis":["No place for Nazis","Distorted type"],"th2":["At the workstation","Three screens"],"th3":["At the limit","Out of storage"],"b-buero":["Tom’s office","Blender"],"p-syn":["Syntheca","Sticker · Blender"]}; all.forEach(x => { if (E[x.k]) { x.cap = E[x.k][0]; x.sub = E[x.k][1]; } }); }
     return (this._D = { all });
   }
   open(k) { const i = this.data().all.findIndex(x => x.k === k); if (i > -1) this.setState({ lb: i }); }
@@ -475,10 +484,12 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    const T = this.sprache({"home":"← Zurück zur Startseite","mail":"Schreib mir","imp":"Impressum","ds":"Datenschutz","close":"Schließen ✕","prev":"Vorheriges Bild","next":"Nächstes Bild","mehr":"Zu den Projekten","icT":"Eigenes Apple-Produkt","icTxt":"Im ersten Semester sollten wir ein eigenes Apple-Produkt entwerfen. Eigentlich war dafür Illustrator gedacht, aber weil es ein 3D-Objekt ist, habe ich es in Blender gebaut. Inspiriert hat mich vor allem der HomePod. Ich wollte, dass die iCapsule wirklich wie ein Apple-Produkt aussieht, und habe versucht, die Designsprache von Apple so gut es geht zu übernehmen. Die Idee dahinter ist ein Speicher für deine Fotos, der sie mit KI aufbereitet, dir immer wieder alte Erinnerungen zeigt und sich mit iCloud und deinem Smart Home verbindet.","fin":"Das fertige Produkt","toProd":"Zur Produktseite","flTxt":"Die zweite Aufgabe war ein Flyer. Ich habe dafür die Weihnachtsferien in Illustrator und InDesign verbracht und so ziemlich alles ausprobiert, was die Programme können. Bei einigen Mustern bin ich aber an Grenzen gestoßen, weil es einfach nicht so funktioniert hat, wie ich es mir vorgestellt hatte. Ein paar Linien habe ich am Ende per Hand gezogen. Heutzutage benutze ich diese Programme eher ungern.","plT":"Politische Plakate","plTxt":"Eigentlich waren hier Illustrator und Photoshop vorgesehen. Weil ich Blender aber viel lieber mag, habe ich die Plakate trotzdem darin gemacht.","thT":"Erste bezahlte Arbeit","thTxt":"Unsere Hochschule arbeitet mit der Therme Bad Füssing zusammen. Für sie habe ich einen Sommer lang an einer Unterwasser-Animation gearbeitet, die im Winter in einem der Becken läuft. Ich habe dabei viele verschiedene Techniken ausprobiert, ewig herumgespielt und hatte auch einige Probleme. Durch die vielen Lichtreflexionen war die Szene so aufwendig, dass ich sie nur in dieser einfacheren Qualität rendern konnte. In realistischer Qualität hätte mein Rechner mehrere Tage durchlaufen müssen, und dafür war die Zeit zu knapp.","blTxt":"Weitere kleine Projekte in meinem Lieblingsprogramm"}, {"home":"← Back to home","mail":"Write to me","imp":"Legal notice","ds":"Privacy","close":"Close ✕","prev":"Previous image","next":"Next image","mehr":"See the projects","icT":"My own Apple product","icTxt":"In my first semester we had to design our own Apple product. Illustrator was actually meant for this, but since it’s a 3D object, I built it in Blender. My main inspiration was the HomePod. I wanted the iCapsule to really look like an Apple product and tried to adopt Apple’s design language as closely as I could. The idea behind it is a storage device for your photos that enhances them with AI, keeps showing you old memories and connects to iCloud and your smart home.","fin":"The finished product","toProd":"View product page","flTxt":"The second assignment was a flyer. I spent my Christmas break in Illustrator and InDesign and tried out pretty much everything the programs can do. With some patterns I hit their limits, because things just didn’t work the way I had pictured them. In the end I drew a few lines by hand. These days I’d rather not use these programs.","plT":"Political posters","plTxt":"Illustrator and Photoshop were actually planned for this. But since I like Blender a lot more, I made the posters in it anyway.","thT":"First paid job","thTxt":"Our university works with the Therme Bad Füssing spa. For them I spent a summer working on an underwater animation that runs in one of the pools in winter. I tried out lots of different techniques, experimented endlessly and ran into quite a few problems. Because of all the light reflections the scene was so demanding that I could only render it in this simpler quality. In realistic quality my computer would have had to run for several days, and there wasn’t enough time for that.","blTxt":"More small projects in my favourite program"}, "3D & Design — Max Aulinger");
     const D = this.data(), vw = this.state.vw, phone = vw < 700, lb = this.state.lb, n = D.all.length, cur = lb > -1 ? D.all[lb] : null;
     const by = k => D.all.find(x => x.k === k);
     const row = ks => ks.map(k => { const x = by(k); return { src: x.src, cap: x.cap, sub: x.sub, ar: x.w + ' / ' + x.h, fx: phone ? '0 0 auto' : (x.w / x.h).toFixed(4) + ' 1 0px', open: () => this.open(k) }; });
     return {
+      T,
       rowDir: phone ? 'column' : 'row',
       toProjects: e => { e.preventDefault(); const el = document.getElementById('icapsule'); if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: 'smooth' }); },
       bts: ['bts1', 'bts2'].map(k => { const x = by(k); return { src: x.src, cap: x.cap, fx: (x.w / x.h).toFixed(4) + ' 1 0px', open: () => this.open(k) }; }),

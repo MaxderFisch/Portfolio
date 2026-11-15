@@ -39,10 +39,10 @@ a:hover{color:inherit}
     </div>
   </div>
   <div data-k="head" style="position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,1.4vw,18px);pointer-events:none;opacity:{{ headOp }}">
-    <h1 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,10vw,170px);line-height:.86;letter-spacing:-.035em;color:#fff">Menschen</h1>
-    <div style="font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf">Porträts · 85 mm f/1.4</div>
+    <h1 style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(56px,10vw,170px);line-height:.86;letter-spacing:-.035em;color:#fff">{{ T.h1 }}</h1>
+    <div style="font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf">{{ T.sub }}</div>
   </div>
-  <a href="#bilder" data-k="mehr" onClick="{{ toBilder }}" style="opacity:0;pointer-events:none;position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1);z-index:6" style-hover="transform:scale(1.06)">Alle Bilder ansehen <span data-k="arrow" style="display:inline-block;font-size:15px">↓</span></a>
+  <a href="#bilder" data-k="mehr" onClick="{{ toBilder }}" style="opacity:0;pointer-events:none;position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1);z-index:6" style-hover="transform:scale(1.06)">{{ T.mehr }} <span data-k="arrow" style="display:inline-block;font-size:15px">↓</span></a>
 </section>
 
 <section id="bilder" data-screen-label="Menschen Bilder" style="background:#000;color:#f2f2f2;padding:clamp(80px,10vw,150px) clamp(16px,3vw,40px) clamp(60px,7vw,100px)">
@@ -61,19 +61,19 @@ a:hover{color:inherit}
       </div>
     </sc-for>
     <figure data-eyes="" onClick="{{ eyesOpen }}" style="margin:0;position:relative;aspect-ratio:1700/713;overflow:hidden;background:#000;cursor:zoom-in">
-      <div data-eclip="" style="position:absolute;inset:0;clip-path:inset(20% 0 70% 0)"><img src="assets/korea/dsc01025.webp" alt="Älterer Mann in Südkorea" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
+      <div data-eclip="" style="position:absolute;inset:0;clip-path:inset(20% 0 70% 0)"><img src="assets/korea/dsc01025.webp" alt="{{ T.altEyes }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
     </figure>
   </div>
 </section>
 
 <section style="background:#000;color:#f2f2f2;padding:clamp(70px,9vw,140px) clamp(16px,3vw,40px) 28px">
   <div style="display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center">
-    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">← Zurück zur Übersicht</a>
-    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">Schreib mir</a>
+    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">{{ T.home }}</a>
+    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">{{ T.mail }}</a>
   </div>
   <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(60px,8vw,120px);padding-top:14px;border-top:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">
-    <span>© 2026 Max Aulinger · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
-    <span>Menschen</span>
+    <span>© 2026 Max Aulinger · <a href="impressum.html">{{ T.imp }}</a> · <a href="datenschutz.html">{{ T.ds }}</a></span>
+    <span>{{ T.h1 }}</span>
   </div>
 </section>
 
@@ -81,14 +81,22 @@ a:hover{color:inherit}
   <div onClick="{{ lbClose }}" style="position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:6vh 5vw;cursor:zoom-out">
     <img src="{{ lbSrc }}" alt="" style="max-width:100%;max-height:84vh;object-fit:contain;display:block">
     <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:16px;color:#f2f2f2">{{ lbName }}</div>
-    <span style="position:absolute;top:20px;right:24px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#f2f2f2">Schließen ✕</span>
-    <button onClick="{{ lbPrev }}" aria-label="Vorheriges Bild" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">←</button>
-    <button onClick="{{ lbNext }}" aria-label="Nächstes Bild" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">→</button>
+    <span style="position:absolute;top:20px;right:24px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#f2f2f2">{{ T.close }}</span>
+    <button onClick="{{ lbPrev }}" aria-label="{{ T.prev }}" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">←</button>
+    <button onClick="{{ lbNext }}" aria-label="{{ T.next }}" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:52px;height:52px;border:0;background:none;color:#f2f2f2;font-size:26px;cursor:pointer">→</button>
   </div>
 </sc-if>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
+  // Englisch, wenn auf Startseite oder Filme-Seite English gewählt wurde (localStorage mx-lang). Deutsch bleibt Standard.
+  isEn() { if (this._en == null) { let e = false; try { e = localStorage.getItem('mx-lang') === 'en'; } catch (x) {} this._en = e; } return this._en; }
+  sprache(de, en, titel) {
+    if (this._T) return this._T;
+    const e = this.isEn();
+    if (e && typeof document !== 'undefined') { document.documentElement.lang = 'en'; if (titel) document.title = titel; }
+    return this._T = e ? Object.assign({}, de, en) : de;
+  }
   state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, lb: -1 };
   from = (() => { try { const v = JSON.parse(sessionStorage.getItem('mx-trans') || 'null'); return v && v.p === 'menschen' && Date.now() - v.t < 10000 ? v.t : 0; } catch (e) { return 0; } })();
   $(s) { return document.querySelector(s); }
@@ -268,9 +276,11 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    const T = this.sprache({"home":"← Zurück zur Übersicht","mail":"Schreib mir","imp":"Impressum","ds":"Datenschutz","close":"Schließen ✕","prev":"Vorheriges Bild","next":"Nächstes Bild","h1":"Menschen","sub":"Porträts · 85 mm f/1.4","mehr":"Alle Bilder ansehen","words":"Ich liebe es, mit coolen Bildern Leuten eine Freude zu bereiten.","altEyes":"Älterer Mann in Südkorea"}, {"home":"← Back to home","mail":"Write to me","imp":"Legal notice","ds":"Privacy","close":"Close ✕","prev":"Previous image","next":"Next image","h1":"Portraits","sub":"People · 85 mm f/1.4","mehr":"See all photos","words":"I love making people happy with cool pictures.","altEyes":"Elderly man in South Korea"}, "Portraits — Max Aulinger");
     const D = this.data(), vw = this.state.vw, phone = vw < 700, g = typeof window !== 'undefined' ? this.geo() : { w: 100, h: 150 }, lb = this.state.lb;
     const n = D.all.length, cur = lb > -1 ? D.all[lb] : null;
     return {
+      T,
       cw: g.w.toFixed(0) + 'px', ch: g.h.toFixed(0) + 'px',
       ring: D.ringFull.map((id, i) => {
         let op = '0', tf = 'translate(-50%,-50%)';
@@ -278,7 +288,7 @@ class Component extends DCLogic {
         return { i, op, tf, src: 'assets/thumb/men-' + i + '.webp', open: () => this.open(id) };
       }),
       headOp: this.from ? '1' : '0',
-      words: 'Ich liebe es, mit coolen Bildern Leuten eine Freude zu bereiten.'.split(' ').map(t => ({ t })),
+      words: T.words.split(' ').map(t => ({ t })),
       rowDir: phone ? 'column' : 'row',
       rows: D.rows.map(r => ({ figs: r.map(id => { const x = D.F[id]; return { src: x[0], name: '', ar: x[1] + ' / ' + x[2], fx: phone ? '0 0 auto' : (x[1] / x[2]).toFixed(4) + ' 1 0px', open: () => this.open(id) }; }) })),
       eyesOpen: () => this.open('eyes'),

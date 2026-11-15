@@ -18,7 +18,7 @@
   </sc-if>
   <sc-if value="{{ narrow }}" hint-placeholder-val="{{ false }}">
     <div data-menu="" style="position:relative">
-      <button onClick="{{ toggle }}" style="display:flex;align-items:center;gap:6px;padding:8px 0;border:0;background:none;color:#f2f2f2;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer">Entdecken<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button>
+      <button onClick="{{ toggle }}" style="display:flex;align-items:center;gap:6px;padding:8px 0;border:0;background:none;color:#f2f2f2;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer">{{ T.browse }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"></path></svg></button>
       <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;left:-12px;top:44px;min-width:220px;padding:8px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-top:2px solid #f2f2f2;border-radius:2px">
           <sc-for list="{{ links }}" as="l" hint-placeholder-count="0">
@@ -29,16 +29,16 @@
     </div>
   </sc-if>
   <div style="margin-left:auto;display:flex;align-items:center;gap:clamp(14px,1.6vw,24px)">
-    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><a href="ueber-mich.html" style="font-size:14px;color:#e5e5e5;white-space:nowrap;text-decoration:none;transition:color .3s" style-hover="color:#b3b3b3">Über mich</a></sc-if>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><a href="ueber-mich.html" style="font-size:14px;color:#e5e5e5;white-space:nowrap;text-decoration:none;transition:color .3s" style-hover="color:#b3b3b3">{{ T.about }}</a></sc-if>
     <div data-menu="" style="position:relative">
-      <button onClick="{{ toggleProf }}" aria-label="Menü" style="display:flex;align-items:center;gap:8px;padding:0;border:0;background:none;color:#f2f2f2;cursor:pointer">
+      <button onClick="{{ toggleProf }}" aria-label="{{ T.menu }}" style="display:flex;align-items:center;gap:8px;padding:0;border:0;background:none;color:#f2f2f2;cursor:pointer">
         <img src="assets/profil-icon.png" alt="" style="display:block;width:32px;height:32px;border-radius:4px;object-fit:cover">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="transform:rotate({{ caretRot }});transition:transform .25s"><path d="M6 9l6 6 6-6"></path></svg>
       </button>
       <sc-if value="{{ profOpen }}" hint-placeholder-val="{{ false }}">
         <div style="position:absolute;right:0;top:48px;min-width:190px;padding:8px 0;background:rgba(12,12,12,.96);border:1px solid rgba(255,255,255,.14);border-radius:2px">
-          <a href="ueber-mich.html" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2;text-decoration:none" style-hover="background:rgba(255,255,255,.06)">Über mich</a>
-          <a href="mailto:maxau.aulo@gmail.com" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2;text-decoration:none" style-hover="background:rgba(255,255,255,.06)">Kontakt</a>
+          <a href="ueber-mich.html" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2;text-decoration:none" style-hover="background:rgba(255,255,255,.06)">{{ T.about }}</a>
+          <a href="mailto:maxau.aulo@gmail.com" style="display:block;padding:9px 16px;font-size:14px;color:#f2f2f2;text-decoration:none" style-hover="background:rgba(255,255,255,.06)">{{ T.contact }}</a>
         </div>
       </sc-if>
     </div>
@@ -49,6 +49,14 @@
 // Kopfleiste wie auf Startseite Stream und Video: Logo links, Seiten direkt daneben, rechts „Über mich“ und das Menü (Über mich, Kontakt).
 // Unter 900 px Breite wird die Liste zum Menü „Entdecken".
 class Component extends DCLogic {
+  // Englisch, wenn auf Startseite oder Filme-Seite English gewählt wurde (localStorage mx-lang). Deutsch bleibt Standard.
+  isEn() { if (this._en == null) { let e = false; try { e = localStorage.getItem('mx-lang') === 'en'; } catch (x) {} this._en = e; } return this._en; }
+  sprache(de, en, titel) {
+    if (this._T) return this._T;
+    const e = this.isEn();
+    if (e && typeof document !== 'undefined') { document.documentElement.lang = 'en'; if (titel) document.title = titel; }
+    return this._T = e ? Object.assign({}, de, en) : de;
+  }
   state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, open: false, prof: false };
   componentDidMount() {
     this.onR = () => this.setState({ vw: innerWidth }); addEventListener('resize', this.onR); this.onR();
@@ -58,14 +66,16 @@ class Component extends DCLogic {
   }
   componentWillUnmount() { removeEventListener('resize', this.onR); document.removeEventListener('click', this.onDoc); cancelAnimationFrame(this._raf); clearTimeout(this._t); }
   renderVals() {
+    const T = this.sprache({"browse":"Entdecken","about":"Über mich","contact":"Kontakt","menu":"Menü"}, {"browse":"Browse","about":"About me","contact":"Contact","menu":"Menu"}, "");
     const a = this.props.aktiv ?? '', home = this.props.home ?? 'Startseite%20Stream.dc.html', wide = this.state.vw >= 900;
-    const L = [['Start', home], ['Menschen', 'Menschen.dc.html'], ['Fotos', 'Fotos.dc.html'], ['Korea', 'Korea%20v3.dc.html'], ['Drohne', 'Drohne%20v5.dc.html'], ['Filme', 'Video.dc.html'], ['3D & Design', '3D%20Design.dc.html']];
+    const L = [[['Start', 'Home'], home], [['Menschen', 'Portraits'], 'Menschen.dc.html'], [['Fotos', 'Photos'], 'Fotos.dc.html'], [['Korea', 'Korea'], 'Korea%20v3.dc.html'], [['Drohne', 'Drone'], 'Drohne%20v5.dc.html'], [['Filme', 'Films'], 'Video.dc.html'], [['3D & Design', '3D & Design'], '3D%20Design.dc.html']];
     return {
+      T,
       home, wide, narrow: !wide, open: this.state.open,
       toggle: () => this.setState(s => ({ open: !s.open, prof: false })),
       profOpen: this.state.prof, caretRot: this.state.prof ? '180deg' : '0deg',
       toggleProf: () => this.setState(s => ({ prof: !s.prof, open: false })),
-      links: L.map(([t, href]) => ({ t, href, fw: t === a ? 600 : 400, fg: t === a ? '#f2f2f2' : '#e5e5e5' }))
+      links: L.map(([[t, te], href]) => ({ t: this.isEn() ? te : t, href, fw: t === a ? 600 : 400, fg: t === a ? '#f2f2f2' : '#e5e5e5' }))
     };
   }
 }

@@ -32,7 +32,7 @@ a:hover{color:inherit}
 <section id="film" data-k="film" style="position:relative;height:100svh;min-height:520px;overflow:hidden;background:#000;color:#fff">
   <video data-f="vid" muted="true" loop="true" playsinline="true" preload="auto" disablepictureinpicture="true" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000"><source media="(max-aspect-ratio: 3/4)" src="assets/video/intro-korea-9x16.mp4" type="video/mp4"><source src="assets/video/intro-korea-16x9.mp4" type="video/mp4"></video>
   <div data-f="vprog" style="position:absolute;left:0;right:0;bottom:0;height:2px;background:#fff;opacity:.5;transform-origin:0 50%;transform:scaleX(0)"></div>
-  <a href="#flaeche" data-k="mehr" style="opacity:0;pointer-events:none;position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)">Alle Bilder ansehen <span data-f="arrow" style="display:inline-block;font-size:15px">↓</span></a>
+  <a href="#flaeche" data-k="mehr" style="opacity:0;pointer-events:none;position:absolute;right:clamp(16px,3vw,40px);bottom:clamp(30px,5vh,56px);display:flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;background:#f2f2f2;color:#000;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;box-shadow:0 12px 40px rgba(0,0,0,.45);transition:transform .35s cubic-bezier(.16,1,.3,1)" style-hover="transform:scale(1.06)">{{ T.mehr }} <span data-f="arrow" style="display:inline-block;font-size:15px">↓</span></a>
 </section>
 </sc-if>
 
@@ -48,11 +48,11 @@ a:hover{color:inherit}
   <div data-k="bar" style="position:absolute;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-between;align-items:flex-end;gap:12px 24px;padding:44px clamp(16px,3vw,40px) clamp(12px,1.8vw,22px);background:linear-gradient(to top,rgba(0,0,0,.8),rgba(0,0,0,0));pointer-events:none;transition:opacity .35s">
     <div>
       <sc-if value="{{ isA }}" hint-placeholder-val="{{ false }}">
-        <div style="overflow:hidden;padding-bottom:.06em"><h1 data-k="ttl" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(30px,3.6vw,56px);line-height:.9;letter-spacing:-.03em;transform:translateY(105%)">Südkorea.</h1></div>
-        <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf"><span>Auslandssemester</span><span data-k="hint" style="transition:opacity .6s">Ziehen, um alles zu sehen</span></div>
+        <div style="overflow:hidden;padding-bottom:.06em"><h1 data-k="ttl" style="margin:0;font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(30px,3.6vw,56px);line-height:.9;letter-spacing:-.03em;transform:translateY(105%)">{{ T.h1 }}</h1></div>
+        <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:10px;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:#cfcfcf"><span>{{ T.sem }}</span><span data-k="hint" style="transition:opacity .6s">{{ T.drag }}</span></div>
       </sc-if>
       <sc-if value="{{ isB }}" hint-placeholder-val="{{ true }}">
-        <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(26px,3vw,44px);line-height:.9;letter-spacing:-.03em">Alle Bilder</div>
+        <div style="font-family:'Clash Display',system-ui,sans-serif;font-weight:700;font-size:clamp(26px,3vw,44px);line-height:.9;letter-spacing:-.03em">{{ T.all }}</div>
       </sc-if>
     </div>
     <div style="display:none;flex-wrap:nowrap;gap:5px;min-width:0;max-width:100%;overflow-x:auto;scrollbar-width:none;pointer-events:auto">
@@ -65,11 +65,11 @@ a:hover{color:inherit}
 
 <sc-if value="{{ isB }}" hint-placeholder-val="{{ true }}">
   <section style="background:#000;color:#f2f2f2;padding:clamp(50px,6vw,90px) clamp(16px,3vw,40px) 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:16px 30px">
-    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">← Zurück zur Startseite</a>
-    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">Schreib mir</a>
+    <a href="Startseite%20Stream.dc.html" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;border-bottom:2px solid #f2f2f2;padding-bottom:4px;transition:opacity .3s" style-hover="opacity:.6">{{ T.home }}</a>
+    <a href="mailto:maxau.aulo@gmail.com" style="font-family:'Clash Display',system-ui,sans-serif;font-weight:600;font-size:clamp(20px,2.2vw,30px);letter-spacing:-.01em;color:#8d8d92;transition:color .3s" style-hover="color:#f2f2f2">{{ T.mail }}</a>
   <div style="flex-basis:100%;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px 24px;margin-top:clamp(50px,7vw,100px);padding-top:14px;border-top:1px solid rgba(255,255,255,.16);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#8d8d92">
-    <span>© 2026 Max Aulinger · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
-    <span>Südkorea</span>
+    <span>© 2026 Max Aulinger · <a href="impressum.html">{{ T.imp }}</a> · <a href="datenschutz.html">{{ T.ds }}</a></span>
+    <span>{{ T.land }}</span>
   </div>
   </section>
 </sc-if>
@@ -78,14 +78,22 @@ a:hover{color:inherit}
   <div onClick="{{ lbClose }}" style="position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:7vh 6vw;cursor:zoom-out">
     <img src="{{ lbSrc }}" alt="{{ lbCap }}" style="max-width:100%;max-height:80vh;object-fit:contain;display:block">
     <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#a3a3a8;text-align:center">{{ lbCap }}</div>
-    <button onClick="{{ lbPrev }}" aria-label="Vorheriges Bild" style="position:absolute;left:clamp(8px,2vw,28px);top:50%;transform:translateY(-50%);appearance:none;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.4);color:#f2f2f2;width:48px;height:48px;border-radius:999px;font-size:18px;cursor:pointer" style-hover="background:#f2f2f2;color:#000">←</button>
-    <button onClick="{{ lbNext }}" aria-label="Nächstes Bild" style="position:absolute;right:clamp(8px,2vw,28px);top:50%;transform:translateY(-50%);appearance:none;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.4);color:#f2f2f2;width:48px;height:48px;border-radius:999px;font-size:18px;cursor:pointer" style-hover="background:#f2f2f2;color:#000">→</button>
-    <span style="position:absolute;top:20px;right:24px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#f2f2f2">Schließen ✕</span>
+    <button onClick="{{ lbPrev }}" aria-label="{{ T.prev }}" style="position:absolute;left:clamp(8px,2vw,28px);top:50%;transform:translateY(-50%);appearance:none;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.4);color:#f2f2f2;width:48px;height:48px;border-radius:999px;font-size:18px;cursor:pointer" style-hover="background:#f2f2f2;color:#000">←</button>
+    <button onClick="{{ lbNext }}" aria-label="{{ T.next }}" style="position:absolute;right:clamp(8px,2vw,28px);top:50%;transform:translateY(-50%);appearance:none;border:1px solid rgba(255,255,255,.35);background:rgba(0,0,0,.4);color:#f2f2f2;width:48px;height:48px;border-radius:999px;font-size:18px;cursor:pointer" style-hover="background:#f2f2f2;color:#000">→</button>
+    <span style="position:absolute;top:20px;right:24px;font-size:11px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:#f2f2f2">{{ T.close }}</span>
   </div>
 </sc-if>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;variante&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A · Bildfläche&quot;,&quot;B · Film + Bildfläche&quot;],&quot;default&quot;:&quot;B · Film + Bildfläche&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;tempo&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Ruhig&quot;,&quot;Mittel&quot;,&quot;Schnell&quot;],&quot;default&quot;:&quot;Mittel&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Film&quot;}}">
 class Component extends DCLogic {
+  // Englisch, wenn auf Startseite oder Filme-Seite English gewählt wurde (localStorage mx-lang). Deutsch bleibt Standard.
+  isEn() { if (this._en == null) { let e = false; try { e = localStorage.getItem('mx-lang') === 'en'; } catch (x) {} this._en = e; } return this._en; }
+  sprache(de, en, titel) {
+    if (this._T) return this._T;
+    const e = this.isEn();
+    if (e && typeof document !== 'undefined') { document.documentElement.lang = 'en'; if (titel) document.title = titel; }
+    return this._T = e ? Object.assign({}, de, en) : de;
+  }
   state = { vw: typeof window !== 'undefined' ? innerWidth : 1200, lb: null, act: 'all', v: null };
   T = 28000; timers = []; fa = []; zc = 10;
   el(k) { const c = this._el || (this._el = {}); let e = c[k]; if (!e || !e.isConnected) e = c[k] = document.querySelector('[data-k="' + k + '"]'); return e; }
@@ -154,15 +162,15 @@ class Component extends DCLogic {
   lay() {
     if (this._L) return this._L;
     const D = { dsc00452: [1700, 699], dsc00466: [980, 1400], dsc00536: [1700, 518], dsc00537: [1700, 548], dsc00554: [1700, 548], dsc00640: [932, 1400], dsc01024: [1104, 1400], dsc01025: [1700, 713], dsc01051: [851, 1400], dsc01053: [851, 1400], dsc01054: [852, 1400], dsc01382: [1083, 1400], dsc01400: [1400, 857], dsc01427: [1400, 931], dsc01461: [1400, 930], dsc01462: [1400, 930], dsc01512: [933, 1400], dsc01515: [933, 1400], dsc01970: [1700, 484], dsc01971: [1700, 484], dsc01973: [1700, 615], dsc01976: [1400, 845], dsc02176: [1400, 932], dsc07965: [933, 1400], dsc08579: [1400, 933], dsc08581: [1400, 933], dsc09222: [933, 1400], dsc09776: [1400, 933], 'nacht-linien': [933, 1400], 'nacht-rauch': [933, 1400], 'nacht-strasse': [933, 1400], bruecke: [1400, 933], 'tag-stadt-gold': [724, 1086], 'tag-stadt-pastell': [724, 1086], 'tag-tempeldach': [1100, 1400], 'tag-pavillon': [724, 1086], 'tag-flagge': [933, 1400], 'tag-regen': [1285, 1400] };
-    const CAP = { 'nacht-linien': 'Nur die Linien', 'nacht-rauch': 'Mit dem Rauch', 'nacht-strasse': 'Der Aussichtspunkt', bruecke: 'Die Brücke', 'tag-stadt-gold': 'Goldenes Licht', 'tag-stadt-pastell': 'Zwei Minuten später', 'tag-tempeldach': 'Dancheong', 'tag-pavillon': 'Der Pavillon', 'tag-flagge': 'Taeguk im Laub', 'tag-regen': 'Der pinke Schirm' };
+    const CAP = this.isEn() ? { 'nacht-linien': 'Just the lines', 'nacht-rauch': 'With the smoke', 'nacht-strasse': 'The viewpoint', bruecke: 'The bridge', 'tag-stadt-gold': 'Golden light', 'tag-stadt-pastell': 'Two minutes later', 'tag-tempeldach': 'Dancheong', 'tag-pavillon': 'The pavilion', 'tag-flagge': 'Taeguk in the leaves', 'tag-regen': 'The pink umbrella' } : { 'nacht-linien': 'Nur die Linien', 'nacht-rauch': 'Mit dem Rauch', 'nacht-strasse': 'Der Aussichtspunkt', bruecke: 'Die Brücke', 'tag-stadt-gold': 'Goldenes Licht', 'tag-stadt-pastell': 'Zwei Minuten später', 'tag-tempeldach': 'Dancheong', 'tag-pavillon': 'Der Pavillon', 'tag-flagge': 'Taeguk im Laub', 'tag-regen': 'Der pinke Schirm' };
     const CL = [
-      ['gesichter', 'Gesichter', 700, 10, [['dsc01025'], ['dsc01024', 'dsc01382', 'dsc02176']]],
-      ['krieger', 'Krieger', 760, 10, [['dsc00466', 'dsc00452'], ['dsc00536'], ['dsc00537'], ['dsc00554']]],
-      ['tempel', 'Tempel', 760, 10, [['dsc01051', 'dsc01053', 'dsc01054'], ['tag-tempeldach', 'tag-pavillon', 'tag-flagge']]],
-      ['stadt', 'Stadt', 560, 10, [['tag-stadt-gold', 'tag-stadt-pastell'], ['tag-regen', 'dsc07965']]],
-      ['moewen', 'Möwen', 600, 0, [['dsc01970'], ['dsc01971'], ['dsc01973', 'dsc01976']]],
-      ['meer', 'Am Meer', 820, 10, [['dsc01512', 'dsc01427', 'dsc01515'], ['dsc01461', 'dsc01462', 'dsc01400']]],
-      ['nacht', 'Nachts', 900, 10, [['nacht-linien', 'nacht-rauch', 'nacht-strasse'], ['dsc08579', 'bruecke', 'dsc09776'], ['dsc00640', 'dsc09222', 'dsc08581']]]
+      ['gesichter', this.isEn() ? 'Faces' : 'Gesichter', 700, 10, [['dsc01025'], ['dsc01024', 'dsc01382', 'dsc02176']]],
+      ['krieger', this.isEn() ? 'Warriors' : 'Krieger', 760, 10, [['dsc00466', 'dsc00452'], ['dsc00536'], ['dsc00537'], ['dsc00554']]],
+      ['tempel', this.isEn() ? 'Temples' : 'Tempel', 760, 10, [['dsc01051', 'dsc01053', 'dsc01054'], ['tag-tempeldach', 'tag-pavillon', 'tag-flagge']]],
+      ['stadt', this.isEn() ? 'City' : 'Stadt', 560, 10, [['tag-stadt-gold', 'tag-stadt-pastell'], ['tag-regen', 'dsc07965']]],
+      ['moewen', this.isEn() ? 'Seagulls' : 'Möwen', 600, 0, [['dsc01970'], ['dsc01971'], ['dsc01973', 'dsc01976']]],
+      ['meer', this.isEn() ? 'By the sea' : 'Am Meer', 820, 10, [['dsc01512', 'dsc01427', 'dsc01515'], ['dsc01461', 'dsc01462', 'dsc01400']]],
+      ['nacht', this.isEn() ? 'At night' : 'Nachts', 900, 10, [['nacht-linien', 'nacht-rauch', 'nacht-strasse'], ['dsc08579', 'bruecke', 'dsc09776'], ['dsc00640', 'dsc09222', 'dsc08581']]]
     ];
     const src = k => k.indexOf('dsc') === 0 ? 'assets/korea/' + k + '.webp' : k === 'bruecke' ? 'assets/korea/bruecke.webp' : 'assets/' + k + '.webp';
     const th = k => 'assets/korea/t/' + k + '.webp';
@@ -516,18 +524,20 @@ class Component extends DCLogic {
   }
 
   renderVals() {
+    const T = this.sprache({"home":"← Zurück zur Startseite","mail":"Schreib mir","imp":"Impressum","ds":"Datenschutz","close":"Schließen ✕","prev":"Vorheriges Bild","next":"Nächstes Bild","mehr":"Alle Bilder ansehen","h1":"Südkorea.","sem":"Auslandssemester","drag":"Ziehen, um alles zu sehen","all":"Alle Bilder","land":"Südkorea","night":"Seoul bei Nacht.","th_all":"Übersicht","th_gesichter":"Gesichter","th_krieger":"Krieger","th_tempel":"Tempel","th_stadt":"Stadt","th_moewen":"Möwen","th_meer":"Am Meer","th_nacht":"Nachts"}, {"home":"← Back to home","mail":"Write to me","imp":"Legal notice","ds":"Privacy","close":"Close ✕","prev":"Previous image","next":"Next image","mehr":"See all photos","h1":"South Korea.","sem":"Semester abroad","drag":"Drag to see everything","all":"All photos","land":"South Korea","night":"Seoul at night.","th_all":"Overview","th_gesichter":"Faces","th_krieger":"Warriors","th_tempel":"Temples","th_stadt":"City","th_moewen":"Seagulls","th_meer":"By the sea","th_nacht":"At night"}, "South Korea — Max Aulinger");
     const L = this.lay(), vw = this.state.vw, phone = vw < 700, v = this.variant(), act = this.state.act, lb = this.state.lb, it = lb != null ? L.items[lb] : null;
     const on = '#f2f2f2', off = 'transparent';
     return {
+      T,
       isA: v === 'A', isB: v === 'B', wordBot: phone ? '104px' : 'clamp(36px,6vh,64px)', brandDisp: phone ? 'none' : 'block', swTop: phone ? '58px' : '64px',
       setA: () => this.setState({ v: 'A' }), setB: () => this.setState({ v: 'B' }),
       vaBg: v === 'A' ? on : off, vaFg: v === 'A' ? '#000' : '#f2f2f2', vbBg: v === 'B' ? on : off, vbFg: v === 'B' ? '#000' : '#f2f2f2',
       flash: L.flash.map((t, i) => ({ i, t })),
-      words: [['Seoul.', 'w2'], ['Sokcho.', 'w4'], ['Seoul bei Nacht.', 'w6']].map(([t, k]) => ({ t, k })),
+      words: [['Seoul.', 'w2'], ['Sokcho.', 'w4'], [T.night, 'w6']].map(([t, k]) => ({ t, k })),
       pw: L.PW.toFixed(0) + 'px', ph: L.PH.toFixed(0) + 'px',
       labels: L.clusters.map(c => ({ name: c.t, l: c.x.toFixed(1) + 'px', t: (c.y - 66).toFixed(1) + 'px' })),
       items: L.items.map(m => ({ i: m.i, l: m.x.toFixed(1) + 'px', t: m.y.toFixed(1) + 'px', w: m.w.toFixed(1) + 'px', h: m.h.toFixed(1) + 'px', th: m.th, cap: m.cap || m.cl })),
-      themes: [['krieger', 'Krieger'], ['tempel', 'Tempel'], ['stadt', 'Stadt'], ['gesichter', 'Gesichter'], ['meer', 'Am Meer'], ['moewen', 'Möwen'], ['nacht', 'Nachts'], ['all', 'Übersicht']].map(([id, t]) => ({ t, go: () => this.go(id), bg: act === id ? on : 'rgba(0,0,0,.35)', fg: act === id ? '#000' : '#f2f2f2' })),
+      themes: [['krieger', T.th_krieger], ['tempel', T.th_tempel], ['stadt', T.th_stadt], ['gesichter', T.th_gesichter], ['meer', T.th_meer], ['moewen', T.th_moewen], ['nacht', T.th_nacht], ['all', T.th_all]].map(([id, t]) => ({ t, go: () => this.go(id), bg: act === id ? on : 'rgba(0,0,0,.35)', fg: act === id ? '#000' : '#f2f2f2' })),
       lbOpen: !!it, lbSrc: it ? it.src : '', lbCap: it ? it.cl + (it.cap ? ' · ' + it.cap : '') : '',
       lbClose: () => this.setState({ lb: null }),
       lbPrev: e => { if (e) e.stopPropagation(); this.step(-1); },

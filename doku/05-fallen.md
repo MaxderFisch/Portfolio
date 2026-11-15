@@ -1223,3 +1223,12 @@ Die Startseite überspringt „Wer schaut zu?" nur, wenn sie weiß, dass man von
 (setzt `seitenwechsel.js` beim Klick) oder `sessionStorage['mx-weiter']` (setzen die schlichten HTML-Seiten per Einzeiler vor `</body>`).
 **Jede neue Seite ohne `seitenwechsel.js` braucht den Einzeiler**, sonst landet man nach „Zurück zur Startseite" wieder in der Auswahl.
 Vorlage: Ende von `site/impressum.html`. Nicht über `document.referrer` lösen: die Weiterleitungsseiten sind ebenfalls „von innen".
+
+---
+
+## 15.11.2026 — Neue Texte immer in beiden Sprachen anlegen
+
+Seit der englischen Fassung hat jede Seite zwei Texte pro Stelle. Wer einen Text ändert oder neu schreibt, muss das
+**Deutsch- und das Englisch-Wörterbuch** anpassen: in .dc.html das `sprache({…}, {…})` oben in `renderVals`, in statischen Seiten das
+`data-en` am Element. Sonst erscheint auf Englisch der alte Text. Ein `{{ T.x }}` ohne Eintrag zeigt einen leeren Text.
+Test: im Browser `localStorage.setItem("mx-lang","en")`, neu laden; zurück mit `"de"`.
