@@ -1,5 +1,34 @@
 # Stand
 
+## 23.11.2026 — Startseite: Reihenfolge der Filme-Reihe (lokal)
+
+Max: „Electrify Your Future bitte erst an 4. Stelle“, kurz danach „und Kommt zu mir als letzte“.
+Neu: Doschauher · Ein Tag als Bergmann · Bienen · **Electrify Your Future** (4.) · Hostage Holiday · **Kommt zu mir** (letzte).
+Damit Electrify trotz der zweiten Anweisung auf Platz 4 bleibt, ist Bienen auf Platz 3 vorgerückt (meine Auslegung, Max gesagt).
+Nur die Startseite, nur die Reihenfolge. Sicherung `archiv/startseite-stream.2026-11-23-vor-electrify-4.html`.
+Geprüft im Browser: Karten in dieser Reihenfolge. ~~Nicht hochgeladen.~~ Hochgeladen auf Max’ „lade bitte hoch auf github“ (zusammen mit dem Doschauher-Bild).
+
+---
+
+## 23.11.2026 — Doschauher: neues Vorschaubild mit Maske (lokal)
+
+Max: Das bisherige Vorschaubild (Regal-Szene, die Schauspielerin schaut sehr verwundert) möchte er nicht zeigen, er hat sie nicht gefragt.
+Stattdessen ein Bild, auf dem sie die Maske schon auf hat und man sieht, wie sie durch den Laden schleicht. „Nicht ändern, einfach nur das
+Bild austauschen.“
+Umsetzung: Standbild aus `assets/video/einspieler/maskiert.mp4` bei 14,4 s (maskiert, schleicht zwischen Kühltruhen). Schwarzer Rand des
+Einspieler-Looks abgeschnitten (Inhalt x 235–1684), Ausschnitt 1420×799 ab x 250 / y 240, verkleinert auf 1280×720, JPEG q62 → WebP q68
+(41 KB). Neue Datei `assets/film-einspieler-poster-maske.webp` (neuer Name wegen Browser-Cache), alte Datei bleibt liegen.
+Ersetzt: Startseite 2× (Karte in der Filme-Reihe, Standbild des Showreel-Clips), Filme-Seite 1×.
+Verworfene Kandidaten: A 4,6 s (Nahaufnahme mit Maske, Augen sichtbar), B 13,7 s (unscharf, angeschnitten). Vergleichsbild im Scratchpad.
+Hinweis an Max: Der Showreel-Clip `showreel-2-einspieler.mp4` beginnt selbst mit der Regal-Szene (0–1,5 s); nicht geändert, gefragt.
+Sicherungen `archiv/*.2026-11-23-vor-doschauher-bild.html`.
+**Überholt am selben Tag:** Max: „kannst du nicht einfach das YouTube-Thumbnail hernehmen … statt dem, was du vorhin ausgetauscht hast“.
+Jetzt überall (Startseite-Karte, Showreel-Standbild, Filme-Seite) `assets/film-einspieler-poster-yt.webp` = Thumbnail der Staffel 1
+„The Big Brain Battle“ (`assets/einspieler/staffel-brain.jpg`, 1280×720, nur als WebP q68 neu kodiert, 41 KB). Die Masken-Datei bleibt
+ungenutzt liegen (nicht mit hochgeladen). ~~Nicht hochgeladen.~~ Hochgeladen auf Max’ „lade bitte hoch auf github“.
+
+---
+
 ## 15.11.2026 — Englische Fassung für alle Seiten (lokal)
 
 Max: Bisher war nur die Startseite (und die Filme-Seite) auf Englisch. Wer am Anfang **Englisch** wählt, soll auf **allen** Seiten Englisch
