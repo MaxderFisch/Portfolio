@@ -1,5 +1,27 @@
 # Stand
 
+## 26.11.2026 — Datenschutz: Besucherstatistik mit Umami
+
+Max hat am 23./24.11. selbst über die GitHub-Weboberfläche das Zählskript von **Umami Cloud** in alle 10 Seiten unter `site/` eingebaut
+(`<script defer src="https://cloud.umami.is/script.js" data-website-id="98f237c1-…">` im `<head>`). Er sieht damit, wie viele Leute die
+Seite besuchen und welche Seiten sie öffnen (Screenshot: Startseite 77 Besucher in der Woche). Lokal war das erst nach `git fetch` zu sehen.
+Max: „bitte erwähne in der Datenschutzerklärung, dass ich ein Tool verwende … ich bekomme nichts Persönliches … sehr Standard."
+
+Umgesetzt in `site/datenschutz.html`, Deutsch und Englisch (`data-en`):
+- Neuer Abschnitt **„Besucherstatistik mit Umami" / „Visitor statistics with Umami"** nach dem Hosting-Abschnitt: Anbieter mit Anschrift,
+  keine Cookies, keine Profile, welche Angaben erfasst werden, IP nur kurz verarbeitet und nicht gespeichert, EU-Region, US-Dienstleister über
+  Standardvertragsklauseln, Auftragsverarbeitung, Art. 6 Abs. 1 lit. f DSGVO, Link auf umami.is/privacy.
+- **„Kurz vorweg" musste mit geändert werden:** dort stand bisher, es gebe keine Analyse- und Tracking-Werkzeuge. Das stimmt nicht mehr.
+- „Stand: Oktober 2026" → „Stand: November 2026".
+
+Grundlage sind die Angaben von Umami selbst (umami.is/privacy, /terms, /dpa, /subprocessors, docs.umami.is), am 26.11. gelesen.
+Bewusst **nicht** geschrieben: „vollständig anonym" (Umami selbst schreibt, die Kennung sei keine Garantie für Anonymität), „Daten verlassen
+nie die EU" (Umami hat US-Dienstleister) und „kein Cookie-Banner nötig" (sagt Umami nicht). Die EU-Region habe ich aus der Adresse in Max’
+Screenshot geschlossen (`…/analytics/eu/…`), Max gebeten, das zu bestätigen. Keine Rechtsberatung, Max darauf hingewiesen.
+Sicherung `archiv/datenschutz.2026-11-26-vor-umami.html`. Geprüft im Browser: Deutsch und Englisch, Überschriften, Link, Stand. ~~Nicht hochgeladen.~~ Hochgeladen auf Max’ „lade auf github hoch die neue version der datenschutzerklärung“.
+
+---
+
 ## 23.11.2026 — Startseite: Reihenfolge der Filme-Reihe (lokal)
 
 Max: „Electrify Your Future bitte erst an 4. Stelle“, kurz danach „und Kommt zu mir als letzte“.

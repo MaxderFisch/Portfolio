@@ -1232,3 +1232,13 @@ Seit der englischen Fassung hat jede Seite zwei Texte pro Stelle. Wer einen Text
 **Deutsch- und das Englisch-Wörterbuch** anpassen: in .dc.html das `sprache({…}, {…})` oben in `renderVals`, in statischen Seiten das
 `data-en` am Element. Sonst erscheint auf Englisch der alte Text. Ein `{{ T.x }}` ohne Eintrag zeigt einen leeren Text.
 Test: im Browser `localStorage.setItem("mx-lang","en")`, neu laden; zurück mit `"de"`.
+
+---
+
+## 26.11.2026 — Max ändert manchmal direkt auf GitHub ⇒ vor der Arbeit `git fetch`
+
+Am 23./24.11. hat Max das Umami-Skript selbst über die GitHub-Weboberfläche in 10 Seiten eingefügt (10 Commits „Add Umami Web
+Analytics"). Lokal war davon nichts zu sehen; eine Suche nach „umami" in `site/` fand nichts, obwohl es live lief.
+**Vor jeder Änderung und vor jedem Push erst `git fetch` und `git log HEAD..origin/main`.** Liegt GitHub vorne, mit
+`git merge --ff-only origin/main` nachziehen, dann erst ändern. Sonst schlägt der Push fehl oder man baut auf einem alten Stand.
+Das Skript-Tag steht im `<head>` mit zwei Leerzeichen Einzug, so wie Max es eingefügt hat — nicht umformatieren.
